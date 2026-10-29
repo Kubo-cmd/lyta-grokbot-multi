@@ -366,11 +366,12 @@ def export_grok_signals(state: DeskState, bots: list):
         }
         signals.append(signal)
 
+    final_equity = START_EQUITY + sum(float(t["pnl"]) for t in state.trades)
     with open("grok_signals_for_real_bot.json", "w") as f:
         json.dump({
             "generated": datetime.now().isoformat(),
             "total_trades": len(state.trades),
-            "current_equity": round(state.equity, 2),
+            "current_equity": round(final_equity, 2),
             "agents": [b.name for b in bots],
             "signals": signals
         }, f, indent=2)
