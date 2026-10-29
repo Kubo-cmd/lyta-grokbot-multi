@@ -57,7 +57,7 @@ for b in bots:
     tail = curve[-min(6, len(curve)):]
     print(f"    last: {' '.join(f'{c:+.1f}' for c in tail)}")
 
-print("\n=== EXPORTED SIGNALS FILE (9-agent labels) ===")
+print("\n=== EXPORTED SIGNALS FILE (12-agent labels + Oren-inspired) ===")
 print(f"Agents: {signals.get('agents', [])}")
 print(f"Total trades recorded: {signals.get('total_trades')}")
 print(f"Current equity in signals: ${signals.get('current_equity')}")
