@@ -2,11 +2,16 @@
 
 **Open source autonomous trader using multiple Grok-powered bots with distinct personalities.**
 
-Inspired by Pump.fun-native AI agents (like the Lilly @lillyonpump concept) and **6-agent desk pipelines** (Scout → Filter → Analyst → Executor → Risk → Logger) but built around **explicit multi-bot architecture** with different risk profiles, biases, and trading styles.
+Inspired by:
+- Pump.fun-native AI agents (like the Lilly @lillyonpump concept) and **6-agent desk pipelines**
+- **Oren ⚡** — AI-powered agentic trading terminal for tokenized stocks on Solana by @itsdavetech  
+  (https://x.com/itsdavetech/status/2115571527509017068)
+
+Built around **explicit multi-bot architecture** with different risk profiles, biases, and trading styles (now expanded toward a fuller agentic desk covering research + portfolio + execution).
 
 ## Key Features
 
-- **Nine specialized Grok bots** (full autonomous desk, easily extensible):
+- **12 specialized Grok bots** (full agentic desk — Pump.fun style + Oren tokenized-stock inspiration):
   - **SCOUT**: Early pair hunter. Aggressive on brand-new launches and is_pump signals.
   - **FILTER**: Extremely strict rule-based. Only the cleanest setups (low rug, high score, decent volume/liquidity).
   - **ANALYST**: Heavy analyst_score bias. Very selective high-conviction scorer.
@@ -16,6 +21,9 @@ Inspired by Pump.fun-native AI agents (like the Lilly @lillyonpump concept) and 
   - **SCALPER**: Fast in/out. Tight stops, small quick targets, high frequency bias.
   - **CONTRARIAN**: Bets against recent crowd momentum on still-clean setups.
   - **TREND**: Rides stronger sustained moves with higher TP targets.
+  - **RESEARCHER** (Oren-inspired): Deep research focus — high score, clean liquidity, ignores hype.
+  - **PORTFOLIO** (Oren-inspired): Portfolio-level allocation + risk overlay.
+  - **EXECUTOR** (Oren-inspired): Clean execution focus, slippage-aware, disciplined exits.
 - Realistic price movement model based on **liquidity + volume**.
 - Liquidity-respecting position sizing (never over-allocates to thin books).
 - Bot-specific risk parameters (hard stops, trailing, TP levels).
@@ -24,10 +32,10 @@ Inspired by Pump.fun-native AI agents (like the Lilly @lillyonpump concept) and 
 - Exports:
   - `paper_trades_autonomous_grok.csv`
   - `equity_curve_autonomous_grok.csv`
-  - `grok_signals_for_real_bot.json` (actionable signals with the new 9-agent labels)
+  - `grok_signals_for_real_bot.json` (actionable signals with 12-agent labels + Oren-inspired agents)
 - Pure stdlib verification (no pandas required for analysis).
-- Terminal-style realtime desk dashboard prints every 10 steps.
-- Per-bot equity curves available via post-run analysis.
+- Terminal-style realtime desk dashboard prints every 5 steps (agent activity + open positions + equity).
+- Per-bot equity curves available via post-run analysis (`verify_80step.py`).
 - Designed so the simulation can be studied, tuned, and extended openly.
 
 ## Philosophy

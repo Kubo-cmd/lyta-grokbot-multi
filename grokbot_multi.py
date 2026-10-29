@@ -3,8 +3,12 @@
 LYTA GrokBot Multi — Autonomous Multi-Bot Paper Trader
 
 Open source multi-personality autonomous trader.
-Inspired by Pump.fun AI agents (6-agent desk style) + video feedback.
-Explicit multiple Grok bots / personalities (now 9 for fuller desk):
+Inspired by:
+- Pump.fun AI agents (6-agent desk style) + video feedback
+- Oren ⚡ (agentic trading terminal for tokenized stocks on Solana by @itsdavetech)
+  https://x.com/itsdavetech/status/2115571527509017068
+
+Explicit multiple Grok bots / personalities (now 12 for fuller agentic desk):
 
   - SCOUT          (early pair hunter, aggressive on new launches)
   - FILTER         (strict rule-based killer, only ultra-clean setups)
@@ -15,6 +19,10 @@ Explicit multiple Grok bots / personalities (now 9 for fuller desk):
   - SCALPER        (fast in/out, tight stops, small quick targets)
   - CONTRARIAN     (bets against crowd momentum on cleaner setups)
   - TREND          (rides stronger sustained moves, higher TP targets)
+  # Oren-inspired agentic additions (tokenized stock / portfolio focus)
+  - RESEARCHER     (deep market research, fundamental-style analysis, lower noise)
+  - PORTFOLIO      (portfolio-level allocation, risk overlay, overall book health)
+  - EXECUTOR       (clean execution focus, slippage-aware, disciplined exits)
 
 All 100% paper trading. Zero burn. Observation only.
 Realistic liquidity/volume model + bot-specific risk + liq-aware sizing.
@@ -110,6 +118,28 @@ BOT_PROFILES = {
         "trailing_trigger": 0.12,
         "max_rug_tolerance": 0.42,
         "position_mult": 1.05
+    },
+    # === Oren-inspired agentic bots (tokenized stock / portfolio / execution focus) ===
+    "RESEARCHER": {
+        "hard_stop": -0.055,
+        "chatbot_tp": 0.68,
+        "trailing_trigger": 0.18,
+        "max_rug_tolerance": 0.35,
+        "position_mult": 0.90
+    },
+    "PORTFOLIO": {
+        "hard_stop": -0.08,
+        "chatbot_tp": 0.45,
+        "trailing_trigger": 0.15,
+        "max_rug_tolerance": 0.60,
+        "position_mult": 0.55   # acts as risk overlay / smaller sizing
+    },
+    "EXECUTOR": {
+        "hard_stop": -0.04,
+        "chatbot_tp": 0.38,
+        "trailing_trigger": 0.10,
+        "max_rug_tolerance": 0.30,
+        "position_mult": 0.85
     }
 }
 
@@ -196,6 +226,16 @@ class GrokBot:
         elif self.name == "TREND":
             # Trend follower: rides stronger sustained moves
             return (change > 4 or buys > 8) and score > 0.72 and rug < prof["max_rug_tolerance"]
+        elif self.name == "RESEARCHER":
+            # Oren-style: deep research focus — prefers high score + clean liq, ignores hype
+            return score > 0.82 and rug < 0.28 and liq > 2000 and buys > 3
+        elif self.name == "PORTFOLIO":
+            # Oren-style portfolio agent: conservative, cares about overall equity health
+            # (simple proxy here; real version would look at state.equity)
+            return score > 0.75 and rug < 0.35 and change > -3
+        elif self.name == "EXECUTOR":
+            # Oren-style execution focus: very clean entries, quick to cut
+            return (score > 0.78 and rug < 0.22 and liq > 1800) and change > 1
         elif self.bias == "pump":
             if is_pump:
                 return score > 0.65 and rug < prof["max_rug_tolerance"]
@@ -348,7 +388,7 @@ def export_equity_curve(state: DeskState, start_equity: float):
 
 
 def export_grok_signals(state: DeskState, bots: list):
-    """Export actionable signals for real bot / monitoring (with 9-agent labels)."""
+    """Export actionable signals for real bot / monitoring (12-agent agentic desk: Pump + Oren tokenized stock style)."""
     signals = []
     for bot in bots:
         bot_trades = [t for t in state.trades if t.get("bot", "").upper() == bot.name.upper()]
@@ -383,8 +423,8 @@ def run_autonomous_grok_bots(steps: int = 18):
     print(f"\n{'='*60}")
     print(f"{BRAND}")
     print(f"{MODE}")
-    print("9 agents • 9 distinct Grok personalities (full autonomous desk)")
-    print("Video-tuned: ~ -6% hard stops, 8% max size, strict RM")
+    print("12 agents • Full agentic desk (Pump.fun style + Oren tokenized-stock inspiration)")
+    print("Video-tuned ~ -6% hard stops + 8% max size | Oren-style research/portfolio/execution layer")
     print(f"{'='*60}")
     print("STRICT: Zero real trades. All paper. Observation only.\n")
 
@@ -396,10 +436,13 @@ def run_autonomous_grok_bots(steps: int = 18):
         GrokBot("PUMP_CHASER", "pump", conviction=0.68),
         GrokBot("CONVICTION", "conviction", conviction=0.82),
         GrokBot("MOMENTUM", "momentum", conviction=0.72),
-        # New bots (added as logical next step)
         GrokBot("SCALPER", "scalper", conviction=0.65),
         GrokBot("CONTRARIAN", "contrarian", conviction=0.78),
-        GrokBot("TREND", "trend", conviction=0.75)
+        GrokBot("TREND", "trend", conviction=0.75),
+        # Oren-inspired agentic layer (research + portfolio + execution)
+        GrokBot("RESEARCHER", "researcher", conviction=0.80),
+        GrokBot("PORTFOLIO", "portfolio", conviction=0.70),
+        GrokBot("EXECUTOR", "executor", conviction=0.75)
     ]
 
     for step in range(steps):
@@ -424,14 +467,16 @@ def run_autonomous_grok_bots(steps: int = 18):
             last = state.trades[-1]
             print(f"  Last: {last['bot']} {last['symbol']} {last['reason']} PnL {last['pnl']:+.2f}")
 
-        # Simple realtime desk dashboard line every 5 steps (more visible)
+        # Enhanced terminal desk dashboard (Oren-style agentic terminal feel)
         if (step + 1) % 5 == 0:
             active = {}
-            for t in state.trades[-20:]:
+            for t in state.trades[-25:]:
                 b = t.get("bot", "?")
                 active[b] = active.get(b, 0) + 1
-            status = " | ".join(f"{k[:4]}:{v}" for k, v in sorted(active.items())[:6])
-            print(f"  [DESK] Recent activity: {status} | Equity ${state.equity:.2f}")
+            status = " | ".join(f"{k[:4]}:{v}" for k, v in sorted(active.items())[:7])
+            open_count = len(state.open_positions)
+            equity_str = f"${state.equity:.2f}"
+            print(f"  [DESK] Agents active: {status} | Open:{open_count} | Equity {equity_str}")
 
         time.sleep(0.4)
 
