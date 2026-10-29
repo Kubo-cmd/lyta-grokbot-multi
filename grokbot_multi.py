@@ -3,10 +3,18 @@
 LYTA GrokBot Multi — Autonomous Multi-Bot Paper Trader
 
 Open source multi-personality autonomous trader.
-Inspired by Pump.fun AI agents but with explicit multiple Grok bots:
-  - PUMP_CHASER
-  - CONVICTION
-  - MOMENTUM
+Inspired by Pump.fun AI agents (6-agent desk style) + video feedback.
+Explicit multiple Grok bots / personalities (now 9 for fuller desk):
+
+  - SCOUT          (early pair hunter, aggressive on new launches)
+  - FILTER         (strict rule-based killer, only ultra-clean setups)
+  - ANALYST        (heavy analyst_score focus, high conviction scorer)
+  - PUMP_CHASER    (loves is_pump signals, classic early momentum chaser)
+  - CONVICTION     (selective high-conviction plays)
+  - MOMENTUM       (price change + buys focused)
+  - SCALPER        (fast in/out, tight stops, small quick targets)
+  - CONTRARIAN     (bets against crowd momentum on cleaner setups)
+  - TREND          (rides stronger sustained moves, higher TP targets)
 
 All 100% paper trading. Zero burn. Observation only.
 Realistic liquidity/volume model + bot-specific risk + liq-aware sizing.
@@ -33,30 +41,75 @@ MODE = "MULTI-BOT GROK SYSTEM — PAPER ONLY (ZERO BURN)"
 
 # === Shared constants (from desk logic) ===
 START_EQUITY = 280.0
-MAX_POSITION_PCT = 0.08
+MAX_POSITION_PCT = 0.08  # Video-aligned: 8% max size
 
-# === Step 3: Bot-specific risk parameters (multi-bot core) ===
+# === Bot-specific risk parameters (multi-bot core) ===
+# Tuned closer to video: baseline ~ -6% hard stop, strict 8% sizing
+# Expanded to 9 personalities for fuller autonomous desk
 BOT_PROFILES = {
-    "PUMP_CHASER": {
-        "hard_stop": -0.055,
-        "chatbot_tp": 0.50,      # classic 1.5x
-        "trailing_trigger": 0.12,
+    "SCOUT": {
+        "hard_stop": -0.065,   # close to video -6%
+        "chatbot_tp": 0.52,
+        "trailing_trigger": 0.09,
         "max_rug_tolerance": 0.55,
-        "position_mult": 1.05
+        "position_mult": 1.10
+    },
+    "FILTER": {
+        "hard_stop": -0.055,
+        "chatbot_tp": 0.42,
+        "trailing_trigger": 0.14,
+        "max_rug_tolerance": 0.22,
+        "position_mult": 0.70   # very conservative
+    },
+    "ANALYST": {
+        "hard_stop": -0.06,
+        "chatbot_tp": 0.50,
+        "trailing_trigger": 0.15,
+        "max_rug_tolerance": 0.32,
+        "position_mult": 0.80
+    },
+    "PUMP_CHASER": {
+        "hard_stop": -0.06,
+        "chatbot_tp": 0.52,
+        "trailing_trigger": 0.11,
+        "max_rug_tolerance": 0.52,
+        "position_mult": 1.0
     },
     "CONVICTION": {
-        "hard_stop": -0.045,
-        "chatbot_tp": 0.45,
-        "trailing_trigger": 0.18,
-        "max_rug_tolerance": 0.38,
-        "position_mult": 0.90
+        "hard_stop": -0.05,
+        "chatbot_tp": 0.48,
+        "trailing_trigger": 0.17,
+        "max_rug_tolerance": 0.35,
+        "position_mult": 0.85
     },
     "MOMENTUM": {
-        "hard_stop": -0.065,
-        "chatbot_tp": 0.55,
+        "hard_stop": -0.062,
+        "chatbot_tp": 0.58,
         "trailing_trigger": 0.10,
-        "max_rug_tolerance": 0.48,
-        "position_mult": 1.0
+        "max_rug_tolerance": 0.45,
+        "position_mult": 0.95
+    },
+    # === NEW: even more bots per user request ===
+    "SCALPER": {
+        "hard_stop": -0.045,   # tighter for quick scalps
+        "chatbot_tp": 0.22,    # small fast targets
+        "trailing_trigger": 0.08,
+        "max_rug_tolerance": 0.40,
+        "position_mult": 0.65
+    },
+    "CONTRARIAN": {
+        "hard_stop": -0.07,
+        "chatbot_tp": 0.65,    # waits for bigger moves against crowd
+        "trailing_trigger": 0.20,
+        "max_rug_tolerance": 0.50,
+        "position_mult": 0.75
+    },
+    "TREND": {
+        "hard_stop": -0.055,
+        "chatbot_tp": 0.75,    # rides stronger trends longer
+        "trailing_trigger": 0.12,
+        "max_rug_tolerance": 0.42,
+        "position_mult": 1.05
     }
 }
 
@@ -125,7 +178,25 @@ class GrokBot:
 
         prof = self.profile
 
-        if self.bias == "pump":
+        if self.name == "SCOUT":
+            # Early pair hunter - loves brand new + is_pump even if riskier
+            return (is_pump or change > 5) and rug < prof["max_rug_tolerance"] and liq < 4000
+        elif self.name == "FILTER":
+            # Extremely strict filter - only the cleanest
+            return (score > 0.80 and rug < 0.30 and buys > 5 and liq > 1500)
+        elif self.name == "ANALYST":
+            # Heavy on analyst score
+            return score >= self.conviction and rug < prof["max_rug_tolerance"]
+        elif self.name == "SCALPER":
+            # Fast scalper: small quick moves, tight risk, prefers some volume
+            return (change > 2 or buys > 6) and rug < 0.45 and liq > 800
+        elif self.name == "CONTRARIAN":
+            # Contrarian: goes against recent pump if score still high and not too risky
+            return (score > 0.78 and rug < prof["max_rug_tolerance"] and change < 3 and buys < 12)
+        elif self.name == "TREND":
+            # Trend follower: rides stronger sustained moves
+            return (change > 4 or buys > 8) and score > 0.72 and rug < prof["max_rug_tolerance"]
+        elif self.bias == "pump":
             if is_pump:
                 return score > 0.65 and rug < prof["max_rug_tolerance"]
             return score > 0.88 and change > -5
@@ -276,18 +347,58 @@ def export_equity_curve(state: DeskState, start_equity: float):
     print(f"[export] equity_curve_autonomous_grok.csv ({len(equity_curve)} points)")
 
 
+def export_grok_signals(state: DeskState, bots: list):
+    """Export actionable signals for real bot / monitoring (with 9-agent labels)."""
+    signals = []
+    for bot in bots:
+        bot_trades = [t for t in state.trades if t.get("bot", "").upper() == bot.name.upper()]
+        recent_open = [p for p in state.open_positions.values() if p.bot.upper() == bot.name.upper()]
+
+        signal = {
+            "bot": bot.name,
+            "bias": bot.bias,
+            "conviction": round(bot.conviction, 2),
+            "trades_this_run": len(bot_trades),
+            "current_open_positions": len(recent_open),
+            "profile": BOT_PROFILES.get(bot.name, {}),
+            "last_action": bot_trades[-1] if bot_trades else None,
+            "timestamp": datetime.now().isoformat()
+        }
+        signals.append(signal)
+
+    with open("grok_signals_for_real_bot.json", "w") as f:
+        json.dump({
+            "generated": datetime.now().isoformat(),
+            "total_trades": len(state.trades),
+            "current_equity": round(state.equity, 2),
+            "agents": [b.name for b in bots],
+            "signals": signals
+        }, f, indent=2)
+
+    print(f"[export] grok_signals_for_real_bot.json (9 agents)")
+
+
 def run_autonomous_grok_bots(steps: int = 18):
     print(f"\n{'='*60}")
     print(f"{BRAND}")
     print(f"{MODE}")
+    print("9 agents • 9 distinct Grok personalities (full autonomous desk)")
+    print("Video-tuned: ~ -6% hard stops, 8% max size, strict RM")
     print(f"{'='*60}")
     print("STRICT: Zero real trades. All paper. Observation only.\n")
 
     state = DeskState(equity=START_EQUITY)
     bots = [
+        GrokBot("SCOUT", "scout", conviction=0.70),
+        GrokBot("FILTER", "filter", conviction=0.85),
+        GrokBot("ANALYST", "analyst", conviction=0.82),
         GrokBot("PUMP_CHASER", "pump", conviction=0.68),
         GrokBot("CONVICTION", "conviction", conviction=0.82),
-        GrokBot("MOMENTUM", "momentum", conviction=0.72)
+        GrokBot("MOMENTUM", "momentum", conviction=0.72),
+        # New bots (added as logical next step)
+        GrokBot("SCALPER", "scalper", conviction=0.65),
+        GrokBot("CONTRARIAN", "contrarian", conviction=0.78),
+        GrokBot("TREND", "trend", conviction=0.75)
     ]
 
     for step in range(steps):
@@ -306,11 +417,20 @@ def run_autonomous_grok_bots(steps: int = 18):
 
         is_pump_count = sum(1 for s in survivors if s.get("is_pump"))
         print(f"Step {step+1}/{steps} | Equity ${state.equity:.2f} | "
-              f"Open: {len(state.open_positions)} | Bots: {len(bots)} | is_pump: {is_pump_count}")
+              f"Open: {len(state.open_positions)} | Agents: {len(bots)} | is_pump: {is_pump_count}")
 
         if step % 3 == 0 and state.trades:
             last = state.trades[-1]
             print(f"  Last: {last['bot']} {last['symbol']} {last['reason']} PnL {last['pnl']:+.2f}")
+
+        # Simple realtime desk dashboard line every 10 steps
+        if (step + 1) % 10 == 0:
+            active = {}
+            for t in state.trades[-20:]:
+                b = t.get("bot", "?")
+                active[b] = active.get(b, 0) + 1
+            status = " | ".join(f"{k[:4]}:{v}" for k, v in sorted(active.items())[:6])
+            print(f"  [DESK] Recent activity: {status} | Equity ${state.equity:.2f}")
 
         time.sleep(0.4)
 
@@ -323,24 +443,28 @@ def run_autonomous_grok_bots(steps: int = 18):
         print(f"\n[export] paper_trades_autonomous_grok.csv ({len(state.trades)} trades)")
 
     export_equity_curve(state, START_EQUITY)
+    export_grok_signals(state, bots)
 
     # Summary
     wins = sum(1 for t in state.trades if t["pnl"] > 0)
     total_pnl = sum(t["pnl"] for t in state.trades)
     one_five_x = sum(1 for t in state.trades if "1.5x" in t["reason"])
 
-    print(f"\n=== AUTONOMOUS GROK BOTS COMPLETE ===")
+    print(f"\n=== AUTONOMOUS GROK BOTS COMPLETE (9 agents) ===")
     print(f"Total paper trades: {len(state.trades)} | Wins: {wins} | Win rate: {wins/len(state.trades)*100:.1f}%" if state.trades else "No trades")
     print(f"Total paper PnL: ${total_pnl:.2f}")
-    print(f"Final equity: ${state.equity:.2f} (start ${START_EQUITY})")
+    calculated_final = START_EQUITY + total_pnl
+    print(f"Final equity: ${calculated_final:.2f} (start ${START_EQUITY})")
     print(f"1.5x TPs: {one_five_x}")
 
     print("\nPer-bot:")
     for bot in bots:
-        bot_trades = [t for t in state.trades if t.get("bot", "").upper().startswith(bot.name[:3].upper())]
+        bot_trades = [t for t in state.trades if t.get("bot", "").upper() == bot.name.upper()]
         if bot_trades:
             b_wins = sum(1 for t in bot_trades if t["pnl"] > 0)
             print(f"  {bot.name}: {len(bot_trades)} trades | {b_wins/len(bot_trades)*100:.0f}% win | PnL ${sum(t['pnl'] for t in bot_trades):.2f}")
+        else:
+            print(f"  {bot.name}: 0 trades")
 
     print("\nAll activity was PAPER ONLY. PATTERN PERSISTS.")
     return state
