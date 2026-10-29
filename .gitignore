@@ -1,0 +1,14 @@
+# Transient simulation artifacts (regenerated every run)
+*.csv
+grok_signals_for_real_bot.json
+per_bot_equity_curves.csv
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# OS
+.DS_Store
+
+PATTERN PERSISTS.
