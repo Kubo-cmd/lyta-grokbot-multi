@@ -52,7 +52,7 @@ After a viable_test run you can also run:
 python3 verify_80step.py   # pure stdlib per-bot equity curves + full verification
 ```
 
-To support terminal dashboard feel, the main runner now prints periodic [DESK] activity lines.
+To support terminal dashboard feel, the main runner now prints periodic [DESK] recent activity lines (every 5 steps) with bot activity counts.
 
 No external keys or accounts required. Everything is simulated.
 

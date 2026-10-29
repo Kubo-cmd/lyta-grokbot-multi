@@ -423,8 +423,8 @@ def run_autonomous_grok_bots(steps: int = 18):
             last = state.trades[-1]
             print(f"  Last: {last['bot']} {last['symbol']} {last['reason']} PnL {last['pnl']:+.2f}")
 
-        # Simple realtime desk dashboard line every 10 steps
-        if (step + 1) % 10 == 0:
+        # Simple realtime desk dashboard line every 5 steps (more visible)
+        if (step + 1) % 5 == 0:
             active = {}
             for t in state.trades[-20:]:
                 b = t.get("bot", "?")
