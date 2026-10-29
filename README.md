@@ -77,6 +77,25 @@ No external keys or accounts required. Everything is simulated.
 - Provide a foundation others can fork, improve the decision logic, add new bots, or connect to their own execution layer.
 - Stay true to "paper first" while producing exportable signals that could be consumed by a real system.
 
+## Circuit Platform Port (Real-Life Testing)
+We scaffolded a native Circuit agent (`lyta-grok-desk/`) that ports the 12-bot desk concept to the actual platform.
+
+- Uses **Papertrade** (the most popular mode on app.circuit.org for high-leverage PAPER farming agents).
+- The 12 personalities (SCOUT → EXECUTOR) are implemented as voting bots inside `index.ts`.
+- All risk parameters mirror the Python simulation (video-tuned -6% stops + 8% sizing).
+- Start in paper mode on the platform.
+
+### How to test on Circuit
+```bash
+cd lyta-grok-desk
+circuit check
+circuit run --paper     # simulated / paper trading mode (recommended first)
+```
+
+Once it runs cleanly in paper, you can upload it via the Circuit app for real testing (with your own wallet, still controllable).
+
+**Important:** Circuit agents are TypeScript. The Python simulator remains the research / signal generation tool. The TS version is for running on the actual platform.
+
 ## Structure
 
 - `grokbot_multi.py` — Main autonomous multi-bot runner (self-contained)
