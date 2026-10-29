@@ -175,15 +175,35 @@ export const run: RunFunction = async (agent) => {
   const conviction = Math.min(totalConviction / activeBots.length, 1.0);
   const lev = Math.min(Math.floor(5 + conviction * (maxLev - 5)), maxLev);
 
-  // Simple sizing (Papertrade style)
-  const notional = 25 * (riskPct / 8); // base 25 USDC scaled by risk setting
+  // MICRO CAPITAL MODE — you only have ~$6 paper
+  // We size extremely small so we don't blow the tiny account on one bad move.
+  // Base notional is tiny, then capped at ~15% of whatever collateral we can see.
+  let notional = 3.5 * (riskPct / 5); // base ~3.5 for $6 account, scaled by your risk setting
+
+  // Try to respect actual balance if the platform gives it to us
+  try {
+    const account = (agent as any).account;
+    if (account && account.collateral) {
+      const collat = parseFloat(account.collateral);
+      if (collat > 0 && collat < 50) {
+        // we are in micro mode
+        const maxRiskNotional = collat * 0.18; // never risk more than ~18% of tiny balance
+        notional = Math.min(notional, maxRiskNotional);
+      }
+    }
+  } catch (_) {
+    // fallback to safe micro size
+  }
+
+  // Final safety: never try to use more than $4-5 notional with $6
+  notional = Math.min(notional, 4.5);
 
   await agent.log(
-    `[DESK] Consensus ${side.toUpperCase()} | Conviction ${conviction.toFixed(2)} | Lev ${lev}x | Bots: ${activeBots.length}`
+    `[DESK] Consensus ${side.toUpperCase()} | Conviction ${conviction.toFixed(2)} | Lev ${lev}x | Bots: ${activeBots.length} | Size $${notional.toFixed(2)} (micro-capital mode)`
   );
 
   try {
-    // Papertrade open (this is what most PAPER farming agents use on the platform)
+    // Papertrade open — the main way agents trade on Circuit
     await (agent as any).papertrade.open({
       asset: market.asset,
       side,
@@ -192,7 +212,7 @@ export const run: RunFunction = async (agent) => {
     });
 
     await agent.log(
-      `Opened ${side} ${market.asset} @ ~${market.price.toFixed(0)} | ${activeBots.length} bots agreed`
+      `Opened ${side} ${market.asset} @ ~${market.price.toFixed(0)} | ${activeBots.length} bots agreed | using tiny size`
     );
   } catch (e: any) {
     await agent.log(`Papertrade open failed: ${e?.message ?? e}`, { error: true });

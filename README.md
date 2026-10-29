@@ -85,14 +85,25 @@ We scaffolded a native Circuit agent (`lyta-grok-desk/`) that ports the 12-bot d
 - All risk parameters mirror the Python simulation (video-tuned -6% stops + 8% sizing).
 - Start in paper mode on the platform.
 
-### How to test on Circuit
+### How to test on Circuit (with only $6 paper)
+We tuned this specifically for tiny starting capital.
+
 ```bash
 cd lyta-grok-desk
 circuit check
-circuit run --paper     # simulated / paper trading mode (recommended first)
+circuit run --paper
 ```
 
-Once it runs cleanly in paper, you can upload it via the Circuit app for real testing (with your own wallet, still controllable).
+**Important for $6 accounts:**
+- minimumAmount set to 1
+- Default risk reduced to 5%
+- Max leverage reduced to 10x
+- Sizing logic now caps at ~$3.50–$4.50 notional per trade (micro-capital mode)
+- The desk will often stand down — that's normal and safe with $6
+
+With so little collateral the positions will be very small even at 10x. Use this purely to test the 12-bot voting logic and logs.
+
+Once the platform gives you more paper (or you top up), you can raise the numbers in circuit.toml and index.ts.
 
 **Important:** Circuit agents are TypeScript. The Python simulator remains the research / signal generation tool. The TS version is for running on the actual platform.
 

@@ -12,8 +12,8 @@ align = "rolling"
 [startingAsset]
 network = "papertrade"
 asset = "0"
-minimumAmount = "50"
+minimumAmount = "1"
 
 [settings]
-max_leverage = { type = "integer", default = 20, min = 5, max = 100 }
-desk_risk_pct = { type = "percentage", default = 8, min = 3, max = 15 }
+max_leverage = { type = "integer", default = 10, min = 5, max = 50 }
+desk_risk_pct = { type = "percentage", default = 5, min = 2, max = 10 }
