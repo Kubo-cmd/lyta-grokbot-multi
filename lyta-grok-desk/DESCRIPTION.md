@@ -1,17 +1,17 @@
 {/* circuit:starter */}
 
 ## Thesis
-12 Grok personalities run as an autonomous desk on Papertrade perps. Tuned for tiny ~$6 paper starting capital.
+12 Grok bots run hyper-conservative desk on Papertrade with $2-6 paper.
 
 ## Strategy
-- **Micro desk voting:** 12 bots vote; only tiny sizes allowed.
-- **Papertrade perps:** Very small leveraged positions with hard stops.
-- **Tiny sizing:** Capped at ~$3.50–$4.50 notional. Max 18% of collateral.
+- **Micro consensus:** Requires ≥3 of 12 bots to agree before trading.
+- **Tiny sizing:** Uses $0.30-$1.80 margin only, capped by collateral.
+- **Risk control:** Stands down on weak signals or low capital.
 
 ## Exposure
-- **Holds:** Tiny USDC + perps — Small collateral and positions.
-- **Venue:** Papertrade — Synthetic perps.
-- **Leverage:** 5-10x — Kept low for $6 accounts.
-- **Costs:** Fees + funding — Papertrade fees matter on small size.
-- **Data:** Circuit + heuristics — Internal + platform data.
+- **Holds:** Tiny USDC + perps — Papertrade collateral.
+- **Venue:** Papertrade — Synthetic perps for tiny budgets.
+- **Leverage:** 3-10x — Very low for $2-6 accounts.
+- **Costs:** Fees + funding — Papertrade trading costs.
+- **Data:** Circuit + heuristics — Platform markets and bot rules.
 - **On unwind:** Closes positions — Returns remaining paper USDC.

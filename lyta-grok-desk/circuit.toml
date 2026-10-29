@@ -1,12 +1,12 @@
 name = "lyta-grok-desk"
-tagline = "12-agent Grok desk on Papertrade"
+tagline = "12-bot Grok micro desk"
 category = "quant"
 walletVmFamily = "evm"
 agentId = "1af5e0ac-876c-4dc0-9efd-5273904fdd1d"
 
 [[triggers]]
 type = "schedule"
-everyMs = 120000   # 2 min for testing (use 900000 / 15min in real runs)
+everyMs = 120000
 align = "rolling"
 
 [startingAsset]
@@ -15,5 +15,5 @@ asset = "0"
 minimumAmount = "1"
 
 [settings]
-max_leverage = { type = "integer", default = 10, min = 5, max = 50 }
-desk_risk_pct = { type = "percentage", default = 5, min = 2, max = 10 }
+max_leverage = { type = "integer", default = 10, min = 3, max = 15 }
+desk_risk_pct = { type = "percentage", default = 5, min = 2, max = 8 }
