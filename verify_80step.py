@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Pure stdlib 80-step viability verification for 9-agent desk."""
+"""Pure stdlib 80-step viability verification for 12-agent agentic desk (Pump + Oren)."""
 import csv
 import json
 import statistics
 import os
 
-print("=== 80-STEP VIABILITY TEST — PURE STDLIB VERIFICATION (9 AGENTS) ===")
-print("Video-tuned params: ~ -6% hard stops | 8% max size\n")
+print("=== 80-STEP VIABILITY TEST — PURE STDLIB VERIFICATION (12 AGENTS) ===")
+print("Video-tuned + Oren-inspired (RESEARCHER / PORTFOLIO / EXECUTOR) | ~ -6% hard stops | 8% max size\n")
 
 with open("paper_trades_autonomous_grok.csv") as f:
     trades = list(csv.DictReader(f))
@@ -28,7 +28,7 @@ wins = sum(1 for t in trades if float(t["pnl"]) > 0)
 print(f"Win rate: {wins / len(trades) * 100:.1f}%\n")
 
 print("=== PER-BOT BREAKDOWN ===")
-bots = ["SCOUT", "FILTER", "ANALYST", "PUMP_CHASER", "CONVICTION", "MOMENTUM", "SCALPER", "CONTRARIAN", "TREND"]
+bots = ["SCOUT", "FILTER", "ANALYST", "PUMP_CHASER", "CONVICTION", "MOMENTUM", "SCALPER", "CONTRARIAN", "TREND", "RESEARCHER", "PORTFOLIO", "EXECUTOR"]
 per_bot_data = {}
 for b in bots:
     b_trades = [t for t in trades if t.get("bot", "").upper() == b]

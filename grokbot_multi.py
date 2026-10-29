@@ -416,7 +416,7 @@ def export_grok_signals(state: DeskState, bots: list):
             "signals": signals
         }, f, indent=2)
 
-    print(f"[export] grok_signals_for_real_bot.json (9 agents)")
+    print(f"[export] grok_signals_for_real_bot.json ({len(bots)} agents)")
 
 
 def run_autonomous_grok_bots(steps: int = 18):
@@ -496,7 +496,7 @@ def run_autonomous_grok_bots(steps: int = 18):
     total_pnl = sum(t["pnl"] for t in state.trades)
     one_five_x = sum(1 for t in state.trades if "1.5x" in t["reason"])
 
-    print(f"\n=== AUTONOMOUS GROK BOTS COMPLETE (9 agents) ===")
+    print(f"\n=== AUTONOMOUS GROK BOTS COMPLETE ({len(bots)} agents) ===")
     print(f"Total paper trades: {len(state.trades)} | Wins: {wins} | Win rate: {wins/len(state.trades)*100:.1f}%" if state.trades else "No trades")
     print(f"Total paper PnL: ${total_pnl:.2f}")
     calculated_final = START_EQUITY + total_pnl

@@ -91,13 +91,13 @@ Edit the `BOT_PROFILES` and `GrokBot.decide()` logic inside `grokbot_multi.py`. 
 BOT_PROFILES["SCALPER"] = { ... }
 ```
 
-The current 9 personalities were expanded (SCOUT, FILTER, ANALYST + PUMP_CHASER, CONVICTION, MOMENTUM + SCALPER, CONTRARIAN, TREND) to mirror real 6+ agent desk systems shown in trading videos. Risk params tuned closer to the video's -6% hard stop and 8% max size.
+The current 12 personalities were expanded (SCOUT, FILTER, ANALYST + PUMP_CHASER, CONVICTION, MOMENTUM + SCALPER, CONTRARIAN, TREND + RESEARCHER, PORTFOLIO, EXECUTOR) to mirror both Pump.fun-style 6+ agent desk systems and the Oren ⚡ agentic terminal concept (research + portfolio + execution layers) from https://x.com/itsdavetech/status/2115571527509017068.
 
 Example from 80-step viability test (pure stdlib):
-- 190 trades, ~34% win rate
-- Per-bot equity curves show wide variance (SCOUT more active/aggressive, ANALYST strong positive contributor in sample run)
-- Full grok_signals_for_real_bot.json exported with 9-agent labels
-- Terminal desk dashboard lines every 10 steps for realtime feel
+- ~128–190 trades, ~30–34% win rate
+- Per-bot equity curves show wide variance (SCOUT more active/aggressive, new Oren-inspired bots more selective)
+- Full grok_signals_for_real_bot.json exported with 12-agent labels
+- Terminal desk dashboard lines every 5 steps for realtime feel (shows open positions + equity)
 
 ## Relationship to Lilly-style Agents
 
