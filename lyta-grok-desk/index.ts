@@ -102,7 +102,7 @@ function decideAction(bot: BotProfile, market: MarketState): { shouldOpen: boole
 
 export const run: RunFunction = async (agent) => {
   // === MICRO CAPITAL SAFETY LAYER ===
-  await agent.log("=== LYTA GrokBot Multi (12-agent desk) — Micro $2-$6 mode ===");
+  await agent.log("=== LYTA GrokBot Multi (12-agent desk) — Optimized for tiny capital ($2-$6). Survival + data first. ===");
 
   // Try to read real Papertrade balance
   let collateral = 0;
@@ -158,28 +158,30 @@ export const run: RunFunction = async (agent) => {
     `[DESK VOTE] Active: ${activeBots.length}/12 | ${activeBots.slice(0, 5).join(", ")}${activeBots.length > 5 ? "..." : ""}`
   );
 
-  if (activeBots.length < 3) {
-    await agent.log("Desk: Weak consensus (< 3 bots). Standing down. No trade.");
+  // === BEST FOR $2-$6: Very high bar to trade ===
+  if (activeBots.length < 5) {
+    await agent.log(`Desk: Only ${activeBots.length}/12 bots active. Need 5+ for tiny capital. Standing down.`);
     return;
   }
 
   const side = longVotes > shortVotes ? "long" : "short";
   const conviction = Math.min(totalConviction / activeBots.length, 1.0);
-  const lev = Math.max(3, Math.min(Math.floor(4 + conviction * (maxLev - 4)), maxLev));
+  const lev = Math.max(2, Math.min(Math.floor(3 + conviction * (maxLev - 3)), maxLev));
 
-  // === ULTRA TINY SIZING FOR $6 ===
-  // With $6 we use margin (not notional) in the open call.
-  // margin * leverage = notional
-  let margin = 0.8 * (riskPct / 5);   // base ~$0.80 margin for tiny accounts
+  // === BEST SIZING FOR TINY MONEY ===
+  // Goal: survive and collect data, not make money yet.
+  // Base margin is tiny, then scaled down further for small balances.
+  let margin = 0.35 * (riskPct / 3);   // ~$0.35 base at 3% risk
 
-  // Respect actual collateral if we read it
   if (collateral > 0 && collateral < 20) {
-    const maxSafeMargin = collateral * 0.22;   // never use more than ~22% of your tiny stack
+    // Dynamic scaling — the less money you have, the smaller we go
+    const safeFraction = collateral < 4 ? 0.12 : 0.18;
+    const maxSafeMargin = collateral * safeFraction;
     margin = Math.min(margin, maxSafeMargin);
   }
 
-  // Absolute safety caps for $2-$6 range
-  margin = Math.max(0.3, Math.min(margin, 1.8));  // between $0.30 and $1.80 margin
+  // Hard absolute caps for $2-$6 range
+  margin = Math.max(0.2, Math.min(margin, 0.85));  // $0.20 – $0.85 margin max
 
   const notional = margin * lev;
 
@@ -187,9 +189,9 @@ export const run: RunFunction = async (agent) => {
     `[CONSENSUS] ${side.toUpperCase()} | Conviction ${conviction.toFixed(2)} | ${lev}x | Margin $${margin.toFixed(2)} | Notional ~$${notional.toFixed(2)}`
   );
 
-  // Final sanity: with $6 this should be very small positions
-  if (margin < 0.4) {
-    await agent.log("Desk: Calculated margin too tiny after caps. Standing down.");
+  // Final safety gate for tiny capital
+  if (margin < 0.25 || collateral < 2.0) {
+    await agent.log("Desk: Size too small or capital too low. Standing down (best for your amount).");
     return;
   }
 
@@ -203,7 +205,7 @@ export const run: RunFunction = async (agent) => {
     });
 
     await agent.log(
-      `✅ OPENED ${side} ${market.asset} | margin $${margin.toFixed(2)} @ ${lev}x | ${activeBots.length} bots agreed | collateral was $${collateral.toFixed(2)}`
+      `✅ TINY OPEN ${side} ${market.asset} | margin $${margin.toFixed(2)} @ ${lev}x | ${activeBots.length}/12 bots | collateral $${collateral.toFixed(2)} | (optimized for tiny budget)`
     );
   } catch (e: any) {
     await agent.log(`Papertrade open failed: ${e?.message ?? e}`, { error: true });
