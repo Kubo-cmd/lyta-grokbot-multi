@@ -1,12 +1,12 @@
 {/* circuit:starter */}
 
 ## Thesis
-Ultra-conservative 12-bot desk on Papertrade for $2-$6 paper. Survival first.
+Ultra-conservative 12-bot desk on Papertrade perps for $2-$6 paper trading (Phase 1 for LYTA Pump.fun Grok Bot Trading Desk project).
 
 ## Strategy
-- **High bar consensus:** Requires 5+ of 12 bots to agree before trading.
-- **Micro sizing:** Uses $0.20-$0.85 margin only. Stands down on weak signals.
-- **Risk rules:** 3% risk, max 5x leverage. Scales size with actual balance.
+- **Consensus:** Requires 5+ of 12 bots to agree on a side before opening.
+- **Sizing:** 3% risk with margin kept between $0.20-$0.85 and scales with collateral.
+- **Risk:** Max 5x leverage; stands down on weak consensus or below minimums.
 
 ## Exposure
 - **Holds:** Tiny USDC + perps — Papertrade collateral.

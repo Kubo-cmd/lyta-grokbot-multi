@@ -1,0 +1,68 @@
+Copy and paste this entire prompt into Circuit AI / the Builder as a follow-up to lyta-grok-desk-pumpfun.
+
+This is PAPER / simulated funds only. Do not switch to live capital. Do not snipe. Do not scrape a live XLIQUID price. Do not open a new XLIQUID buy.
+
+---
+
+This is a follow-up update for lyta-grok-desk-pumpfun (Phase 2 of the LYTA Pump.fun Grok Bot Trading Desk). Observation only. No live money.
+
+Your last platform note on the $600 paper book is accepted as a blotter claim, not a license to rewrite the desk:
+
+- Desk down about $7.02 (−1.17% on $600 simulated start).
+- Almost all of the loss from one memecoin, XLIQUID, which went near zero after the desk bought it.
+- Claimed fill: about $15.02 for ~97,876 tokens at ~$0.000153; later ~$0.00000197; bag ~$0.19; down ~98.7% / about $14.83.
+- Other trades made back roughly $7.80. Cash ~$592.81 USDC. Tiny negative SOL ~$0.02 is fees.
+- 11:00 run: 23 candidates; none met 7 of 12 votes plus $50k liquidity. Standing down there is correct. Keep that bar.
+
+Do NOT implement the extras you offered (“stricter rug-risk cutoff”, “raise the liquidity floor”, “a stop-loss that sells on a sharp drop” if that means a new 30% or unnamed SL). Those are DENIED.
+
+The frozen live rules already specified — keep them exactly:
+
+- Buy only when at least 7 of 12 bots vote BUY on one token. Do not drop to 5/12 or 6/12.
+- Skip coins already up more than 100% in the past hour.
+- Skip coins with liquidity < $50,000 at entry. Do not raise this floor.
+- Stop loss: sell the WHOLE position when mark is −35% from entry price. Reason string: "Stop loss -35%"
+- Take profit: sell the WHOLE position when mark is +50% from entry price. Reason string: "Take profit +50%"
+- All prior exits stay active (same strings):
+  - "Rug risk spike" (rug_risk > 0.45 after entry)
+  - "Score collapse" (analyst 0–100 drops more than 15 points from entry)
+  - "Price drop >25%" (first 60 minutes only)
+  - "Time exit - no momentum" (held >= 45 minutes AND no buys / not up)
+  - "Contrarian signal" (4+ bots bearish)
+- Exits FIRST every cycle on held tokens only. Never sell in the same run as a buy.
+- Never buy the same token more than once per day.
+- Still 15-minute cycles.
+- Still 3% of free USDC, raise to Circuit $1 swap minimum, max 5x, micro size.
+- Same 12 personalities: SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR. Do not rewrite their vote rules.
+- Bonding curve: stand down, log "Token still on bonding curve — no swap route yet".
+- Verbose logs every run: balance, 12 votes, [TALLY], [CONSENSUS] or [STAND DOWN] with calculated vs required numbers, [HOLD CHECK], [EXIT] with the exact reason string.
+
+The actual bug on XLIQUID is that the position was held through ruin. −98.7% remaining (~1.2876% of entry) means none of these fired: first-hour −25%, −35% stop, 45-minute time-exit. A −35% stop on the claimed $15.02 entry would have capped max loss near $5.26 instead of a $0.19 bag.
+
+Required behavior change (only this):
+
+1. Every cycle, before any buy scan, mark every open position.
+2. If unrealized <= −35% from entry, SELL 100% immediately. Log [EXIT] Stop loss -35% with entry, mark, remaining_pct, pnl.
+3. If unrealized >= +50% from entry, SELL 100% immediately. Log [EXIT] Take profit +50%.
+4. Then evaluate the older exit reasons in the order above.
+5. If a hold is already past −35% (including any leftover XLIQUID bag), exit it this cycle. Do not wait. Do not average down. Do not “watch it”.
+6. After exits, buy scan uses 7/12 + $50k + 1h pump ≤ 100% only. If nothing qualifies, stand down. That is success.
+
+Do not add:
+
+- A 30% stop, a “sharp drop” stop, or any SL other than −35% from entry.
+- A new entry rug-risk cutoff.
+- A higher liquidity floor than $50k.
+- A lower vote bar than 7/12.
+- H03 / cap-50 / cap-150 / any research hypothesis as a live rule.
+- Live capital, sniping, webhooks, auto-post, or a new agent name.
+
+Keep name lyta-grok-desk-pumpfun. Tagline ≤ 32 chars. Paper / simulated funds only.
+
+Generate updated circuit.toml, index.ts (or equivalent), and DESCRIPTION.md that pass circuit check, with exits-first and the −35 / +50 hard exits actually executing.
+
+Confirm in the first log line of every run: "This run is observation only. No live capital."
+
+---
+
+Send this to the Builder. It does not authorize live money. It does not add a 30% SL. It only makes the already-frozen −35 / +50 and prior exits fire so an XLIQUID-style hold-to-zero cannot repeat on paper.

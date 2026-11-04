@@ -1,0 +1,47 @@
+Copy and paste this entire prompt into Circuit AI / the Builder:
+
+---
+
+This is Phase 1: experimental paper trading for the larger "LYTA Pump.fun Grok Bot Trading Desk" project.
+
+Build a 12-bot Grok desk agent specifically for PAPER TRADING on the Circuit platform using the Papertrade venue.
+
+The user has only ~$6 and wants to run it in paper mode (circuit run --paper or simulated funds). The goal is to observe what the desk actually does — how the 12 personalities vote, reach consensus, and attempt trades — even with tiny capital. This is purely for learning and validation before later adapting the same desk logic to pump.fun memecoin trading.
+
+Key requirements:
+- Target: Papertrade venue (synthetic perps)
+- Run mode: Must work well when launched with paper / simulated mode on the platform
+- Same 12 personalities: SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR
+- High consensus bar: Only open if at least 5 of 12 bots agree
+- Ultra conservative for $2-$6: 
+  - 3% risk default
+  - Max 5x leverage
+  - Margin per trade capped at roughly $0.20 - $0.85 (or whatever is realistic in paper mode)
+  - Dynamically scale size based on actual collateral read from the account
+- Always read real balance/collateral first and log it every run
+- Very verbose logging: show current balance, which bots voted, consensus, side, calculated margin, notional, and the reason if it stands down
+- If the calculated size is below platform minimums, still log the full reasoning and stand down gracefully (this is acceptable for tiny paper testing)
+- Prefer BTC or ETH
+- Use correct Papertrade calls for paper mode: papertrade.positions.open with margin and leverage, and proper account/market reading
+
+The agent should demonstrate the desk logic clearly in paper runs. It is okay if it rarely or never opens positions due to size — the value is watching the voting and decision process with $6.
+
+Generate:
+- circuit.toml (keep network as papertrade, minimumAmount low like "1", risk 3%, max lev 5)
+- index.ts (full code with the logic above)
+- DESCRIPTION.md (in the exact format that passes circuit check)
+
+Name: lyta-grok-desk-paper
+Tagline: 12-bot desk for paper trading on Papertrade with tiny capital
+
+Make it relevant for running in paper mode on the Circuit platform with only a few dollars.
+
+This is the first experiment only. After validating the 12-bot voting in paper, the plan is to adapt the same desk personalities for the main Pump.fun memecoin trading desk project (using pump.fun-style signals like is_pump, analyst_score, rug risk, liquidity, new launches).
+
+Paper trade first (simulated funds), then move to real money on the platform later when ready.
+
+---
+
+Send this prompt to the Builder. It keeps everything relevant to paper trading on their platform while staying safe for your $6.
+
+After they reply, paste what they generate here and I'll help tune it further.

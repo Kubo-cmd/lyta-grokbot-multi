@@ -102,7 +102,7 @@ function decideAction(bot: BotProfile, market: MarketState): { shouldOpen: boole
 
 export const run: RunFunction = async (agent) => {
   // === MICRO CAPITAL SAFETY LAYER ===
-  await agent.log("=== LYTA GrokBot Multi (12-agent desk) — Optimized for tiny capital ($2-$6). Survival + data first. ===");
+  await agent.log("=== LYTA GrokBot Multi (12-agent desk) — PAPER TRADING mode on Circuit Papertrade | Tiny $2-$6 capital | Survival + observation first ===");
 
   // Try to read real Papertrade balance
   let collateral = 0;
@@ -138,7 +138,7 @@ export const run: RunFunction = async (agent) => {
 
   await agent.log(`[MARKET] ${market.asset} | Price ~${market.price.toFixed(0)} | 24h: ${market.change24h.toFixed(1)}%`);
 
-  // Run the 12-bot vote
+  // Run the 12-bot vote (paper trading style)
   const activeBots: string[] = [];
   let longVotes = 0;
   let shortVotes = 0;
@@ -151,16 +151,20 @@ export const run: RunFunction = async (agent) => {
       if (action.side === "long") longVotes++;
       else shortVotes++;
       totalConviction += bot.conviction * action.sizeMult;
+      await agent.log(`  ${bot.name} → ${action.side.toUpperCase()}`);
+    } else {
+      await agent.log(`  ${bot.name} → PASS`);
     }
   }
 
   await agent.log(
-    `[DESK VOTE] Active: ${activeBots.length}/12 | ${activeBots.slice(0, 5).join(", ")}${activeBots.length > 5 ? "..." : ""}`
+    `[TALLY] long=${longVotes} short=${shortVotes} pass=${12 - activeBots.length}`
   );
 
   // === BEST FOR $2-$6: Very high bar to trade ===
   if (activeBots.length < 5) {
-    await agent.log(`Desk: Only ${activeBots.length}/12 bots active. Need 5+ for tiny capital. Standing down.`);
+    await agent.log(`[STAND DOWN] Only ${activeBots.length}/12 agree on one side (need 5+).`);
+    await agent.log("Reason: Insufficient consensus");
     return;
   }
 
@@ -191,7 +195,10 @@ export const run: RunFunction = async (agent) => {
 
   // Final safety gate for tiny capital
   if (margin < 0.25 || collateral < 2.0) {
-    await agent.log("Desk: Size too small or capital too low. Standing down (best for your amount).");
+    await agent.log(`[STAND DOWN] Size below Papertrade minimums.`);
+    await agent.log(`  Calculated: $${margin.toFixed(2)} margin / $${notional.toFixed(2)} notional`);
+    await agent.log(`  Required (typical): $10 margin / $500 notional`);
+    await agent.log("Reason: Below minimum size (expected with $6 in paper mode)");
     return;
   }
 

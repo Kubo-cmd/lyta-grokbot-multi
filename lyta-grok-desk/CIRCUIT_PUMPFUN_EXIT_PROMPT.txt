@@ -1,0 +1,32 @@
+Copy and paste this entire prompt into Circuit AI / the Builder as a follow-up:
+
+---
+
+This is a follow-up to lyta-grok-desk-pumpfun (Phase 2 of the LYTA Pump.fun Grok Bot Trading Desk project).
+
+Current state: The desk pulls pump.fun launches via DEX Screener, scores on is_pump / analyst_score / rug_risk / liquidity, runs the 12 bots, and buys when 5+ agree. It uses $1 minimum swaps on simulated 6 USDC and never sells.
+
+Task: Add a conservative exit rule so the desk can sell paper positions.
+
+Requirements:
+- Keep the same 12 personalities and 5+ consensus bar for new buys.
+- Add simple exit logic that runs on every cycle for tokens the desk already holds.
+- Conservative rules only (survival first for tiny $6 paper balance):
+  - Sell if rug_risk rises above 0.45 after entry.
+  - Sell if analyst_score drops more than 0.15 from the score at buy time.
+  - Sell if price drops more than 25% from entry price within the first hour.
+  - Sell if no further buys or positive momentum in 45-60 minutes (time-based exit for dead pumps).
+  - Optional: sell on strong contrarian signal from 4+ bots.
+- Log clearly: "EXIT" with reason (e.g., "Rug risk spike", "Score collapse", "Time exit - no momentum", "Price drop >25%").
+- Never sell on the same cycle it buys.
+- Each token can only be bought once per day (keep existing).
+- Still raise tiny sizes to $1 minimum.
+- Output should still be very verbose: show the 12 votes on every token + any exit decisions.
+
+Generate updated circuit.toml, index.ts (or equivalent), and DESCRIPTION.md for lyta-grok-desk-pumpfun with these exit rules added.
+
+Keep it ultra-conservative. Goal is still observation + survival on paper funds before real money.
+
+---
+
+Send this to the Builder. It keeps the same high bar while adding the missing sell side.

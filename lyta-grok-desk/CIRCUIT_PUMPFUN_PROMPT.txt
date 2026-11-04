@@ -1,0 +1,64 @@
+Copy and paste this entire prompt into Circuit AI / the Builder:
+
+---
+
+This is Phase 2: Pump.fun memecoin adaptation for the LYTA Grok Bot Trading Desk project.
+
+Build a 12-bot Grok desk agent for PAPER TRADING pump.fun-style memecoins on the Circuit platform.
+
+The user has only ~$6 and wants to run it in paper mode (simulated funds) first. The goal is to test the 12 personalities on realistic pump.fun memecoin data (new launches, is_pump signals, analyst scores, rug risk, liquidity, buys, volume) before using real money on the platform.
+
+Key requirements:
+- Target: Pump.fun memecoin style trading (Solana launches, bonding curve dynamics, high volatility)
+- Run mode: Must work in paper / simulated mode on the platform
+- Same 12 personalities: SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR
+- High consensus bar: Only open if at least 5 of 12 bots agree on a side
+- Ultra conservative for $2-$6:
+  - 3% risk default
+  - Max 5x leverage (or appropriate for memecoins)
+  - Margin per trade capped at roughly $0.20 - $0.85 (or realistic micro size in paper)
+  - Dynamically scale size based on actual collateral read from the account
+- Use pump.fun-style market data signals (not just simple price changes):
+  - is_pump (true/false for early launch momentum)
+  - analyst_score (0.0 - 1.0)
+  - rug_risk (lower is better)
+  - liquidity / volume
+  - buys in last 5m
+  - price_change (short term)
+  - new launch detection
+- Very verbose logging: show current balance, every bot's vote with reasoning (using pump.fun fields), consensus, side, calculated margin, notional, and exact reason if it stands down
+- If size is below minimums, log full reasoning and stand down gracefully
+- Prefer new or early pump.fun launches when possible
+- Use correct paper trading calls for the platform
+
+Bot decision rules (adapt these exactly for the code):
+- SCOUT: Early pair hunter — loves brand new launches + is_pump even if riskier (low rug tolerance)
+- FILTER: Extremely strict — only cleanest setups (high analyst_score, low rug, good buys + liquidity)
+- ANALYST: Heavy analyst_score bias, high conviction
+- PUMP_CHASER: Strongly prefers is_pump signals and early momentum
+- CONVICTION: Only when analyst_score is very high and rug is low
+- MOMENTUM: Price change + buys focused
+- SCALPER: Fast moves, tight risk, prefers volume
+- CONTRARIAN: Bets against recent crowd pump on still-clean setups
+- TREND: Sustained moves with good score
+- RESEARCHER: Deep focus on high score + clean liquidity, ignores hype
+- PORTFOLIO: Conservative, cares about overall book health
+- EXECUTOR: Clean entries, quick to cut bad trades
+
+The agent should demonstrate the desk logic clearly in paper runs on meme-style data. It is okay (and expected) if it rarely opens positions due to size or strict consensus — the value is watching how the 12 personalities evaluate real pump.fun conditions.
+
+Generate:
+- circuit.toml (papertrade or appropriate venue, minimumAmount low like "1", risk 3%, max lev 5)
+- index.ts (full code implementing the pump.fun signals and logic above)
+- DESCRIPTION.md (in the exact format that passes circuit check)
+
+Name: lyta-grok-desk-pumpfun
+Tagline: 12-bot pump.fun memecoin desk for paper trading
+
+Make it relevant for running in paper mode on the Circuit platform with only a few dollars, using pump.fun-style memecoin data.
+
+Paper trade first (simulated funds), then move to real money on the platform later when ready.
+
+---
+
+Send this prompt to the Builder. It keeps everything relevant to paper trading on their platform while staying safe for your $6 and aligned with the pump.fun project.

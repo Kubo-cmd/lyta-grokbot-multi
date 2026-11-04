@@ -1,12 +1,12 @@
-name = "lyta-grok-desk"
-tagline = "12-bot Grok micro desk"
+name = "lyta-grok-desk-paper"
+tagline = "12-bot paper trading desk"
 category = "quant"
 walletVmFamily = "evm"
 agentId = "1af5e0ac-876c-4dc0-9efd-5273904fdd1d"
 
 [[triggers]]
 type = "schedule"
-everyMs = 120000
+everyMs = 3600000   # 1 hour (matches the built paper agent)
 align = "rolling"
 
 [startingAsset]

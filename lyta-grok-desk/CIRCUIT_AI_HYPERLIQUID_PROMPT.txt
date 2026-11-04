@@ -1,0 +1,33 @@
+Copy and paste this into Circuit AI / the Builder:
+
+---
+
+Build the Hyperliquid perps version of the 12-bot Grok desk.
+
+Use the same 12 voters (SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR) with 5-of-12 consensus requirement.
+
+Keep these conservative parameters because the user only has ~$6:
+- 3% risk
+- Max 5x leverage
+- BTC and ETH only
+- Verbose logging of balance, bot votes, consensus, margin, and notional every run
+- High bar to trade (stand down unless 5+ bots agree strongly)
+
+Target: Hyperliquid perps (not Papertrade).
+
+Sizing: Orders start around $10 notional. At 5x this needs roughly $2 of margin. Scale position size based on actual balance but stay very conservative.
+
+The agent must:
+- Read the actual wallet / allocation balance first
+- Use the correct Hyperliquid execution calls available on Circuit
+- Log clearly when it stands down and why
+- Be safe for tiny capital
+
+Generate full circuit.toml (change network to hyperliquid or whatever the correct venue is), index.ts, and DESCRIPTION.md that passes circuit check.
+
+Name: lyta-grok-desk-hyperliquid
+Tagline: 12-bot conservative desk on Hyperliquid perps for small capital
+
+---
+
+Send this if you want the version that can actually trade with your current $6.
