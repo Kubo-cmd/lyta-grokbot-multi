@@ -1,19 +1,33 @@
-name = "lyta-grok-desk-paper"
-tagline = "12-bot paper trading desk"
-category = "quant"
+name = "lyta-grok-desk-pumpfun"
+tagline = "12-bot pump.fun memecoin desk"
+category = "memecoin"
 walletVmFamily = "evm"
-agentId = "1af5e0ac-876c-4dc0-9efd-5273904fdd1d"
+agentId = "lyta-grok-desk-pumpfun"
 
 [[triggers]]
 type = "schedule"
-everyMs = 3600000   # 1 hour (matches the built paper agent)
-align = "rolling"
+everyMs = 60000   # 1 minute — watch pump.fun for opportunities
 
 [startingAsset]
-network = "papertrade"
-asset = "0"
-minimumAmount = "1"
+network = "pumpfun"
+asset = "USDC"
+minimumAmount = "0.50"
 
 [settings]
-max_leverage = { type = "integer", default = 5, min = 2, max = 8 }
-desk_risk_pct = { type = "percentage", default = 3, min = 1, max = 5 }
+max_leverage = { type = "integer", default = 5, min = 1, max = 5 }
+desk_risk_pct = { type = "percentage", default = 3, min = 1, max = 3 }
+risk_per_trade = { type = "percentage", default = 3, min = 1, max = 3 }
+micro_size_min = { type = "number", default = 0.20, min = 0.20 }
+micro_size_max = { type = "number", default = 0.85, min = 0.20, max = 0.85 }
+trailing_multiple = { type = "number", default = 2.5, min = 1.0, max = 5.0 }
+trailing_drawdown = { type = "percentage", default = 15, min = 5, max = 30 }
+consensus_bar = { type = "integer", default = 7, min = 7, max = 12 }
+stop_loss_pct = { type = "percentage", default = 35, min = 35, max = 50 }
+take_profit_pct = { type = "percentage", default = 50, min = 50, max = 100 }
+min_liquidity_usd = { type = "integer", default = 50000, min = 50000 }
+max_h1_pump_pct = { type = "integer", default = 100, min = 50, max = 100 }
+paper_only = { type = "boolean", default = true }
+reward_learning_rate = { type = "number", default = 0.05, min = 0.001, max = 1 }
+prune_win_rate_min = { type = "number", default = 0.35, min = 0, max = 1 }
+prune_drawdown_max = { type = "number", default = 0.50, min = 0, max = 1 }
+loss_aversion = { type = "number", default = 1.5, min = 1, max = 5 }

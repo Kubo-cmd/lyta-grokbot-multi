@@ -45,7 +45,7 @@ BOT_NAMES = [
 # === NEW TIGHTENED CONSTANTS (exactly from Builder) ===
 MIN_VOTES = 7
 MAX_H1_PUMP = 100          # skip if up >100% in 1h
-MIN_LIQ = 50_000           # skip if liquidity < $50k
+MIN_LIQ = 50_000  # skip if liquidity < $50k
 STOP_LOSS_PCT = 0.35       # -35%
 TAKE_PROFIT_PCT = 0.50     # +50%
 

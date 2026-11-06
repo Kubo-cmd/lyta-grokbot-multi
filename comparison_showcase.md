@@ -1,6 +1,6 @@
 # 🏆 LYTA PUMP.FUN TRADING DESK — Platform Comparison Showcase
 
-**User:** Rei Kubota | **Workspace:** /Users/test/projects/lyta-grokbot-multi | **Experiment:** Pump.fun Grok Bot Trading Desk
+**User:** Rei Kubota | **Workspace:** lyta-grokbot-multi (relative) | **Experiment:** Pump.fun Grok Bot Trading Desk
 
 ---
 
@@ -14,7 +14,6 @@
 | **Trading desk logic** | Routing only | 12-bot voting, consensus, micro-sizing, risk layers | OpenBot |
 | **Platform** | Hermes + Grok CLI (interactive TUI) | OpenBot desktop app + CLI (port 4132) | OpenBot |
 | **Migration to Hermes** | `hermes import-agent grok-bot` | `hermes migrate openbot` ✅ | OpenBot |
-| **MCP servers** | No | Yes (connector/network layer) | OpenBot |
 | **Connectors** | No | Yes (pump.fun, Circuit, finance) | OpenBot |
 | **GUI interface** | No (TUI only) | **Yes** (full desktop GUI) | OpenBot |
 | **Sub-agent creation** | No | Yes (7 agents in projection_agents) | OpenBot |
@@ -64,7 +63,7 @@ lyta-grokbot-multi/
 ├── pumpfun_adapter.py           # Pump.fun data adapter
 ├── pumpfun_desk_simulator.py    # Pump.fun paper trading simulator
 ├── paper_desk_simulator.py      # Circuit paper trading simulator
-├── STRATEG_TYPE_FINALIZE.md     # Strategy documentation
+├── STRATEGY_FINALIZE.md     # Strategy documentation
 ├── PAPER_COMPLETE.md            # Paper trading completion report
 ├── _verify_final.py             # Verification script
 ├── verify_80step.py             # 80-step viability test
@@ -98,7 +97,7 @@ lyta-grokbot-multi/
 
 2. **Initialize Git and commit all files:**
    ```bash
-   cd /Users/test/projects/lyta-grokbot-multi
+   cd lyta-grokbot-multi (relative)
    git init
    git add -A
    git commit -m "🐕 LYTA Pump.fun Grok Bot Trading Desk — Phase 1 & 2 agents"

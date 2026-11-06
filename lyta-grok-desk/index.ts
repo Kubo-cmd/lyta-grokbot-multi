@@ -133,8 +133,9 @@ export const run: RunFunction = async (agent) => {
   }
 
   const market = await getMarketState(agent);
-  const riskPct = (agent.settings?.desk_risk_pct as number) ?? 5;
-  const maxLev = Math.min((agent.settings?.max_leverage as number) ?? 10, 12);
+  const riskPct = (agent.settings?.desk_risk_pct as number) ?? (agent.settings?.risk_per_trade as number) ?? 3;
+  const maxLev = Math.min((agent.settings?.max_leverage as number) ?? 5, 5);
+  const consensusBar = (agent.settings?.consensus_bar as number) ?? 7;
 
   await agent.log(`[MARKET] ${market.asset} | Price ~${market.price.toFixed(0)} | 24h: ${market.change24h.toFixed(1)}%`);
 
@@ -161,9 +162,9 @@ export const run: RunFunction = async (agent) => {
     `[TALLY] long=${longVotes} short=${shortVotes} pass=${12 - activeBots.length}`
   );
 
-  // === BEST FOR $2-$6: Very high bar to trade ===
-  if (activeBots.length < 5) {
-    await agent.log(`[STAND DOWN] Only ${activeBots.length}/12 agree on one side (need 5+).`);
+  // Tightened 7/12 — do not loosen
+  if (activeBots.length < consensusBar) {
+    await agent.log(`[STAND DOWN] Only ${activeBots.length}/12 agree on one side (need ${consensusBar}+).`);
     await agent.log("Reason: Insufficient consensus");
     return;
   }

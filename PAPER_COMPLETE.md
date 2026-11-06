@@ -2,7 +2,7 @@
 
 **This run is observation only. No trades executed.**
 
-**Status:** Local paper freeze. **Not live. Not published.**
+**Status:** Local paper freeze. **Not live. Not published.** Active restore target is Tightened **7/12** (STOP_LOSS=0.35, TAKE_PROFIT=0.50, skip >100% 1h, liquidity ≥ $50k). The v3 freeze list below is historical.
 
 ## Council
 
@@ -35,15 +35,15 @@
 
 The grokbot trading desk memecoin strategy is **paper-complete** on this machine:
 
-- `/Users/test/projects/lyta-grokbot-multi/paper_desk_simulator.py` — Paper Observer v3 simulator (continuous screening, long-only)
-- `/Users/test/projects/lyta-grokbot-multi/pumpfun_desk_simulator.py` — 12-bot consensus simulator (preserved, not active)
-- `/Users/test/projects/lyta-grokbot-multi/STRATEGY_FINALIZE.md` — the "bet" document
+- `paper_desk_simulator.py` — Paper Observer v3 simulator (continuous screening, long-only)
+- `pumpfun_desk_simulator.py` — 12-bot consensus simulator (preserved, not active)
+- `STRATEGY_FINALIZE.md` — the "bet" document
 - Circuit prompts under `lyta-grok-desk/` (Circuit paper paper, paper/pumpfun, pumpfun exit prompts)
 
 ## What "done" is not
 
 - Not a money-maker. Early paper results: **2 closed positions, both losses, −0.030125731 SOL (−30.55%)** realized. Both closed on the `bc_drop` rule, not the 0.10x stop-loss.
-- Not open-sourced. `git remote` empty. MIT LICENSE is on disk only.
+- Not open-sourced. Remote `origin` is **PRIVATE** `Kubo-cmd/lyta-grokbot-multi`. Do not push. No LICENSE published.
 - Not Pelosi copytrading. Not forex. Those are **PARKED**.
 - 2 positions is **below the 20-position evidence floor**. We are leaving v3 unchanged while gathering a larger sample. Fine-tuning decisions will be made after we reach the evidence floor.
 
@@ -53,7 +53,7 @@ The grokbot trading desk memecoin strategy is **paper-complete** on this machine
 2. After paper window: compare rejection gates, exit reasons, and realized results
 3. Then revisit MIN_LIQ $50k→$20k if needing more trades
 
-Artifact: `/Users/test/.hermes/cache/scratch/overnight_paper_done_artifact.json`
+Artifact: (experimental paper-run artifact — not part of the open-source repo)
 
 artifact_sha256: `dfa1018366e516024f4cfd07d711a9f8528c04f7f645b9504c29e2cf9fe7e34c`
 

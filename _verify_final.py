@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys, os, importlib, random
-base = "/Users/test/projects/lyta-grokbot-multi"
+from pathlib import Path
+base = str(Path(__file__).resolve().parent)
 sys.path.insert(0, base)
 
 import pumpfun_desk_simulator as sim

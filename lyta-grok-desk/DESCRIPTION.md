@@ -1,17 +1,17 @@
 {/* circuit:starter */}
 
 ## Thesis
-Ultra-conservative 12-bot desk on Papertrade perps for $2-$6 paper trading (Phase 1 for LYTA Pump.fun Grok Bot Trading Desk project).
+Ultra-conservative 12-bot memecoin desk on pump.fun for paper trading (Phase 2 for LYTA Pump.fun Grok Bot Trading Desk project).
 
 ## Strategy
-- **Consensus:** Requires 5+ of 12 bots to agree on a side before opening.
-- **Sizing:** 3% risk with margin kept between $0.20-$0.85 and scales with collateral.
-- **Risk:** Max 5x leverage; stands down on weak consensus or below minimums.
+- **Consensus:** Requires 7/12 bots to agree on a token before entering.
+- **Sizing:** 3% risk per trade, micro-sizing $0.20–$0.85, 5x max leverage.
+- **Risk:** Stands down on weak consensus, developer holdings >15%, or top-10 concentration >30%.
 
 ## Exposure
-- **Holds:** Tiny USDC + perps — Papertrade collateral.
-- **Venue:** Papertrade — Synthetic perps for tiny budgets.
-- **Leverage:** 2-5x — Very low for $2-6 accounts.
-- **Costs:** Fees + funding — Papertrade costs.
-- **Data:** Circuit + heuristics — Platform data + bot rules.
+- **Holds:** Tiny USDC + pump.fun tokens — paper trading.
+- **Venue:** pump.fun — Memecoin launchpad on the native chain.
+- **Leverage:** 5x — Max capped for paper.
+- **Costs:** Trading fees + slippage — pump.fun.
+- **Data:** pump.fun + 12-bot consensus — Platform data + bot signals.
 - **On unwind:** Closes positions — Returns remaining paper USDC.
