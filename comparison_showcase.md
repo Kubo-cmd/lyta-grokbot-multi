@@ -1,161 +1,55 @@
-# 🏆 LYTA PUMP.FUN TRADING DESK — Platform Comparison Showcase
+# Host vs application
 
-**User:** Rei Kubota | **Workspace:** lyta-grokbot-multi (relative) | **Experiment:** Pump.fun Grok Bot Trading Desk
+This note splits **host** (the runtime that loads an agent) from **application** (this paper desk). The original table scored application architecture as a platform win. That is the error this rewrite removes. There is no winner column.
 
----
+This tree is PRIVATE. Observation only. No trades executed.
 
-## 📊 External: "Grok Bot vs OpenBot — Which Platform for the Trading Desk?"
+## Application (this desk)
 
-| Criterion | **Grok Bot** | **OpenBot** | **Winner** |
-|---|---|---|---|
-| **Role** | Primary routing bot (Grok CLI) | Full desktop agent platform + CLI | OpenBot |
-| **Agents configured** | 1 (Grok Bot itself) | **7** (paper, pumpfun, signal, analyst, trader, risk, grok-bot) | OpenBot |
-| **Paper-only mode** | Not configured | All 7 agents paper-only with guards | OpenBot |
-| **Trading desk logic** | Routing only | 12-bot voting, consensus, micro-sizing, risk layers | OpenBot |
-| **Platform** | Hermes + Grok CLI (interactive TUI) | OpenBot desktop app + CLI (port 4132) | OpenBot |
-| **Migration to Hermes** | `hermes import-agent grok-bot` | `hermes migrate openbot` ✅ | OpenBot |
-| **Connectors** | No | Yes (pump.fun, Circuit, finance) | OpenBot |
-| **GUI interface** | No (TUI only) | **Yes** (full desktop GUI) | OpenBot |
-| **Sub-agent creation** | No | Yes (7 agents in projection_agents) | OpenBot |
-| **Open-sourcing** | Partial (export JSON only) | **Full** (agent configs + db + prompts) | OpenBot |
+The application is the 12-agent paper desk in `lyta-grok-desk/`, gated by Tightened **7/12**, `$6` paper collateral, BTC/ETH `papertrade`, stop **−35%** / take **+50%**, liquidity floor **≥ $50k**, 1h pump cap **≤ 100%**. Workspace PAPER-CTRL on `lyta-grok-desk-paper` keeps buy **$0.20**.
 
----
+These are application rules, not host features:
 
-## 🎯 VERDICT: OpenBot is the Best Platform for the Pump.fun Trading Desk Experiment
+| Application fact | Why it is not a host score |
+|---|---|
+| Agent count (12) and named roster | Lives in this repo’s prompts and `index.ts`, not in the host binary |
+| Paper-only / zero-burn | A desk policy. Hosts do not make it true |
+| Voting / consensus bar 7/12 | **Not a risk layer.** Same model family, seven signatures, one correlated failure |
+| Micro-sizing | Desk config (`risk_per_trade`, size gates). Changing host does not change size |
+| Isolation between named Bots | Not a security boundary when they share one model family |
 
-### Why OpenBot wins
+Do not treat separate Bot names as a security boundary.
 
-1. **Complete agent suite** — All 7 agents created in `openbot.db`:
-   - `lyta-grok-desk-paper` (Phase 1 Circuit paper trading)
-   - `lyta-grok-desk-pumpfun` (Phase 2 pump.fun memecoin)
-   - `lyta-grok-desk-signal` (signal generation)
-   - `lyta-grok-desk-analyst` (analytics & rug risk)
-   - `lyta-grok-desk-trader` (execution, paper-only)
-   - `lyta-grok-desk-risk` (3% risk, 5x max, stand-down)
-   - `grok-bot` (primary routing bot)
+## Host (runtime)
 
-2. **Paper-only mode** — Every agent declares paper-only constraints:
-   - `no_wallet_import` — rejects live frameworks
-   - `no_signing_or_order_execution` — rejects send_transaction, sign_transaction, place_order, execute_swap
-   - `paper_label_present` — "PAPER ONLY" + "SIMULATION"
-   - `shared_state_paper_flag` — `paper_only: true` in state
-   - `spec_simulation_only` — spec declares `SIMULATION` + `paper_only: true`
+A host is wherever this application is loaded. Isolation between hosts is the discriminator. Scoring “which host has more agents” revives the original table.
 
-3. **Full workflow management** — MCP servers, connectors, channels, desktop GUI for managing the entire trading desk.
+| Host | Role here | Do not |
+|---|---|---|
+| OpenBot | Current paper workspace: `lyta-grok-desk-paper`. License is PolyForm Noncommercial, **not OSS** | Score a “full open-sourcing” row as an OpenBot win; start a live thread this pass |
+| Grok Bot.app | One possible desktop host. Inspect-only this pass. The paper desk is **not** hosted inside the `.app` | Equate it with the `grok` CLI; turn computer-use on; treat inspect notes as a setup |
+| Hermes Agent | Ships `hermes migrate openbot` / `hermes import-agent openbot` and `hermes migrate grok-bot` / `hermes import-agent grok-bot` | Treat migrate-ability as a unique OpenBot win |
 
-4. **Migration path** — All agents already migrated to Hermes via `hermes migrate openbot` (exit 0).
+Migrate-ability is shared. Those Hermes commands exist; they are not a reason to import this desk this pass.
 
-5. **Trading desk logic** — The actual 12-bot voting, consensus bar (5+), micro-sizing ($0.20-$0.85), risk management lives in:
-   - `lyta-grok-desk/circuit.toml`
-   - `lyta-grok-desk/index.ts`
-   - `pumpfun_adapter.py`
-   - `paper_desk_simulator.py`
-   - `pumpfun_desk_simulator.py`
+## What this note does not claim
 
----
+- No live capital. No pump.fun this pass. Phase 1 remains Circuit papertrade BTC/ETH.
+- Tightened 7/12 stays. Do not strip settings to make `circuit check` pass.
+- A zip named like this repo can be a 2-file review pack. Keep packs in scratch; do not copy them over `comparison_showcase.md` / `showcase.html`.
+- Sibling adapters named in a review (`agent-turn-receipts`, `authority-lightcone-auditor`, `agent-quiescence-receipts`, `token-null-router`, `micro-pm-okx`, `hermes-studio`, `lyta-shield`) are **unwired here**. A citation is not a wire-in.
+- LICENSE MIT text is tracked in this PRIVATE tree only — unpublished.
 
-## 📁 Project Structure (Open-Source Ready)
+## Frozen application gates (not host rows)
 
-```
-lyta-grokbot-multi/
-├── README.md                    # Main project documentation
-├── grokbot_multi.py             # 12-agent desk simulator (stdlib)
-├── pumpfun_adapter.py           # Pump.fun data adapter
-├── pumpfun_desk_simulator.py    # Pump.fun paper trading simulator
-├── paper_desk_simulator.py      # Circuit paper trading simulator
-├── STRATEGY_FINALIZE.md     # Strategy documentation
-├── PAPER_COMPLETE.md            # Paper trading completion report
-├── _verify_final.py             # Verification script
-├── verify_80step.py             # 80-step viability test
-├── 100x_adapter_report.md       # Adaptation report
-├── lyta-grok-desk/              # Phase 1 Circuit agents
-│   ├── index.ts                 # 12-bot desk TypeScript agent
-│   ├── circuit.toml             # Circuit project config
-│   ├── circuit-sdk.d.ts         # Circuit SDK types
-│   ├── DESCRIPTION.md           # Agent description
-│   ├── package.json             # Node package
-│   ├── bun.lock                 # Bun lockfile
-│   ├── CIRCUIT_PAPER_PROMPT.txt # Copy-paste prompt
-│   ├── CIRCUIT_PUMPFUN_PROMPT.txt
-│   ├── CIRCUIT_PUMPFUN_EXIT_PROMPT.txt
-│   └── CIRCUIT_PUMPFUN_UPDATE_PROMPT.txt
-└── memories/ (Hermes)
-    ├── MEMORY.md               # All 7 agents documented
-    └── USER.md                 # User profile (Rei Kubota)
-```
+| Gate | Frozen value |
+|---|---|
+| Consensus | 7/12 |
+| Liquidity | ≥ $50k |
+| 1h pump | ≤ 100% |
+| Stop / take | −35% / +50% |
+| User capital | $6 paper |
+| Network | `papertrade` |
+| Monitor pass-rate band | 35–55% |
 
----
-
-## 🚀 Open-Sourcing Plan
-
-### Steps to open-source the outcome
-
-1. **Create GitHub repository:**
-   ```bash
-   gh repo create lyta-grokbot-multi --public
-   ```
-
-2. **Initialize Git and commit all files:**
-   ```bash
-   cd lyta-grokbot-multi (relative)
-   git init
-   git add -A
-   git commit -m "🐕 LYTA Pump.fun Grok Bot Trading Desk — Phase 1 & 2 agents"
-
-3. **Push to GitHub:**
-   ```bash
-   git branch -M main
-   git remote add origin https://github.com/<your-username>/lyta-grokbot-multi.git
-   git push -u origin main
-   ```
-
-4. **Add Open-Source README:**
-   The existing `README.md` already documents the project. Add:
-   - Platform comparison (Grok Bot vs OpenBot)
-   - Verdict: OpenBot
-   - How to run the 12-bot trading desk
-   - Paper-only mode documentation
-   - Phase 1 and Phase 2 descriptions
-
-5. **Include OpenBot agent configs:**
-   - `openbot.db` (users can migrate via `hermes migrate openbot`)
-   - Agent instructions and memory records
-
-6. **License:**
-   - MIT License (consistent with Hermes project)
-   - Include `LICENSE` file
-
-7. **GitHub Pages / Documentation:**
-   - Deploy the project docs
-   - Add badge for paper-only mode status
-   - Add "Platform: OpenBot" badge
-
----
-
-## ✅ Completed Actions
-
-1. **Refreshed Hermes models** — `hermes model --refresh` exit 0
-2. **Grok CLI verified** — v1.0.70, logged in as `kubo100x@proton.me`, `grok-4.7` default
-3. **Grok Bot imported** — role, memories, user facts written to Hermes MEMORY.md/USER.md
-4. **OpenBot installed** — `/Applications/OpenBot.app` (DMG 0.60.0-arm64)
-5. **OpenBot agents created** — 7 agents in `projection_agents` table
-6. **Agents migrated to Hermes** — `hermes migrate openbot --source ... --yes` exit 0
-7. **All agents documented** — MEMORY.md updated with all 7 agents
-8. **Comparison verified** — Grok Bot vs OpenBot table complete
-9. **Verdict determined** — OpenBot is the best for the pump.fun trading desk experiment
-
----
-
-## 🔜 Next Steps
-
-- [ ] Create GitHub repository `lyta-grokbot-multi`
-- [ ] Add MIT LICENSE file
-- [ ] Push all project files
-- [ ] Add Open-Source README with comparison table
-- [ ] Document platform choice (OpenBot) and migration steps
-- [ ] Add badges to README
-- [ ] Host documentation
-
----
-
-> ⚠️ **Paper-Only Mode Warning:** All trading agents are paper-only. No real trades executed. No wallet import. No signing. No order execution. This is a simulation/experiment only. The platform is awaiting live platform data for Phase 2 metrics.
+Opening paper under current `index.ts` still needs `margin >= 0.25` and `collateral >= 2.0`, which conflicts with PAPER-CTRL buy **$0.20**. That conflict is left in place. Neither size raise nor 7/12 loosen is “earn more.”
