@@ -195,7 +195,7 @@ All agent performance is logged to `performance_log.csv` with columns:
 | Item | Status |
 |---|---|
 | GitHub repo | `Kubo-cmd/lyta-grokbot-multi` — **PRIVATE** (do not publish) |
-| License | Unpublished — paper-only desk, closed for trading |
+| License | MIT text tracked in this **PRIVATE** tree — unpublished; do not treat as public OSS |
 | OpenBot store | `~/Library/Application Support/OpenBot/openbot.db` (platform home) |
 | Grok Bot directory | `lyta-grok-desk/` (relative to repo root) |
 

@@ -43,7 +43,7 @@ The grokbot trading desk memecoin strategy is **paper-complete** on this machine
 ## What "done" is not
 
 - Not a money-maker. Early paper results: **2 closed positions, both losses, −0.030125731 SOL (−30.55%)** realized. Both closed on the `bc_drop` rule, not the 0.10x stop-loss.
-- Not open-sourced. Remote `origin` is **PRIVATE** `Kubo-cmd/lyta-grokbot-multi`. Do not push. No LICENSE published.
+- Not open-sourced. Remote `origin` is **PRIVATE** `Kubo-cmd/lyta-grokbot-multi`. Do not push. `LICENSE` is MIT text tracked in this private tree — unpublished; do not treat as a public OSS grant.
 - Not Pelosi copytrading. Not forex. Those are **PARKED**.
 - 2 positions is **below the 20-position evidence floor**. We are leaving v3 unchanged while gathering a larger sample. Fine-tuning decisions will be made after we reach the evidence floor.
 
