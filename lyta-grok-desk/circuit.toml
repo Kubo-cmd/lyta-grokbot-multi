@@ -1,15 +1,16 @@
 name = "lyta-grok-desk-pumpfun"
 tagline = "12-bot pump.fun memecoin desk"
-category = "memecoin"
+category = "experimental"
 walletVmFamily = "evm"
-agentId = "lyta-grok-desk-pumpfun"
+agentId = "5ccdeee2-3268-5173-ad57-d2578079f0fc"
 
 [[triggers]]
 type = "schedule"
 everyMs = 60000   # 1 minute — watch pump.fun for opportunities
+align = "rolling"
 
 [startingAsset]
-network = "pumpfun"
+network = "papertrade"
 asset = "USDC"
 minimumAmount = "0.50"
 

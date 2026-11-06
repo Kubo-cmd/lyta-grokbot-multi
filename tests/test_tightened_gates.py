@@ -2,6 +2,7 @@
 
 from pathlib import Path
 import re
+import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -37,3 +38,52 @@ def test_index_ts_consensus_bar_locked():
     assert "consensusBar = (agent.settings?.consensus_bar as number) ?? 7" in src
     assert "// Tightened 7/12 — do not loosen" in src
     assert "Math.min((agent.settings?.max_leverage as number) ?? 5, 5)" in src
+
+
+def test_circuit_toml_non_lock_schema_fields():
+    """UUID / category / papertrade / align — the four fields circuit check accepted."""
+    src = _read("lyta-grok-desk/circuit.toml")
+    assert 'category = "experimental"' in src
+    assert 'network = "papertrade"' in src
+    assert 'align = "rolling"' in src
+    match = re.search(r'^agentId = "([^"]+)"', src, re.M)
+    assert match, "agentId missing"
+    uuid.UUID(match.group(1))
+
+
+def test_circuit_toml_settings_lock_not_stripped_for_cli():
+    """circuit check wants 1-3 settings; freeze keeps the Tightened table."""
+    src = _read("lyta-grok-desk/circuit.toml")
+    keys = re.findall(r"^([a-z0-9_]+) = \{ type", src, re.M)
+    assert len(keys) > 3
+    for key in (
+        "consensus_bar",
+        "stop_loss_pct",
+        "take_profit_pct",
+        "min_liquidity_usd",
+        "max_h1_pump_pct",
+        "paper_only",
+    ):
+        assert key in keys
+
+
+def test_circuit_settings_dts_lists_tightened_keys():
+    src = _read("lyta-grok-desk/circuit-settings.d.ts")
+    for key in (
+        "consensus_bar",
+        "stop_loss_pct",
+        "take_profit_pct",
+        "min_liquidity_usd",
+        "max_h1_pump_pct",
+        "paper_only",
+        "risk_per_trade",
+    ):
+        assert key in src
+
+
+def test_showcase_is_paper_observation_not_openbot_winner():
+    src = _read("showcase.html")
+    assert "This run is observation only. No trades executed." in src
+    assert "7/12" in src
+    assert "WINNER: OpenBot" not in src
+    assert "paper_only" in src
