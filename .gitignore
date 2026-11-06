@@ -34,3 +34,24 @@ lyta-grok-desk/.circuit/
 scratch_*.json
 usage_log.jsonl
 best_route_comparison.json
+
+# Local leftover presets/prompts that loosen Tightened 7/12 — do not commit
+your_run_config.json
+bot_versions_config.json
+compare_presets.py
+compare_presets_run.py
+multi_version_combined.py
+multi_version_runner.py
+multi_version_runner_v2.py
+paper_compare.py
+reward_tracker.py
+usage_monitor.py
+AGENT_SETUP_SUMMARY.md
+builder_paste_turn1.txt
+circuit_ai_prompt.txt
+circuit_ai_prompt_reconciled.txt
+pumpfun_phase2_adaptation.txt
+trenches_ai_prompt.txt
+trenches_ai_prompt_reconciled.txt
+lyta-grok-desk/TRENCHER_AI_PARAMETER_PROMPT.txt
+skills/
