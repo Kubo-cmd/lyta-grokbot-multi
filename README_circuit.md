@@ -1,4 +1,4 @@
-# Circuit AI Bots — 10-Agent Architecture (lyta-grok-desk)
+# Circuit AI Bots — 12-Agent Architecture (lyta-grok-desk)
 
 Phase 2 of the Lyta trading desk: building **more Circuit AI agents**
 on the Circuit platform (circuit.org). This workspace runs a **12-agent
@@ -18,7 +18,8 @@ OpenBot layer + 1 coordination router** atop Circuit's Papertrade SDK
 || 7 | `lyta-grok-desk-scout` | `_scout_agent.ts` | Narrative/rug signal check — GMGN + wallet analysis |
 || 8 | `lyta-grok-desk-devwatch` | `_devwatch_agent.ts` | On-chain wallet monitoring (Hrundel75 rules) |
 || 9 | `lyta-grok-desk-trencher` | `_trencher_agent.ts` | TrenchesAI deployment monitor + integration |
-|| 10 | `grok-bot` | `_grok_router.ts` | Server-side task router — receives tasks from Grok Bot server (xAI managed cloud VM), dispatches to correct agent |
+|| 10 | `lyta-grok-desk-pumpfun` | `_pumpfun_agent.ts` | 12-bot pump.fun paper desk (12-bot consensus on pump.fun) |
+|| 11 | `grok-bot` | `_grok_router.ts` | Server-side task router — receives tasks from Grok Bot server (xAI managed cloud VM), dispatches to correct agent |
 
 ## Agent data flow
 
@@ -35,7 +36,7 @@ OpenBot layer + 1 coordination router** atop Circuit's Papertrade SDK
 
 ## circuit.toml
 
-- `[[agents]]` blocks define each of the 8 agents with `name` + `file`.
+- `[[agents]]` blocks define each of the 12 agents with `name` + `file`.
 - `[settings]` locks the key risk parameters.
 - `startingAsset` = `papertrade` / `USDC` / `minimumAmount = "0.50"`.
 - `paper_only = { type = "boolean", default = true }`.
