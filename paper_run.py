@@ -35,8 +35,19 @@ sys.modules["trading_desk"] = _td_mod
 _spec.loader.exec_module(_td_mod)
 TradingDesk = _td_mod.TradingDesk
 
+# TelegramAlert (Phase 2) - pushes alerts to Telegram if token configured
+_telegram_path = os.path.join(REPO_ROOT, "pumpfun_desk_simulator.py")
+_telegram_spec = importlib.util.spec_from_file_location("pumpfun_desk_simulator", _telegram_path)
+_telegram_mod = importlib.util.module_from_spec(_telegram_spec)
+sys.modules["pumpfun_desk_simulator"] = _telegram_mod
+_telegram_spec.loader.exec_module(_telegram_mod)
+TelegramAlert = _telegram_mod.TelegramAlert
+
 # Create the global trading desk (same as pumpfun_desk_simulator.py)
 TRADE_DESK = TradingDesk(capital=100.0, asset="GOBLIN", config="v3")
+
+# Global flag: is Telegram configured?
+TELEGRAM_CONFIGURED = TelegramAlert._TG_CONFIGURED()
 
 # ── 12-bot roster (mirrors pumpfun_desk_simulator.py) ─────────────
 BOT_NAMES = [
@@ -175,9 +186,14 @@ def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = T
     print(f"  Session interval: {interval} seconds")
     print("-" * 62)
 
+    # Telegram alert if configured
+    if TELEGRAM_CONFIGURED:
+        TelegramAlert.alert(f"🚀 Paper session started | {minutes} min @ {interval}s interval | Capital $100.00", "success")
+
     try:
         while time.time() < end:
             tick += 1
+            trades = {}  # Dict of bot_name -> vote_result for this tick
             now = time.time()
             market = generate_market()
 
@@ -185,6 +201,9 @@ def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = T
             votes = {}
             for bot in BOT_NAMES:
                 votes[bot] = run_bot(bot, market)
+
+            # Store votes for state tracking
+            trades = votes
 
             # Update trading desk with this tick
             TRADE_DESK.set_alert(f"🎯 Tick {tick}: {market['symbol']} — score {market['score']:.0f}")
@@ -209,12 +228,31 @@ def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = T
                 print(f"\n[{datetime.now().strftime('%H:%M:%S')}] Tick {tick}")
                 print(TRADE_DESK.render(show_bot_votes=True))
 
+            # Telegram alert per tick
+            if TELEGRAM_CONFIGURED:
+                TelegramAlert.alert(f"Tick {tick} | {market['symbol']} | capital ${TRADE_DESK.state.capital:.2f}")
+
             # Generate HTML dashboard periodically
             if now - last_html > html_interval:
                 html = TRADE_DESK.to_html()
                 with open("trading_desk.html", "w") as f:
                     f.write(html)
                 last_html = now
+
+            # Write state JSON for web dashboard
+            TRADE_DESK.update_state({
+                "capital": TRADE_DESK.state.capital,
+                "asset": TRADE_DESK.state.asset,
+                "ticks": tick,
+                "positions": len([p for p in TRADE_DESK.state.positions if p]),
+                "total_votes": sum(1 for b in BOT_NAMES if trades.get(b)),
+                "last_update": datetime.now().strftime("%H:%M:%S"),
+                "session_running": True,
+                "alerts": TRADE_DESK.state.alerts[-5:] if hasattr(TRADE_DESK.state, 'alerts') else [],
+                "votes": {b: {"side": v, "score": 0, "liquidity": 0, "rug_risk": 0, "change24h": 0} for b, v in trades.items()},
+                "bots": [{"bot": b, "side": v, "score": 0, "liquidity": 0, "rug_risk": 0, "change24h": 0} for b, v in trades.items()],
+                "error": None
+            })
 
             # Sleep until next tick
             time.sleep(interval)
@@ -270,6 +308,29 @@ if __name__ == "__main__":
             final_html = TRADE_DESK.to_html()
             with open("trading_desk.html", "w") as f:
                 f.write(final_html)
+            # Write state JSON for web dashboard
+            import json
+            # Get per-bot vote counts from agent_votes
+            def bot_side(bot):
+                av = TRADE_DESK.state.agent_votes.get(bot, {})
+                for side in ['buy', 'sell', 'hold', 'stand_down', 'pass']:
+                    if av.get(side, 0) > 0:
+                        return side
+                return 'pass'
+            TRADE_DESK.update_state({
+                "capital": TRADE_DESK.state.capital,
+                "asset": TRADE_DESK.state.asset,
+                "ticks": 1,
+                "positions": len([p for p in TRADE_DESK.state.positions if p]),
+                "total_votes": sum(1 for b in BOT_NAMES if TRADE_DESK.state.agent_votes.get(b)),
+                "last_update": datetime.now().strftime("%H:%M:%S"),
+                "session_running": False,
+                "alerts": TRADE_DESK.state.alerts[-5:] if hasattr(TRADE_DESK.state, 'alerts') else [],
+                "votes": {b: {"side": bot_side(b), "score": 0, "liquidity": 0, "rug_risk": 0, "change24h": 0} for b in BOT_NAMES},
+                "bots": [{"bot": b, "side": bot_side(b), "score": 0, "liquidity": 0, "rug_risk": 0, "change24h": 0} for b in BOT_NAMES],
+                "error": None
+            })
             print("\nHTML written to trading_desk.html")
+            print("State written to trading_desk_state.json")
     else:
         run_session(minutes=args.minutes, interval=args.interval)

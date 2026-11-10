@@ -1,0 +1,196 @@
+{
+  "capital": 118.66044325365617,
+  "asset": "GOBLIN",
+  "ticks": 1,
+  "positions": 0,
+  "total_votes": 12,
+  "last_update": "10:14:54",
+  "session_running": false,
+  "alerts": [],
+  "votes": {
+    "SCOUT": {
+      "side": "pass",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    "FILTER": {
+      "side": "pass",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    "ANALYST": {
+      "side": "pass",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    "PUMP_CHASER": {
+      "side": "buy",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    "CONVICTION": {
+      "side": "pass",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    "MOMENTUM": {
+      "side": "buy",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    "SCALPER": {
+      "side": "pass",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    "CONTRARIAN": {
+      "side": "pass",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    "TREND": {
+      "side": "pass",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    "RESEARCHER": {
+      "side": "pass",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    "PORTFOLIO": {
+      "side": "pass",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    "EXECUTOR": {
+      "side": "hold",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    }
+  },
+  "bots": [
+    {
+      "bot": "SCOUT",
+      "side": "pass",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    {
+      "bot": "FILTER",
+      "side": "pass",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    {
+      "bot": "ANALYST",
+      "side": "pass",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    {
+      "bot": "PUMP_CHASER",
+      "side": "buy",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    {
+      "bot": "CONVICTION",
+      "side": "pass",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    {
+      "bot": "MOMENTUM",
+      "side": "buy",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    {
+      "bot": "SCALPER",
+      "side": "pass",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    {
+      "bot": "CONTRARIAN",
+      "side": "pass",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    {
+      "bot": "TREND",
+      "side": "pass",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    {
+      "bot": "RESEARCHER",
+      "side": "pass",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    {
+      "bot": "PORTFOLIO",
+      "side": "pass",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    },
+    {
+      "bot": "EXECUTOR",
+      "side": "hold",
+      "score": 0,
+      "liquidity": 0,
+      "rug_risk": 0,
+      "change24h": 0
+    }
+  ],
+  "error": null,
+  "last_updated": "10:14:54"
+}

@@ -127,6 +127,29 @@ class TelegramAlert:
         tg_token = os.environ.get("TELEGRAM_BOT_TOKEN")
         return bool(tg_token)
 
+    @staticmethod
+    def _push_to_telegram(message: str) -> bool:
+        """Send a message to Telegram using Bot API. Returns True on success.
+        Requires TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID env vars.
+        """
+        import os
+        import requests
+
+        token = os.environ.get("TELEGRAM_BOT_TOKEN")
+        chat_id = os.environ.get("TELEGRAM_CHAT_ID")
+        if not token or not chat_id:
+            return False
+
+        try:
+            url = f"https://api.telegram.org/bot{token}/sendMessage"
+            payload = {"chat_id": chat_id, "text": message, "parse_mode": "HTML"}
+            resp = requests.post(url, json=payload, timeout=10)
+            resp.raise_for_status()
+            return True
+        except Exception as e:
+            print(f"  [TELEGRAM] Push failed: {e}")
+            return False
+
 
 # === NEW TIGHTENED CONSTANTS (exactly from Builder) ===
 MIN_VOTES = 7

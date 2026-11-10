@@ -16,6 +16,7 @@ from __future__ import annotations
 import json
 import os
 import time
+from datetime import datetime
 from dataclasses import dataclass, field
 from typing import Optional
 
@@ -48,6 +49,7 @@ class DeskState:
     capital: float = 100.0
     asset: str = "GOBLIN"
     positions: list[Position] = field(default_factory=list)
+    positions_count: int = 0
     vote_results: dict = field(default_factory=lambda: {"total": 0, "buy": 0, "sell": 0, "pass": 0})
     completed_positions: int = 0
     sell_legs: int = 0
@@ -331,3 +333,31 @@ class TradingDesk:
             "realized_pnl": self.state.realized_pnl,
             "last_updated": self.state.last_updated,
         }
+
+    def update_state(self, updates: dict) -> None:
+        """Update this TradingDesk instance state from a dict and write
+        the standard state file for the web dashboard server."""
+        # 'positions' is a computed count, not a state attribute to overwrite
+        safe_updates = {k: v for k, v in updates.items() if k != "positions"}
+        for k, v in safe_updates.items():
+            if hasattr(self.state, k):
+                setattr(self.state, k, v)
+            else:
+                setattr(self, k, v)
+        # positions is a derived count; keep it separate in state file
+        if "positions" in updates:
+            self.state.positions_count = updates["positions"]
+        # Also write the JSON state file for web_dashboard.py to serve
+        import json
+        from pathlib import Path
+        state_file = Path("trading_desk_state.json")
+        try:
+            if state_file.exists():
+                current = json.loads(state_file.read_text())
+            else:
+                current = {}
+            current.update(updates)
+            current["last_updated"] = datetime.now().strftime("%H:%M:%S")
+            state_file.write_text(json.dumps(current, indent=2))
+        except Exception:
+            pass
