@@ -1,6 +1,6 @@
 ══════════════════════════════════════════════════════════════════════
-COMPETITIVE BENCHMARK — TrenchersAI Arena vs lyta-grok-desk-pumpfun
-(lyta-grok-desk-pumpfun, config v8, paper session)
+COMPETITIVE BENCHMARK — TrenchersAI Arena vs lyta-grok-desk-paper
+(lyta-grok-desk-paper, config v8, paper session)
 ══════════════════════════════════════════════════════════════════════
 
 1. M-42_GRIDMAKER (TrenchersAI arena)

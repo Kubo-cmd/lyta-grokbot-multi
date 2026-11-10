@@ -1,6 +1,6 @@
 ══════════════════════════════════════════════════════════════════════
-FRIDAY POST-RUN REVIEW — TEMPLATE (lyta-grok-desk-pumpfun)
-(lyta-grok-desk-pumpfun, config v8, TrenchersAI paper session)
+FRIDAY POST-RUN REVIEW — TEMPLATE (lyta-grok-desk-paper)
+(lyta-grok-desk-paper, config v8, TrenchersAI paper session)
 ══════════════════════════════════════════════════════════════════════
 
 Run by the 5-minute TrenchersAI scheduler. Fallback if the paper pool loses

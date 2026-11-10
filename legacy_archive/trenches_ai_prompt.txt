@@ -14,7 +14,7 @@ CONFIG (paper_desk_simulator.py → CONFIG v3, opt-in perimeters):
   PO_MIN_BUYS           = 3
   PO_DEV_MAX            = 15
   PO_MINT_AUTH_REQUIRED = True
-  PO_PROTOCOL_FEE       = 0.01   (1% pump.fun, entry + exit swaps)
+  PO_PROTOCOL_FEE       = 0.01   (1% spot fee, entry + exit swaps)
   PO_FLAT_FEE_PER_LEG   = 0.001015 (SOL flat fee, every leg in/out)
   PO_SLIPPAGE_ENTRY     = 0.15
   PO_SLIPPAGE_EXIT      = 0.05

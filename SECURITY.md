@@ -5,7 +5,7 @@
 | Version | Supported     |
 | ------- | ------------- |
 | `paper_desk_simulator.py` | Active |
-| `pumpfun_desk_simulator.py` | Active |
+| `paper_desk_simulator.py` | Active |
 | `lyta-grok-desk/` (OpenBot agents) | Active |
 
 ## Reporting a Vulnerability

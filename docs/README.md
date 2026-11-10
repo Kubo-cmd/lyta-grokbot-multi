@@ -1,6 +1,6 @@
 # 📖 Documentation Index
 
-This workspace contains the **pump.fun grok trading desk** — a paper-only
+This workspace contains the **groc bot trading desk** — a paper-only
 trading desk built on OpenBot (local agent execution) + Grok Bot (server router)
 + Circuit Papertrade SDK. **Paper-only. No live capital.**
 
@@ -27,7 +27,7 @@ trading desk built on OpenBot (local agent execution) + Grok Bot (server router)
 | Script | Purpose |
 |--------|---------|
 | [`paper_desk_simulator.py`](paper_desk_simulator.py) | Circuit paper simulator (80-iteration regression) |
-| [`pumpfun_desk_simulator.py`](pumpfun_desk_simulator.py) | Pump.fun simulator (12-bot consensus) |
+| [`paper_desk_simulator.py`](paper_desk_simulator.py) | Paper trading simulator (10-agent spot) |
 | [`test_paper_desk_simulator.py`](test_paper_desk_simulator.py) | Module resolution test |
 | [`scripts/multi_version_runner.py`](scripts/multi_version_runner.py) | Multi-version comparison runner |
 | [`scripts/reward_tracker.py`](scripts/reward_tracker.py) | Agent performance reward tracker |

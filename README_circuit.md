@@ -1,6 +1,6 @@
 # Circuit AI Bots — 10-Agent Architecture (lyta-grok-desk)
 
-Phase 2 of the pump.fun grok trading desk: building **more Circuit AI bots**
+Phase 2 of the Lyta trading desk: building **more Circuit AI agents**
 on the Circuit platform (circuit.org). This workspace runs a **10-agent
 OpenBot layer + 1 coordination router** atop Circuit's Papertrade SDK
 (paper-only, no live wallet, no real capital).
@@ -10,11 +10,11 @@ OpenBot layer + 1 coordination router** atop Circuit's Papertrade SDK
 || # | Agent | File | Role |
 ||---|-------|------|------|
 || 1 | `lyta-grok-desk-paper` | `_paper_agent.ts` | Phase 1 paper desk — Circuit Papertrade BTC/ETH paper-only trading |
-|| 2 | `lyta-grok-desk-signal` | `_signal_agent.ts` | Scans pump.fun launches + trending + momentum → distributes opportunities |
+|| 2 | `lyta-grok-desk-signal` | `_signal_agent.ts` | Scans market launches + trending + momentum → distributes opportunities |
 || 3 | `lyta-grok-desk-analyst` | `_analyst_agent.ts` | Rug/liquidity/safety evaluation → pass/fail score |
 || 4 | `lyta-grok-desk-trader` | `_trader_agent.ts` | Micro-sizing execution engine — $0.20–$0.85 paper orders |
 || 5 | `lyta-grok-desk-risk` | `_risk_agent.ts` | 6-point stand-down monitor — commands desk to stand down on instability |
-|| 6 | `lyta-grok-desk-pumpfun` | `index.ts` | pump.fun memecoin entry point (Phase 2 adapter) |
+|| 6 | `lyta-grok-desk-paper` | `index.ts` | Circuit paper spot trading agent (Phase 1, paper-only) |
 || 7 | `lyta-grok-desk-scout` | `_scout_agent.ts` | Narrative/rug signal check — GMGN + wallet analysis |
 || 8 | `lyta-grok-desk-devwatch` | `_devwatch_agent.ts` | On-chain wallet monitoring (Hrundel75 rules) |
 || 9 | `lyta-grok-desk-trencher` | `_trencher_agent.ts` | TrenchesAI deployment monitor + integration |
@@ -27,7 +27,7 @@ OpenBot layer + 1 coordination router** atop Circuit's Papertrade SDK
         │  task routing  │
         ▼
 [grok-bot _grok_router.ts] ──► [signal _signal_agent.ts] ──► [analyst _analyst_agent.ts]
-        │  (dispatch)         │  (scan pump.fun + trending) │  (rug/liq/safety)
+        │  (dispatch)         │  (scan market + trending) │  (rug/liq/safety)
         │                     ▼                           ▼
         └────► [paper _paper_agent.ts] ◄────► [trader _trader_agent.ts] ◄─┘
                 (paper desk)      (micro-sizing)        (only calls positions.open)

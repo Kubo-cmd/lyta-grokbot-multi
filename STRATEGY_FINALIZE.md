@@ -8,9 +8,9 @@
 
 ## 1. The "Bet"
 
-The grokbot trading desk is betting on **circuit-paper pump.fun memecoin screening** — a continuously-running paper bot that screens bonding-curve tokens and either buys or skips. No sniping. No live capital. No real swaps. Paper only.
+The grokbot trading desk is betting on **circuit-paper spot trading screening** — a continuously-running paper bot that screens bonding-curve tokens and either buys or skips. No sniping. No live capital. No real swaps. Paper only.
 
-The bet is: **a behavior-based, aggregator-style bot will produce a persistent edge on circuit-paper pump.fun tokens over a 2–3 week window**, and we will gather enough paper data to validate (or kill) the strategy.
+The bet is: **a behavior-based, aggregator-style bot will produce a persistent edge on circuit-paper spot markets over a 2–3 week window**, and we will gather enough paper data to validate (or kill) the strategy.
 
 ### Why this is the bet
 

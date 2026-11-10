@@ -8,7 +8,7 @@
 import type { RunFunction, AgentContext } from "circuit:sdk";
 
 type BotName =
-  | "SCOUT" | "FILTER" | "ANALYST" | "PUMP_CHASER" | "CONVICTION"
+  | "SCOUT" | "FILTER" | "ANALYST" | "FILTER" | "CONVICTION"
   | "MOMENTUM" | "SCALPER" | "CONTRARIAN" | "TREND"
   | "RESEARCHER" | "PORTFOLIO" | "EXECUTOR"
   | "DEV_WATCH";
@@ -37,7 +37,7 @@ const BOTS: BotProfile[] = [
     bias: (m) => m.change24h > 1.5 && m.volume > 80000 },
   { name: "ANALYST",   conviction: 0.60, hardStop: -0.06, positionMult: 0.90,
     bias: (m) => m.change24h > 0   && m.rugScore < 0.40 },
-  { name: "PUMP_CHASER",conviction: 0.85, hardStop: -0.09, positionMult: 1.25,
+  { name: "FILTER",conviction: 0.85, hardStop: -0.09, positionMult: 1.25,
     bias: (m) => m.change24h > 8   && m.volume > 120000 },
   { name: "CONVICTION",conviction: 0.55, hardStop: -0.05, positionMult: 0.80,
     bias: (m) => m.rugScore < 0.35 && m.change24h > -2 },
@@ -96,7 +96,7 @@ function decideAction(bot: BotProfile, market: MarketState): { shouldOpen: boole
 }
 
 export const run: RunFunction = async (agent: any) => {
-  await agent.log("=== LYTA GrokBot Multi (12-agent desk) — Phase 1 Paper on Circuit Papertrade | Tiny $2-$6 capital | Survival + observation first ===");
+  await agent.log("=== LYTA GrokBot Multi (12-agent desk) — Circuit Papertrade paper trading | Tiny $2-$6 capital | Survival + observation first ===");
   let collateral = 0;
   try {
     const acct = await (agent as any).papertrade?.account?.retrieve?.();
@@ -167,7 +167,7 @@ export const run: RunFunction = async (agent: any) => {
   await agent.log("[DEV_WATCH] Scanning on-chain wallets (creator, top 10, linked)...");
   const dwReasons: string[] = [];
   try {
-    const wallets = await (agent as any).papertrade?.wallet?.track?.({ scope: "pump_fun" });
+    const wallets = await (agent as any).papertrade?.wallet?.track?.({ scope: "spot" });
     if (wallets && Array.isArray(wallets)) {
       for (const w of wallets) {
         if (w.holderPct > 0.05 || w.bundlePct > 0.20) {

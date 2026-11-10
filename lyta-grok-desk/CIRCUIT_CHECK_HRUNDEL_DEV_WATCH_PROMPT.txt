@@ -11,7 +11,7 @@ Workspace target if Circuit asks: lyta-grok-desk-paper only.
 BEGIN PASTE
 ================================================================================
 
-This is Phase 1: experimental paper observation for the "LYTA Pump.fun Grok Bot Trading Desk" project.
+This is Phase 1: experimental paper observation for the LYTA Grok bot Trading Desk project.
 
 CHECK ONLY. Do not build a new workspace. Do not add an agent. Do not rename voters. Do not open a position. Do not snipe. Do not copy whales. Do not deposit. Do not drive a browser. Do not import a wallet. Do not call papertrade.positions.open.
 
@@ -29,7 +29,7 @@ Locked desk (do not change):
 - consensus_bar default 7, min 7, max 12. Do not drop to 5/12 or 6/12.
 - max_open_positions = 1. stop_loss_pct 35. take_profit_pct 50.
 - Existing non-voting clerks (already specified, do not recreate): SIZE_GATE, PAPER_GUARD, COLLISION, TALLY_LOCK, OBSERVER.
-- Forbidden names: lyta-grok-desk-signal, lyta-grok-desk-analyst, lyta-grok-desk-trader, lyta-grok-desk-risk, lyta-grok-desk-pumpfun, grok-bot.
+- Forbidden names: lyta-grok-desk-signal, lyta-grok-desk-analyst, lyta-grok-desk-trader, lyta-grok-desk-risk, lyta-grok-desk-paper, grok-bot.
 
 Check each claim. For every row output: claim | paper_status | action.
 paper_status must be one of: N/A_ON_BTC_ETH | HYPER_UNVERIFIED | DENY | ALREADY_COVERED | STAND_DOWN.
@@ -68,7 +68,7 @@ MUST NOT:
 - Add Dev Watch, extra voters, or a new workspace
 - Output buy/entry/exit/wallet/holder numbers
 - Loosen 7/12, strip [settings], or make circuit check pass by deleting locks
-- Hyperliquid, Solana, pump.fun swap, live perps, real money
+- Hyperliquid, Solana, spot, live perps, real money
 - Browser control, computer-use, hermes import-agent, grok setup
 
 Name: CHECK (one-shot, not an agent)

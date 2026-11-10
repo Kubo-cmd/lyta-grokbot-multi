@@ -96,7 +96,7 @@ def load_config(config_path: Optional[str] = None) -> Dict[str, Any]:
         "PO_TWO_VISIT_CONFIRM": False,
         "PO_STAGGERED_EXITS": False,
         # Transaction cost model (cash-flow, per-leg)
-        # Protocol fee (pump.fun): charged on each swap (entry + exit)
+        # Protocol fee (spot): charged on each swap (entry + exit)
         "PO_PROTOCOL_FEE": 0.01,
         # Flat transaction cost per leg (SOL)
         "PO_FLAT_FEE_PER_LEG": 0.001015,
@@ -377,7 +377,7 @@ def sync_config_to_module_vars(new_config: dict) -> None:
         "PO_TWO_VISIT_CONFIRM": False,
         "PO_STAGGERED_EXITS": False,
         # ── Transaction cost model (cash-flow, per-leg) ────────────────────────
-        # Protocol fee (pump.fun): charged on each swap (entry + exit)
+        # Protocol fee (spot): charged on each swap (entry + exit)
         "PO_PROTOCOL_FEE": 0.01,
         # Flat transaction cost per leg (SOL)
         "PO_FLAT_FEE_PER_LEG": 0.001015,
@@ -537,7 +537,7 @@ def paper_observer_enter(m: Market) -> Optional[dict]:
 
     # ── Mint/freeze authority revoked required ──
     if PO_MINT_AUTH_REQUIRED:
-        # In simulation, assume authority is revoked (standard pump.fun)
+        # In simulation, assume authority is revoked (standard spot)
         pass
 
     # ── Two-visit confirmation (opt-in, from Range PAPER Farmer) ──
@@ -748,7 +748,7 @@ def run_paper_desk(collateral: float = 6.0, asset: str = "GOBLIN", verbose: bool
     curve_progress = 0.0
 
     # Pre-compute total entry cash outflow (SAME for every position in this run)
-    # = base order + pump.fun 1% protocol fee + 0.001015 SOL flat transaction fee
+    # = base order + spot 1% protocol fee + 0.001015 SOL flat transaction fee
     total_cost = c["PO_BNavy"] + c["PO_BNavy"] * c["PO_PROTOCOL_FEE"] + c["PO_FLAT_FEE_PER_LEG"]
 
     while True:
@@ -820,7 +820,7 @@ def run_paper_desk(collateral: float = 6.0, asset: str = "GOBLIN", verbose: bool
                     exit_slippage = gross_sale_value * PO_SLIPPAGE_EXIT  # 5% exit slippage
                 else:
                     exit_slippage = 0.0
-                leg_protocol_fee = gross_sale_value * c["PO_PROTOCOL_FEE"]  # pump.fun 1% per swap
+                leg_protocol_fee = gross_sale_value * c["PO_PROTOCOL_FEE"]  # spot 1% per swap
                 # Full flat fee charged on every exit leg (partial exits are full sell transactions)
                 leg_flat_fee = c["PO_FLAT_FEE_PER_LEG"]
                 net_proceeds = gross_sale_value - exit_slippage - leg_protocol_fee - leg_flat_fee

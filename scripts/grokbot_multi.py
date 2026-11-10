@@ -4,7 +4,7 @@ LYTA GrokBot Multi — Autonomous Multi-Bot Paper Trader
 
 Open source multi-personality autonomous trader.
 Inspired by:
-- Pump.fun AI agents (6-agent desk style) + video feedback
+- spot AI agents (6-agent desk style) + video feedback
 - Oren ⚡ (agentic trading terminal for tokenized stocks on Solana by @itsdavetech)
   https://x.com/itsdavetech/status/2115571527509017068
 
@@ -423,7 +423,7 @@ def run_autonomous_grok_bots(steps: int = 18):
     print(f"\n{'='*60}")
     print(f"{BRAND}")
     print(f"{MODE}")
-    print("12 agents • Full agentic desk (Pump.fun style + Oren tokenized-stock inspiration)")
+    print("12 agents • Full agentic desk (spot style + Oren tokenized-stock inspiration)")
     print("Video-tuned ~ -6% hard stops + 8% max size | Oren-style research/portfolio/execution layer")
     print(f"{'='*60}")
     print("STRICT: Zero real trades. All paper. Observation only.\n")

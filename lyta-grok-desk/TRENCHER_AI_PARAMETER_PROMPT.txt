@@ -1,9 +1,9 @@
 ---
 This is a **platform parameter configuration prompt for Trencher AI**.
 
-The user owns a 12-bot Grok Bot trading desk that trades memecoins on pump.fun. The desk is 100% paper-only (simulated funds, no real trades, no wallet import, no signing, no order execution).
+The user owns a 10-agent Grok Bot trading desk that trades memecoins on spot. The desk is 100% paper-only (simulated funds, no real trades, no wallet import, no signing, no order execution).
 
-GOAL: Configure the Trencher AI platform for the paper-only pumpfun trading desk. Set the paper copy settings and note which controls are NOT available on Trencher.
+GOAL: Configure the Trencher AI platform for the paper-only spot trading desk. Set the paper copy settings and note which controls are NOT available on Trencher.
 
 PLATFORM CONTEXT:
 - Trencher AI is the secondary platform. It has NO user-editable circuit.toml, index.ts, or YAML config file.
@@ -14,7 +14,7 @@ PLATFORM CONTEXT:
 CONFIGURE THESE SETTINGS ON TRENCHER:
 
 1. mode = PAPER (written in code as: `mode = PAPER` — already enforced; simulated funds, no wallet)
-2. allowed_sources = ["pump.fun"]
+2. allowed_sources = ["spot"]
 3. max_open_positions = 1
 4. buy_slippage = 15% (already set)
 5. stop_loss = 0.92x entry (requested −8% trigger; currently 1.0x)
@@ -32,7 +32,7 @@ NOTICE — STOP-LOSS CONTROL:
 
 EXPECTED OUTPUT:
 - The platform's paper copy configuration (note: no YAML/TOML file is editable on Trencher)
-- Any code snippet that sets: mode = PAPER, allowed_sources = ["pump.fun"], max_open_positions = 1, buy_slippage = 10%, stop_loss = 0.65x entry
+- Any code snippet that sets: mode = PAPER, allowed_sources = ["spot"], max_open_positions = 1, buy_slippage = 10%, stop_loss = 0.65x entry
 - A note that:
   - dynamic percentage or USD sizing is not available
   - configurable polling/API timeouts are not available

@@ -1,6 +1,6 @@
 ══════════════════════════════════════════════════════════════════════
 SHARED MEMORY FORMAT — coin_evaluations.log
-(lyta-grok-desk-pumpfun, config v8)
+(lyta-grok-desk-paper, config v8)
 ══════════════════════════════════════════════════════════════════════
 
 Every coin evaluated writes ONE line to this file. Format:

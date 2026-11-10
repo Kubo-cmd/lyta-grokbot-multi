@@ -80,7 +80,7 @@ a candidate configuration for the trading desk.
 
 ## Phase 1 Status: Paper Trading
 
-- **Frozen simulator:** pumpfun_desk_simulator.py (test-mode, exit 0)
+- **Frozen simulator:** paper_desk_simulator.py (test-mode, exit 0)
 - **15 rounds of evaluation:** 100% consistent rejection pattern
 - **Rejection causes:** Rug risk spike (10/10), Contrarian signal (10/10),
   Time exit - no momentum (10/10)

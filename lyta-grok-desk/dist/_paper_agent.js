@@ -147,7 +147,7 @@ const run = async (agent) => {
     await agent.log("[DEV_WATCH] Scanning on-chain wallets (creator, top 10, linked)...");
     const dwReasons = [];
     try {
-        const wallets = await agent.papertrade?.wallet?.track?.({ scope: "pump_fun" });
+        const wallets = await agent.papertrade?.wallet?.track?.({ scope: "spot" });
         if (wallets && Array.isArray(wallets)) {
             for (const w of wallets) {
                 if (w.holderPct > 0.05 || w.bundlePct > 0.20) {

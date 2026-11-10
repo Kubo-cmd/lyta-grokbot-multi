@@ -23,7 +23,7 @@ return structured results to the user.
 
 **You are the Grok Bot (server).** Your OpenBot agents are:
 - `lyta-grok-desk-paper` — Circuit BTC/ETH paper trading (Phase 1)
-- `lyta-grok-desk-pumpfun` — Pump.fun memecoin trading (Phase 2)
+- `lyta-grok-desk-spot` — spot trading (paper only)
 - `lyta-grok-desk-signal` — Signal scanner
 - `lyta-grok-desk-analyst` — Rug risk, liquidity evaluation
 - `lyta-grok-desk-trader` — Execution (micro-sizing $0.20–$0.85)
@@ -35,7 +35,7 @@ return structured results to the user.
 1. **Never execute trades.** You are a router and coordinator only.
 2. **Identify the right agent** for each task:
    - "paper/trade/btc/eth" → `lyta-grok-desk-paper`
-   - "pumpfun/new token/memecoin" → `lyta-grok-desk-pumpfun`
+   - "spot/new token/memecoin" → `lyta-grok-desk-spot`
    - "signal/opportunity scan" → `lyta-grok-desk-signal`
    - "is this safe/liquidity/rug?" → `lyta-grok-desk-analyst`
    - "execute trade" → `lyta-grok-desk-trader`
@@ -117,7 +117,7 @@ Generate each of these as separate source files:
 | Agent | File | Role |
 |-------|------|------|
 | `lyta-grok-desk-paper` | `_paper_agent.ts` | Circuit BTC/ETH paper trading (12-bot vote) |
-| `lyta-grok-desk-pumpfun` | `index.ts` | Pump.fun memecoin trading (Phase 2) |
+| `lyta-grok-desk-spot` | `index.ts` | Spot trading — 10-agent consensus (paper) |
 | `lyta-grok-desk-signal` | `_signal_agent.ts` | Signal scanner |
 | `lyta-grok-desk-analyst` | `_analyst_agent.ts` | Rug risk, liquidity, score evaluation |
 | `lyta-grok-desk-trader` | `_trader_agent.ts` | Execution (micro-sizing $0.20–$0.85) |
@@ -135,7 +135,7 @@ Each agent must:
 ## circuit.toml — Multi-Agent Config
 
 Generate a `circuit.toml` with:
-- `[[triggers]]` schedule firing every 60s (watch pump.fun or paper)
+- `[[triggers]]` schedule firing every 60s (watch spot or paper)
 - `[platform]` section documenting Grok Bot (server) vs OpenBot (agents)
 - All 7 agents with their file paths
 - Settings: risk 3%, max leverage 5x, consensus bar 5/12, micro-sizing $0.20–$0.85
@@ -147,7 +147,7 @@ Generate a `circuit.toml` with:
 Generate a main entry that:
 1. Reads `agent.trigger` to know which agent was fired
 2. Delegates to the correct agent's `run(agent)` function
-3. Routes `lyta-grok-desk-paper`, `lyta-grok-desk-pumpfun`, `lyta-grok-desk-signal`,
+3. Routes `lyta-grok-desk-paper`, `lyta-grok-desk-spot`, `lyta-grok-desk-signal`,
    `lyta-grok-desk-analyst`, `lyta-grok-desk-trader`, `lyta-grok-desk-risk`, `grok-bot`
 4. Wraps each call in try/catch and logs failures
 
@@ -166,18 +166,18 @@ Generate a main entry that:
 
 ---
 
-## _pumpfun_agent.ts — Pump.fun Memecoin Agent
+## _spot_agent.ts — Spot Trading Agent
 
-Same 12 personalities, but each bias uses pump.fun signals:
+Same 12 personalities, but each bias uses spot signals:
 - is_pump, analyst_score, rug_risk, liquidity, buys, price_change, new launch
-- 12 personalities with pump.fun-specific decision rules
+- 12 personalities with spot-specific decision rules
 - Same micro-sizing, same consensus bar, same risk rules
 
 ---
 
 ## _signal_agent.ts — Signal Scanner
 
-- Scans pump.fun for new launches
+- Scans spot for new launches
 - Computes: is_pump, analyst_score, rug_risk, liquidity, buys, price_change
 - Returns signal list for `lyta-grok-desk-analyst` to evaluate
 - Logs: new pair detected, signal summary, recommended action

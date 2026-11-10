@@ -1,6 +1,6 @@
 ══════════════════════════════════════════════════════════════════════
 LYTA-GROK TRADERS DESK — V4 COMPREHENSIVE PACKAGE
-(lyta-grok-desk-pumpfun, config v8, TrenchersAI-only, paper session)
+(lyta-grok-desk-paper, config v8, TrenchersAI-only, paper session)
 ══════════════════════════════════════════════════════════════════════
 
 ══════════════════════════════════════════════════════════════════════

@@ -3,12 +3,12 @@
 // === LYTA GrokBot Router Agent ===
 // Server-side route dispatcher. Receives task payloads from the Grok Bot
 // server (xAI managed cloud VM) and routes to the correct desk agent.
-// Handles: paper, pumpfun, signal, analyst, trade, risk.
+// Handles: paper, signal, analyst, trader, risk, spot.
 
 import type { RunFunction } from "circuit:sdk";
 
 type TaskTarget =
-  | "paper" | "signal" | "analyst" | "trader" | "risk" | "pumpfun" | "status" | "standdown";
+  | "paper" | "signal" | "analyst" | "trader" | "risk" | "spot" | "status" | "standdown";
 
 interface TaskPayload {
   target: TaskTarget;
@@ -20,7 +20,7 @@ const TARGET_MAP: Record<string, TaskTarget> = {
   signal: "signal", scan: "signal", scanner: "signal", sc: "signal",
   analyst: "analyst", analysis: "analyst", risk: "risk", safety: "risk",
   trade: "trader", execute: "trader", exec: "trader",
-  pumpfun: "pumpfun", memecoin: "pumpfun", pump: "pumpfun",
+  // spot: "spot", memecoin: "spot", pump: "spot",
   status: "status", info: "status", ls: "status",
   standdown: "standdown", stop: "standdown", pause: "standdown",
 };
@@ -109,15 +109,15 @@ export const run: RunFunction = async (agent: any) => {
         }
         break;
       }
-      case "pumpfun": {
-        await agent.log("[ROUTER] → Routing to pump.fun memecoin desk");
-        const m = (agent as any).desktop?.getAgent?.({ agentId: "lyta-grok-desk-pumpfun" });
+      case "spot": {
+        await agent.log("[ROUTER] → Routing to spot trading desk");
+        const m = (agent as any).desktop?.getAgent?.({ agentId: "lyta-grok-desk-paper" });
         if (m) {
           try {
             const res = await m?.run?.(task.payload as any);
-            if (res) await agent.log(`[ROUTER] pumpfun returned: ${JSON.stringify(res).slice(0, 300)}`);
+            if (res) await agent.log(`[ROUTER] spot returned: ${JSON.stringify(res).slice(0, 300)}`);
           } catch (e: any) {
-            await agent.log(`[ROUTER] pumpfun agent error: ${e?.message ?? e}`, { error: true });
+            await agent.log(`[ROUTER] spot agent error: ${e?.message ?? e}`, { error: true });
           }
         }
         break;

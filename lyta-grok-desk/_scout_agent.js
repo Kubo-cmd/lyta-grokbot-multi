@@ -1,5 +1,5 @@
 // === LYTA GrokBot Multi — SCOUT Agent ===
-// Scout: narrative/rug signal checker for pump.fun
+// Scout: narrative/rug signal checker
 //
 // Philosophy: 1 good trade/day at 3% gain + 12-bot consensus = compounding advantage
 // Scout's job: detect narrative manipulation early → let consensus traders decide

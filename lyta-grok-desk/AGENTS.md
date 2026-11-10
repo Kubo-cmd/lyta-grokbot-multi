@@ -11,8 +11,8 @@ This is the **OpenBot (Agent Execution Layer)** — the local desktop workspace 
 | Agent | File | Role |
 |-------|------|------|
 | `lyta-grok-desk-paper` | `_paper_agent.ts` | Circuit BTC/ETH paper trading (Phase 1 baseline) |
-| `lyta-grok-desk-pumpfun` | `index.ts` | Pump.fun memecoin trading (Phase 2) |
-| `lyta-grok-desk-signal` | `_signal_agent.ts` | Signal scanner for pump.fun opportunities |
+| `lyta-grok-desk-paper` | `index.ts` | Spot trading desk (Circuit Papertrade, paper-only) |
+| `lyta-grok-desk-signal` | `_signal_agent.ts` | Signal scanner for market opportunities |
 | `lyta-grok-desk-analyst` | `_analyst_agent.ts` | Rug risk, liquidity, score evaluation |
 | `lyta-grok-desk-trader` | `_trader_agent.ts` | Micro-sizing execution ($0.20–$0.85) |
 | `lyta-grok-desk-risk` | `_risk_agent.ts` | Risk management (3% risk, 5x max, stand-down) |
@@ -65,7 +65,7 @@ Copy-paste prompts for Circuit AI (the Builder / chat interface):
 
 |- **Multi-Agent Setup (Option A):** `CURCH_BOT_MULTI_AGENT_PROMPT.txt` — Grok Bot server + 10 OpenBot agents architecture
 - **Phase 1 (Option B):** `CIRCUIT_AI_12BOT_PROMPT.txt` — 12-bot Paper trading desk (BTC/ETH)
-- **Phase 2 (Option C):** `CIRCUIT_AI_PUMPFUN_PROMPT.txt` — 12-bot Pump.fun memecoin desk
+- **Phase 2 (Option C):** `CIRCUIT_AI_PAPER_PROMPT.txt` — 10-agent spot trading desk
 - **How to Run (Option D):** `CURCH_BOT_STARTUP_PROMPT.txt` — step-by-step builder instructions
 - **Original prompt:** `CIRCUIT_AI_PROMPT.txt` — legacy 12-bot prompt
 

@@ -21,7 +21,7 @@ export const run: RunFunction = async (agent: Agent) => {
   const reasons: string[] = [];
   try {
     // DEV_WATCH: on-chain wallet tracking (Hrundel75 rule set)
-    const wallets = await (agent as any).papertrade?.wallet?.track?.({ scope: "pump_fun" });
+    const wallets = await (agent as any).papertrade?.wallet?.track?.({ scope: "spot" });
     if (wallets && Array.isArray(wallets)) {
       for (const w of wallets) {
         // Rule 1: Dev holds >5% → NO BUY

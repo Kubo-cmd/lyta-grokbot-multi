@@ -1,6 +1,6 @@
 [platform]
 name = "lyta-grok-desk-pumpfun"
-tagline = "12-bot pump.fun memecoin desk"
+tagline = "10-agent spot trading desk — OpenBot + Grok Bot"
 category = "experimental"
 walletVmFamily = "evm"
 agentId = "5ccdeee2-3268-5173-ad57-d2578079f0fc"
@@ -8,7 +8,7 @@ agentId = "5ccdeee2-3268-5173-ad57-d2578079f0fc"
 # Platform separation:
 #   grok-bot (server) : manages this agent via cloud VM, task routing, persistent state
 #   openbot (agents)  : this workspace on local desktop runs the 12-bot trading desk
-#   trigger           : schedule fires every 60s (watch pump.fun for opportunities)
+#   trigger           : schedule fires every 60s (watch market for opportunities)
 
 [[triggers]]
 type = "schedule"
@@ -41,20 +41,16 @@ name = "lyta-grok-desk-devwatch"
 file = "_devwatch_agent.ts"
 paper_mode = true
 stand_down_on_risk = true
-wallet_scope = "pump_fun"
+wallet_scope = "system"
 
 # ── order matters: risk agents run before consumer agents ──
-
-[[agents]]
-name = "lyta-grok-desk-pumpfun"
-file = "_paper_agent.ts"
 
 [[agents]]
 name = "lyta-grok-desk-scout"
 file = "_scout_agent.ts"
 lib = "circuit:auth"
 paper_mode = true
-wallet_scope = "pump_fun"
+wallet_scope = "system"
 # Scout: narrative/rug signal checker - GMGN + wallet analysis
 
 [[agents]]
@@ -62,7 +58,7 @@ name = "lyta-grok-desk-trencher"
 file = "_trencher_agent.ts"
 lib = "circuit:auth"
 paper_mode = true
-wallet_scope = "pump_fun"
+wallet_scope = "system"
 # Trencher: TrenchAI deployment monitor + integration
 
 [[agents]]
@@ -81,7 +77,6 @@ BOTS = [
   "lyta-grok-desk-trader",
   "lyta-grok-desk-signal",
   "lyta-grok-desk-paper",
-  "lyta-grok-desk-pumpfun",
   "lyta-grok-desk-trencher",
   "grok-bot"
 ]

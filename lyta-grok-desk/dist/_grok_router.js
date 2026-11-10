@@ -4,7 +4,7 @@
 // === LYTA GrokBot Router Agent ===
 // Server-side route dispatcher. Receives task payloads from the Grok Bot
 // server (xAI managed cloud VM) and routes to the correct desk agent.
-// Handles: paper, pumpfun, signal, analyst, trade, risk.
+// Handles: paper, signal, analyst, trader, risk, spot.
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.run = void 0;
 const TARGET_MAP = {
@@ -12,7 +12,7 @@ const TARGET_MAP = {
     signal: "signal", scan: "signal", scanner: "signal", sc: "signal",
     analyst: "analyst", analysis: "analyst", risk: "risk", safety: "risk",
     trade: "trader", execute: "trader", exec: "trader",
-    pumpfun: "pumpfun", memecoin: "pumpfun", pump: "pumpfun",
+    spot: "spot", memecoin: "spot", pump: "spot",
     status: "status", info: "status", ls: "status",
     standdown: "standdown", stop: "standdown", pause: "standdown",
 };
@@ -108,17 +108,17 @@ const run = async (agent) => {
                 }
                 break;
             }
-            case "pumpfun": {
-                await agent.log("[ROUTER] → Routing to pump.fun memecoin desk");
-                const m = agent.desktop?.getAgent?.({ agentId: "lyta-grok-desk-pumpfun" });
+            case "spot": {
+                await agent.log("[ROUTER] → Routing to spot desk");
+                const m = agent.desktop?.getAgent?.({ agentId: "lyta-grok-desk-paper" });
                 if (m) {
                     try {
                         const res = await m?.run?.(task.payload);
                         if (res)
-                            await agent.log(`[ROUTER] pumpfun returned: ${JSON.stringify(res).slice(0, 300)}`);
+                            await agent.log(`[ROUTER] spot returned: ${JSON.stringify(res).slice(0, 300)}`);
                     }
                     catch (e) {
-                        await agent.log(`[ROUTER] pumpfun agent error: ${e?.message ?? e}`, { error: true });
+                        await agent.log(`[ROUTER] spot agent error: ${e?.message ?? e}`, { error: true });
                     }
                 }
                 break;

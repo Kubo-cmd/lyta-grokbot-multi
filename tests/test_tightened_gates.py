@@ -11,8 +11,8 @@ def _read(rel: str) -> str:
     return (ROOT / rel).read_text(encoding="utf-8")
 
 
-def test_pumpfun_desk_simulator_tightened_constants():
-    src = _read("pumpfun_desk_simulator.py")
+def test_paper_desk_simulator_tightened_constants():
+    src = _read("paper_desk_simulator.py")
     assert re.search(r"^MIN_VOTES = 7\b", src, re.M)
     assert re.search(r"^MAX_H1_PUMP = 100\b", src, re.M)
     assert re.search(r"^MIN_LIQ = 50_000\b", src, re.M)

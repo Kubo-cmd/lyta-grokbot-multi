@@ -8,8 +8,8 @@ lyta-grokbot-multi/
 ├── ARCHITECTURE.md             # Dual-platform separation (Grok Bot server / OpenBot agents)
 ├── STRATEGY_FINALIZE.md        # Strategy decisions
 ├── paper_desk_simulator.py     # Phase 1: Circuit BTC/ETH paper simulator
-├── pumpfun_desk_simulator.py   # Phase 2: pump.fun memecoin simulator
-├── pumpfun_adapter.py          # Phase 2: pump.fun wiring (future)
+├── paper_desk_simulator.py   # paper trading simulator (frozen)
+├── paper_desk_adapter.py       # paper trading data adapter (future)
 ├── scripts/                    # Auxiliary scripts (runners, monitors, plotters)
 ├── config/                     # LOCAL config (git-ignored, example in .env.example)
 ├── legacy/                     # Experimental / superseded artifacts
@@ -20,7 +20,7 @@ lyta-grokbot-multi/
 ## How to Add a Trading Rule
 
 1. Put the rule in `paper_desk_simulator.py` (Phase 1) or
-   `pumpfun_desk_simulator.py` (Phase 2).
+   `paper_desk_simulator.py` (paper).
 2. If the rule is agent-facing, add a trigger to `lyta-grok-desk/circuit.toml`.
 3. Register the agent in the 7-agent table in `lyta-grok-desk/AGENTS.md`.
 4. Document the rule in `README.md` (Trading Desk Parameters).

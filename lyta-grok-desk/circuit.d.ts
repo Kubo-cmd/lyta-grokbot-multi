@@ -16,7 +16,6 @@ declare module "circuit:sdk" {
     };
     analytics?: { inspect: () => Promise<Record<string, unknown> | null> };
     signals?: { get: (key: string) => Promise<unknown[]> };
-    pumpfun?: { launchScanner: () => Promise<unknown[]> };
     social?: { getTrending: () => Promise<unknown[]> };
     riskCommand?: { standDown?: boolean; reason?: string };
     run: () => Promise<void>;
@@ -67,7 +66,7 @@ declare module "circuit:sdk" {
     capture_threshold: number;
   }
 
-  export interface PumpFunConfig {
+  export interface SpotConfig {
     min_spend: number;
     max_position: number;
   }
@@ -81,7 +80,6 @@ declare module "circuit:sdk" {
   export interface CircuitAgentConfig {
     settings: CircuitSettings;
     devwatch?: DevWatchConfig;
-    pumpfun?: PumpFunConfig;
     grokbot?: GrokBotConfig;
   }
 }

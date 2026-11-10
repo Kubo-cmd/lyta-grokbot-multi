@@ -58,10 +58,10 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 # Inspect if we can import the sim
 try:
-    import pumpfun_desk_simulator as pfs
-    print("[INFO] pumpfun_desk_simulator.py imported successfully")
+    import paper_desk_simulator as pfs
+    print("[INFO] paper_desk_simulator.py imported successfully")
 except ImportError:
-    print("ERROR: pumpfun_desk_simulator.py not found in workspace")
+    print("ERROR: paper_desk_simulator.py not found in workspace")
     sys.exit(1)
 
 
@@ -168,7 +168,7 @@ class VersionRunner(threading.Thread):
 
             # Build command: run the simulator as a subprocess with version config
             cmd = [
-                sys.executable, str(Path(__file__).parent / 'pumpfun_desk_simulator.py'),
+                sys.executable, str(Path(__file__).parent / 'paper_desk_simulator.py'),
                 '--test-mode',
                 '--test-iterations', str(self.rounds),
                 '--config', temp_config

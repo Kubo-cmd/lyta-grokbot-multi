@@ -14,7 +14,7 @@ LIVE DEMO: 9 trades, 6 green, 3 red, +15x in one night
 GROMO 5-AGENT PIPELINE (architecture)
 ══════════════════════════════════════════════════════════════════════
 
-1. Scanner — finds pump.fun tokens, filters by wallet seed, top-10 share,
+1. Scanner — finds market tokens, filters by wallet seed, top-10 share,
    developer share, rug_risk (api.rugcheck.xyz)
 2. Auditor — 9-layer deep dive:
    Layer 1: wallet seed (where token came from)

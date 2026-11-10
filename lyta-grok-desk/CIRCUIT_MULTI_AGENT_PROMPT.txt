@@ -9,7 +9,7 @@ voter-agents, one coordinator, paper funds only. It is NOT a clone of Trencher
 BEGIN PASTE
 ================================================================================
 
-This is Phase 1: experimental paper trading for the larger "LYTA Pump.fun Grok Bot Trading Desk" project.
+This is Phase 1: experimental paper-only trading for the LYTA trading desk workspace.
 
 Build ONE Circuit workspace named lyta-grok-desk-paper that contains MULTIPLE Circuit AI agents: twelve named voter-agents plus one coordinator. They must behave like a multi-agent paper desk (each agent votes independently, the coordinator tallies, almost every cycle stands down). Do not create a live wallet. Do not snipe. Do not copy whales. Do not deposit.
 
@@ -25,12 +25,12 @@ MUST (locked):
 - Sizing: desk_risk_pct / risk_per_trade default 3 max 3. max_leverage default 5 max 5. micro_size_min 0.20. micro_size_max 0.85. Margin = clamp(3% of free collateral, 0.20, 0.85). Notional = margin * leverage (cap 5x).
 - max_open_positions = 1 (same cap Trencher used).
 - Stop / take: stop_loss_pct default 35 min 35. take_profit_pct default 50 min 50. Do not add a 30% stop. A stop is an attempt to exit, not a fill guarantee.
-- papertrade.positions.open({ asset, side, margin, leverage }) is the only open call. Never live, never Solana one-tap, never pump.fun swap in this Phase 1 paste.
+- papertrade.positions.open({ asset, side, margin, leverage }) is the only open call. Never live, never Solana one-tap, never spot swap in this Phase 1 paste.
 - Always papertrade.account.retrieve() (or allocation/portfolio) first and log the real paper collateral.
 
 MUST NOT:
 - Snipe new launches, copy whales, signup, waitlist, deposit, fund, or unlock-by-PnL.
-- Generate or edit lyta-grok-desk-signal, lyta-grok-desk-analyst, lyta-grok-desk-trader, lyta-grok-desk-risk, lyta-grok-desk-pumpfun, or grok-bot. This paste is lyta-grok-desk-paper only.
+- Generate or edit lyta-grok-desk-signal, lyta-grok-desk-analyst, lyta-grok-desk-trader, lyta-grok-desk-risk, lyta-grok-desk-spot, or grok-bot. This paste is lyta-grok-desk-paper only.
 - Hyperliquid, live perps, real money, wallet import, signing, order routing off Papertrade.
 - Strip [settings] so `circuit check` exits 0. If check fails on "Define 1-3 settings" because Tightened keys sit outside the schema, leave the lock. That fail is success.
 - Invent wallets / buys / holders / top10 / dev counts. On Circuit BTC/ETH those fields are N/A: log "missing" and pass. Do not fabricate them to force an entry.
@@ -116,7 +116,7 @@ Print in this order:
 
 # Later (do not build in this paste)
 
-Pump.fun adaptation (is_pump, analyst_score, rug_risk, liquidity, new launches) is Phase 2 after this paper experiment. Do not switch this workspace to pump.fun, bonding curves, or live Solana in this generation. Do not prepare a real-money path.
+This paper experiment validates the 10-agent spot desk. No live market, bonding curves, or live Solana in this generation. Do not switch this workspace to spot, bonding curves, or live Solana in this generation. Do not prepare a real-money path.
 
 ================================================================================
 END PASTE

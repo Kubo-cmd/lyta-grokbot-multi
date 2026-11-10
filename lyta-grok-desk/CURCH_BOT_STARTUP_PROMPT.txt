@@ -18,7 +18,7 @@ I want to build a multi-agent trading desk with the platform separation:
 Generate:
 1. grok-bot-router agent — server router (code included)
 2. lyta-grok-desk-paper agent — Circuit BTC/ETH paper trading agent (12-bot desk, phase 1)
-3. lyta-grok-desk-pumpfun agent — pump.fun memecoin agent (12-bot desk, phase 2)
+3. lyta-grok-desk-spot agent — spot market agent (12-bot desk, phase 2)
 4. lyta-grok-desk-signal agent — signal scanner
 5. lyta-grok-desk-analyst agent — rug risk, liquidity evaluator
 6. lyta-grok-desk-trader agent — execution (micro-sizing $0.20-0.85)
@@ -65,29 +65,29 @@ After I get the reply, paste the generated code and I'll review/fix it.
 
 ---
 
-## Option C — Phase 2: Pump.fun Memecoin Trading
+## Phase 2: Spot Trading Configuration
 
 **Paste this into Circuit AI:**
 
 ```
-I want to run the same 12-personality Grok desk on pump.fun memecoins.
+I want to run the same 12-personality Grok desk on spot markets.
 
 Requirements:
 - Same 12 personalities: SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM,
   SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR
-- Each bot's bias uses pump.fun signals: is_pump, analyst_score, rug_risk, liquidity,
+- Each bot's bias uses spot signals: is_pump, analyst_score, rug_risk, liquidity,
   buys_5m, price_change, new_launch
 - Consensus bar: 5 of 12 minimum
 - Micro-sizing: $0.20-0.85 margin
 - Risk: 3%, max leverage 5x
 - Paper-only. Use circuit run --paper for simulated funds.
-- Signal agent scans pump.fun for new launches
-- Generate: circuit.toml, index.ts (pump.fun logic), DESCRIPTION.md
+- Signal agent scans market for new signals
+- Generate: circuit.toml, index.ts (spot logic), DESCRIPTION.md
 
 After I get the reply, paste the generated code and I'll review/fix it.
 ```
 
-**What you get:** A pump.fun-adapted desk with the same 12-bot architecture.
+**What you get:** A spot trading desk with the same 12-bot architecture.
 
 ---
 
@@ -100,7 +100,7 @@ Configure grok-bot (server) to route to the generated OpenBot agents:
 
 Agent routing map (on cloud VM, always-on):
 - "paper" or "circuit" → lyta-grok-desk-paper (Circuit BTC/ETH paper)
-- "pumpfun" or "memecoin" → lyta-grok-desk-pumpfun (pump.fun trading)
+- "spot" or "memecoin" → lyta-grok-desk-spot (spot trading)
 - "signal" or "scan" → lyta-grok-desk-signal (signal scanner)
 - "analyst" or "safety" → lyta-grok-desk-analyst (rug/liquidity check)
 - "trade" or "execute" → lyta-grok-desk-trader (micro-sizing execution)
@@ -110,7 +110,7 @@ On trigger, route to the correct agent. Return structured routing responses:
 [ROUTING] Task: ... → Target agent: ... → Status: ...
 
 Also configure:
-- circuit.toml: 7 agents, 60s schedule trigger (pump.fun / paper)
+- circuit.toml: 10 agents, 60s schedule trigger (paper)
 - index.ts: main entry that delegates to the correct agent's run() function
 - README.md / ARCHITECTURE.md: platform separation documentation
 ```

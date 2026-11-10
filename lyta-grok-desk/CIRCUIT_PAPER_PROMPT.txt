@@ -2,11 +2,11 @@ Copy and paste this entire prompt into Circuit AI / the Builder:
 
 ---
 
-This is Phase 1: experimental paper trading for the larger "LYTA Pump.fun Grok Bot Trading Desk" project.
+This is Phase 1: experimental paper-only trading for the LYTA trading desk workspace.
 
 Build a 12-bot Grok desk agent specifically for PAPER TRADING on the Circuit platform using the Papertrade venue.
 
-The user has only ~$6 and wants to run it in paper mode (circuit run --paper or simulated funds). The goal is to observe what the desk actually does — how the 12 personalities vote, reach consensus, and attempt trades — even with tiny capital. This is purely for learning and validation before later adapting the same desk logic to pump.fun memecoin trading.
+The user has only ~$6 and wants to run it in paper mode (circuit run --paper or simulated funds). The goal is to observe what the desk actually does — how the 12 personalities vote, reach consensus, and attempt trades — even with tiny capital. This is purely for learning and validation before later adapting the same desk logic to spot memecoin trading.
 
 Key requirements:
 - Target: Papertrade venue (synthetic perps)
@@ -36,7 +36,7 @@ Tagline: 12-bot desk for paper trading on Papertrade with tiny capital
 
 Make it relevant for running in paper mode on the Circuit platform with only a few dollars.
 
-This is the first experiment only. After validating the 12-bot voting in paper, the plan is to adapt the same desk personalities for the main Pump.fun memecoin trading desk project (using pump.fun-style signals like is_pump, analyst_score, rug risk, liquidity, new launches).
+This is the first paper-only experiment on Circuit Papertrade. After validating the 10-agent spot desk, test on other spot venues.
 
 Paper trade first (simulated funds), then move to real money on the platform later when ready.
 

@@ -34,7 +34,7 @@ Migrate-ability is shared. Those Hermes commands exist; they are not a reason to
 
 ## What this note does not claim
 
-- No live capital. No pump.fun this pass. Phase 1 remains Circuit papertrade BTC/ETH.
+- No live capital. Paper-only spot trading on Circuit Papertrade.
 - Tightened 7/12 stays. Do not strip settings to make `circuit check` pass.
 - A zip named like this repo can be a 2-file review pack. Keep packs in scratch; do not copy them over `comparison_showcase.md` / `showcase.html`.
 - Sibling adapters named in a review (`agent-turn-receipts`, `authority-lightcone-auditor`, `agent-quiescence-receipts`, `token-null-router`, `micro-pm-okx`, `hermes-studio`, `lyta-shield`) are **unwired here**. A citation is not a wire-in.

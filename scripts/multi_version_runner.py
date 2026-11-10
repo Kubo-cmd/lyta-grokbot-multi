@@ -26,7 +26,7 @@ from typing import Dict, List, Any, Optional
 from dataclasses import dataclass, field
 
 sys.path.insert(0, str(Path(__file__).parent))
-import pumpfun_desk_simulator as pfs
+import paper_desk_simulator as pfs
 
 @dataclass
 class VersionResult:
@@ -96,7 +96,7 @@ class VersionRunner(threading.Thread):
         result = VersionResult(version=self.version_id)
 
         # Get the original run function
-        original_run = pfs.run_pumpfun_desk
+        original_run = pfs.run_paper_desk
 
         # Create a wrapper that uses this version's parameters
         def versioned_run(collateral: float = 501.0, iterations: int = 50):
@@ -139,7 +139,7 @@ class VersionRunner(threading.Thread):
 
                 # Run the main function which handles exits + buys
                 try:
-                    pfs.run_pumpfun_desk()
+                    pfs.run_paper_desk()
                 except Exception as e:
                     log(f"Cycle {cycles} error: {e}")
 

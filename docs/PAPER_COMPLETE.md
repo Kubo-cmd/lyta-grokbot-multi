@@ -36,9 +36,9 @@
 The grokbot trading desk memecoin strategy is **paper-complete** on this machine:
 
 - `paper_desk_simulator.py` — Paper Observer v3 simulator (continuous screening, long-only)
-- `pumpfun_desk_simulator.py` — 12-bot consensus simulator (preserved, not active)
+- `paper_desk_simulator.py` — 10-agent spot trading simulator (preserved, not active)
 - `STRATEGY_FINALIZE.md` — the "bet" document
-- Circuit prompts under `lyta-grok-desk/` (Circuit paper paper, paper/pumpfun, pumpfun exit prompts)
+- Circuit prompts under `lyta-grok-desk/` (Circuit paper, paper/paper, paper exit prompts)
 
 ## What "done" is not
 

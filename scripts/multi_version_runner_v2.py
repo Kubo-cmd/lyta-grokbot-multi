@@ -26,7 +26,7 @@ from typing import Dict, List, Any, Optional
 from dataclasses import dataclass, field
 
 sys.path.insert(0, str(Path(__file__).parent))
-import pumpfun_desk_simulator as pfs
+import paper_desk_simulator as pfs
 
 @dataclass
 class VersionResult:
@@ -141,7 +141,7 @@ class VersionRunner(threading.Thread):
                 PO_POSITION_MULT = profile.get('PO_POSITION_MULT', 1.0)
 
                 try:
-                    pfs.run_pumpfun_desk()
+                    pfs.run_paper_desk()
                 except Exception as e:
                     print(f"  [{self.version_id}] Cycle {cycles} error: {e}")
 

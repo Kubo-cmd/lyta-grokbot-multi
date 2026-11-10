@@ -13,7 +13,7 @@ The trading desk uses a **dual-platform separation**:
 | Component | Platform | Role | Always-On? |
 |-----------|----------|------|------------|
 | **Grok Bot (server)** | Managed cloud VM (xAI) | Coordination, routing, persistent state, task orchestration | ✅ Yes — cloud stays up even when laptop closes |
-|| **OpenBot (agents)** | Local desktop workspace (nightly-labs) | 10 trading agents — circuit paper, signal, analyst, trader, risk, scout, devwatch, trencher, pumpfun, grok-bot | Runs on local machine; agents active when machine is on |
+|| **OpenBot (agents)** | Local desktop workspace (nightly-labs) | 10 trading agents — circuit paper, signal, analyst, trader, risk, scout, devwatch, trencher, spot, grok-bot | Runs on local machine; agents active when machine is on |
 
 **Why this split:**
 - Grok Bot provides **always-on availability** — the server stays running when your laptop is closed
@@ -50,8 +50,8 @@ The trading desk uses a **dual-platform separation**:
 | Agent | Role | Status |
 |-------|------|--------|
 | `lyta-grok-desk-paper` | Circuit BTC/ETH papertrade (Phase 1) | Active |
-| `lyta-grok-desk-pumpfun` | Pump.fun memecoin trading (Phase 2) | Idle until triggered |
-| `lyta-grok-desk-signal` | Scanner — pump.fun opportunity signals | Active |
+| `lyta-grok-desk-spot` | Circuit Papertrade spot trading (paper-only, 10-agent consensus) | Idle until triggered |
+| `lyta-grok-desk-signal` | Scanner — market signal aggregation | Active |
 | `lyta-grok-desk-analyst` | Rug risk, liquidity, score evaluation | Active |
 | `lyta-grok-desk-trader` | Micro-sizing execution ($0.20–$0.85) | Active |
 | `lyta-grok-desk-risk` | Risk (3% risk, 5x max, stand-down) | Active |
@@ -78,7 +78,7 @@ flowchart TB
     subgraph OpenBot["💻 OpenBot (Local Agents)"]
         direction TB
         Paper["paper<br/>Circuit BTC/ETH"]
-        Pumpfun["pumpfun<br/>Phase 2"]
+        Spot["spot<br/>Phase 1"]
         Signal["signal<br/>Scanner"]
         Analyst["analyst<br/>Risk/Liquidity"]
         Trader["trader<br/>Micro-sizing"]
@@ -106,7 +106,7 @@ flowchart TB
     RouteDispatch -->|"route to"| GrokBot
 
     Paper --> pubState
-    Pumpfun --> pubState
+    Spot --> pubState
     Signal --> pubState
     Analyst --> pubState
     Trader --> pubState
@@ -117,7 +117,7 @@ flowchart TB
     GrokBot --> pubState
 
     pubState -->|FIFO file / ACP| Paper
-    pubState -->|FIFO file / ACP| Pumpfun
+    pubState -->|FIFO file / ACP| Spot
     pubState -->|FIFO file / ACP| Signal
     pubState -->|FIFO file / ACP| Analyst
     pubState -->|FIFO file / ACP| Trader
@@ -128,7 +128,7 @@ flowchart TB
     pubState -->|FIFO file / ACP| GrokBot
 
     Direction -->|publishes params| Paper
-    Direction -->|publishes params| Pumpfun
+    Direction -->|publishes params| Spot
     PaperMode -. "no live capital" .-> Paper
     TrendMode -. "no live capital" .-> Trencher
 
@@ -173,7 +173,7 @@ flowchart TB
 │  OPENBOT (AGENTS) — local desktop workspace                     │
 │                                                                 │
 │  Agent 1: lyta-grok-desk-paper  (Circuit paper trading)         │
-│  Agent 2: lyta-grok-desk-pumpfun (Pump.fun memecoin trading)    │
+│  Agent 2: lyta-grok-desk-paper (spot trading, paper)    │
 │  Agent 3: lyta-grok-desk-signal  (Signal generation)            │
 │  Agent 4: lyta-grok-desk-analyst (Analyst evaluation)           │
 │  Agent 5: lyta-grok-desk-trader  (Micro-sizing execution)       │

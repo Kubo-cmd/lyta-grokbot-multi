@@ -2,7 +2,7 @@
 // Circuit SDK ambient declarations (resolved by Circuit runtime at load time)
 /// <reference path="circuit.d.ts" />
 // === LYTA GrokBot Signal Agent ===
-// Scans for incoming opportunities: new pump.fun launches, trending tokens,
+// Scans for incoming opportunities: new market signals, trending tokens,
 // unusual momentum, and feeds signals to the desk.
 // Pure research — never calls positions.open.
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -10,9 +10,9 @@ exports.run = void 0;
 const run = async (agent) => {
     await agent.log(`=== 📡 LYTA GROKBOT SIGNAL — scanning for opportunities ===`);
     const signals = [];
-    // 1. New pump.fun launches (Phase 2 adapter)
+    // 1. New market signals (paper-only first)
     try {
-        const launches = await agent.pumpfun?.launchScanner?.();
+        // placeholder — paper-only signals from circuit terminal
         if (launches && Array.isArray(launches) && launches.length > 0) {
             for (const l of launches.slice(0, 5)) {
                 const age = l.ageSeconds ?? l.age ?? 120;
@@ -22,7 +22,7 @@ const run = async (agent) => {
                 const rising = vol > 1000;
                 if (isNew && rising && holders > 40) {
                     signals.push({
-                        type: "pump.fun:launch",
+                        type: "signal:alternate",
                         name: `${l.name ?? "MEME"}-${l.symbol ?? ""}`.slice(0, 20),
                         confidence: 0.85, detail: `age=${age}s vol=${vol} holders=${holders}`,
                     });

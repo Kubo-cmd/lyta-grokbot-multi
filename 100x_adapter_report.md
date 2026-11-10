@@ -1,6 +1,6 @@
 # 100x Adapter / Market Coverage — Final Report
 
-**Project:** lyta-grokbot-multi — pump.fun Grok Bot Trading Desk  
+**Project:** lyta-grokbot-multi — spot Grok Bot Trading Desk  
 **Date:** 2026-11-01  
 **Routing decision from "do what is best":** 100x adapter/market coverage
 
@@ -8,7 +8,7 @@
 
 ## 1. Problem Statement
 
-Original `pumpfun_desk_simulator.py` had a single paper fallback adapter.
+Original `paper_desk_simulator.py` had a single paper fallback adapter.
 The 100x route requires **≥100 adapters** covering multiple data sources and
 market types (Solana, Ethereum, BNB, etc.) into a single trading loop.
 
@@ -90,7 +90,7 @@ for adapter_class in sim.AdapterRegistry.get_all():
 | `DataAdapter` ABC has `fetch_candidates` + `make_market` | **OK** |
 | `AdapterRegistry` has all 5 methods | **OK** |
 | `Market` dataclass | **OK** |
-| `PumpFunDataAdapter` implements both ABC methods | **OK** |
+| `SpotDataAdapter` implements both ABC methods | **OK** |
 | `DexScreenerDataAdapter` implements both ABC methods | **OK** |
 | Hardware baseline: `37` DexScreener markets loaded | **OK** |
 | 100x trading loop iterates 96+ adapters | **OK** |
@@ -113,7 +113,7 @@ for adapter_class in sim.AdapterRegistry.get_all():
 ### Phase 2 — Add 90+ real adapters
 || Source | Chain | Adapter |
 ||---|---|---|
-|| pump.fun live API (real key) | multiple | `PumpFunDataAdapter` |
+|| Circuit papertrade API (real key) | multiple | `SpotDataAdapter` |
 || DexScreener | Solana | `DexScreenerDataAdapter` |
 || GeckoTerminal | Solana | `GeckoTerminalDataAdapter` |
 || Birdeye | multiple | `BirdeyeDataAdapter` |
@@ -124,7 +124,7 @@ for adapter_class in sim.AdapterRegistry.get_all():
 Add these to the registry registration block in the main block.
 
 ### Phase 3 — Diversification logic
-- Split into data-source pools (pump.fun, DexScreener, Gecko, etc.)
+- Split into data-source pools (spot, DexScreener, Gecko, etc.)
 - Split into chain pools (Solana, Ethereum, BNB, Base, etc.)
 - Apply 3% risk per adapter, 5x max
 - 5+ bot consensus required before any buy
@@ -133,7 +133,7 @@ Add these to the registry registration block in the main block.
 
 ## 5. Key Facts to Remember
 
-- `PUMPFUN_API_KEY` is now only used for pump.fun live API access.
+- `SPOT_API_KEY` is now only used for Circuit papertrade API access.
 - All adapters return `Market` objects — trading loop is source-agnostic.
 - No real capital — paper mode only.
 - The adapter registry loads all classes at startup; failures are caught per-adapter.

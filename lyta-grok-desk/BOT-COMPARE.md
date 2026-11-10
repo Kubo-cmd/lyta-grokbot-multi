@@ -34,7 +34,7 @@ how the two compare on privacy, cost, and locality.
 
 **Grok bot offers:**
 - Cloud paper-trading execution on the same local-first stack
-- On-chain scanning and pump.fun signal monitoring
+- On-chain scanning and spot signal monitoring
 - 10-agent circuit.ts workspace (vs. 7 named agents)
 - Market-hours automated scheduling
 - Closed-loop chat and human-in-the-loop approval: none
@@ -43,7 +43,7 @@ how the two compare on privacy, cost, and locality.
 
 Grok bot is a paper-trading variant, not a general-purpose agent host.
 Its strengths are execution-focused: live market coverage, on-chain scanning,
-and pump.fun signal monitoring. Its limitations are also execution-focused:
+and spot signal monitoring. Its limitations are also execution-focused:
 it does not run as a local desktop agent host, so it has no mobile app,
 no voice/dictation, no backup models, no teams/roles, and no local data
 storage for chat and files.
