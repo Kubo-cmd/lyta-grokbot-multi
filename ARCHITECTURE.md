@@ -16,9 +16,29 @@ The trading desk uses a **dual-platform separation**:
 || **OpenBot (agents)** | Local desktop workspace (nightly-labs) | 10 trading agents — circuit paper, signal, analyst, trader, risk, scout, devwatch, trencher, spot, grok-bot | Runs on local machine; agents active when machine is on |
 
 **Why this split:**
-- Grok Bot provides **always-on availability** — the server stays running when your laptop is closed
+- Grok Bot provides **always-on availability** — the server stays running when your laptop closes
 - OpenBot provides **multi-agent flexibility** — runs different coding agents (Codex, Claude, Grok CLI, etc.) in one workspace with inter-agent communication
 - The **server/agent split** means the coordination layer is independent of the execution layer
+
+### 2.3 Platform Comparison (OpenBot vs Grok Bot)
+
+| Question | OpenBot | Grok Bot |
+|----------|---------|----------|
+| Local-first execution | ✅ Yes | ✅ Yes (cloud computer always on, local mode available) |
+| Data stays on your machine | ✅ Yes | ❌ No (cloud) |
+| Cost model | Free (non-commercial) | Self-hosted/managed plan |
+| Mobile app | ❌ No | ✅ Yes (iOS/Android) |
+| Voice / dictation | ❌ No | ✅ Yes (voice input, voice chat) |
+| Backup models | ❌ No | ✅ Yes (cloud backup, multiple plans) |
+| Teams / roles | ❌ No | ✅ Yes (group chats, parallel bots, roles) |
+| Chat / human-in-loop | ❌ No | ✅ Yes (text-thread interface) |
+| Schedule automation | ✅ Yes (local sweeps) | ✅ Yes (cloud routines) |
+| Source code | ✅ Open (openbot.io) | ✅ Open (lyta-grokbot-multi) |
+
+**Notes:**
+- OpenBot runs **local agents** — agents execute on your machine, data stays on your machine
+- Grok Bot is the **cloud coordination layer** — always-on, accessible from mobile, voice, chat, team workflows
+- Both are open-source: OpenBot `openbot.io`, Grok Bot `lyta-grokbot-multi`
 
 ---
 
