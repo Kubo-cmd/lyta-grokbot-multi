@@ -1,6 +1,6 @@
 [platform]
 name = "lyta-grok-desk-pumpfun"
-tagline = "10-agent spot trading desk — OpenBot + Grok Bot"
+tagline = "12-agent spot trading desk — OpenBot + Grok Bot"
 category = "experimental"
 walletVmFamily = "evm"
 agentId = "5ccdeee2-3268-5173-ad57-d2578079f0fc"

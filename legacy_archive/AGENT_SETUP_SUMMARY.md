@@ -8,7 +8,7 @@ All 7 agents are configured in the OpenBot agent store at:
 | # | Agent ID | Role | Tagline | Routines |
 |---|----------|------|---------|----------|
 | 0 | `lyta-grok-desk-paper` | Phase 1 Circuit Paper Trading | 12-bot Circuit Papertrade desk · $2–$6 paper trading · paper-only | 1 |
-| 1 | `lyta-grok-desk-pumpfun` | Spot trading (future Phase) | 10-agent spot trading desk · paper-only | 1 |
+| 1 | `lyta-grok-desk-pumpfun` | Spot trading (future Phase) | 12-agent spot trading desk · paper-only | 1 |
 | 2 | `grok-bot` | Primary Routing Bot | Routes any task to the right LYTA agent | 0 |
 | 3 | `lyta-grok-desk-signal` | Signal Generator | Pump.fun signal generator · no execution · paper-only | 1 |
 | 4 | `lyta-grok-desk-analyst` | Memecoin Analyst | Evaluates tokens for rug risk, liquidity, analyst_score | 1 |
