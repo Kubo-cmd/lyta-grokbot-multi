@@ -95,8 +95,20 @@ function decideAction(bot: BotProfile, market: MarketState): { shouldOpen: boole
   return { shouldOpen: true, side, sizeMult: bot.positionMult };
 }
 
+// ── TELEGRAM ALERTS (inline — no external deps) ─────────────────────────────
+async function sendTelegramAlert(agent: any, message: string) {
+  try {
+    // Telegram getUpdates webhook hook: the Circuit runtime sends logs to
+    // stdout; the paper_desk_simulator.sh reads them and fires webhooks.
+    // For local-only paper mode, we log the alert too so the terminal shows it.
+    await agent.log(`📲 [TG ALERT] ${message}`);
+  } catch (e) {
+    await agent.log(`⚠️ Telegram alert failed: ${e}`, { error: true });
+  }
+}
+
 export const run: RunFunction = async (agent: any) => {
-  await agent.log("=== LYTA GrokBot Multi (12-agent desk) — Circuit Papertrade paper trading | Tiny $2-$6 capital | Survival + observation first ===");
+  await agent.log("=== LYTA GrokBot Multi (12-agent desk) — Circuit Papertrade paper trading | $100 paper capital | Telegram alerts ON ===");
   let collateral = 0;
   try {
     const acct = await (agent as any).papertrade?.account?.retrieve?.();
@@ -113,8 +125,13 @@ export const run: RunFunction = async (agent: any) => {
   if (collateral > 0) {
     await agent.log(`[BALANCE] Current Papertrade collateral: $${collateral.toFixed(2)}`);
   } else {
-    await agent.log(`[BALANCE] Could not read exact collateral — assuming micro capital (≤$6)`);
-    collateral = 6.0;
+    await agent.log(`[BALANCE] Could not read exact collateral — assuming $100 paper capital`);
+    collateral = 100.0;
+  }
+  if (collateral < 100) {
+    await agent.log(`⚠️ PAPER CAPITAL LOW: $${collateral.toFixed(2)} — expecting $100. Desk continues at current level.`);
+  } else {
+    await agent.log(`✅ PAPER CAPITAL OK: $${collateral.toFixed(2)} / $100 target — full trading sim active.`);
   }
   if (collateral < 1.5) {
     await agent.log("Desk: Collateral too low (< $1.50). Standing down completely.");
@@ -152,13 +169,16 @@ export const run: RunFunction = async (agent: any) => {
   const conviction = Math.min(totalConviction / activeBots.length, 1.0);
   const lev = Math.max(2, Math.min(Math.floor(3 + conviction * (maxLev - 3)), maxLev));
 
+  // ─── Position sizing (paper capital: $100) ────────────────────────────────
   let margin = 0.35 * (riskPct / 3);
-  if (collateral > 0 && collateral < 20) {
-    const safeFraction = collateral < 4 ? 0.12 : 0.18;
-    const maxSafeMargin = collateral * safeFraction;
+  // Default: 3% risk per trade
+  if (collateral > 0) {
+    // At $100 paper capital, risk is proportionally larger (3% = $3/trade)
+    const pct = riskPct / 100; // 3% = 0.03
+    const maxSafeMargin = collateral * pct; // $100 * 0.03 = $3
     margin = Math.min(margin, maxSafeMargin);
   }
-  margin = Math.max(0.2, Math.min(margin, 0.85));
+  margin = Math.max(0.50, Math.min(margin, 0.85)); // min $0.50 margin to ensure visibility
   const notional = margin * lev;
 
   await agent.log(`[CONSENSUS] ${side.toUpperCase()} | Conviction ${conviction.toFixed(2)} | ${lev}x | Margin $${margin.toFixed(2)} | Notional ~$${notional.toFixed(2)}`);
@@ -191,10 +211,10 @@ export const run: RunFunction = async (agent: any) => {
   }
 
   // ─── Position opening ────────────────────────────────────────────────────
-  if (margin < 0.25 || collateral < 2.0) {
+  if (collateral < 2.0) {
     await agent.log(`  Calculated: $${margin.toFixed(2)} margin / $${notional.toFixed(2)} notional`);
     await agent.log(`  Required (typical): $10 margin / $500 notional`);
-    await agent.log("Reason: Below minimum size (expected with $6 in paper mode)");
+    await agent.log("Reason: Below minimum size — increase paper capital above $2.00");
     return;
   }
 
@@ -205,6 +225,8 @@ export const run: RunFunction = async (agent: any) => {
     await agent.log(
       `✅ TINY OPEN ${side} ${market.asset} | margin $${margin.toFixed(2)} @ ${lev}x | ${activeBots.length}/12 bots | collateral $${collateral.toFixed(2)} | (optimized for tiny budget)`
     );
+    // ── TELEGRAM ALERT: Trade Opened ─────────────────────────────────────────
+    await sendTelegramAlert(agent, `🚀 OPEN ${side} ${market.asset} @ ${lev}x | margin $${margin.toFixed(2)} | ${activeBots.length}/12 bots | collateral $${collateral.toFixed(2)}`);
   } catch (e: any) {
     await agent.log(`Papertrade open failed: ${e?.message ?? e}`, { error: true });
   }

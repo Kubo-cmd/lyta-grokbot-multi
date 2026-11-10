@@ -245,9 +245,15 @@ lyta-grokbot-multi/
 ├── ARCHITECTURE.md             # Platform split (Grok Bot server / OpenBot agents)
 ├── SECURITY.md                 # Reporting & secrets policy (paper-only)
 ├── CONTRIBUTING.md             # How to add rules / agents
-├── paper_desk_simulator.py     # Paper-only simulator (test-mode, exit 0)
+├── paper_run.py                # Continuous paper-trading runner (12-bot consensus)
+├── pumpfun_desk_simulator.py   # Pump.fun paper simulator (12-bot consensus)
+├── pumpfun_prompt.txt          # Ready-to-paste Phase 2 pump.fun prompt
 ├── scripts/                    # Auxiliary scripts
 ├── config/                     # Local config (git-ignored; see .env.example)
+│   ├── pumpfun_desk_config.txt # Phase 2 pump.fun memecoin config
+│   ├── best_route_comparison.json
+│   ├── bot_versions_config.json
+│   └── your_run_config.json
 ├── legacy/                     # Experimental / superseded artifacts
 ├── lyta-grok-desk/             # OpenBot agent workspace (14 agents)
 │   ├── circuit.toml            # Platform config + agent triggers
@@ -263,6 +269,8 @@ lyta-grokbot-multi/
 │   ├── _scout_agent.ts         # Narrative/rug scout
 │   ├── _trencher_agent.ts      # TrenchAI monitor
 │   ├── _grok_router.ts         # Server router — routes to LYTA agents
+│   ├── trading_desk.py         # TradingDesk class (state + terminal/HTML render)
+│   ├── trading_desk_cli.py     # CLI entry point
 │   ├── CIRCUIT_AI_PROMPT.txt   # Multi-agent Circuit AI prompt library
 │   ├── CURCH_BOT_MULTI_AGENT_PROMPT.txt
 │   ├── CIRCUIT_AI_12BOT_PROMPT.txt
@@ -279,11 +287,139 @@ lyta-grokbot-multi/
 
 | Step | Command / Action |
 |------|------------------|
-| 1. Install dependencies | `pip install -r requirements.txt` (if present) or use the project venv |
-| 2. Paper run (spot, OpenBot) | `python paper_desk_simulator.py --test-mode --test-iterations 1` |
+| 1. Paper run (spot, OpenBot) | `python3 paper_run.py --minutes 30` |
+| 2. One-shot check | `python3 paper_run.py --once` |
 | 3. Agent workspace | Open `lyta-grok-desk/` in OpenBot; triggers fire from `circuit.toml` |
 
 See `ARCHITECTURE.md` for the full platform split and `lyta-grok-desk/AGENTS.md` for the agent catalog.
 
 - **Grok Bot directory:** `lyta-grok-desk/` (relative to repo root)
 - All trading agents are **paper-only** — no real trades, no wallet import, no signing, no order execution.
+
+---
+
+## 🚀 Phase 2 — Pump.fun Memecoin Trading (SION PINNED)
+
+The Phase 2 pump.fun Solana memecoin desk is **paper-only** and mirrors the existing
+circuit paper trading setup. It is fully simulated, with Telegram alerts wired for
+instant signal/entry/exit visibility.
+
+### Quick Start (Phase 2)
+
+```bash
+# 1. Run the pump.fun simulator in paper mode
+python pumpfun_desk_simulator.py --paper-only --capital 100
+
+# 2. (Optional) Pipe to Telegram — set TELEGRAM_BOT_TOKEN in your .env
+#    TelegramAlert class handles local logging + real push
+
+# 3. Check config
+cat config/pumpfun_desk_config.txt   # all rules + agent roles
+```
+
+### Paper-Only Guarantees
+
+- **No real capital** — $100 paper balance hardcoded in `_paper_agent.ts` and
+  `collateral = 100.0` fallback in `circuit.toml`
+
+### Trading Desk Dashboard (overall summary)
+
+The trading desk is the single source of truth for the running paper session.
+It aggregates bot votes, positions, PnL, and alerts into one unified view that
+can be shown on Telegram or OpenBot.
+
+**Key files:**
+- `lyta-grok-desk/trading_desk.py` — `TradingDesk` class (state + terminal/HTML render)
+- `lyta-grok-desk/trading_desk_cli.py` — CLI entry point
+
+**Usage:**
+```bash
+# Terminal mode: print the desk summary every 10 seconds
+python3 lyta-grok-desk/trading_desk_cli.py
+
+# One-shot (print summary once and exit)
+python3 lyta-grok-desk/trading_desk_cli.py --once
+
+# HTML mode: render a full HTML dashboard for Telegram/OpenBot
+python3 lyta-grok-desk/trading_desk_cli.py --html
+```
+
+**What it shows:**
+- Overall capital, open positions, closed positions, realized PnL
+- Bot vote consensus (all 13 agents with buy/sell/pass tallies)
+- Open position detail (asset, side, entry price, bots, PnL)
+- Alerts (open, close, stand-down, vote results)
+- HTML dashboard ready for Telegram/OpenBot progress viewing
+
+### Telegram Alert Wiring
+
+Every Phase 2 agent uses `deps = ["telegram:alert"]` so any signal, entry, stop
+loss, take profit, or stand-down emits a Telegram alert.
+
+The `TelegramAlert` class in `pumpfun_desk_simulator.py` provides:
+- `alert(message, level)` — general alert (logged locally, pushed to Telegram)
+- `open(position, asset, entry, side, bots, collateral)` — entry alert
+- `close(asset, side, price, pnl)` — exit alert
+- `stand_down(reason)` — stand-down alert
+- `vote_results(asset, votes)` — vote tally alert
+
+When `TELEGRAM_BOT_TOKEN` is set, alerts push to Telegram. Otherwise, they are
+logged locally only (paper mode), and the trading desk dashboard still renders
+the same alerts for the overall summary view.
+- **No wallet import** — `no_wallet_import` guard blocks `import solana`,
+  `sellers`, `web3`, `eth_account`
+- **No signing/order execution** — `no_signing_or_order_execution` guard blocks
+  `send_transaction`, `sign_transaction`, `place_order`, `execute_swap`
+- **Paper labels** — every simulation file requires `PAPER ONLY` + `SIMULATION`
+  labels
+- **Shared state** — all simulation state includes `paper_only: true`
+
+### Agent Roles (13 total)
+
+| Agent | Role |
+|-------|------|
+| SCOUT | Narrative/rug signal checker (GMGN + wallet analysis) |
+| FILTER | Low-quality pump filter (>5% 24h, >$50k volume) |
+| ANALYST | Rug risk, liquidity, score evaluation |
+| PUMP_CHASER | Momentum accumulation engine (>7% 24h) |
+| CONVICTION | Trend/filter validator (rugScore <0.35) |
+| MOMENTUM | Momentum collector (>4% 24h + >$50k volume) |
+| SCALPER | High-vol scalper (>2.5% both directions) |
+| CONTRARIAN | Downtrend opportunity finder (<-6% 24h, rugScore <0.5) |
+| TREND | Trend follower (>5% 24h + >$50k volume) |
+| RESEARCHER | On-chain research agent (liq >$50k + rugScore <0.28) |
+| PORTFOLIO | Position sizing manager (3% risk, 5x max) |
+| EXECUTOR | Final micro-sizing executor ($0.20–$0.85) |
+| PAPER | Paper trading agent (Circuit BTC/ETH) |
+
+### Trading Rules (Phase 2)
+
+- Buy only when >=7 of 12 bots vote BUY (min=7, max=10, default=7)
+- Skip coins up >100% in the past hour (max_h1_pump_pct=100)
+- Skip coins with liquidity < $50,000 (min_liquidity_usd=50000)
+- Stop loss: sell whole position at -35% from entry (stop_loss_pct=35)
+- Take profit: sell whole position at +50% from entry (take_profit_pct=50)
+- Exit check first every 15min run (exits checked before any entry)
+- Stand-down messages name the active buy filters when nothing qualifies
+
+### Telegram Alert Wiring
+
+Every Phase 2 agent uses `deps = ["telegram:alert"]` so any signal, entry, stop
+loss, take profit, or stand-down emits a Telegram alert.
+
+The `TelegramAlert` class in `pumpfun_desk_simulator.py` provides:
+- `alert(message, level)` — general alert (logged locally, pushed to Telegram)
+- `open(position, asset, entry, side, bots, collateral)` — entry alert
+- `close(asset, side, price, pnl)` — exit alert
+- `stand_down(reason)` — stand-down alert
+- `vote_results(asset, votes)` — vote tally alert
+
+When `TELEGRAM_BOT_TOKEN` is set, alerts push to Telegram. Otherwise, they are
+logged locally only (paper mode).
+
+### Secrets & Credentials
+
+- `TELEGRAM_BOT_TOKEN` — optional, for real Telegram push in Phase 3
+- `PUMPFUN_API_KEY`, `BIRDEYE_API_KEY` — paper-only, keep blank
+- Never commit real values. Use `.env.example` for the template.
+

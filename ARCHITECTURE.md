@@ -20,25 +20,25 @@ The trading desk uses a **dual-platform separation**:
 - OpenBot provides **multi-agent flexibility** — runs different coding agents (Codex, Claude, Grok CLI, etc.) in one workspace with inter-agent communication
 - The **server/agent split** means the coordination layer is independent of the execution layer
 
-### 2.3 Platform Comparison (OpenBot vs Grok Bot)
+### 2.3 Platform Comparison (Yes/No)
 
-| Question | OpenBot | Grok Bot |
-|----------|---------|----------|
-| Local-first execution | ✅ Yes | ✅ Yes (cloud computer always on, local mode available) |
-| Data stays on your machine | ✅ Yes | ❌ No (cloud) |
-| Cost model | Free (non-commercial) | Self-hosted/managed plan |
-| Mobile app | ❌ No | ✅ Yes (iOS/Android) |
-| Voice / dictation | ❌ No | ✅ Yes (voice input, voice chat) |
-| Backup models | ❌ No | ✅ Yes (cloud backup, multiple plans) |
-| Teams / roles | ❌ No | ✅ Yes (group chats, parallel bots, roles) |
-| Chat / human-in-loop | ❌ No | ✅ Yes (text-thread interface) |
-| Schedule automation | ✅ Yes (local sweeps) | ✅ Yes (cloud routines) |
-| Source code | ✅ Open (openbot.io) | ✅ Open (lyta-grokbot-multi) |
+|| Question | Grok bot | OpenBot ||
+|----------|----------|---------|
+|| Local-first execution | ✅ Yes (cloud computer always on, local mode available) | ✅ Yes |
+|| Data stays on your machine | ❌ No (cloud) | ✅ Yes |
+|| Cost model | Self-hosted/managed plan | Free (non-commercial) |
+|| Mobile app | ✅ Yes (iOS/Android) | ✅ Yes (iPhone/Android) |
+|| Voice / dictation | ✅ Yes (voice input, voice chat) | ✅ Yes (31 languages) |
+|| Backup models | ✅ Yes (cloud backup, multiple plans) | ✅ Yes |
+|| Teams / roles | ✅ Yes (group chats, parallel bots, roles) | ✅ Yes (roles, shared channels) |
+|| Chat / human-in-loop | ✅ Yes (text-thread interface) | ✅ Yes (approve actions) |
+|| Schedule automation | ✅ Yes (cloud routines) | ✅ Yes (local sweeps) |
+|| Source code | ✅ Open (lyta-grokbot-multi) | ✅ Open (openbot.io) |
 
 **Notes:**
-- OpenBot runs **local agents** — agents execute on your machine, data stays on your machine
-- Grok Bot is the **cloud coordination layer** — always-on, accessible from mobile, voice, chat, team workflows
-- Both are **public working tree**: OpenBot `openbot.io` (open-source), Grok Bot `lyta-grokbot-multi` (public GitHub repo)
+- **Grok bot** is the cloud coordination layer — always-on, accessible from mobile, voice, chat, team workflows
+- **OpenBot** runs local agents — agents execute on your machine, data stays on your machine
+- Both platforms are open-source: OpenBot `openbot.io`, Grok Bot `lyta-grokbot-multi` (public GitHub repo)
 
 ---
 
@@ -240,11 +240,113 @@ This table separates **host capability** from **application architecture**.
 
 | Component | Purpose |
 |-----------|---------|
-| `paper_desk_simulator.py` | Paper trading simulation engine (config v3 + 12-bot consensus) |
-| `lyta-grok-desk/` | OpenBot agent workspace (index.ts, circuit.toml, prompts) |
-| `circuit_ai_prompt.txt` | Circuit AI parameter configuration |
-| `Trencher AI` | Secondary paper-only fixed-size copy |
-| `AGENTS.md` | OpenBot agent operating rules |
+|| `paper_desk_simulator.py` | Paper trading simulation engine (config v3 + 12-bot consensus) |
+|| `lyta-grok-desk/` | OpenBot agent workspace (index.ts, circuit.toml, prompts) |
+|| `circuit_ai_prompt.txt` | Circuit AI parameter configuration |
+|| `Trencher AI` | Secondary paper-only fixed-size copy |
+|| `AGENTS.md` | OpenBot agent operating rules |
+|| `pumpfun_desk_simulator.py` | Phase 2 pump.fun memecoin simulator (paper-only) |
+|| `pumpfun_adapter.py` | Pump.fun adapter + trade generator |
+|| `config/pumpfun_desk_config.txt` | Phase 2 config (trading rules, agent roles, guard gates) |
+
+---
+
+## 5b. Phase 2 — Pump.fun Memecoin Trading (Paper-Only)
+
+The Phase 2 pump.fun Solana memecoin desk is **paper-only** and mirrors the existing
+circuit paper trading setup. It is fully simulated, with Telegram alerts wired for
+instant signal/entry/exit visibility.
+
+### Paper-Only Guarantees
+
+- **No real capital** — $100 paper balance hardcoded in `_paper_agent.ts` and
+  `collateral = 100.0` fallback in `circuit.toml`
+- **No wallet import** — `no_wallet_import` guard blocks `import solana`,
+  `sellers`, `web3`, `eth_account`
+- **No signing/order execution** — `no_signing_or_order_execution` guard blocks
+  `send_transaction`, `sign_transaction`, `place_order`, `execute_swap`
+- **Paper labels** — every simulation file requires `PAPER ONLY` + `SIMULATION`
+  labels
+- **Shared state** — all simulation state includes `paper_only: true`
+
+### Agent Roles (13 total)
+
+| Agent | Role |
+|-------|------|
+| SCOUT | Narrative/rug signal checker (GMGN + wallet analysis) |
+| FILTER | Low-quality pump filter (>5% 24h, >$50k volume) |
+| ANALYST | Rug risk, liquidity, score evaluation |
+| PUMP_CHASER | Momentum accumulation engine (>7% 24h) |
+| CONVICTION | Trend/filter validator (rugScore <0.35) |
+| MOMENTUM | Momentum collector (>4% 24h + >$50k volume) |
+| SCALPER | High-vol scalper (>2.5% both directions) |
+| CONTRARIAN | Downtrend opportunity finder (<-6% 24h, rugScore <0.5) |
+| TREND | Trend follower (>5% 24h + >$50k volume) |
+| RESEARCHER | On-chain research agent (liq >$50k + rugScore <0.28) |
+| PORTFOLIO | Position sizing manager (3% risk, 5x max) |
+| EXECUTOR | Final micro-sizing executor ($0.20–$0.85) |
+| PAPER | Paper trading agent (Circuit BTC/ETH) |
+
+### Trading Rules (Phase 2)
+
+- Buy only when >=7 of 12 bots vote BUY (min=7, max=10, default=7)
+- Skip coins up >100% in the past hour (max_h1_pump_pct=100)
+- Skip coins with liquidity < $50,000 (min_liquidity_usd=50000)
+- Stop loss: sell whole position at -35% from entry (stop_loss_pct=35)
+- Take profit: sell whole position at +50% from entry (take_profit_pct=50)
+- Exit check first every 15min run (exits checked before any entry)
+- Stand-down messages name the active buy filters when nothing qualifies
+
+### Trading Desk Dashboard (overall summary)
+
+The trading desk is the single source of truth for the running paper session.
+It aggregates bot votes, positions, PnL, and alerts into one unified view that
+can be shown on Telegram or OpenBot.
+
+**Key files:**
+- `lyta-grok-desk/trading_desk.py` — `TradingDesk` class (state + terminal/HTML render)
+- `lyta-grok-desk/trading_desk_cli.py` — CLI entry point
+
+**Usage:**
+```bash
+# Terminal mode: print the desk summary every 10 seconds
+python3 lyta-grok-desk/trading_desk_cli.py
+
+# One-shot (print summary once and exit)
+python3 lyta-grok-desk/trading_desk_cli.py --once
+
+# HTML mode: render a full HTML dashboard for Telegram/OpenBot
+python3 lyta-grok-desk/trading_desk_cli.py --html
+```
+
+**What it shows:**
+- Overall capital, open positions, closed positions, realized PnL
+- Bot vote consensus (all 13 agents with buy/sell/pass tallies)
+- Open position detail (asset, side, entry price, bots, PnL)
+- Alerts (open, close, stand-down, vote results)
+- HTML dashboard ready for Telegram/OpenBot progress viewing
+
+### Telegram Alert Wiring
+
+Every Phase 2 agent uses `deps = ["telegram:alert"]` so any signal, entry, stop
+loss, take profit, or stand-down emits a Telegram alert.
+
+The `TelegramAlert` class in `pumpfun_desk_simulator.py` provides:
+- `alert(message, level)` — general alert (logged locally, pushed to Telegram)
+- `open(position, asset, entry, side, bots, collateral)` — entry alert
+- `close(asset, side, price, pnl)` — exit alert
+- `stand_down(reason)` — stand-down alert
+- `vote_results(asset, votes)` — vote tally alert
+
+When `TELEGRAM_BOT_TOKEN` is set, alerts push to Telegram. Otherwise, they are
+logged locally only (paper mode), and the trading desk dashboard still renders
+the same alerts for the overall summary view.
+
+### Secrets & Credentials
+
+- `TELEGRAM_BOT_TOKEN` — optional, for real Telegram push in Phase 3
+- `PUMPFUN_API_KEY`, `BIRDEYE_API_KEY` — paper-only, keep blank
+- Never commit real values. Use `.env.example` for the template.
 
 ---
 

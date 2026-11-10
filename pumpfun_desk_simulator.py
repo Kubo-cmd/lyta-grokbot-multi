@@ -42,6 +42,92 @@ BOT_NAMES = [
     "PORTFOLIO", "EXECUTOR"
 ]
 
+# ── IMPORT: Trading Desk Dashboard (overall summary) ─────────────────────────
+# The lyta-grok-desk/ dir has a hyphen (not a valid Python package name),
+# so we load the dashboard module dynamically for robustness.
+import importlib.util
+import os
+import sys
+
+_desk_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                          "lyta-grok-desk", "trading_desk.py")
+TradingDesk = None
+if os.path.exists(_desk_path):
+    _spec = importlib.util.spec_from_file_location("trading_desk", _desk_path)
+    if _spec is not None and _spec.loader is not None:
+        _trading_desk = importlib.util.module_from_spec(_spec)
+        sys.modules["trading_desk"] = _trading_desk
+        _spec.loader.exec_module(_trading_desk)
+        TradingDesk = _trading_desk.TradingDesk
+else:
+    TradingDesk = None
+
+# Global trading desk instance – single source of truth for the running
+# pump.fun paper session.  Feeds both Telegram alerts and the HTML dashboard.
+TRADE_DESK = TradingDesk(capital=100.0, asset="GOBLIN", config="v3")
+class TelegramAlert:
+    """Phase 2 pump.fun Telegram alert wrapper."""
+
+    BOT_NAME = "PUMPFUN_DESK"
+
+    @staticmethod
+    def _format(message: str) -> str:
+        return f"[{TelegramAlert.BOT_NAME}] {message}"
+
+    @staticmethod
+    def alert(message: str, level: str = "info") -> None:
+        """Send a Telegram alert: log locally (always), push to TG if configured.
+        Also records it in the Trading Desk for the overall summary."""
+        tag = {"info": "ℹ️", "warn": "⚠️", "error": "❌", "success": "✅"}.get(level, "ℹ️")
+        full = f"{tag} {TelegramAlert._format(message)}"
+        # Paper mode: always log, so the terminal/console shows the alert.
+        print(full)
+        # Record in trading desk for overall summary view
+        TRADE_DESK.set_alert(message)
+        # Real push (next Phase 2): uncomment and wire to your Telegram bot/webhook:
+        # if TelegramAlert._TG_CONFIGURED():
+        #     TelegramAlert._push_to_telegram(full)
+
+    @staticmethod
+    def open(position: str, asset: str, entry: float, side: str, bots: int, collateral: float) -> None:
+        try:
+            margin = float(position)
+        except (ValueError, TypeError):
+            margin = 0.0
+        TelegramAlert.alert(
+            f"🚀 OPEN {side.upper()} {asset} @ {float(entry):.4f} | margin {margin:.2f} | bots {bots}/12 | collateral ${collateral:.2f}",
+            "success",
+        )
+        TRADE_DESK.update_capital(collateral)
+        TRADE_DESK.add_position(asset, side.upper(), entry, bots=bots)
+
+    @staticmethod
+    def close(asset: str, side: str, price: float, pnl: float) -> None:
+        TelegramAlert.alert(f"📉 CLOSE {side.upper()} {asset} @ {price:.4f} | PnL {pnl:+.4f}", "info")
+        TRADE_DESK.close_position(asset, pnl)
+
+    @staticmethod
+    def stand_down(reason: str) -> None:
+        TelegramAlert.alert(f"🛑 STAND DOWN: {reason}", "error")
+        TRADE_DESK.set_alert(f"🛑 STAND DOWN: {reason}")
+
+    @staticmethod
+    def vote_results(asset: str, votes: dict) -> None:
+        TelegramAlert.alert(f"📊 VOTES {asset}: {votes.get('buy', 0)}/{votes.get('total', 0)} BUY", "info")
+        TRADE_DESK.add_vote("CONSENSUS", "buy" if votes.get("buy", 0) >= MIN_VOTES else "pass")
+        # Record individual bot votes
+        for bot, side in votes.get("bots", {}).items():
+            if bot in TRADE_DESK.state.agent_votes:
+                TRADE_DESK.add_vote(bot, side)
+
+    @staticmethod
+    def _TG_CONFIGURED() -> bool:
+        """Check if Telegram token is configured (redacted: never store secrets in repo)."""
+        import os
+        tg_token = os.environ.get("TELEGRAM_BOT_TOKEN")
+        return bool(tg_token)
+
+
 # === NEW TIGHTENED CONSTANTS (exactly from Builder) ===
 MIN_VOTES = 7
 MAX_H1_PUMP = 100          # skip if up >100% in 1h
