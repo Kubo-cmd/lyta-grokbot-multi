@@ -31,7 +31,7 @@ The trading desk uses a **dual-platform separation**:
 || Voice / dictation | ✅ Yes (voice input, voice chat) | ✅ Yes (31 languages) |
 || Backup models | ✅ Yes (cloud backup, multiple plans) | ✅ Yes |
 || Teams / roles | ✅ Yes (group chats, parallel bots, roles) | ✅ Yes (roles, shared channels) |
-|| Chat / human-in-loop | ✅ Yes (text-thread interface) | ✅ Yes (approve actions) |
+|| Chat / human-in-loop | ✅ Yes (text-thread interface) | ✅ Yes (chat, approve actions) |
 || Schedule automation | ✅ Yes (cloud routines) | ✅ Yes (local sweeps) |
 || Source code | ✅ Open (lyta-grokbot-multi) | ✅ Open (openbot.io) |
 

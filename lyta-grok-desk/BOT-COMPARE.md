@@ -6,8 +6,8 @@ how the two compare on privacy, cost, and locality.
 
 ## Quick Map
 
-|| Dimension | Grok bot | OpenBot |
-||---|---|---|
+|| Dimension | Grok bot | OpenBot ||
+|----------|----------|---------|
 || Type | Cloud paper trader + on-chain scanner | Local desktop agent host |
 || Agent framework | 12-agent circuit.ts workspace | 7 named agents (FIFO + messaging) |
 || Execution | Cloud server + local clients | Local desktop |

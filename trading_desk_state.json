@@ -1,11 +1,11 @@
 {
-  "capital": 118.66044325365617,
+  "capital": 107.12779439631912,
   "asset": "GOBLIN",
-  "ticks": 1,
+  "ticks": 39,
   "positions": 0,
   "total_votes": 12,
-  "last_update": "10:14:54",
-  "session_running": false,
+  "last_update": "10:20:26",
+  "session_running": true,
   "alerts": [],
   "votes": {
     "SCOUT": {
@@ -16,14 +16,14 @@
       "change24h": 0
     },
     "FILTER": {
-      "side": "pass",
+      "side": "buy",
       "score": 0,
       "liquidity": 0,
       "rug_risk": 0,
       "change24h": 0
     },
     "ANALYST": {
-      "side": "pass",
+      "side": "buy",
       "score": 0,
       "liquidity": 0,
       "rug_risk": 0,
@@ -58,7 +58,7 @@
       "change24h": 0
     },
     "CONTRARIAN": {
-      "side": "pass",
+      "side": "sell",
       "score": 0,
       "liquidity": 0,
       "rug_risk": 0,
@@ -72,14 +72,14 @@
       "change24h": 0
     },
     "RESEARCHER": {
-      "side": "pass",
+      "side": "buy",
       "score": 0,
       "liquidity": 0,
       "rug_risk": 0,
       "change24h": 0
     },
     "PORTFOLIO": {
-      "side": "pass",
+      "side": "buy",
       "score": 0,
       "liquidity": 0,
       "rug_risk": 0,
@@ -104,7 +104,7 @@
     },
     {
       "bot": "FILTER",
-      "side": "pass",
+      "side": "buy",
       "score": 0,
       "liquidity": 0,
       "rug_risk": 0,
@@ -112,7 +112,7 @@
     },
     {
       "bot": "ANALYST",
-      "side": "pass",
+      "side": "buy",
       "score": 0,
       "liquidity": 0,
       "rug_risk": 0,
@@ -152,7 +152,7 @@
     },
     {
       "bot": "CONTRARIAN",
-      "side": "pass",
+      "side": "sell",
       "score": 0,
       "liquidity": 0,
       "rug_risk": 0,
@@ -168,7 +168,7 @@
     },
     {
       "bot": "RESEARCHER",
-      "side": "pass",
+      "side": "buy",
       "score": 0,
       "liquidity": 0,
       "rug_risk": 0,
@@ -176,7 +176,7 @@
     },
     {
       "bot": "PORTFOLIO",
-      "side": "pass",
+      "side": "buy",
       "score": 0,
       "liquidity": 0,
       "rug_risk": 0,
@@ -192,5 +192,5 @@
     }
   ],
   "error": null,
-  "last_updated": "10:14:54"
+  "last_updated": "10:20:26"
 }
