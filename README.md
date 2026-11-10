@@ -57,7 +57,7 @@ A **12-bot trading desk** that trades **memecoins on pump.fun**. The desk uses a
 
 ### 📋 Platform Comparison (Yes/No)
 
-| Question | OpenBot | Lyta-Grok-Bot |
+| Question | OpenBot | Grok bot |
 |---|---|---|
 | Local-first execution | ✅ Yes | ❌ No |
 | Data stays on your machine | ✅ | ❌ |

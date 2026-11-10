@@ -1,12 +1,12 @@
-# Bot Comparison — Lyta-Grok-Bot vs OpenBot
+# Bot Comparison — Grok bot vs OpenBot
 
 Yes/No contrast table. Each row states a design characteristic; "**Yes**"
-denotes OpenBot, "**No**" denotes Lyta-Grok-Bot. Read the section below for
+denotes OpenBot, "**No**" denotes Grok bot. Read the section below for
 how the two compare on privacy, cost, and locality.
 
 ## Quick Map
 
-| Dimension | OpenBot | Lyta-Grok-Bot |
+| Dimension | OpenBot | Grok bot |
 |---|---|---|
 | Type | Local desktop agent host | Cloud paper trader + on-chain scanner |
 | Agent framework | 7 named agents (FIFO + messaging) | 10-agent circuit.ts workspace |
@@ -32,7 +32,7 @@ how the two compare on privacy, cost, and locality.
 - Free non-commercial cost model
 - Scheduler/routine automation
 
-**Lyta-Grok-Bot offers:**
+**Grok bot offers:**
 - Cloud paper-trading execution on the same local-first stack
 - On-chain scanning and pump.fun signal monitoring
 - 10-agent circuit.ts workspace (vs. 7 named agents)
@@ -41,7 +41,7 @@ how the two compare on privacy, cost, and locality.
 
 ## Framing
 
-Lyta-Grok-Bot is a paper-trading variant, not a general-purpose agent host.
+Grok bot is a paper-trading variant, not a general-purpose agent host.
 Its strengths are execution-focused: live market coverage, on-chain scanning,
 and pump.fun signal monitoring. Its limitations are also execution-focused:
 it does not run as a local desktop agent host, so it has no mobile app,
@@ -52,13 +52,13 @@ storage for chat and files.
 
 These three axes are where the two diverge most sharply:
 
-- **Privacy:** OpenBot keeps data on your machine. Lyta-Grok-Bot is cloud
+- **Privacy:** OpenBot keeps data on your machine. Grok bot is cloud
   hosted and therefore cannot offer that guarantee.
-- **Cost:** OpenBot is free (non-commercial). Lyta-Grok-Bot uses paid cloud
+- **Cost:** OpenBot is free (non-commercial). Grok bot uses paid cloud
   providers on top of a free self-hosted base — not a standalone cost
   advantage.
-- **Locality:** OpenBot runs fully on your desktop with a mobile app. Lyta-Grok-Bot
+- **Locality:** OpenBot runs fully on your desktop with a mobile app. Grok bot
   requires a cloud server and has no mobile app, no voice, and no offline mode.
 
-On these axes, Lyta-Grok-Bot is not a substitute for OpenBot's local-first
+On these axes, Grok bot is not a substitute for OpenBot's local-first
 design; it is a complementary paper-trading layer.

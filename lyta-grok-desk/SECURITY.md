@@ -6,7 +6,7 @@ channel; do not open public issues with wallet addresses or secrets.
 - No wallet import, signing, or order execution in the simulator
 - `.env` files are git-ignored; only `.env.example` is tracked
 - `*.csv`, `*.log`, `*.jsonl`, `*.db` are regenerated / local
-- Lyta-Grok-Desk agents run on OpenBot and may take real actions if the
+- Grok bot desk agents run on OpenBot and may take real actions if the
   surrounding deployment is misconfigured
 
 ## Secrets

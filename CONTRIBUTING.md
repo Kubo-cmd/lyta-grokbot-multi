@@ -1,4 +1,4 @@
-# Contributing to Lyta-Grok-Bot Multi
+# Contributing to Grok bot Multi
 
 ## Repo Layout
 
