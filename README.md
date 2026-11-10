@@ -43,18 +43,18 @@ A **12-agent spot trading desk** on **OpenBot** (local, localhost:5173), with Gr
 
 ### Platform Comparison (Yes/No)
 
-| Question | OpenBot | Grok bot |
-|----------|---------|----------|
-| Local-first execution | ✅ Yes | ✅ Yes (cloud computer always on, local mode available) |
-| Data stays on your machine | ✅ Yes | ❌ No (cloud) |
-| Cost model | Free (non-commercial) | Self-hosted/managed plan |
-| Mobile app | ❌ No | ✅ Yes (iOS/Android) |
-| Voice / dictation | ❌ No | ✅ Yes (voice input, voice chat) |
-| Backup models | ❌ No | ✅ Yes (cloud backup, multiple plans) |
-| Teams / roles | ❌ No | ✅ Yes (group chats, parallel bots, roles) |
-| Chat / human-in-loop | ❌ No | ✅ Yes (text-thread interface) |
-| Schedule automation | ✅ Yes (local sweeps) | ✅ Yes (cloud routines) |
-| Source code | ✅ Open (openbot.io) | ✅ Open (lyta-grokbot-multi) |
+|| Question | Grok bot | OpenBot |
+|----------|----------|---------|
+|| Local-first execution | ✅ Yes (cloud computer always on, local mode available) | ✅ Yes |
+|| Data stays on your machine | ❌ No (cloud) | ✅ Yes |
+|| Cost model | Self-hosted/managed plan | Free (non-commercial) |
+|| Mobile app | ✅ Yes (iOS/Android) | ✅ Yes (iPhone/Android) |
+|| Voice / dictation | ✅ Yes (voice input, voice chat) | ✅ Yes (31 languages) |
+|| Backup models | ✅ Yes (cloud backup, multiple plans) | ✅ Yes |
+|| Teams / roles | ✅ Yes (group chats, parallel bots, roles) | ✅ Yes (roles, shared channels) |
+|| Chat / human-in-loop | ✅ Yes (text-thread interface) | ✅ Yes (chat, approve actions) |
+|| Schedule automation | ✅ Yes (cloud routines) | ✅ Yes (local sweeps) |
+|| Source code | ✅ Open (lyta-grokbot-multi) | ✅ Open (openbot.io) |
 
 See [lyta-grok-desk/BOT-COMPARE.md](lyta-grok-desk/BOT-COMPARE.md) for the full contrast with the lean highlighted.
 
@@ -72,6 +72,18 @@ See [lyta-grok-desk/BOT-COMPARE.md](lyta-grok-desk/BOT-COMPARE.md) for the full 
 | **Lifecycle** | Paper-only guard gates apply to all trading agents |
 | **Consensus** | 12-bot consensus (multi-agent) |
 | **Screening** | Spot trading only — no pump/fun perimeters |
+
+### Token-Efficiency Design (per 0xCloudvex / SpaceXAI engineer thread)
+> "Up to 75% of your tokens go to re-reading old chat. About 1% goes to actual work. Every bot gets one job and only the context for that job. More bots with clear roles cost less than one bot that reads everything."
+
+This project's architecture already follows the same pattern:
+
+- **Grok bot (server)** = Chief of Staff — routes each task to the correct specialist with only the context that specialist needs
+- **OpenBot agents** = role-specific specialists (signal → analyst → trader → risk → scout → devwatch → trencher), each scoped to one job
+- No agent re-reads the full chat history; context is scoped per task via the router
+- Result: lower total token bills at higher agent counts — the same cost story as the 70+ bot thread
+
+See [lyta-grok-desk/BOT-COMPARE.md](lyta-grok-desk/BOT-COMPARE.md) for the full platform contrast.
 
 ### Trailing Exit Logic
 

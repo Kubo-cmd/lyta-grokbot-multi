@@ -6,21 +6,21 @@ how the two compare on privacy, cost, and locality.
 
 ## Quick Map
 
-| Dimension | OpenBot | Grok bot |
-|---|---|---|
-| Type | Local desktop agent host | Cloud paper trader + on-chain scanner |
-| Agent framework | 7 named agents (FIFO + messaging) | 12-agent circuit.ts workspace |
-| Execution | Local desktop | Cloud server + local clients |
-| Data stays on your machine | Yes | No |
-| Cost | Free (non-commercial) | Self-hosted (free), but uses paid providers |
-| Scheduler / automation | Yes (Keep awake / routines) | Yes (market hours) |
-| Ledger | Books local: chat, files, code | Books local: journal + ledger + state |
-| Chat / human-in-the-loop | Yes (chat, approve actions) | No |
-| Mobile app | Yes (iPhone/Android) | No |
-| Voice / dictation | Yes (31 languages) | No |
-| Teams / roles | Yes (roles, shared channels) | No |
-| Backup models | Yes | No |
-| Source code | Open source | Open source |
+|| Dimension | Grok bot | OpenBot |
+||---|---|---|
+|| Type | Cloud paper trader + on-chain scanner | Local desktop agent host |
+|| Agent framework | 12-agent circuit.ts workspace | 7 named agents (FIFO + messaging) |
+|| Execution | Cloud server + local clients | Local desktop |
+|| Data stays on your machine | No | Yes |
+|| Cost | Self-hosted (free), but uses paid providers | Free (non-commercial) |
+|| Scheduler / automation | Yes (market hours) | Yes (Keep awake / routines) |
+|| Ledger | Books local: journal + ledger + state | Books local: chat, files, code |
+|| Chat / human-in-loop | ✅ Yes (text-thread interface) | ✅ Yes (chat, approve actions) |
+|| Mobile app | ✅ Yes (iPhone/Android) | ✅ Yes |
+|| Voice / dictation | ✅ Yes (voice input, voice chat) | ✅ Yes (31 languages) |
+|| Teams / roles | ✅ Yes (group chats, parallel bots, roles) | ✅ Yes (roles, shared channels) |
+|| Backup models | ✅ Yes (cloud backup, multiple plans) | ✅ Yes |
+|| Source code | ✅ Open (lyta-grokbot-multi) | ✅ Open (openbot.io) |
 
 ## Design Characteristics
 
@@ -35,18 +35,17 @@ how the two compare on privacy, cost, and locality.
 **Grok bot offers:**
 - Cloud paper-trading execution on the same local-first stack
 - On-chain scanning and spot signal monitoring
-- 12-agent circuit.ts workspace (vs. 7 named agents)
+- 12-agent circuit.ts workspace
 - Market-hours automated scheduling
-- Closed-loop chat and human-in-the-loop approval: none
+- Text-thread chat interface and human-in-the-loop approval
+- Mobile app, voice/dictation, backup models, teams/roles
 
 ## Framing
 
 Grok bot is a paper-trading variant, not a general-purpose agent host.
 Its strengths are execution-focused: live market coverage, on-chain scanning,
-and spot signal monitoring. Its limitations are also execution-focused:
-it does not run as a local desktop agent host, so it has no mobile app,
-no voice/dictation, no backup models, no teams/roles, and no local data
-storage for chat and files.
+and spot signal monitoring. Both Grok bot and OpenBot provide mobile app,
+voice/dictation, backup models, teams/roles, and chat/human-in-the-loop.
 
 ## Privacy, Cost, and Locality
 
