@@ -1,6 +1,9 @@
-# Transient simulation artifacts (regenerated every run)
-*.csv
-*.db
+# Trading dashboard generated files (regenerated every run)
+trading_desk.html
+trading_desk_state.json
+
+# Trading dashboard server
+web_dashboard.py
 
 # Persistent config (local overrides — do not commit)
 config/*
