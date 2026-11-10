@@ -55,13 +55,13 @@ A **10-agent spot trading desk** on **OpenBot** (local, localhost:5173), with Gr
 | Local-first execution | ✅ Yes | ❌ No |
 | Data stays on your machine | ✅ | ❌ |
 | Cost model | Free (non-commercial) | Self-hosted |
-| Mobile app | ✅ | ❌ |
-| Voice / dictation | ✅ | ❌ |
-| Backup models | ✅ | ❌ |
-| Teams / roles | ✅ | ❌ |
-| Chat / human-in-the-loop | ✅ | ❌ |
-| Schedule automation | ✅ | ✅ |
-| Source code | ✅ Open | ✅ Open |
+|| Mobile app | ✅ Yes | ✅ Yes (iOS/Android) |
+|| Voice / dictation | ✅ Yes | ✅ Yes (voice input, voice chat) |
+|| Backup models | ✅ Yes | ✅ Yes (cloud backup, multiple plans) |
+|| Teams / roles | ❌ No | ✅ Yes (group chats, parallel bots, roles) |
+|| Chat / human-in-loop | ✅ Yes | ✅ Yes (text-thread interface) |
+|| Schedule automation | ✅ Yes (local sweeps) | ✅ Yes (cloud routines) |
+|| Source code | ✅ Open (openbot.io) | ✅ Open (lyta-grokbot-multi) |
 
 See [lyta-grok-desk/BOT-COMPARE.md](lyta-grok-desk/BOT-COMPARE.md) for the full contrast with the lean highlighted.
 
