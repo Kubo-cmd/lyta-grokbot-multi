@@ -81,11 +81,21 @@ This project's architecture already follows the same pattern:
 - **Grok bot (server)** = Chief of Staff — routes each task to the correct specialist with only the context that specialist needs
 - **OpenBot agents** = role-specific specialists (signal → analyst → trader → risk → scout → devwatch → trencher), each scoped to one job
 - No agent re-reads the full chat history; context is scoped per task via the router
-- Result: lower total token bills at higher agent counts — the same cost story as the 70+ bot thread
-
-See [lyta-grok-desk/BOT-COMPARE.md](lyta-grok-desk/BOT-COMPARE.md) for the full platform contrast.
-
-### Trailing Exit Logic
+| Result: lower total token bills at higher agent counts — the same cost story as the 70+ bot thread
+|
+| ### 📰 External X References — What We Learned (Nov 2026)
+|
+| Three X posts were reviewed (Kubo100x, 0xcloudvex, 1920web1080):
+|
+| - **Kubo100x** (Nov 10, 2026): "amazing, cannot wait to test it out." — Positive signal; testing the platform.
+| - **0xcloudvex / SpaceXAI senior engineer** (Nov 9, 2026): "Everyone asks how I afford 70+ Grok Bots — the answer: my bill went down when I added more of them. A Chief of Staff runs my day, 4 PMs split the work, 60+ workers ship it overnight. None of them reads a word it doesn't need…" — Token-efficiency thesis: role-scoped context beats one context-aware bot.
+| - **1920web1080** (Nov 9, 2026): "Hol*Bet, the engineers Elon Musk hired just built 91 FREE BOTS for Grok Bot. This is F*CKING INSANE. Two pages, one video. 35 bots on the marketplace, each with the engineer who built it. 56 more on the use-cases page…" — Shows the Grok Bot bot-marketplace momentum.
+|
+| **Integration approach:** These posts validate the 12-agent architecture. When the user runs the 3–4 times per week Twitter thread, they can cite these external posts as research before/after sharing their own experimental progress. The external content is for the user's own social media output — not added to the repo unless asked.
+|
+| See: [lyta-grok-desk/100x_adapter_report.md](lyta-grok-desk/100x_adapter_report.md) for the structured adaptation report.
+|
+| ### Trailing Exit Logic
 
 | Setting | Value | Meaning |
 |---|---|---|
