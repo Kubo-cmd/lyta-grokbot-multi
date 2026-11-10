@@ -21,26 +21,19 @@
 A **10-agent spot trading desk** on **OpenBot** (local, localhost:5173), with Grok Bot (cloud) as the control-plane router. The desk operates in **paper-only mode** — no real trades, no wallet import, no signing, no order execution.
 
 | Component | Platform | Role | Always-On? |
-|-----------|----------|------|------------|
+|---|---|---|---|
 | **Grok Bot (Server)** | Managed cloud VM (xAI) | Task routing, coordination, persistent state | ✅ Yes — cloud stays up when laptop closes |
 | **OpenBot (Agents)** | Local desktop workspace (nightly-labs) | 10 trading agents — paper, signal, analyst, trader, risk, etc. | Runs on local machine |
 | **Grok CLI** | Grok Bot | Token analysis pipeline | Paper-only |
 
----
+## 🔓 License & Visibility
 
-## 🤖 Trading Agent Suite (10 Agents)
-
-| Agent | Platform | Role | Paper Guards |
-|-------|----------|------|-------------|
-| `lyta-grok-desk-paper` | OpenBot | Circuit BTC/ETH paper trading (Phase 1 baseline) | `SIMULATION` + `paper_only` |
-| `lyta-grok-desk-signal` | OpenBot | Signal generator | Paper-only |
-| `lyta-grok-desk-analyst` | OpenBot | Analyst — evaluates rug risk, liquidity, score | Paper-only |
-| `lyta-grok-desk-trader` | OpenBot | Execution agent — micro-sizing $0.20–$0.85 | Paper-only |
-| `lyta-grok-desk-risk` | OpenBot | Risk manager — 3% risk, 5x max, stand-down | Paper-only |
-| `lyta-grok-desk-scout` | OpenBot | Narrative/rug signal checker | Paper-only |
-| `lyta-grok-desk-devwatch` | OpenBot | On-chain wallet monitoring | Paper-only |
-| `lyta-grok-desk-trencher` | OpenBot | TrenchesAI deployment monitor | Paper-only |
-| `grok-bot` | Grok Bot | Server — routes tasks to the right LYTA agent | Paper-only |
+| Item | Status |
+|---|---|
+| GitHub repo | `Kubo-cmd/lyta-grokbot-multi` — **PUBLIC** |
+| License | MIT (open-source, permitted) |
+| OpenBot store | `~/Library/Application Support/OpenBot/openbot.db` (platform home) |
+| Grok Bot directory | `lyta-grok-desk/` (relative to repo root) |
 
 ---
 
@@ -51,17 +44,17 @@ A **10-agent spot trading desk** on **OpenBot** (local, localhost:5173), with Gr
 ### Platform Comparison (Yes/No)
 
 | Question | OpenBot | Grok bot |
-|-----------|---------|----------|
-| Local-first execution | ✅ Yes | ❌ No |
-| Data stays on your machine | ✅ | ❌ |
-| Cost model | Free (non-commercial) | Self-hosted |
-|| Mobile app | ✅ Yes | ✅ Yes (iOS/Android) |
-|| Voice / dictation | ✅ Yes | ✅ Yes (voice input, voice chat) |
-|| Backup models | ✅ Yes | ✅ Yes (cloud backup, multiple plans) |
-|| Teams / roles | ❌ No | ✅ Yes (group chats, parallel bots, roles) |
-|| Chat / human-in-loop | ✅ Yes | ✅ Yes (text-thread interface) |
-|| Schedule automation | ✅ Yes (local sweeps) | ✅ Yes (cloud routines) |
-|| Source code | ✅ Open (openbot.io) | ✅ Open (lyta-grokbot-multi) |
+|----------|---------|----------|
+| Local-first execution | ✅ Yes | ✅ Yes (cloud computer always on, local mode available) |
+| Data stays on your machine | ✅ Yes | ❌ No (cloud) |
+| Cost model | Free (non-commercial) | Self-hosted/managed plan |
+| Mobile app | ❌ No | ✅ Yes (iOS/Android) |
+| Voice / dictation | ❌ No | ✅ Yes (voice input, voice chat) |
+| Backup models | ❌ No | ✅ Yes (cloud backup, multiple plans) |
+| Teams / roles | ❌ No | ✅ Yes (group chats, parallel bots, roles) |
+| Chat / human-in-loop | ❌ No | ✅ Yes (text-thread interface) |
+| Schedule automation | ✅ Yes (local sweeps) | ✅ Yes (cloud routines) |
+| Source code | ✅ Open (openbot.io) | ✅ Open (lyta-grokbot-multi) |
 
 See [lyta-grok-desk/BOT-COMPARE.md](lyta-grok-desk/BOT-COMPARE.md) for the full contrast with the lean highlighted.
 
