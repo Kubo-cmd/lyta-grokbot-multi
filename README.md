@@ -88,10 +88,12 @@ See [lyta-grok-desk/BOT-COMPARE.md](lyta-grok-desk/BOT-COMPARE.md) for the full 
 | Paper capital | **1 SOL or $100 per platform** | **1 SOL or $100 per platform** | 1 SOL on Trencher AI (SOL), $100 USD on Circuit |
 | Buy size | micro $0.20–$0.85 | 0.05 SOL fixed | Circuit uses 3% risk micro-size; Trencher is fixed |
 | Break-even | ~1.06x | ~1.06x | Under current fee examples |
+| Slippage (spillage) | ~1% per swap | ~1–2% per swap | Added to exit threshold: 0.65x stop + slippage = effective 0.63x–0.64x |
+| Gas fee | — | ~$0.01–$0.05 SOL (network fee) | Solana network fee; round-trip ~2× net cost |
 | Stop loss | −35% (0.65x) | −35% (0.65x) | Tightened STOP_LOSS=0.35 / TAKE_PROFIT=0.50 |
 | Stop-loss type | Request-based exit; rug may fill worse or not at all | Same | Guaranteed cap is an illusion; the bot may exit at −35%, −40%, or not at all |
 
-**Currency clarification:** Paper capital is **1 SOL (Trencher AI) or $100 USD (Circuit)** per platform. The Trencher AI `0.05 SOL` is the **on-chain buy token size**, not the total paper capital; the total budget is 1 SOL or $100 USD per platform.
+**Swap cost accounting:** Each trade incurs **slippage (spillage)** and **SOL network gas fee** on Trencher AI. The round-trip break-even includes these: ~1% slippage + $0.01–$0.05 SOL gas ≈ 1.5–2% total cost per swap. The −35% stop-loss leaves ~2% buffer above fees for normal fills.
 
 ### Trailing Exit Logic (FIXED — 2026-11-07)
 
