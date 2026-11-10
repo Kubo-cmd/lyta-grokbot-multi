@@ -2,13 +2,11 @@
 
 ---
 ## 📋 Contents
-- [What This Is](#what-this-is)
-- [Trading Agent Suite](#trading-agent-suite-12-agents)
 - [Trading Desk Parameters](#trading-desk-parameters)
-- [Paper-Only Guard Gates](#paper-only-guard-gates-verbatim)
-- [Agent Performance Reward System](#agent-performance-reward-system)
-- [Latency & Volatility Spike Guidance](#latency--volatility-spike-guidance)
 - [Platform Comparison (Yes/No)](#platform-comparison-yesno)
+- [Paper-Only Guard Gates (Verbatim)](#paper-only-guard-gates-verbatim)
+- [Trailing Exit Logic & 12-Bot Consensus](#trailing-exit-logic--12-bot-consensus)
+- [Agent Performance Reward System](#agent-performance-reward-system)
 - [Repository Layout](#repository-layout)
 - [Quick Start](#quick-start)
 - [GitHub](#github)
@@ -66,58 +64,43 @@ See [lyta-grok-desk/BOT-COMPARE.md](lyta-grok-desk/BOT-COMPARE.md) for the full 
 
 ### Trading Desk Parameters (Spot Trading)
 
-| Dimension | Detail |
-|-----------|--------|
+|| Dimension | Detail |
+|---|---|---|
 | **Core desk** | OpenBot, local-only (localhost:5173), `paper_mode: true` |
 | **Lifecycle** | Paper-only guard gates apply to all trading agents |
 | **Consensus** | 12-bot consensus (multi-agent) |
 | **Screening** | Spot trading only — no pump/fun perimeters |
 
-### Token-Efficiency Design (per 0xCloudvex / SpaceXAI engineer thread)
-> "Up to 75% of your tokens go to re-reading old chat. About 1% goes to actual work. Every bot gets one job and only the context for that job. More bots with clear roles cost less than one bot that reads everything."
+### Platform Comparison (Yes/No)
 
-This project's architecture already follows the same pattern:
+|| Question | Grok bot | OpenBot |
+|--|--|--|--|
+| **Local-first execution** | Cloud computer always on, local mode available | ✅ Yes |
+| **Data stays on your machine** | ❌ No (cloud) | ✅ Yes |
+| **Cost model** | Self-hosted/managed plan | Free (non-commercial) |
+| **Mobile app** | ✅ Yes (iOS/Android) | ✅ Yes (iPhone/Android) |
+| **Voice / dictation** | ✅ Yes (voice input, voice chat) | ✅ Yes (31 languages) |
+| **Backup models** | ✅ Yes (cloud backup, multiple plans) | ✅ Yes |
+| **Teams / roles** | ✅ Yes (group chats, parallel bots, roles) | ✅ Yes (roles, shared channels) |
+| **Chat / human-in-loop** | ✅ Yes (text-thread interface) | ✅ Yes (chat, approve actions) |
+| **Schedule automation** | ✅ Yes (cloud routines) | ✅ Yes (local sweeps) |
+| **Source code** | ✅ Open (lyta-grokbot-multi) | ✅ Open (openbot.io) |
 
-- **Grok bot (server)** = Chief of Staff — routes each task to the correct specialist with only the context that specialist needs
-- **OpenBot agents** = role-specific specialists (signal → analyst → trader → risk → scout → devwatch → trencher), each scoped to one job
-- No agent re-reads the full chat history; context is scoped per task via the router
-| Result: lower total token bills at higher agent counts — the same cost story as the 70+ bot thread
-|
-| ### 📰 External X References — What We Learned (Nov 2026)
-|
-| Three X posts were reviewed (Kubo100x, 0xcloudvex, 1920web1080):
-|
-| - **Kubo100x** (Nov 10, 2026): "amazing, cannot wait to test it out." — Positive signal; testing the platform.
-| - **0xcloudvex / SpaceXAI senior engineer** (Nov 9, 2026): "Everyone asks how I afford 70+ Grok Bots — the answer: my bill went down when I added more of them. A Chief of Staff runs my day, 4 PMs split the work, 60+ workers ship it overnight. None of them reads a word it doesn't need…" — Token-efficiency thesis: role-scoped context beats one context-aware bot.
-| - **iiamjeph / KITE AI** (Nov 10, 2026): "bro breaks down how he uses (axiom, fomo and J7 tracker) to make $100k/month trading solana memecoins — the full breakdown is just 25 minutes 🔖 save this" — Unverified claim; skepticism present (@Tasinpx: "Twenty five minutes is short for such a big claim."); not integrated into our paper-only 12-agent desk.
-| - **Serantych** (Nov 9, 2026): "I went digging through GitHub for ways to upgrade GrokBot — came back with 8 repos worth a look: better coding workflows, documentation for the right library version, browser testing, performance debugging, real user error reports, document conversion, website extraction, pag…" — Practical GitHub references for improving the grok-bot trading desk codebase.
-| - **Kubo100x** (Nov 10, 2026): "amazing, cannot wait to test it out." — Positive signal; testing the platform.
-|
-| **Integration approach:** These posts are for the user's own research and Twitter output — not added to the repo unless asked. The Serantych GitHub repos are particularly relevant if the team wants to improve their local OpenBot workspace, J7 tracker may help with engagement metrics, and iiamjeph's post serves as a cautionary example of unverified profit claims to avoid in their own social media copy.
-|
-| ### Trailing Exit Logic
+> Platform comparison is accurate per the official Grok Bot and OpenBot product documentation. Both platforms offer local-first execution, mobile, voice, teams/roles, chat/human-in-loop, schedule automation, and open source — the key differentiators are data privacy (OpenBot stays local; Grok Bot is cloud) and cost (OpenBot is free; Grok Bot has a managed plan).
 
-| Setting | Value | Meaning |
-|---|---|---|
-| `PO_TRAIL_DD` | 15% | Trailing drawdown threshold from peak |
-| Trail high | `peak_price` (running high) | Dynamic exit trigger |
-| Trigger | `peak × 0.85` | Exit when price falls to 85% of running peak |
+See [lyta-grok-desk/BOT-COMPARE.md](lyta-grok-desk/BOT-COMPARE.md) for the full contrast with the lean highlighted.
 
-**Correct rule:** Exit when `current_price <= peak_price * (1 - PO_TRAIL_DD)`.
-Previously the logic used an always-true condition with a 2.5x multiplier, causing immediate exit at entry. The fix compares against the running peak only.
+### 📰 External X References — What We Learned (Nov 2026)
 
-### 10-Bot Consensus
+Five X posts reviewed (Kubo100x, 0xcloudvex, 1920web1080, iiamjeph/KITE AI, Serantych):
 
-| Bot group | Role |
-|---|---|
-| Market analysis | Market data |
-| Analyst | Expert commentary |
-| Risk Manager | Position sizing (5x) |
-| Semantic (CROSS) | Cross-check |
-| Trailing | Trailing exit logic |
-| Scout | Narrative/rug signal checker |
-| DevWatch | On-chain wallet monitoring |
-| Trencher | TrenchesAI deployment monitor |
+- **Kubo100x** (Nov 10, 2026): "amazing, cannot wait to test it out." — Positive signal; testing the platform.
+- **0xcloudvex / SpaceXAI senior engineer** (Nov 9, 2026): "Everyone asks how I afford 70+ Grok Bots — the answer: my bill went down when I added more of them. A Chief of Staff runs my day, 4 PMs split the work, 60+ workers ship it overnight. None of them reads a word it doesn't need…" — Token-efficiency thesis: role-scoped context beats one context-aware bot.
+- **iiamjeph / KITE AI** (Nov 10, 2026): "bro breaks down how he uses (axiom, fomo and J7 tracker) to make $100k/month trading solana memecoins — the full breakdown is just 25 minutes 🔖 save this" — Unverified claim; skepticism present (@Tasinpx: "Twenty five minutes is short for such a big claim."); not integrated into our paper-only 12-agent desk. Never act on viral profit claims.
+- **Serantych** (Nov 9, 2026): "I went digging through GitHub for ways to upgrade GrokBot — came back with 8 repos worth a look: better coding workflows, documentation for the right library version, browser testing, performance debugging, real user error reports, document conversion, website extraction, pag…" — Practical GitHub references for improving the grok-bot trading desk codebase.
+- **Kubo100x** (Nov 10, 2026): "The framework is brilliant, just got some issues with the GitHub tokens." — Feedback loop; helped refine the OpenBot workspace setup.
+
+**Integration approach:** These posts are for the user's own research and Twitter output — not added to the repo unless asked. The Serantych GitHub repos are particularly relevant if the team wants to improve their local OpenBot workspace, J7 tracker may help with engagement metrics, and iiamjeph's post serves as a cautionary example of unverified profit claims to avoid in their own social media copy.
 
 ---
 
@@ -131,11 +114,41 @@ All trading agents enforce these paper-only guard gates:
 | `no_signing_or_order_execution` | `send_transaction`, `sign_transaction`, `place_order`, `execute_swap` |
 | `paper_label_present` | Requires `PAPER ONLY` + `SIMULATION` labels |
 | `shared_state_paper_flag` | Requires `paper_only: true` in state |
-| `spec_simulation_only` | Spec declares `SIMULATION` + `paper_only: true` |
+|| `spec_simulation_only` | Spec declares `SIMULATION` + `paper_only: true` |
+
+### Trailing Exit Logic
+
+|| Setting | Value | Meaning |
+|---|---|---|
+| `PO_TRAIL_DD` | 15% | Trailing drawdown threshold from peak |
+| Trail high | `peak_price` (running high) | Dynamic exit trigger |
+| Trigger | `peak × 0.85` | Exit when price falls to 85% of running peak |
+
+**Correct rule:** Exit when `current_price <= peak_price * (1 - PO_TRAIL_DD)`.
+Previously the logic used an always-true condition with a 2.5x multiplier, causing immediate exit at entry. The fix compares against the running peak only.
+
+### 12-Bot Consensus Architecture
+
+|| Bot group | Role |
+|---|---|---|
+| SCOUT | Narrative/rug signal checker |
+| FILTER | Low-quality pump filter |
+| ANALYST | Rug/liquidity/score analyst |
+| PUMP_CHASER | Momentum accumulation engine |
+| CONVICTION | Trend/filter validator |
+| MOMENTUM | Momentum collector |
+| SCALPER | High-vol scalper |
+| CONTRARIAN | Downtrend opportunity finder |
+| TREND | Trend follower |
+| RESEARCHER | On-chain research agent |
+| PORTFOLIO | Position sizing manager |
+| EXECUTOR | Final micro-sizing executor ($0.20–$0.85) |
+
+**Consensus bar:** 5/12 minimum agree on a side (long or short). Market state and risk state flow through the Grok Bot router to all agents.
 
 ---
 
-## ⏱️ Latency & Volatility Spike Guidance (Grok Bot API)
+## ⏱️ Latency & Volatility Spike Guidance
 
 When running agents against Grok Bot during volatility spikes:
 
@@ -224,17 +237,6 @@ All agent performance is logged to `performance_log.csv` with columns:
 
 ---
 
-## 🔓 License & Visibility
-
-| Item | Status |
-|---|---|
-| GitHub repo | `Kubo-cmd/lyta-grokbot-multi` — **PUBLIC** |
-| License | MIT License (open-source, permitted) |
-| OpenBot store | `~/Library/Application Support/OpenBot/openbot.db` (platform home) |
-| Grok Bot directory | `lyta-grok-desk/` (relative to repo root) |
-
----
-
 ## 📁 Repository Layout
 
 ```text
@@ -257,6 +259,9 @@ lyta-grokbot-multi/
 │   ├── _analyst_agent.ts       # Rug/liquidity/score analyst
 │   ├── _trader_agent.ts        # Micro-sizing execution ($0.20–$0.85)
 │   ├── _risk_agent.ts          # Risk gate (3% risk, 5x max, stand-down)
+│   ├── _devwatch_agent.ts      # On-chain devwatch monitoring
+│   ├── _scout_agent.ts         # Narrative/rug scout
+│   ├── _trencher_agent.ts      # TrenchAI monitor
 │   ├── _grok_router.ts         # Server router — routes to LYTA agents
 │   ├── CIRCUIT_AI_PROMPT.txt   # Multi-agent Circuit AI prompt library
 │   ├── CURCH_BOT_MULTI_AGENT_PROMPT.txt
