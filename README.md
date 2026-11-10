@@ -21,7 +21,7 @@ A **12-agent spot trading desk** on **OpenBot** (local, localhost:5173), with Gr
 | Component | Platform | Role | Always-On? |
 |---|---|---|---|
 | **Grok Bot (Server)** | Managed cloud VM (xAI) | Task routing, coordination, persistent state | ✅ Yes — cloud stays up when laptop closes |
-| **OpenBot (Agents)** | Local desktop workspace (nightly-labs) | 12 trading agents — paper, signal, analyst, trader, risk, etc. | Runs on local machine |
+| **OpenBot (Agents)** | Local desktop workspace (nightly-labs) | 14 trading agents — paper, signal, analyst, trader, risk, etc. | Runs on local machine |
 | **Grok CLI** | Grok Bot | Token analysis pipeline | Paper-only |
 
 ## 🔓 License & Visibility
@@ -249,7 +249,7 @@ lyta-grokbot-multi/
 ├── scripts/                    # Auxiliary scripts
 ├── config/                     # Local config (git-ignored; see .env.example)
 ├── legacy/                     # Experimental / superseded artifacts
-├── lyta-grok-desk/             # OpenBot agent workspace (12 agents)
+├── lyta-grok-desk/             # OpenBot agent workspace (14 agents)
 │   ├── circuit.toml            # Platform config + agent triggers
 │   ├── AGENTS.md               # Agent catalog & runbook
 │   ├── index.ts                # Router entry point

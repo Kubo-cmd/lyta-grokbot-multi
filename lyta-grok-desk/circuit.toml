@@ -12,39 +12,10 @@ agentId = "5ccdeee2-3268-5173-ad57-d2578079f0fc"
 
 [[triggers]]
 type = "schedule"
-everyMs = 60000   # 1 minute — watch pump.fun for opportunities
+everyMs = 60000   # 1 minute — watch market for opportunities
 align = "rolling"
 
-# Agents in this workspace (OpenBot agent layer)
-[[agents]]
-name = "lyta-grok-desk-paper"
-file = "_paper_agent.ts"
-
-[[agents]]
-name = "lyta-grok-desk-signal"
-file = "_signal_agent.ts"
-
-[[agents]]
-name = "lyta-grok-desk-analyst"
-file = "_analyst_agent.ts"
-
-[[agents]]
-name = "lyta-grok-desk-trader"
-file = "_trader_agent.ts"
-
-[[agents]]
-name = "lyta-grok-desk-risk"
-file = "_risk_agent.ts"
-
-[[agents]]
-name = "lyta-grok-desk-devwatch"
-file = "_devwatch_agent.ts"
-paper_mode = true
-stand_down_on_risk = true
-wallet_scope = "system"
-
-# ── order matters: risk agents run before consumer agents ──
-
+# ── 12-agent trading desk (OpenBot agent layer) ──
 [[agents]]
 name = "lyta-grok-desk-scout"
 file = "_scout_agent.ts"
@@ -54,30 +25,120 @@ wallet_scope = "system"
 # Scout: narrative/rug signal checker - GMGN + wallet analysis
 
 [[agents]]
-name = "lyta-grok-desk-trencher"
-file = "_trencher_agent.ts"
+name = "lyta-grok-desk-filter"
+file = "_signal_agent.ts"
 lib = "circuit:auth"
 paper_mode = true
 wallet_scope = "system"
-# Trencher: TrenchAI deployment monitor + integration
+# Filter: bias-based signal filter (>1.5% 24h, >$80k volume)
+
+[[agents]]
+name = "lyta-grok-desk-analyst"
+file = "_analyst_agent.ts"
+paper_mode = true
+wallet_scope = "system"
+# Analyst: rug risk, liquidity, score evaluation
+
+[[agents]]
+name = "lyta-grok-desk-pumpchaser"
+file = "_trader_agent.ts"
+lib = "circuit:auth"
+paper_mode = true
+wallet_scope = "system"
+# PumpChaser: >8% 24h + >$120k volume catalyst chaser
+
+[[agents]]
+name = "lyta-grok-desk-conviction"
+file = "_risk_agent.ts"
+lib = "circuit:auth"
+paper_mode = true
+wallet_scope = "system"
+# Conviction: rug score <0.35 + change24h >-2 balance check
+
+[[agents]]
+name = "lyta-grok-desk-momentum"
+file = "_trader_agent.ts"
+lib = "circuit:auth"
+paper_mode = true
+wallet_scope = "system"
+# Momentum: >4% 24h + >$60k volume
+
+[[agents]]
+name = "lyta-grok-desk-scalper"
+file = "_risk_agent.ts"
+lib = "circuit:auth"
+paper_mode = true
+wallet_scope = "system"
+# Scalper: fast volatility >2.5% both directions
+
+[[agents]]
+name = "lyta-grok-desk-contrarian"
+file = "_devwatch_agent.ts"
+lib = "circuit:auth"
+paper_mode = true
+wallet_scope = "system"
+# Contrarian: <-6% 24h + rugScore <0.5
+
+[[agents]]
+name = "lyta-grok-desk-trend"
+file = "_paper_agent.ts"
+lib = "circuit:auth"
+paper_mode = true
+wallet_scope = "system"
+# Trend: >5% 24h + >$90k volume
+
+[[agents]]
+name = "lyta-grok-desk-researcher"
+file = "_signal_agent.ts"
+lib = "circuit:auth"
+paper_mode = true
+wallet_scope = "system"
+# Researcher: liq >$2000 + rugScore <0.28 + change24h >1
+
+[[agents]]
+name = "lyta-grok-desk-portfolio"
+file = "_trader_agent.ts"
+lib = "circuit:auth"
+paper_mode = true
+wallet_scope = "system"
+# Portfolio: diversified holding across agents
+
+[[agents]]
+name = "lyta-grok-desk-executor"
+file = "_paper_agent.ts"
+lib = "circuit:auth"
+paper_mode = true
+wallet_scope = "system"
+# Executor: market entry >1% + liq >$1800 + rugScore <0.22
+
+[[agents]]
+name = "lyta-grok-desk-paper"
+file = "_paper_agent.ts"
+paper_mode = true
+wallet_scope = "system"
+# Paper trading agent — Circuit BTC/ETH papertrade (Phase 1 baseline)
 
 [[agents]]
 name = "grok-bot"
 file = "_grok_router.ts"
-
-
+# Server router — routes tasks to LYTA agents
 
 [settings.bots]
 # Order matters: risk agents run before consumer agents
 BOTS = [
-  "lyta-grok-desk-risk",
-  "lyta-grok-desk-devwatch",
   "lyta-grok-desk-scout",
+  "lyta-grok-desk-filter",
   "lyta-grok-desk-analyst",
-  "lyta-grok-desk-trader",
-  "lyta-grok-desk-signal",
+  "lyta-grok-desk-pumpchaser",
+  "lyta-grok-desk-conviction",
+  "lyta-grok-desk-momentum",
+  "lyta-grok-desk-scalper",
+  "lyta-grok-desk-contrarian",
+  "lyta-grok-desk-trend",
+  "lyta-grok-desk-researcher",
+  "lyta-grok-desk-portfolio",
+  "lyta-grok-desk-executor",
   "lyta-grok-desk-paper",
-  "lyta-grok-desk-trencher",
   "grok-bot"
 ]
 
