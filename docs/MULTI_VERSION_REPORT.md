@@ -32,7 +32,7 @@
 
 | Parameter | v2 (Best Activity) | v9 (Current) | Difference |
 |-----------|-------------------|--------------|------------|
-| PO_STOP_LOSS | 0.90 | 0.70 | +0.20 (recommended) |
+| PO_STOP_LOSS | 0.90 | 0.70 | +0.20 (candidate) |
 | PO_TRAIL | 3.0 | 2.5 | +0.5 |
 | PO_ENTRY_MIN | 10 | 8 | +2 |
 | PO_ENTRY_MAX | 75 | 70 | +5 |
@@ -43,16 +43,15 @@
 ### Key Finding
 **v9's PO_STOP_LOSS of 0.70 is too tight** — it stops 9-12% trades early,
 explaining the -0.083697919 SOL real-world loss. v2's 0.90 stop-loss is
-the recommended configuration for the trading desk.
+a candidate configuration for the trading desk.
 
 ---
 
 ## Recommendations
 
-### ✓ Adopt v2 for main trading desk
-- "Best activity" designation confirmed
-- Balanced approach (stop-loss 0.90, trail 3.0)
-- PO_ENTRY_MIN 10, PO_MIN_BUYS 4 for more coverage
+### Market activity observations
+- **v2** shows higher activity (more trades) — the active pattern warrants
+  further observation as a candidate for test deployment
 
 ### 🔄 Backup strategies by market conditions
 - **Conservative (v4):** Wider stops (0.80), smaller positions (3.0x)
@@ -102,5 +101,5 @@ the recommended configuration for the trading desk.
 
 **Bottom line:** The multi-version parallel execution system is operational.
 All v2-v8 agents are ready for real-time testing on the paper trading
-simulator. v2 (best activity) has the recommended configuration for
-the main trading desk. v9 needs a stop-loss and entry parameter upgrade.
+simulator. v2 shows higher activity (more trades), and its 0.90 stop-loss
+is a candidate configuration. v9 (current) keeps PO_STOP_LOSS=0.70.
