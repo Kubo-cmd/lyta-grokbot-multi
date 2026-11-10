@@ -3,7 +3,7 @@
 ---
 ## 📋 Contents
 - [What This Is](#what-this-is)
-- [Trading Agent Suite](#trading-agent-suite-10-agents)
+- [Trading Agent Suite](#trading-agent-suite-12-agents)
 - [Trading Desk Parameters](#trading-desk-parameters)
 - [Paper-Only Guard Gates](#paper-only-guard-gates-verbatim)
 - [Agent Performance Reward System](#agent-performance-reward-system)
@@ -18,12 +18,12 @@
 
 ## 🎯 What This Is
 
-A **10-agent spot trading desk** on **OpenBot** (local, localhost:5173), with Grok Bot (cloud) as the control-plane router. The desk operates in **paper-only mode** — no real trades, no wallet import, no signing, no order execution.
+A **12-agent spot trading desk** on **OpenBot** (local, localhost:5173), with Grok Bot (cloud) as the control-plane router. The desk operates in **paper-only mode** — no real trades, no wallet import, no signing, no order execution.
 
 | Component | Platform | Role | Always-On? |
 |---|---|---|---|
 | **Grok Bot (Server)** | Managed cloud VM (xAI) | Task routing, coordination, persistent state | ✅ Yes — cloud stays up when laptop closes |
-| **OpenBot (Agents)** | Local desktop workspace (nightly-labs) | 10 trading agents — paper, signal, analyst, trader, risk, etc. | Runs on local machine |
+| **OpenBot (Agents)** | Local desktop workspace (nightly-labs) | 12 trading agents — paper, signal, analyst, trader, risk, etc. | Runs on local machine |
 | **Grok CLI** | Grok Bot | Token analysis pipeline | Paper-only |
 
 ## 🔓 License & Visibility
@@ -70,7 +70,7 @@ See [lyta-grok-desk/BOT-COMPARE.md](lyta-grok-desk/BOT-COMPARE.md) for the full 
 |-----------|--------|
 | **Core desk** | OpenBot, local-only (localhost:5173), `paper_mode: true` |
 | **Lifecycle** | Paper-only guard gates apply to all trading agents |
-| **Consensus** | 10-bot consensus (multi-agent) |
+| **Consensus** | 12-bot consensus (multi-agent) |
 | **Screening** | Spot trading only — no pump/fun perimeters |
 
 ### Trailing Exit Logic
@@ -225,7 +225,7 @@ lyta-grokbot-multi/
 ├── scripts/                    # Auxiliary scripts
 ├── config/                     # Local config (git-ignored; see .env.example)
 ├── legacy/                     # Experimental / superseded artifacts
-├── lyta-grok-desk/             # OpenBot agent workspace (10 agents)
+├── lyta-grok-desk/             # OpenBot agent workspace (12 agents)
 │   ├── circuit.toml            # Platform config + agent triggers
 │   ├── AGENTS.md               # Agent catalog & runbook
 │   ├── index.ts                # Router entry point

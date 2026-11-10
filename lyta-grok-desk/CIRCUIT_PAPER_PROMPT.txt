@@ -36,7 +36,7 @@ Tagline: 12-bot desk for paper trading on Papertrade with tiny capital
 
 Make it relevant for running in paper mode on the Circuit platform with only a few dollars.
 
-This is the first paper-only experiment on Circuit Papertrade. After validating the 10-agent spot desk, test on other spot venues.
+This is the first paper-only experiment on Circuit Papertrade. After validating the 12-agent spot desk.)
 
 Paper trade first (simulated funds), then move to real money on the platform later when ready.
 

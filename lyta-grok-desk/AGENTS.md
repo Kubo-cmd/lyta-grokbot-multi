@@ -67,7 +67,7 @@ Copy-paste prompts for Circuit AI (the Builder / chat interface):
 
 |- **Multi-Agent Setup (Option A):** `CURCH_BOT_MULTI_AGENT_PROMPT.txt` — Grok Bot server + 10 OpenBot agents architecture
 - **Phase 1 (Option B):** `CIRCUIT_AI_12BOT_PROMPT.txt` — 12-bot Paper trading desk (BTC/ETH)
-- **Phase 2 (Option C):** `CIRCUIT_AI_PAPER_PROMPT.txt` — 10-agent spot trading desk
+- **Phase 2 (Option C):** `CIRCUIT_AI_PAPER_PROMPT.txt` — 12-agent spot trading desk
 - **How to Run (Option D):** `CURCH_BOT_STARTUP_PROMPT.txt` — step-by-step builder instructions
 - **Original prompt:** `CIRCUIT_AI_PROMPT.txt` — legacy 12-bot prompt
 

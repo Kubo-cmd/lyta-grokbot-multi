@@ -1,7 +1,7 @@
 ---
 This is a **platform parameter configuration prompt for Trencher AI**.
 
-The user owns a 10-agent Grok Bot trading desk that trades memecoins on spot. The desk is 100% paper-only (simulated funds, no real trades, no wallet import, no signing, no order execution).
+The user owns a 12-agent Grok Bot trading desk that trades memecoins on spot. The desk is 100% paper-only (simulated funds, no real trades, no wallet import, no signing, no order execution).
 
 GOAL: Configure the Trencher AI platform for the paper-only spot trading desk. Set the paper copy settings and note which controls are NOT available on Trencher.
 

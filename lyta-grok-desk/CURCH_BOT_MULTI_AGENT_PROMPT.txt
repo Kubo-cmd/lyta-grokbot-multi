@@ -117,7 +117,7 @@ Generate each of these as separate source files:
 | Agent | File | Role |
 |-------|------|------|
 | `lyta-grok-desk-paper` | `_paper_agent.ts` | Circuit BTC/ETH paper trading (12-bot vote) |
-| `lyta-grok-desk-spot` | `index.ts` | Spot trading — 10-agent consensus (paper) |
+| `lyta-grok-desk-spot` | `index.ts` | Spot trading — 12-bot consensus (paper) |
 | `lyta-grok-desk-signal` | `_signal_agent.ts` | Signal scanner |
 | `lyta-grok-desk-analyst` | `_analyst_agent.ts` | Rug risk, liquidity, score evaluation |
 | `lyta-grok-desk-trader` | `_trader_agent.ts` | Execution (micro-sizing $0.20–$0.85) |

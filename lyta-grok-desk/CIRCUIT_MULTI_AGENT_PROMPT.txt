@@ -116,7 +116,7 @@ Print in this order:
 
 # Later (do not build in this paste)
 
-This paper experiment validates the 10-agent spot desk. No live market, bonding curves, or live Solana in this generation. Do not switch this workspace to spot, bonding curves, or live Solana in this generation. Do not prepare a real-money path.
+This paper experiment validates the 12-agent spot desk. No live market, bonding curves, or live Solana in this generation. Do not switch this workspace to spot, bonding curves, or live Solana in this generation. Do not prepare a real-money path.
 
 ================================================================================
 END PASTE

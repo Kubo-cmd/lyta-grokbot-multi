@@ -110,7 +110,7 @@ On trigger, route to the correct agent. Return structured routing responses:
 [ROUTING] Task: ... → Target agent: ... → Status: ...
 
 Also configure:
-- circuit.toml: 10 agents, 60s schedule trigger (paper)
+- circuit.toml: 12 agents, 60s schedule trigger (paper)
 - index.ts: main entry that delegates to the correct agent's run() function
 - README.md / ARCHITECTURE.md: platform separation documentation
 ```

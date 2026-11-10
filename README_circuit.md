@@ -1,11 +1,11 @@
 # Circuit AI Bots — 10-Agent Architecture (lyta-grok-desk)
 
 Phase 2 of the Lyta trading desk: building **more Circuit AI agents**
-on the Circuit platform (circuit.org). This workspace runs a **10-agent
+on the Circuit platform (circuit.org). This workspace runs a **12-agent
 OpenBot layer + 1 coordination router** atop Circuit's Papertrade SDK
 (paper-only, no live wallet, no real capital).
 
-## The 10 agents
+## The 12 agents
 
 || # | Agent | File | Role |
 ||---|-------|------|------|

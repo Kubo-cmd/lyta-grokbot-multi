@@ -27,7 +27,7 @@ trading desk built on OpenBot (local agent execution) + Grok Bot (server router)
 | Script | Purpose |
 |--------|---------|
 | [`paper_desk_simulator.py`](paper_desk_simulator.py) | Circuit paper simulator (80-iteration regression) |
-| [`paper_desk_simulator.py`](paper_desk_simulator.py) | Paper trading simulator (10-agent spot) |
+| [paper_desk_simulator.py](paper_desk_simulator.py) | Paper trading simulator (12-agent spot) |
 | [`test_paper_desk_simulator.py`](test_paper_desk_simulator.py) | Module resolution test |
 | [`scripts/multi_version_runner.py`](scripts/multi_version_runner.py) | Multi-version comparison runner |
 | [`scripts/reward_tracker.py`](scripts/reward_tracker.py) | Agent performance reward tracker |

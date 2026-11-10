@@ -1,7 +1,7 @@
 {/* circuit:starter */}
 
 ## Thesis
-Ultra-conservative 10-agent spot trading desk on Circuit Papertrade for paper trading (Phase 1 for LYTA Grok bot Trading Desk project).
+Ultra-conservative 12-agent spot trading desk on Circuit Papertrade for paper trading (Phase 1 for LYTA Grok bot Trading Desk project).
 
 ## Strategy
 - **Consensus:** Requires 5+ agents to agree on a signal before entering.
@@ -13,5 +13,5 @@ Ultra-conservative 10-agent spot trading desk on Circuit Papertrade for paper tr
 - **Venue:** Circuit Papertrade — spot trading only (paper).
 - **Leverage:** 5x — Max capped for paper.
 - **Costs:** Trading fees + slippage — Circuit Papertrade.
-- **Data:** Circuit Papertrade + 10-agent consensus — platform data + bot signals.
+- **Data:** Circuit Papertrade + 12-bot consensus — platform data + bot signals.
 - **On unwind:** Closes positions — returns remaining paper USDC.

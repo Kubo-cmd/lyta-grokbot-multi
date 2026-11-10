@@ -9,7 +9,7 @@ how the two compare on privacy, cost, and locality.
 | Dimension | OpenBot | Grok bot |
 |---|---|---|
 | Type | Local desktop agent host | Cloud paper trader + on-chain scanner |
-| Agent framework | 7 named agents (FIFO + messaging) | 10-agent circuit.ts workspace |
+| Agent framework | 7 named agents (FIFO + messaging) | 12-agent circuit.ts workspace |
 | Execution | Local desktop | Cloud server + local clients |
 | Data stays on your machine | Yes | No |
 | Cost | Free (non-commercial) | Self-hosted (free), but uses paid providers |
@@ -35,7 +35,7 @@ how the two compare on privacy, cost, and locality.
 **Grok bot offers:**
 - Cloud paper-trading execution on the same local-first stack
 - On-chain scanning and spot signal monitoring
-- 10-agent circuit.ts workspace (vs. 7 named agents)
+- 12-agent circuit.ts workspace (vs. 7 named agents)
 - Market-hours automated scheduling
 - Closed-loop chat and human-in-the-loop approval: none
 
