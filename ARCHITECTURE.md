@@ -255,6 +255,8 @@ This table separates **host capability** from **application architecture**.
 | v1 | Conflated all platforms into one table | Original comparison had 1 agent vs 7 agents, conflating host with application |
 || v2 | **Grok Bot (server) + OpenBot (agents)** | Grok Bot = always-on cloud server; OpenBot = local multi-agent execution; Hermes as migration target if needed |
 || v10 | **Tightened paper parameters** | PO_STOP_LOSS 0.82, PO_TRAIL 3.0, PO_MIN_BUYS 4, PO_MAX_POOL_FEE 0.04, PO_POSITION_MULT 1.2, PO_ENTRY_MAX 72; trial_mode v10_tuned (v9 historical) |
-|| v11 | **Repo health pass** | Removed "What Needs Wiring" section; agent roster updated to 10 agents across README, ARCHITECTURE, AGENTS.md, README_circuit.md; docs index added; BOT-COMPARE reworded to yes/no contrast with no "winner" column |
+||| v11 | **Repo health pass** | Removed "What Needs Wiring" section; agent roster updated to 10 agents across README, ARCHITECTURE, AGENTS.md, README_circuit.md; docs index added; BOT-COMPARE reworded to yes/no contrast with no "winner" column |
+||| v12 | **Platform comparison corrected** | Grok Bot confirmed to have mobile app, voice, backup models, teams/roles, chat/human-in-loop, schedule automation, source code (was incorrectly marked as lacking these) |
+||| v13 | **Build stack documented** | Added Solar Mini4, Grok 4.7, inkling, chatgpt sol to repo documentation |
 
 ---
