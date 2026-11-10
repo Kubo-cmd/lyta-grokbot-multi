@@ -89,11 +89,11 @@ This project's architecture already follows the same pattern:
 |
 | - **Kubo100x** (Nov 10, 2026): "amazing, cannot wait to test it out." — Positive signal; testing the platform.
 | - **0xcloudvex / SpaceXAI senior engineer** (Nov 9, 2026): "Everyone asks how I afford 70+ Grok Bots — the answer: my bill went down when I added more of them. A Chief of Staff runs my day, 4 PMs split the work, 60+ workers ship it overnight. None of them reads a word it doesn't need…" — Token-efficiency thesis: role-scoped context beats one context-aware bot.
-| - **1920web1080** (Nov 9, 2026): "Hol*Bet, the engineers Elon Musk hired just built 91 FREE BOTS for Grok Bot. This is F*CKING INSANE. Two pages, one video. 35 bots on the marketplace, each with the engineer who built it. 56 more on the use-cases page…" — Shows the Grok Bot bot-marketplace momentum.
+| - **iiamjeph / KITE AI** (Nov 10, 2026): "bro breaks down how he uses (axiom, fomo and J7 tracker) to make $100k/month trading solana memecoins — the full breakdown is just 25 minutes 🔖 save this" — Unverified claim; skepticism present (@Tasinpx: "Twenty five minutes is short for such a big claim."); not integrated into our paper-only 12-agent desk.
+| - **Serantych** (Nov 9, 2026): "I went digging through GitHub for ways to upgrade GrokBot — came back with 8 repos worth a look: better coding workflows, documentation for the right library version, browser testing, performance debugging, real user error reports, document conversion, website extraction, pag…" — Practical GitHub references for improving the grok-bot trading desk codebase.
+| - **Kubo100x** (Nov 10, 2026): "amazing, cannot wait to test it out." — Positive signal; testing the platform.
 |
-| **Integration approach:** These posts validate the 12-agent architecture. When the user runs the 3–4 times per week Twitter thread, they can cite these external posts as research before/after sharing their own experimental progress. The external content is for the user's own social media output — not added to the repo unless asked.
-|
-| See: [lyta-grok-desk/100x_adapter_report.md](lyta-grok-desk/100x_adapter_report.md) for the structured adaptation report.
+| **Integration approach:** These posts are for the user's own research and Twitter output — not added to the repo unless asked. The Serantych GitHub repos are particularly relevant if the team wants to improve their local OpenBot workspace, J7 tracker may help with engagement metrics, and iiamjeph's post serves as a cautionary example of unverified profit claims to avoid in their own social media copy.
 |
 | ### Trailing Exit Logic
 
