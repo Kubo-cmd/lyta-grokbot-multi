@@ -1,0 +1,117 @@
+# 🚀 Circuit AI — Pump.fun Memecoin Trading Agent Prompt
+
+> **Copy and paste this into Circuit AI** for **Phase 2**.
+> Same 12-bot desk, but adapted for **pump.fun memecoins** (Solana launches, bonding curves).
+
+---
+
+# ═══════════════════════════════════════════════════════════════════
+
+# Circuit AI — Lyta Grok Bot Desk (Phase 2: Pump.fun Memecoins)
+
+## Identity
+
+This is the **same 12-personality Grok trading desk** from Phase 1, but adapted for
+**pump.fun memecoins**. The user has **$2 to $6 paper** and wants to test the desk
+logic on realistic memecoin data before any real money. Paper-only.
+
+## Platform Roles
+
+| Layer | Platform | Role |
+|-------|----------|------|
+| **Grok Bot (Server)** | Managed cloud VM (xAI) | Routes, coordinates, persistent state |
+| **OpenBot (Agents)** | Local desktop workspace | Trading desk execution |
+
+---
+
+## 12-Bot Voting Architecture (pump.fun signals)
+
+Each bot's `bias` uses **pump.fun market data fields**:
+
+| Field | Description |
+|-------|-------------|
+| `is_pump` | Boolean — early launch momentum |
+| `analyst_score` | 0.0 – 1.0 — quality score |
+| `rug_risk` | 0.0 – 1.0 — rug/sweep risk |
+| `liquidity` | SOL/USD — protocol liquidity |
+| `buys_5m` | Integer — buys in last 5 minutes |
+| `price_change` | % — short-term pump/dump |
+| `new_launch` | Boolean — newly launched pair |
+
+| # | Bot | Conviction | Bias Rule | Hard Stop |
+|---|-----|-----------|-----------|-----------|
+| 1 | SCOUT | 0.75 | `is_pump && new_launch && rug_risk < 0.5` | -7% |
+| 2 | FILTER | 0.65 | `analyst_score > 0.7 && rug_risk < 0.3 && buys_5m > 5` | -4% |
+| 3 | ANALYST | 0.60 | `analyst_score > 0.5 && rug_risk < 0.4 && price_change > 0` | -6% |
+| 4 | PUMP_CHASER | 0.85 | `is_pump && buys_5m > 10 && price_change > 8` | -9% |
+| 5 | CONVICTION | 0.55 | `analyst_score > 0.6 && rug_risk < 0.35` | -5% |
+| 6 | MOMENTUM | 0.70 | `price_change > 4 && buys_5m > 8` | -6% |
+| 7 | SCALPER | 0.80 | `price_change > 2.5 || price_change < -2.5` | -3.5% |
+| 8 | CONTRARIAN | 0.50 | `price_change < -6 && rug_risk < 0.5` | -8% |
+| 9 | TREND | 0.60 | `price_change > 5 && analyst_score > 0.5 && buys_5m > 10` | -4.5% |
+| 10 | RESEARCHER | 0.70 | `analyst_score > 0.6 && rug_risk < 0.28 && buys_5m > 5` | -5.5% |
+| 11 | PORTFOLIO | 0.65 | `price_change > -3 && rug_risk < 0.35` | -8% |
+| 12 | EXECUTOR | 0.72 | `analyst_score > 0.6 && rug_risk < 0.22 && buys_5m > 5` | -4% |
+
+---
+
+## Sizing & Risk Rules (same as Phase 1)
+
+- **Risk:** 3% of collateral per trade (default)
+- **Max leverage:** 5x
+- **Micro-sizing:** $0.20 – $0.85 margin per trade
+- **Dynamic scaling:** Read actual collateral; scale down if balance < $4
+- **Hard caps:** If calculated margin < $0.25 or collateral < $2, stand down
+- **Consensus bar:** 5/12 minimum
+
+## Pump.fun Market Data Signals
+
+The signal agent (`_signal_agent.ts`) computes:
+- `is_pump` — true on early launch momentum (price rise + buys > threshold)
+- `analyst_score` — composite quality score (sampler/sniper detection, wallet analysis)
+- `rug_risk` — developer wallet concentration, top-10 holdings
+- `buys_5m` — buys in last 5 minutes
+- `price_change` — short-term % change
+- `new_launch` — pair age < 30 min
+
+## Papertrade Platform Rules
+
+- Run with `circuit run --paper` for simulated funds
+- Pump.fun signal data is simulated in paper mode; real pump.fun data is for later
+- Use `papertrade.positions.open({ asset, side, margin, leverage })` for execution
+- Read real balance: `papertrade.account.retrieve().collateral`
+- Platform minimums: ≥ 10 USDC margin required; log gracefully if below
+
+---
+
+## Output Files to Generate
+
+### 1. circuit.toml
+- Network: `papertrade` (or Solana for real pump.fun later)
+- Trigger: `schedule` every 60s
+- Settings: `desk_risk_pct = 3`, `max_leverage = 5`, `consensus_bar = 5`,
+  `micro_size_min = 0.20`, `micro_size_max = 0.85`
+- `paper_only = true`
+
+### 2. index.ts
+Full TypeScript with:
+- 12 bot profiles with pump.fun bias rules
+- getMarketState() — uses pump.fun-style signals
+- decideAction() — per-bot evaluation
+- run() — main trading loop
+- Stand down reasons: insufficient consensus, low size, low balance
+
+### 3. DESCRIPTION.md
+In the exact Circuit AI format:
+- Thesis: pump.fun memecoin trading with 12-bot consensus on tiny paper capital
+- Strategy bullets using pump.fun signals
+- Exposure: Holds = USDC + pump.fun tokens (paper), Venue = pump.fun/circuit papertrade,
+  Leverage = 5x, Costs = trading fees + slippage, Data = pump.fun signals
+
+---
+
+## Generator Instructions (for Circuit AI)
+
+Generate the three files as a complete workspace.
+Test that the code would pass `circuit check`.
+End with a summary of how to run and monitor.

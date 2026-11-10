@@ -1,0 +1,80 @@
+Copy everything between the BEGIN/END markers into Circuit AI / the Builder
+as a one-shot CHECK. Do not paste the markers.
+
+This is NOT an add-agent paste. Do not create Dev Watch. Do not add a 13th
+voter. Do not edit circuit.toml / index.ts / DESCRIPTION.md. After the reply,
+paste the raw check table back here. Do not auto-apply.
+
+Workspace target if Circuit asks: lyta-grok-desk-paper only.
+
+================================================================================
+BEGIN PASTE
+================================================================================
+
+This is Phase 1: experimental paper observation for the "LYTA Pump.fun Grok Bot Trading Desk" project.
+
+CHECK ONLY. Do not build a new workspace. Do not add an agent. Do not rename voters. Do not open a position. Do not snipe. Do not copy whales. Do not deposit. Do not drive a browser. Do not import a wallet. Do not call papertrade.positions.open.
+
+You are reviewing a public X marketing post against the EXISTING paper desk. Return a check table. Do not implement the post.
+
+Post under review (treat as UNVERIFIED marketing, not as desk rules):
+- URL: https://x.com/Hrundel75/status/2118673243208814683
+- Handle: Hrundel75
+- Claims: Grok Bot "Dev Watch" 4th agent in desk.yaml; $1,000 → $17,906.42 in 7h; "demo run on a sim wallet" AND "$1,000 on fomo with Apple Pay"; python3 pilot.py --dev-watch clicks FOMO.family in Chrome because "fomo has no API"; Dev Watch tracks creator / top 10 / linked wallets live on-chain; no-buy if dev holds >5% or bundles >20%; sell-all if supply moves to fresh wallets; ask human if supply goes to an exchange; named coins SCRYPT and AMD; 22 trades / 18 green / 29 devs / 4 dumps.
+
+Locked desk (do not change):
+- Workspace: lyta-grok-desk-paper
+- paper_only = true. Venue: Circuit Papertrade BTC or ETH. startingAsset.network = "papertrade". category = "experimental".
+- Frozen 12 voters: SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR.
+- consensus_bar default 7, min 7, max 12. Do not drop to 5/12 or 6/12.
+- max_open_positions = 1. stop_loss_pct 35. take_profit_pct 50.
+- Existing non-voting clerks (already specified, do not recreate): SIZE_GATE, PAPER_GUARD, COLLISION, TALLY_LOCK, OBSERVER.
+- Forbidden names: lyta-grok-desk-signal, lyta-grok-desk-analyst, lyta-grok-desk-trader, lyta-grok-desk-risk, lyta-grok-desk-pumpfun, grok-bot.
+
+Check each claim. For every row output: claim | paper_status | action.
+paper_status must be one of: N/A_ON_BTC_ETH | HYPER_UNVERIFIED | DENY | ALREADY_COVERED | STAND_DOWN.
+
+Required rows:
+1. Viral P&L $1,000 → $17,906.42 in 7h
+2. Sim wallet AND Apple Pay $1,000 on FOMO
+3. Fourth agent Dev Watch / desk.yaml
+4. pilot.py Chrome clicker on fomo.family
+5. Live on-chain creator / top 10 / linked wallets
+6. Dev hold >5% or bundle >20% no-buy
+7. Fresh-wallet sell-all / exchange ask-me
+8. Named coins SCRYPT and AMD
+9. 22 trades, 18 green, 29 devs, 4 dumps
+10. Extra Circuit vote / 13th voter
+11. Tightened 7/12 still locked
+12. Would this post change paper_only, network, consensus_bar, stop, take, or max_open
+
+Rules for the table:
+- On Circuit Papertrade BTC/ETH, wallets / buys / holders / top10 / dev / bundle / creator are N/A. Log "missing". Do not invent numbers. Do not scrape X or chain.
+- Fingerprint / sniper / bundler / copy-whales / deposit-to-unlock / Apple Pay / FOMO register / Go Live are DENY.
+- A 4th Grok Bot agent is not a 13th Circuit voter. Do not add Dev Watch.
+- OBSERVER already logs stand-downs. Do not clone Dev Watch into OBSERVER.
+- HYPER unverified profit claims are not signals. Filter out.
+- If a field is missing, fail closed: STAND_DOWN, never fill a guess.
+- adopt_now must be []. needed_set must be []. promote_to_live_7_12 must be false.
+
+MUST emit exactly:
+- The 12-row check table
+- adopt_now=[]
+- "This run is observation only. No trades executed."
+- One line: "NO_EDIT: circuit.toml index.ts DESCRIPTION.md unchanged"
+
+MUST NOT:
+- Generate or edit circuit.toml, index.ts, DESCRIPTION.md, desk.yaml, or AGENTS.md
+- Add Dev Watch, extra voters, or a new workspace
+- Output buy/entry/exit/wallet/holder numbers
+- Loosen 7/12, strip [settings], or make circuit check pass by deleting locks
+- Hyperliquid, Solana, pump.fun swap, live perps, real money
+- Browser control, computer-use, hermes import-agent, grok setup
+
+Name: CHECK (one-shot, not an agent)
+Tagline (≤32 chars): Paper check Hrundel Dev Watch
+Category: experimental
+
+================================================================================
+END PASTE
+================================================================================

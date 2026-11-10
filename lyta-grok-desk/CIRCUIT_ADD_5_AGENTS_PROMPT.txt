@@ -1,0 +1,272 @@
+Copy each BEGIN/END block into Circuit AI / the Builder, one agent at a time.
+Do not paste the markers. Do not paste all five into one box unless Circuit
+asks you to. After each reply, paste the generated circuit.toml / index.ts /
+DESCRIPTION.md back here for a paper-only review. Do not auto-apply.
+
+These five are ADD-ON agents inside the EXISTING workspace lyta-grok-desk-paper.
+They are NOT extra voters. They do NOT change 7/12. They do NOT open positions.
+They are NOT Trencher "Snipe New Launches" / "Copy Whales" / deposit.
+
+Frozen 12 (do not rename, replace, or recount):
+SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM, SCALPER,
+CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR.
+
+Forbidden workspace names (do not generate or edit):
+lyta-grok-desk-signal, lyta-grok-desk-analyst, lyta-grok-desk-trader,
+lyta-grok-desk-risk, lyta-grok-desk-pumpfun, grok-bot.
+
+================================================================================
+BEGIN PASTE — AGENT 1 of 5: SIZE_GATE
+================================================================================
+
+This is Phase 1: experimental paper trading for the larger "LYTA Pump.fun Grok Bot Trading Desk" project.
+
+Add ONE additional Circuit AI agent to the EXISTING workspace named lyta-grok-desk-paper. Name this add-on SIZE_GATE. Do not create a new workspace. Do not create a live wallet. Do not snipe. Do not copy whales. Do not deposit.
+
+SIZE_GATE is a non-voting size clerk. It never counts toward consensus. Consensus stays 7 of the original 12 voters. Do not drop to 5/12 or 6/12. Do not recount the desk as 13 or 17.
+
+Role:
+- After the coordinator has a side from the 12 voters, SIZE_GATE reads paper collateral via papertrade.account.retrieve() (or allocation/portfolio).
+- Compute margin = clamp(3% of free collateral, 0.20, 0.85). Notional = margin * leverage (cap 5x). desk_risk_pct / risk_per_trade default 3 max 3. max_leverage default 5 max 5.
+- Return {veto: true|false, margin, notional, leverage, reason}.
+- veto=true when margin < typical Papertrade minimum (~10 USDC) OR notional < ~$500 OR margin would fall outside 0.20–0.85 after clamp still cannot meet the venue min. With $2–$6 paper this veto is expected and desired.
+- veto=false only means "size math is inside the micro band AND meets venue mins". It is NOT permission to open. The coordinator still needs 7/12 + PAPER_GUARD + COLLISION + TALLY_LOCK.
+- Never call papertrade.positions.open. Never vote long/short/pass into the 12 tally. Never invent wallets / buys / holders / top10 / dev.
+
+MUST:
+- paper_only = true. Venue Circuit Papertrade BTC or ETH. startingAsset.network = "papertrade".
+- Log: "  SIZE_GATE → VETO|OK margin=... notional=... lev=... reason=..."
+- Always emit: "This run is observation only. No trades executed."
+
+MUST NOT:
+- Change consensus_bar, max_open_positions, stop_loss_pct, take_profit_pct.
+- Strip [settings] so circuit check exits 0.
+- Generate the other six OpenBot desk names.
+- Hyperliquid, live perps, Solana, pump.fun swap, real money.
+
+Name: SIZE_GATE (module under lyta-grok-desk-paper)
+Tagline (≤32 chars): Paper size clerk veto only
+Category: experimental
+
+================================================================================
+END PASTE — AGENT 1 of 5
+================================================================================
+
+================================================================================
+BEGIN PASTE — AGENT 2 of 5: PAPER_GUARD
+================================================================================
+
+This is Phase 1: experimental paper trading for the larger "LYTA Pump.fun Grok Bot Trading Desk" project.
+
+Add ONE additional Circuit AI agent to the EXISTING workspace named lyta-grok-desk-paper. Name this add-on PAPER_GUARD. Do not create a new workspace. Do not create a live wallet. Do not snipe. Do not copy whales. Do not deposit.
+
+PAPER_GUARD is a non-voting paper-only latch. It never counts toward consensus. Consensus stays 7 of the original 12 voters.
+
+Role:
+- Inspect the run context before any open is considered.
+- Return {veto: true|false, reason}.
+- veto=true if ANY of these are true: paper_only is not true; network is not "papertrade"; asset path is live / Hyperliquid / Solana / pump.fun swap; a wallet import, signing, deposit, waitlist, or unlock-by-PnL path is present; someone asked to snipe new launches or copy whales; category is "memecoin".
+- veto=false only when the run is simulated Papertrade USDC on BTC or ETH paper perps.
+- A false veto is NOT an entry. It only means "this cycle is still paper."
+- Never call papertrade.positions.open. Never vote into the 12 tally.
+
+MUST:
+- Fail closed: if the network field is missing, veto=true and reason="missing papertrade network".
+- Log: "  PAPER_GUARD → VETO|OK reason=..."
+- Always emit: "This run is observation only. No trades executed."
+
+MUST NOT:
+- Change consensus_bar (default 7 min 7 max 12), 3% risk, 5x cap, $0.20–$0.85, −35% / +50%, max_open_positions = 1.
+- Generate lyta-grok-desk-signal, lyta-grok-desk-analyst, lyta-grok-desk-trader, lyta-grok-desk-risk, lyta-grok-desk-pumpfun, or grok-bot.
+- Treat a separate agent as a security boundary (same model family, correlated failure). PAPER_GUARD is a log latch, not isolation.
+
+Name: PAPER_GUARD (module under lyta-grok-desk-paper)
+Tagline (≤32 chars): Paper-only latch, veto live
+Category: experimental
+
+================================================================================
+END PASTE — AGENT 2 of 5
+================================================================================
+
+================================================================================
+BEGIN PASTE — AGENT 3 of 5: COLLISION
+================================================================================
+
+This is Phase 1: experimental paper trading for the larger "LYTA Pump.fun Grok Bot Trading Desk" project.
+
+Add ONE additional Circuit AI agent to the EXISTING workspace named lyta-grok-desk-paper. Name this add-on COLLISION. Do not create a new workspace. Do not create a live wallet. Do not snipe. Do not copy whales. Do not deposit.
+
+COLLISION is a non-voting open-slot clerk. It never counts toward consensus. Consensus stays 7 of the original 12. max_open_positions stays 1. Do not raise that cap to make room for five extra agents.
+
+Role:
+- Read existing Papertrade positions for this workspace.
+- Return {veto: true|false, open_count, reason}.
+- veto=true when open_count >= 1 (already holding) OR the candidate coin is already in the paper book. Same rule PORTFOLIO uses: if the desk already holds that coin, stand down.
+- veto=false only when open_count == 0.
+- A false veto is NOT an entry.
+- Never call papertrade.positions.open. Never vote into the 12 tally. On Circuit BTC/ETH, wallets / buys / holders / top10 / dev are N/A: log "missing" and pass — do not invent counts.
+
+MUST:
+- Log: "  COLLISION → VETO|OK open_count=N reason=..."
+- Always emit: "This run is observation only. No trades executed."
+
+MUST NOT:
+- Open a second paper position because five new agents exist.
+- Change stop_loss_pct (35) or take_profit_pct (50). Do not add a 30% stop.
+- Switch this workspace to pump.fun, bonding curves, or live Solana.
+
+Name: COLLISION (module under lyta-grok-desk-paper)
+Tagline (≤32 chars): One-slot collision veto
+Category: experimental
+
+================================================================================
+END PASTE — AGENT 3 of 5
+================================================================================
+
+================================================================================
+BEGIN PASTE — AGENT 4 of 5: TALLY_LOCK
+================================================================================
+
+This is Phase 1: experimental paper trading for the larger "LYTA Pump.fun Grok Bot Trading Desk" project.
+
+Add ONE additional Circuit AI agent to the EXISTING workspace named lyta-grok-desk-paper. Name this add-on TALLY_LOCK. Do not create a new workspace. Do not create a live wallet. Do not snipe. Do not copy whales. Do not deposit.
+
+TALLY_LOCK is a non-voting 7/12 auditor. It never casts a 13th vote. It never changes the frozen roster. Consensus_bar stays default 7, min 7, max 12.
+
+Role:
+- Receive the twelve voter returns only (SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR). Ignore SIZE_GATE / PAPER_GUARD / COLLISION / OBSERVER when counting.
+- Count long, short, pass. active = 12 - pass.
+- Return {veto: true|false, long, short, pass, needed: 7, reason}.
+- veto=true unless long >= 7 XOR short >= 7 (exactly one side has >= 7). If both sides somehow show >= 7, veto. If the top side is 5 or 6, veto with reason "consensus N/12 < 7".
+- Refuse any attempt to treat 5/12, 6/12, 7/17, or 10/17 as consensus. The denominator is always 12.
+- A false veto is NOT an entry. Coordinator still needs size + paper + collision gates.
+- Never call papertrade.positions.open.
+
+MUST:
+- Log: "  TALLY_LOCK → VETO|OK long=X short=Y pass=Z needed=7/12 reason=..."
+- If someone lists 17 agents, still score only the original 12.
+- Always emit: "This run is observation only. No trades executed."
+
+MUST NOT:
+- Promote H03 / cap-50 / cap-150.
+- Drop consensus to manufacture fills.
+- Rewrite the twelve signal rules.
+- Strip [settings] so circuit check exits 0. If check fails on "Define 1-3 settings" because Tightened keys sit outside the schema, leave the lock.
+
+Name: TALLY_LOCK (module under lyta-grok-desk-paper)
+Tagline (≤32 chars): Freeze 7/12 tally lock
+Category: experimental
+
+================================================================================
+END PASTE — AGENT 4 of 5
+================================================================================
+
+================================================================================
+BEGIN PASTE — AGENT 5 of 5: OBSERVER
+================================================================================
+
+This is Phase 1: experimental paper trading for the larger "LYTA Pump.fun Grok Bot Trading Desk" project.
+
+Add ONE additional Circuit AI agent to the EXISTING workspace named lyta-grok-desk-paper. Name this add-on OBSERVER. Do not create a new workspace. Do not create a live wallet. Do not snipe. Do not copy whales. Do not deposit.
+
+OBSERVER is a non-voting log-only witness. It never counts toward consensus. It never vetoes. It never opens. With $2–$6 paper the desk should log votes then stand down for size on nearly every run; OBSERVER exists so that stand-down is visible, not so a fill can be forced.
+
+Role:
+- After all votes and veto clerks run, print the verbose cycle log in this order:
+  1. [PAPER TRADING] mode on Circuit Papertrade | Tiny $2-$6 capital | Survival + observation first
+  2. [BALANCE] collateral=...
+  3. one line per frozen voter: "  NAME → SIDE (conv X.XX) reason=..."
+  4. [TALLY] long=X short=Y pass=Z active=A/12
+  5. one line per add-on: SIZE_GATE, PAPER_GUARD, COLLISION, TALLY_LOCK, OBSERVER
+  6. [CONSENSUS] side=... votes=N/12   OR   [STAND DOWN] Reason: ... (calculated vs required)
+  7. [SIZING] risk=3% lev<=5x margin=... (clamp 0.20-0.85) notional=...
+  8. Closing line exactly: "This run is observation only. No trades executed."
+- Return {veto: false, logged: true, reason: "observation only"}.
+- Never call papertrade.positions.open. Never vote into the 12 tally. Never invent fill prices, PnL, wallets, buys, holders, top10, or dev counts. Missing fields log "missing".
+
+MUST:
+- Keep category = "experimental". Hourly trigger align = "rolling", everyMs = 3600000.
+- Do not switch this workspace to pump.fun. Phase 2 (is_pump, analyst_score, rug_risk, liquidity, new launches) is later.
+
+MUST NOT:
+- Generate the other six OpenBot desk names.
+- Copy whales, snipe, deposit, fund, or unlock-by-PnL.
+- Treat OBSERVER as a 13th voter or as a security boundary.
+
+Name: OBSERVER (module under lyta-grok-desk-paper)
+Tagline (≤32 chars): Paper log witness only
+Category: experimental
+
+================================================================================
+END PASTE — AGENT 5 of 5
+================================================================================
+
+================================================================================
+BEGIN PASTE — WIRE-IN (after the five exist)
+================================================================================
+
+This is Phase 1: experimental paper trading for the larger "LYTA Pump.fun Grok Bot Trading Desk" project.
+
+Update ONLY the coordinator in the EXISTING workspace lyta-grok-desk-paper so it calls five add-on agents. Do not create a new workspace. Do not create a live wallet. Do not snipe. Do not copy whales. Do not deposit. Do not edit lyta-grok-desk-signal, lyta-grok-desk-analyst, lyta-grok-desk-trader, lyta-grok-desk-risk, lyta-grok-desk-pumpfun, or grok-bot.
+
+Keep the frozen 12 voters and their rules exactly:
+1. SCOUT — last hour's move
+2. FILTER — day's move only if bigger than 0.5%
+3. ANALYST — price against the 24-hour average
+4. PUMP_CHASER — move bigger than 1% over the last 4 hours
+5. CONVICTION — votes only when day's move and last 4 hours agree
+6. MOMENTUM — last 4 hours
+7. SCALPER — last hourly candle
+8. CONTRARIAN — bets against a day's move bigger than 2%
+9. TREND — 8-hour average against 24-hour average
+10. RESEARCHER — where price sits in its 24-hour range
+11. PORTFOLIO — day's move, but passes if the desk already holds that coin
+12. EXECUTOR — price against the 8-hour average
+
+Do not improve those rules. Do not add fingerprint / sniper / bundler logic.
+
+New coordinator order each hourly rolling trigger:
+1. papertrade.account.retrieve() and log real paper collateral.
+2. Read BTC or ETH Papertrade market (change_1h, change_4h, change_8h, change_24h, 24h average, 24h range).
+3. Call the twelve voters. Each returns {side: "long"|"short"|"pass", conv: number, reason: string}.
+4. Call TALLY_LOCK on those twelve returns only. Denominator stays 12. Needed stays 7.
+5. Call PAPER_GUARD.
+6. Call COLLISION (max_open_positions = 1).
+7. Call SIZE_GATE (margin = clamp(3% of free collateral, 0.20, 0.85), notional = margin * leverage cap 5x).
+8. Call OBSERVER to print the full log.
+9. Open ONLY if ALL of: TALLY_LOCK veto=false, PAPER_GUARD veto=false, COLLISION veto=false, SIZE_GATE veto=false. Then the only open call is papertrade.positions.open({ asset, side, margin, leverage }).
+10. Otherwise [STAND DOWN] with the clerk's reason and calculated vs required numbers.
+
+Locked settings — do not change:
+- paper_only = true
+- consensus_bar default 7 min 7 max 12
+- desk_risk_pct / risk_per_trade default 3 max 3
+- max_leverage default 5 max 5
+- micro_size_min 0.20, micro_size_max 0.85
+- max_open_positions = 1
+- stop_loss_pct default 35 min 35
+- take_profit_pct default 50 min 50
+- min_liquidity_usd 50000
+- max_h1_pump_pct 100
+- category = "experimental"
+- startingAsset.network = "papertrade", asset = "USDC", minimumAmount = "1"
+- trigger align = "rolling", everyMs = 3600000
+- Name lyta-grok-desk-paper. Tagline ≤32 chars: Paper 7/12 12-agent desk
+
+If circuit check fails on "Define 1-3 settings" because Tightened keys sit outside the schema, leave the lock. That fail is success. Do not strip [settings].
+
+Expected: with $2–$6 paper the desk logs twelve votes plus five clerk lines, then stands down for size on nearly every run. That is success, not a bug.
+
+Always emit: "This run is observation only. No trades executed."
+
+Pump.fun adaptation is Phase 2. Do not switch this workspace to pump.fun, bonding curves, or live Solana in this generation. Do not prepare a real-money path.
+
+================================================================================
+END PASTE — WIRE-IN
+================================================================================
+
+After Circuit replies, paste circuit.toml / index.ts / DESCRIPTION.md here for
+paper-only review. Do not apply live capital, sniping, or the other six OpenBot
+agents.
+
+This run is observation only. No trades executed.

@@ -1,0 +1,10 @@
+{
+  "preset": "meanreversion",
+  "positions_completed": 15,
+  "sell_legs": 15,
+  "realized_pnl_sol": -0.0455,
+  "avg_pnl_per_position": -0.003,
+  "buys": 15,
+  "market_flips": 97,
+  "config_name": "meanreversion"
+}

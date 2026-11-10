@@ -1,0 +1,49 @@
+---
+This is a **platform parameter configuration prompt for Trencher AI**.
+
+The user owns a 12-bot Grok Bot trading desk that trades memecoins on pump.fun. The desk is 100% paper-only (simulated funds, no real trades, no wallet import, no signing, no order execution).
+
+GOAL: Configure the Trencher AI platform for the paper-only pumpfun trading desk. Set the paper copy settings and note which controls are NOT available on Trencher.
+
+PLATFORM CONTEXT:
+- Trencher AI is the secondary platform. It has NO user-editable circuit.toml, index.ts, or YAML config file.
+- Trencher supports only: mode = PAPER, allowed_sources, max_open_positions, buy_slippage, stop_loss.
+- Trencher does NOT support: leverage, risk_per_trade, 7-of-12 consensus, configurable polling/API timeouts, network-only retry rules, code-import/call blocking, score-collapse exits, dynamic percentage or USD sizing.
+- Therefore paper_only = true files and execution restrictions CANNOT be enforced on Trencher — they are enforced on OpenBot (core desk) and Circuit (circuit.toml), not on Trencher.
+
+CONFIGURE THESE SETTINGS ON TRENCHER:
+
+1. mode = PAPER (written in code as: `mode = PAPER` — already enforced; simulated funds, no wallet)
+2. allowed_sources = ["pump.fun"]
+3. max_open_positions = 1
+4. buy_slippage = 15% (already set)
+5. stop_loss = 0.92x entry (requested −8% trigger; currently 1.0x)
+
+NOTICE — FIXED BUY SIZE:
+- The user's current buy size is fixed at 0.05 SOL on Trencher.
+- Trencher CANNOT dynamically cap at $0.50 or size to 3% of collateral — it has no sizing engine.
+- Before changing the fixed SOL amount, check the bot's displayed paper balance. Do not assume $6.00 — the user has NOT confirmed a fixed dollar amount.
+
+NOTICE — STOP-LOSS CONTROL:
+- The stop-loss control is already open on Trencher's Configure for review.
+- A −35% stop is where the bot tries to exit, not a guaranteed cap.
+- A rug may fill worse or not at all — the bot may exit at −35%, −40%, or not at all.
+- No live bot was changed.
+
+EXPECTED OUTPUT:
+- The platform's paper copy configuration (note: no YAML/TOML file is editable on Trencher)
+- Any code snippet that sets: mode = PAPER, allowed_sources = ["pump.fun"], max_open_positions = 1, buy_slippage = 10%, stop_loss = 0.65x entry
+- A note that:
+  - dynamic percentage or USD sizing is not available
+  - configurable polling/API timeouts are not available
+  - network-only retry rules are not available
+  - code-import/call blocking is not available
+  - score-collapse exits are not available
+  - paper_only = true files and execution restrictions are enforced on OpenBot and Circuit, NOT on Trencher
+- A note that the 0.05 SOL buy size is fixed and must be changed by checking the bot's displayed paper balance first
+
+CONSTRAINTS:
+- Do NOT add live trading
+- Do NOT add a 30% stop-loss (the desk uses only a −35% stop or exits on score collapse, rug spike, or time-out)
+- Do NOT add a new agent name
+- Do NOT use real wallet addresses or API keys (none provided)

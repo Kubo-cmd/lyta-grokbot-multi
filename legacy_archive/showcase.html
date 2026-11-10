@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LYTA paper desk — host vs application</title>
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --fg: #e8eaed;
+      --muted: #9aa0a6;
+      --accent: #7aa2f7;
+      --border: #2a2f3a;
+      --card: #14181f;
+      --warn: #f0c674;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 15px/1.5 ui-sans-serif, system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+    }
+    main { max-width: 880px; padding: 32px 24px 64px; }
+    h1 { font-size: 1.4rem; font-weight: 650; margin: 0 0 8px; }
+    h2 { font-size: 1.05rem; margin: 28px 0 10px; color: var(--accent); }
+    p, li { color: var(--fg); }
+    .muted { color: var(--muted); }
+    .banner {
+      border: 1px solid var(--border);
+      background: var(--card);
+      padding: 10px 14px;
+      margin: 12px 0 24px;
+      color: var(--warn);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      border: 1px solid var(--border);
+    }
+    th, td {
+      text-align: left;
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    th { color: var(--muted); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.02em; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.86em; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Host vs application</h1>
+    <p class="muted">Tightened paper-observation desk. No winner column. PRIVATE tree.</p>
+    <div class="banner">This run is observation only. No trades executed. No live capital.</div>
+
+    <h2>Application</h2>
+    <p>
+      The 12-agent paper desk: Tightened <strong>7/12</strong>,
+      <code>$6</code> paper, BTC/ETH <code>papertrade</code>,
+      stop <strong>−35%</strong> / take <strong>+50%</strong>,
+      liquidity ≥ <code>$50k</code>, 1h pump ≤ <code>100%</code>,
+      PAPER-CTRL buy <code>$0.20</code>.
+    </p>
+    <p>
+      Agent count, paper-only guards, voting, and micro-sizing are
+      <strong>application architecture</strong>. Scoring them as a platform win
+      was the original table’s error.
+    </p>
+    <p>
+      Voting is <strong>not</strong> a risk layer. Same model family, seven
+      signatures, one correlated failure. Named Bots are not a security boundary.
+    </p>
+
+    <h2>Host</h2>
+    <p>Isolation is the host discriminator. Hosts are interchangeable runtimes for this desk.</p>
+    <table>
+      <thead>
+        <tr><th>Host</th><th>Role here</th><th>Not a win row</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>OpenBot</td>
+          <td>Current workspace <code>lyta-grok-desk-paper</code>. PolyForm Noncommercial — not OSS.</td>
+          <td>Do not score “full open-sourcing.” Do not start a live thread this pass.</td>
+        </tr>
+        <tr>
+          <td>Grok Bot.app</td>
+          <td>One possible desktop host. Paper desk is not inside the <code>.app</code>.</td>
+          <td>Not the <code>grok</code> CLI. Computer-use stays off.</td>
+        </tr>
+        <tr>
+          <td>Hermes Agent</td>
+          <td><code>hermes migrate/import-agent openbot</code> and <code>grok-bot</code> exist.</td>
+          <td>Migrate-ability is not unique to OpenBot. No import this pass.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Frozen gates (application)</h2>
+    <table>
+      <thead>
+        <tr><th>Gate</th><th>Value</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Consensus</td><td>7/12</td></tr>
+        <tr><td>Liquidity</td><td>≥ $50k</td></tr>
+        <tr><td>1h pump</td><td>≤ 100%</td></tr>
+        <tr><td>Stop / take</td><td>−35% / +50%</td></tr>
+        <tr><td>User capital</td><td>$6 paper</td></tr>
+        <tr><td>Network</td><td>papertrade</td></tr>
+        <tr><td><code>paper_only</code></td><td>true</td></tr>
+        <tr><td>Pass-rate band</td><td>35–55%</td></tr>
+      </tbody>
+    </table>
+    <p class="muted">
+      Size gate in <code>index.ts</code> (<code>margin &lt; 0.25 || collateral &lt; 2.0</code>)
+      still conflicts with PAPER-CTRL <code>$0.20</code>. Neither raise nor 7/12 loosen is shipped.
+      Sibling adapters named in a review pack stay unwired. LICENSE unpublished.
+    </p>
+  </main>
+</body>
+</html>

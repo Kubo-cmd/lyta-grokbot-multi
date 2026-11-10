@@ -1,0 +1,137 @@
+# 🚀 Circuit AI — Multi-Agent Startup Prompt (How to Use)
+
+> These prompts are for **Circuit AI** (the desk builder).
+> Use them in order, or pick the one that matches where you are.
+
+---
+
+## Option A — Start Fresh: Full Multi-Agent Setup
+
+**Paste this into Circuit AI:**
+
+```
+I want to build a multi-agent trading desk with the platform separation:
+
+1. GROK BOT (Server) — runs on managed cloud VM (xAI), always-on, routes tasks to agents
+2. OPENBOT (Agents) — runs on local desktop workspace, 7 trading agents, MCP-native
+
+Generate:
+1. grok-bot-router agent — server router (code included)
+2. lyta-grok-desk-paper agent — Circuit BTC/ETH paper trading agent (12-bot desk, phase 1)
+3. lyta-grok-desk-pumpfun agent — pump.fun memecoin agent (12-bot desk, phase 2)
+4. lyta-grok-desk-signal agent — signal scanner
+5. lyta-grok-desk-analyst agent — rug risk, liquidity evaluator
+6. lyta-grok-desk-trader agent — execution (micro-sizing $0.20-0.85)
+7. lyta-grok-desk-risk agent — risk management, stand-down
+8. circuit.toml with multi-agent routing, 60s schedule triggers
+9. index.ts router entry point
+10. DESCRIPTION.md for each agent
+
+Architecture:
+- Grok Bot = server, do NOT trade, route to OpenBot agents
+- OpenBot = local desktop, 7 agents, FIFO queues, shared files, ACP communication
+- grok-bot (server) uses AGENT_TRIGGER on_trigger handler to route to correct agent
+- OpenBot agents use the circuit run SDK for execution
+```
+
+**What you get:** A complete multi-agent workspace with routing, all 7 agents, and
+the platform separation documented. Copy the generated files into `lyta-grok-desk/`.
+
+---
+
+## Option B — Phase 1: Circuit Paper Trading Only
+
+**Paste this into Circuit AI:**
+
+```
+I want to run a 12-personality Grok desk agent on Circuit's Papertrade (synthetic perps)
+for $2-6 paper trading on BTC/ETH.
+
+Requirements:
+- 12 personalities voting: SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM,
+  SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR
+- Consensus bar: 5 of 12 bots minimum
+- Micro-sizing: $0.20-0.85 margin per trade
+- Risk: 3%, max leverage 5x
+- Paper-only. Use circuit run --paper for simulated funds.
+- Read real Papertrade collateral. Log every trade attempt.
+- Generate: circuit.toml (papertrade + micro-sizing + 60s trigger), index.ts (full code),
+  DESCRIPTION.md
+
+After I get the reply, paste the generated code and I'll review/fix it.
+```
+
+**What you get:** A circuit.toml and index.ts that run the 12-bot desk on paper.
+
+---
+
+## Option C — Phase 2: Pump.fun Memecoin Trading
+
+**Paste this into Circuit AI:**
+
+```
+I want to run the same 12-personality Grok desk on pump.fun memecoins.
+
+Requirements:
+- Same 12 personalities: SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM,
+  SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR
+- Each bot's bias uses pump.fun signals: is_pump, analyst_score, rug_risk, liquidity,
+  buys_5m, price_change, new_launch
+- Consensus bar: 5 of 12 minimum
+- Micro-sizing: $0.20-0.85 margin
+- Risk: 3%, max leverage 5x
+- Paper-only. Use circuit run --paper for simulated funds.
+- Signal agent scans pump.fun for new launches
+- Generate: circuit.toml, index.ts (pump.fun logic), DESCRIPTION.md
+
+After I get the reply, paste the generated code and I'll review/fix it.
+```
+
+**What you get:** A pump.fun-adapted desk with the same 12-bot architecture.
+
+---
+
+## Option D — After Building: Grok Bot Server + OpenBot Router
+
+**After generating the agents with Option A, paste this to Configure the Router:**
+
+```
+Configure grok-bot (server) to route to the generated OpenBot agents:
+
+Agent routing map (on cloud VM, always-on):
+- "paper" or "circuit" → lyta-grok-desk-paper (Circuit BTC/ETH paper)
+- "pumpfun" or "memecoin" → lyta-grok-desk-pumpfun (pump.fun trading)
+- "signal" or "scan" → lyta-grok-desk-signal (signal scanner)
+- "analyst" or "safety" → lyta-grok-desk-analyst (rug/liquidity check)
+- "trade" or "execute" → lyta-grok-desk-trader (micro-sizing execution)
+- "risk" or "stop" → lyta-grok-desk-risk (risk management, stand-down)
+
+On trigger, route to the correct agent. Return structured routing responses:
+[ROUTING] Task: ... → Target agent: ... → Status: ...
+
+Also configure:
+- circuit.toml: 7 agents, 60s schedule trigger (pump.fun / paper)
+- index.ts: main entry that delegates to the correct agent's run() function
+- README.md / ARCHITECTURE.md: platform separation documentation
+```
+
+**What you get:** The Grok Bot server routes to the 7 OpenBot agents.
+
+---
+
+## How the Multi-Agent Workflow Works
+
+```
+User message → Grok Bot (server) → routes to correct OpenBot agent
+      ↓
+OpenBot agent executes (trading, analysis, signal)
+      ↓
+Result returned to user (via Grok Bot server)
+```
+
+**Key rules:**
+- Grok Bot never executes trades
+- OpenBot agents never route tasks
+- Each agent reads its own config from circuit.toml
+- The 60s schedule trigger fires all agents; each checks its conditions and acts
+- Micro-sizing is enforced by the trader agent: $0.20–$0.85 per trade

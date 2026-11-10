@@ -1,0 +1,113 @@
+# 🚀 Circuit AI — 12-Bot Grok Trading Desk Prompt
+
+> **Copy and paste this entire block into Circuit AI** (the Builder).
+> **Use this for Phase 1** — Circuit paper trading on BTC/ETH with $2-$6 collateral.
+
+---
+
+# ═══════════════════════════════════════════════════════════════════
+
+# Circuit AI — Lyta Grok Bot Multi-Agent Desk (Phase 1: Paper Trading)
+
+## Identity
+
+Build a **12-personality autonomous trading desk** for Circuit AI's **Papertrade** venue
+(synthetic perpetuals). The desk trades **BTC and ETH** only (stable, liquid markets for
+tiny capital). The user has **$2 to $6 paper**. The #1 priority is **capital preservation
+and data collection**, not profit.
+
+## Platform Roles (IMPORTANT)
+
+| Layer | Platform | Role | Always-On? |
+|-------|----------|------|------------|
+| **Grok Bot (Server)** | Managed cloud VM (xAI) | Routes tasks, coordinates, persistent state | ✅ Cloud keeps running |
+| **OpenBot (Agents)** | Local desktop workspace | 12-bot voting, execution, risk | Runs on local machine |
+
+The Grok Bot server **does NOT trade**. It routes to the 12-bot agent. The OpenBot
+agent is the executable trading desk.
+
+---
+
+## The 12-Bot Voting Architecture
+
+Each bot has a `bias` function and a `conviction` score. A token is traded only when
+**at least 5 of 12 bots** agree on a side (long or short).
+
+| # | Bot | Conviction | Bias Rule | Hard Stop |
+|---|-----|-----------|-----------|-----------|
+| 1 | SCOUT | 0.75 | `change24h > 3 && liq > 1500 && rugScore < 0.55` | -7% |
+| 2 | FILTER | 0.65 | `change24h > 1.5 && volume > 80000` | -4% |
+| 3 | ANALYST | 0.60 | `change24h > 0 && rugScore < 0.4` | -6% |
+| 4 | PUMP_CHASER | 0.85 | `change24h > 8 && volume > 120000` | -9% |
+| 5 | CONVICTION | 0.55 | `rugScore < 0.35 && change24h > -2` | -5% |
+| 6 | MOMENTUM | 0.70 | `change24h > 4 && volume > 60000` | -6% |
+| 7 | SCALPER | 0.80 | `abs(change24h) > 2.5` | -3.5% |
+| 8 | CONTRARIAN | 0.50 | `change24h < -6 && rugScore < 0.5` | -8% |
+| 9 | TREND | 0.60 | `change24h > 5 && volume > 90000` | -4.5% |
+| 10 | RESEARCHER | 0.70 | `liq > 2000 && rugScore < 0.28 && change24h > 1` | -5.5% |
+| 11 | PORTFOLIO | 0.65 | `change24h > -3 && rugScore < 0.35` | -8% |
+| 12 | EXECUTOR | 0.72 | `change24h > 1 && liq > 1800 && rugScore < 0.22` | -4% |
+
+---
+
+## Sizing & Risk Rules
+
+- **Risk:** 3% of collateral per trade (default)
+- **Max leverage:** 5x
+- **Micro-sizing:** $0.20 – $0.85 margin per trade
+- **Dynamic scaling:** Read actual collateral; scale down if balance < $4
+- **Hard caps:** If calculated margin < $0.25 or collateral < $2, stand down
+- **Consensus bar:** 5/12 minimum (do NOT loosen — use 5)
+
+## Papertrade Platform Rules (Circuit)
+
+- **Run mode:** Use `circuit run --paper` for simulated funds
+- **Open order format:** `papertrade.positions.open({ asset, side, margin, leverage })`
+- **Read balance:** `papertrade.account.retrieve()` → collateral
+- **Fallback:** If no Papertrade data, assume $6 collateral
+- **Platform minimums:** Papertrade requires ≥ 10 USDC margin, ≥ 10,000 USDC notional
+  — with tiny paper capital this is a known constraint; log gracefully and stand down
+- **No real money** — this entire agent is paper-only
+
+## Verbose Logging (Required)
+
+Every run must log:
+- Current collateral/available balance
+- Market state: asset, price, change24h, volume, liquidity, rugScore
+- Each bot's vote: PASS, LONG, or SHORT with reasoning
+- Final tally: long=N short=M pass=P
+- Consensus: N/12 agree
+- Chosen side, margin, leverage, notional
+- If standing down: reason (insufficient consensus, size too small, balance low)
+
+## Output Files to Generate
+
+### 1. circuit.toml
+- Network: `papertrade`
+- Trigger: `schedule` every 60s (or `onChain` for pump.fun)
+- Settings: `desk_risk_pct = 3`, `max_leverage = 5`, `consensus_bar = 5`,
+  `micro_size_min = 0.20`, `micro_size_max = 0.85`
+- Paper-only: `paper_only = true`
+
+### 2. index.ts
+Full TypeScript code with:
+- The 12-bot profiles (type BotProfile, array BOTS)
+- MarketState interface with all fields
+- getMarketState() — reads Papertrade real data or falls back to synthetic
+- decideAction() — per-bot bias evaluation
+- run() — main trading loop with verbose logging
+- Safety gates: balance check, consensus check, size check
+
+### 3. DESCRIPTION.md
+In the exact format required by Circuit AI:
+- Short thesis (160 chars max)
+- Strategy bullets
+- Exposure section: Holds, Venue, Leverage, Costs, Data, On unwind
+
+---
+
+## Generator Instructions (for Circuit AI)
+
+Generate the three files as a complete, runnable workspace.
+Test that the code would pass `circuit check`.
+End with a brief summary of how to run: `circuit run --paper` and how to monitor logs.

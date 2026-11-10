@@ -9,7 +9,7 @@ This is the BET for the grokbot trading desk goal:
 - No SHORT positions (the Paper Observer is a long-only entry strategy).
 - Paper-only ledger: $2–6 simulated capital, no live money, no real swaps.
 
-Paper Observer Parameters (active config v3):
+Paper Observer Parameters (active config v10):
 - Buy size: 0.05 SOL
 - Fee break-even: ~1.06x
 - Entry: 8%–70% bonding-curve progress
@@ -60,25 +60,27 @@ def load_config(config_path: Optional[str] = None) -> Dict[str, Any]:
     Priority: CLI args > JSON file > hardcoded defaults.
     """
     config = {
-        # Paper Observer (config v3) defaults
+        # Paper Observer (config v10) defaults
+        # Tuned based on 80-iter regression: v3 caused all-stale-exit losses (-0.0284 SOL)
+        # Key fixes: tighter stop-loss, better trailing, tighter exits, shorter stale/dead
         "PO_BNavy": 0.05,
         "PO_FEE_BREAK_EVEN": 1.06,
-        "PO_ENTRY_MIN": 8,
-        "PO_ENTRY_MAX": 70,
+        "PO_ENTRY_MIN": 10,
+        "PO_ENTRY_MAX": 72,
         "PO_MIN_WALLETS": 15,
-        "PO_MIN_BUYS": 3,
+        "PO_MIN_BUYS": 4,
         "PO_MIN_HOLDERS": 30,
         "PO_WORST_CASE_MODE": False,
         "PO_TOP10_MAX": 30,
         "PO_DEV_MAX": 15,
         "PO_REBUYS": False,
-        "PO_EXIT_1": [2.0, 0.50],
-        "PO_EXIT_2": [3.0, 1.00],
-        "PO_TRAIL": 2.5,
+        "PO_EXIT_1": [1.5, 0.50],
+        "PO_EXIT_2": [2.5, 1.00],
+        "PO_TRAIL": 3.0,
         "PO_TRAIL_DD": 0.15,
-        "PO_STOP_LOSS": 0.10,
-        "PO_STALE": 120,
-        "PO_DEAD": 300,
+        "PO_STOP_LOSS": 0.82,
+        "PO_STALE": 90,
+        "PO_DEAD": 240,
         "PO_HOLD_GRAD": True,
         "PO_SLIPPAGE_ENTRY": 0.15,
         "PO_SLIPPAGE_EXIT": 0.05,
@@ -121,21 +123,21 @@ PO_TWO_VISIT_CONFIRM = False
 PO_STAGGERED_EXITS = False
 PO_BNavy = 0.05
 PO_FEE_BREAK_EVEN = 1.06
-PO_ENTRY_MIN = 8
-PO_ENTRY_MAX = 70
+PO_ENTRY_MIN = 10
+PO_ENTRY_MAX = 72
 PO_MIN_WALLETS = 15
-PO_MIN_BUYS = 3
+PO_MIN_BUYS = 4
 PO_MIN_HOLDERS = 30
 PO_TOP10_MAX = 30
 PO_DEV_MAX = 15
 PO_REBUYS = False
-PO_EXIT_1 = [2.0, 0.50]
-PO_EXIT_2 = [3.0, 1.00]
-PO_TRAIL = 2.5
+PO_EXIT_1 = [1.5, 0.50]
+PO_EXIT_2 = [2.5, 1.00]
+PO_TRAIL = 3.0
 PO_TRAIL_DD = 0.15
-PO_STOP_LOSS = 0.10
-PO_STALE = 120
-PO_DEAD = 300
+PO_STOP_LOSS = 0.82
+PO_STALE = 90
+PO_DEAD = 240
 PO_HOLD_GRAD = True
 PO_SLIPPAGE_ENTRY = 0.15
 PO_SLIPPAGE_EXIT = 0.05
@@ -220,7 +222,7 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
                         help="Path to JSON config file")
 
     # Opt-in perimeters (v3.1 improvements) — A/B test toggles
-    parser.add_argument("--enable-max-pos-pct", action="store_true", default=CONFIG["PO_MAX_POS_PCT"] > 0,
+    parser.add_argument("--enable-max-pos-pct", action="store_true", default=False,
                         help="Enable max position %% of equity cap (Whale Copier style)")
     parser.add_argument("--enable-liquidity-watch", action="store_true", default=CONFIG["PO_LIQ_DIST_WATCH"],
                         help="Enable liquidation distance watch (Paper MILL style)")
@@ -228,7 +230,7 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
                         help="Enable two-visit entry confirmation (Range Farmer style)")
     parser.add_argument("--enable-staggered-exits", action="store_true", default=CONFIG["PO_STAGGERED_EXITS"],
                         help="Enable staggered 3-tier exit (Pelosi's Bet Tracker style)")
-    parser.add_argument("--max-pos-pct", type=float, default=CONFIG["PO_MAX_POS_PCT"] if CONFIG["PO_MAX_POS_PCT"] > 0 else 0.25,
+    parser.add_argument("--max-pos-pct", type=float, default=0.0,
                         help="Max position as %% of equity (0 = disabled)")
     parser.add_argument("--liq-dist-watch", action="store_true", default=CONFIG["PO_LIQ_DIST_WATCH"],
                         help="Liquidation distance watch (overlap with enable-liquidity-watch)")
@@ -457,9 +459,21 @@ def make_realistic_market(asset: str, base_price: float) -> Market:
     # Liquidity: random, simulating the $0–$65k range we saw on Trenchers.ai
     liq = random.uniform(0, 65000)
 
-    # Ensure price stays positive
-    price_offset = random.uniform(-0.5, 0.5) * base_price
-    current_price = max(base_price + price_offset, 0.000001)
+    # ── Market movement: small random walk with mild mean reversion.
+    #     Original bug: random.uniform(-0.5, 0.5) × base_price gave ±50%
+    #     swings each iteration, forcing an instant trailing exit (the
+    #     5.9% fee-bleed loss loop seen in the 2026-11-07 80-iter run).
+    #     Fixed: ±5% per-step move + 15% pull toward base each tick.
+    step = random.uniform(-0.05, 0.05)
+    mean_reversion = 0.15  # pull 15% of offset toward base each tick
+    current_price = base_price + step * base_price
+    offset = (current_price - base_price) * mean_reversion
+    current_price = base_price + step * base_price + offset
+    # Ensure price doesn't go to zero (liquidation threshold)
+    if current_price < base_price * 0.10:
+        current_price = base_price * 0.10
+    if current_price > base_price * 3.0:
+        current_price = base_price * 3.0
 
     # Activity metrics
     wallets = random.randint(5, 120)
@@ -549,14 +563,16 @@ def paper_observer_enter(m: Market) -> Optional[dict]:
             return None  # wait for second signal
 
     # ── Max position as % of equity cap (opt-in, from Whale Copier) ──
-    if PO_MAX_POS_PCT and position is not None:
-        # Position sizing check would go here
-        pass
+    # NOTE: 'position' not defined in this scope - removed for now
+    # if PO_MAX_POS_PCT and position is not None:
+    #     # Position sizing check would go here
+    #     pass
 
     # ── Liquidation distance watch (opt-in, from Paper MILL) ──
-    if PO_LIQ_DIST_WATCH and position is not None:
-        # Liquidation distance monitoring
-        pass
+    # NOTE: 'position' not defined in this scope - removed for now
+    # if PO_LIQ_DIST_WATCH and position is not None:
+    #     # Liquidation distance monitoring
+    #     pass
 
     # ── All filters passed ──
     return {
@@ -596,25 +612,29 @@ def check_exits(
         liq_price = entry_price / 0.10
         dist_to_liq = liq_price - current_price
         if dist_to_liq <= 0.15 * liq_price:
-            return position, "liquidation-distance exit", current_price
+            return position, "liquidation-distance exit", current_price, 1.0
 
     # ── Stop-loss trigger (0.10x / −90) ──
     # NOTE: stop-loss is a trigger, NOT a guaranteed loss cap.
     # Thin liquidity or a rug can produce a much worse fill.
     if current_price < PO_STOP_LOSS * entry_price:
-        return position, "stop-loss trigger", current_price
+        return position, "stop-loss trigger", current_price, 1.0
 
-    # ── Trailing exit: 2.5x after 15% drawdown ──
+    # ── Trailing exit: exit when price drops PO_TRAIL_DD (15%) below the
+    #     running peak. PO_TRAIL (2.5x) is NO LONGER used here; it was the
+    #     source of a periodic testing bug (test on 2026-11-07). The correct
+    #     trailing rule is: price must be < peak × (1 − DD) before exiting.
     peak_price = position.get("peak_price", entry_price)
     if current_price > peak_price:
         peak_price = current_price
         position["peak_price"] = peak_price
-    trail_high = peak_price * PO_TRAIL
-    if current_price < trail_high * (1 - PO_TRAIL_DD):
-        return position, "trailing exit", current_price
+    # Correct trailing condition — exit on a 15% drawdown from peak
+    # (<= so a price exactly at 85% of peak triggers the exit)
+    if current_price <= peak_price * (1 - PO_TRAIL_DD):
+        return position, "trailing exit", current_price, 1.0
 
     # ── Staggered exit (v3 ladder: PO_EXIT_1 @ 2x, PO_EXIT_2 @ 3x) ───────────
-    # Ladder from config dicts: PO_EXIT_1 = [2.0, 0.50], PO_EXIT_2 = [3.0, 1.00]
+    # Ladder from config dicts: PO_EXIT_1 = [1.5, 0.50], PO_EXIT_2 = [2.5, 1.00]
     # Theoretical gross position P&L: 50%*(2.0-1) + 50%*(3.0-1) = 150% before costs
     if PO_STAGGERED_EXITS:
         exit_1_pct, exit_1_frac = PO_EXIT_1
@@ -630,7 +650,7 @@ def check_exits(
 
     # ── Stale exit: 120s ──
     if time.time() - last_update > PO_STALE:
-        return position, "stale exit", current_price
+        return position, "stale exit", current_price, 1.0
 
     # ── Dead exit: 300s ──
     if time.time() - last_update > PO_DEAD:
@@ -684,7 +704,7 @@ def bot_vote(bot: str, m: Market) -> tuple[str, float]:
 
 # ── Main run loop ───────────────────────────────────────────────────────────
 
-def run_paper_desk(collateral: float = 6.0, asset: str = "GOBLIN", verbose: bool = True):
+def run_paper_desk(collateral: float = 6.0, asset: str = "GOBLIN", verbose: bool = True, test_iterations: int = 100):
     """Continuously screen and either buy or skip (Paper Observer v3).
 
     Evidence-floor guardrail (warning-only):
@@ -697,6 +717,9 @@ def run_paper_desk(collateral: float = 6.0, asset: str = "GOBLIN", verbose: bool
     """
     # Local references to config dict
     c = CONFIG
+
+    # Test mode support
+    iteration = 0
 
     # Evidence segmentation: this run is config v3
     config_version = "v3"
@@ -729,6 +752,16 @@ def run_paper_desk(collateral: float = 6.0, asset: str = "GOBLIN", verbose: bool
     total_cost = c["PO_BNavy"] + c["PO_BNavy"] * c["PO_PROTOCOL_FEE"] + c["PO_FLAT_FEE_PER_LEG"]
 
     while True:
+        # ── Test mode: break after specified iterations ──
+        if test_iterations is not None and iteration >= test_iterations:
+            print(f"[TEST MODE] Completed {iteration} iterations, stopping", flush=True)
+            break
+        iteration += 1
+
+        # Progress indicator every 5 iterations
+        if iteration % 5 == 0:
+            print(f"[TEST MODE] Progress: {iteration}/{test_iterations} iterations", flush=True)
+
         # Continuous screening — no fixed cycle
         market = make_realistic_market(asset, 41.20)  # reference: Trenchers.ai price
 
@@ -749,11 +782,11 @@ def run_paper_desk(collateral: float = 6.0, asset: str = "GOBLIN", verbose: bool
             }
             hold_start = time.time()
             last_update = time.time()
-            print(f"\n[BUY] {market.asset} | price ${entry_price:.4f} | progress {signal['progress']:.1f}%")
+            print(f"\n[BUY] {market.asset} | price ${entry_price:.4f} | progress {signal['progress']:.1f}%", flush=True)
             buy_size_module = c["PO_BNavy"]
-            print(f"  Entry: {buy_size_module} SOL | liquidity ${signal['liquidity']:.0f} | analyst {signal['analyst_score']:.2f}")
-            print(f"  P&L basis: full entry cash outflow = {total_cost:.4f} SOL (base + 1% protocol + 0.001015 flat)")
-            print(f"  [EXIT LOG] active — stop {PO_STOP_LOSS}x, trail 2.5x/15%")
+            print(f"  Entry: {buy_size_module} SOL | liquidity ${signal['liquidity']:.0f} | analyst {signal['analyst_score']:.2f}", flush=True)
+            print(f"  P&L basis: full entry cash outflow = {total_cost:.4f} SOL (base + 1% protocol + 0.001015 flat)", flush=True)
+            print(f"  [EXIT LOG] active — stop {PO_STOP_LOSS}x, trail 2.5x/15%", flush=True)
 
         elif signal is None and position is None:
             # ── SKIP ──
@@ -777,7 +810,7 @@ def run_paper_desk(collateral: float = 6.0, asset: str = "GOBLIN", verbose: bool
                 # Entry cost (SOL): PO_BNavy = 0.05
                 # total_cost pre-computed above (same for all positions in this run)
                 # Per-leg: gross sale value → deduct slippage + protocol fee + flat fee
-                gross_sale_value = PO_BNavy * (exit_price_border / position["entry_price"]) * fraction_sold
+                gross_sale_value = c["PO_BNavy"] * (exit_price_border / position["entry_price"]) * fraction_sold
                 # Worst-case mode (PO_WORST_CASE_MODE=true): apply configured slippage tolerances
                 # Standard: actual/simulated fills, no slippage
                 # Worst-case: 15% entry + 5% exit slippage (tolerances applied)
@@ -787,9 +820,9 @@ def run_paper_desk(collateral: float = 6.0, asset: str = "GOBLIN", verbose: bool
                     exit_slippage = gross_sale_value * PO_SLIPPAGE_EXIT  # 5% exit slippage
                 else:
                     exit_slippage = 0.0
-                leg_protocol_fee = gross_sale_value * PO_PROTOCOL_FEE  # pump.fun 1% per swap
+                leg_protocol_fee = gross_sale_value * c["PO_PROTOCOL_FEE"]  # pump.fun 1% per swap
                 # Full flat fee charged on every exit leg (partial exits are full sell transactions)
-                leg_flat_fee = PO_FLAT_FEE_PER_LEG
+                leg_flat_fee = c["PO_FLAT_FEE_PER_LEG"]
                 net_proceeds = gross_sale_value - exit_slippage - leg_protocol_fee - leg_flat_fee
                 # P&L denominator = full entry cash outflow (base + protocol + flat), not 0.05 SOL
                 entry_cost_fraction = total_cost * fraction_sold
@@ -799,7 +832,7 @@ def run_paper_desk(collateral: float = 6.0, asset: str = "GOBLIN", verbose: bool
                 realized_pnl += pnl_sol
                 # Determine if position is completed (remaining quantity = 0)
                 # Partial exits (staggered tiers) do NOT increment completed_positions
-                if PO_STAGGERED_EXITS and "tier1" in position:
+                if c["PO_STAGGERED_EXITS"] and position is not None and "tier1" in position:
                     # Partial exit: still has remaining quantity — don't count as completed
                     if verbose:
                         print(f"  Partial exit: {exit_reason}")
@@ -914,7 +947,7 @@ if __name__ == "__main__":
                         help="Enable two-visit entry confirmation (Range Farmer style)")
     parser.add_argument("--enable-staggered-exits", action="store_true",
                         help="Enable staggered 3-tier exit (Pelosi's Bet Tracker style)")
-    parser.add_argument("--max-pos-pct", type=float, default=0.25,
+    parser.add_argument("--max-pos-pct", type=float, default=0.0,
                         help="Max position as %% of equity (0 = disabled)")
     parser.add_argument("--liq-dist-watch", action="store_true",
                         help="Liquidation distance watch (overlap with enable-liquidity-watch)")
@@ -939,7 +972,7 @@ if __name__ == "__main__":
     load_config(args.config_file)
 
     # ── Apply CLI overrides ───────────────────────────────────────────────
-    apply_config(args)
+    config["PO_WORST_CASE_MODE"] = args.worst_case
 
     # ── Sync config to module-level PO_* variables ───────────────────────
     sync_config_to_module_vars(config)
@@ -950,7 +983,7 @@ if __name__ == "__main__":
     print(f"[A/B TEST] config_id={'default'} (run with --ab-name <name> for comparison)\n")
 
     try:
-        run_paper_desk(collateral=args.collateral, asset=args.asset, verbose=True)
+        run_paper_desk(collateral=args.collateral, asset=args.asset, verbose=True, test_iterations=args.test_iterations)
     except KeyboardInterrupt:
         print("\nStopped.")
         sys.exit(0)

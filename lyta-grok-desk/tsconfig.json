@@ -1,0 +1,45 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "lib": [
+      "ES2022"
+    ],
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "rootDir": ".",
+    "outDir": "dist",
+    "declaration": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "types": [
+      "node"
+    ],
+    "ignoreDeprecations": "6.0"
+  },
+  "include": [
+    "_paper_agent.ts",
+    "_signal_agent.ts",
+    "_analyst_agent.ts",
+    "_trader_agent.ts",
+    "_risk_agent.ts",
+    "_grok_router.ts",
+    "_devwatch_agent.ts",
+    "_scout_agent.ts",
+    "_trencher_agent.ts",
+    "circuit.d.ts",
+    "circuit-sdk.d.ts",
+    "circuit-settings.d.ts",
+    "index.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

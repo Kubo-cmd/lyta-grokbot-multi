@@ -41,7 +41,7 @@ const BOTS: BotProfile[] = [
   { name: "EXECUTOR", conviction: 0.72, hardStop: -0.04, positionMult: 0.85, bias: (m) => m.change24h > 1 && m.liq > 1800 && m.rugScore < 0.22 },
 ];
 
-async function getMarketState(agent: AgentContext): Promise<MarketState> {
+async function getMarketStateProxy(agent: any): Promise<MarketState> {
   // Try to get real data from Papertrade first
   try {
     const markets = await (agent as any).papertrade?.markets?.list?.();
@@ -132,7 +132,7 @@ export const run: RunFunction = async (agent) => {
     return;
   }
 
-  const market = await getMarketState(agent);
+  const market = await getMarketStateProxy(agent);
   const riskPct = (agent.settings?.desk_risk_pct as number) ?? (agent.settings?.risk_per_trade as number) ?? 3;
   const maxLev = Math.min((agent.settings?.max_leverage as number) ?? 5, 5);
   const consensusBar = (agent.settings?.consensus_bar as number) ?? 7;

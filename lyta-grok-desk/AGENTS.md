@@ -1,5 +1,30 @@
-## The job: an agent that trades
-The user starts an agent to trade. Code the user's rule exactly and nothing more: whenever its condition holds, the run places the order. Add no gate, filter, threshold, floor, confirmation, warm-up, cost or edge test, freshness or liveness check, rebalance band, cooldown or "evidence" requirement the user did not state; each one is a way the agent silently never trades. A strategy the user leaves to you trades actively: pick a simple signal that fires within days on current data, never one that waits for a rare event. Never catch an error. A failed read, refused order or failed outside request throws out of `run`; the platform records the failed run with its full error, shows it to the user, notifies them after repeated failures and runs the next trigger as usual. No try/catch, fallback value, retry, skip-and-log or flag that turns a failure into a quiet run.
+# OpenBot Agent Workspace
+
+This is the **OpenBot (Agent Execution Layer)** — the local desktop workspace where
+10 trading agents run.
+
+**Role:** Trading execution, signal generation, analysis, and risk management.
+**Platform:** Local desktop (GitHub `de1lymoon` stack), MCP-native.
+
+## Trading Agents (10)
+
+| Agent | File | Role |
+|-------|------|------|
+| `lyta-grok-desk-paper` | `_paper_agent.ts` | Circuit BTC/ETH paper trading (Phase 1 baseline) |
+| `lyta-grok-desk-pumpfun` | `index.ts` | Pump.fun memecoin trading (Phase 2) |
+| `lyta-grok-desk-signal` | `_signal_agent.ts` | Signal scanner for pump.fun opportunities |
+| `lyta-grok-desk-analyst` | `_analyst_agent.ts` | Rug risk, liquidity, score evaluation |
+| `lyta-grok-desk-trader` | `_trader_agent.ts` | Micro-sizing execution ($0.20–$0.85) |
+| `lyta-grok-desk-risk` | `_risk_agent.ts` | Risk management (3% risk, 5x max, stand-down) |
+| `lyta-grok-desk-scout` | `_scout_agent.ts` | Narrative/rug signal checker — GMGN + wallet analysis |
+| `lyta-grok-desk-devwatch` | `_devwatch_agent.ts` | On-chain wallet monitoring (Hrundel75 rules) |
+| `lyta-grok-desk-trencher` | `_trencher_agent.ts` | TrenchAI deployment monitor + integration |
+| `grok-bot` | `_grok_router.ts` | Server router — routes tasks to LYTA agents |
+
+## Platform Roles
+
+- **Grok Bot (server)** — Cloud VM (xAI), always-on, task routing/firing, persistent state
+- **OpenBot (agents)** — Local desktop workspace, multi-agent FIFO queues, shared files, ACP communication
 
 ## How an agent lives
 An agent is one exported function in `index.ts`: `run(agent)`. The platform calls it each time a trigger declared in `circuit.toml` fires, and `agent.trigger` says which one. Choose the trigger that matches when the strategy must act instead of polling for an event a trigger already reports. Any user can start the agent on their own wallets, so read `agent.walletAddress` at run time and never hard-code the agent's own address.
@@ -33,6 +58,18 @@ Declared triggers are the ones the code expects. `[startingAsset]` names the exa
 
 ## Code
 Write the least code that does the job: read what the rule needs, decide, place the order; a rule stated in a few sentences is a few dozen lines. No state machines, wrappers, helpers, validation of values you wrote yourself, or memory of what was done; memory holds only facts the rule needs across runs, such as a high-water mark, under stable keys. Type SDK argument objects where they are built so discriminants stay literal, and await SDK calls. Implement the requested behaviour: only a venue the SDK cannot write to or a credential the agent cannot hold blocks it. Never substitute fabricated signals, disabled execution, monitor-only, manual input or paper trading.
+
+## Prompt & Builder Reference
+
+Copy-paste prompts for Circuit AI (the Builder / chat interface):
+
+|- **Multi-Agent Setup (Option A):** `CURCH_BOT_MULTI_AGENT_PROMPT.txt` — Grok Bot server + 10 OpenBot agents architecture
+- **Phase 1 (Option B):** `CIRCUIT_AI_12BOT_PROMPT.txt` — 12-bot Paper trading desk (BTC/ETH)
+- **Phase 2 (Option C):** `CIRCUIT_AI_PUMPFUN_PROMPT.txt` — 12-bot Pump.fun memecoin desk
+- **How to Run (Option D):** `CURCH_BOT_STARTUP_PROMPT.txt` — step-by-step builder instructions
+- **Original prompt:** `CIRCUIT_AI_PROMPT.txt` — legacy 12-bot prompt
+
+After getting replies from Circuit AI, paste generated code here and we fix/verify it.
 
 ## DESCRIPTION.md
 DESCRIPTION.md has exactly this shape, each line saying what belongs there; publishing rejects any other shape.
@@ -121,3 +158,10 @@ The SDK has no contract or allowance read and no RPC endpoint. Before reaching o
 
 ### Arc
 On Arc (`ethereum:5042`) USDC is the native dollar and gas token. Its ERC-20 view of the same balance never appears in allocation: treat the native entry as the USDC balance and never add the two. Arc has no `erc4626` provider.
+
+## Version Quick Reference
+
+|| Version | Profile | Key Parameters | Status |
+|---------|---------|----------------|--------|
+|| v9 | Historical | — | Marked historical |
+|| v10_tuned | Tightened paper parameters | PO_STOP_LOSS 0.82, PO_TRAIL 3.0, PO_MIN_BUYS 4, PO_MAX_POOL_FEE 0.04, PO_POSITION_MULT 1.2, PO_ENTRY_MAX 72 | Active trial mode |

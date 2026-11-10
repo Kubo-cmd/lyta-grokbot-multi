@@ -1,33 +1,53 @@
 # LYTA Pump.fun Trading Desk
 
-> **Platform: OpenBot + Grok Bot + Circuit + Trencher AI | 7 trading agents | Mode: Paper-only**
+---
+## 📋 Contents
+- [What This Is](#what-this-is)
+- [Trading Agent Suite](#trading-agent-suite-10-agents)
+- [Trading Desk Parameters](#trading-desk-parameters)
+- [Paper-Only Guard Gates](#paper-only-guard-gates-verbatim)
+- [Agent Performance Reward System](#agent-performance-reward-system)
+- [Latency & Volatility Spike Guidance](#latency--volatility-spike-guidance)
+- [Platform Comparison (Yes/No)](#platform-comparison-yesno)
+- [Repository Layout](#repository-layout)
+- [Quick Start](#quick-start)
+- [GitHub](#github)
+
+---
+> **Platform: Grok Bot (server) + OpenBot (agents) + Circuit + Trencher AI | Mode: Paper-only**
 
 ## 🎯 What This Is
 
-A **12-bot trading desk** that trades **memecoins on pump.fun**. Agents are carried across three platforms:
+A **12-bot trading desk** that trades **memecoins on pump.fun**. The desk uses a **dual-platform separation**:
 
-| Platform | Role |
-|---|---|
-| **OpenBot** | Core 7-agent trading desk (paper + signal + analyst + trader + risk + grok-bot) — the execution desk |
-| **Grok Bot** | Primary routing bot — sends tasks to the right LYTA agent |
-| **Circuit AI** | Parameter engine — holds the circuit.toml configuration and publishes platform parameters |
-| **Trencher AI** | Secondary platform — paper-only copy with fixed-size buy, no dynamic sizing |
+| Component | Platform | Role | Always-On? |
+|-----------|----------|------|------------|
+| **Grok Bot (Server)** | Managed cloud VM (xAI) | Task routing, coordination, persistent state | ✅ Yes — cloud stays up when laptop closes |
+| **OpenBot (Agents)** | Local desktop workspace (nightly-labs) | 7 trading agents — circuit paper, signal, analyst, trader, risk | Runs on local machine |
+| **Circuit AI** | Parameter engine | `circuit.toml` config and platform parameters | Paper-only |
+| **Trencher AI** | Secondary platform | Paper-only fixed-size copy | Paper-only |
 
-The desk is **paper-only**: no real trades, no wallet import, no signing, no order execution.
+**Why this split:**
+- **Grok Bot** provides always-on availability — server stays running even when your laptop is closed
+- **OpenBot** provides multi-agent flexibility — runs different coding agents (Codex, Claude, Grok CLI, etc.) in one workspace with inter-agent communication
+- The **server/agent split** means the coordination layer is independent of the execution layer
 
 ---
 
-## 🤖 Trading Agent Suite (7 Agents)
+## 🤖 Trading Agent Suite (10 Agents)
 
 | Agent | Platform | Role | Paper Guards |
-|---|---|---|---|
-| `lyta-grok-desk-paper` | OpenBot | Circuit paper (BTC/ETH) — Phase 1 baseline | `SIMULATION` + `paper_only` |
-| `lyta-grok-desk-pumpfun` | OpenBot | **Pump.fun memecoin trading — Phase 2** | `SIMULATION` + `paper_only` |
+|-------|----------|------|-------------|
+| `lyta-grok-desk-paper` | OpenBot | Circuit BTC/ETH paper trading (Phase 1 baseline) | `SIMULATION` + `paper_only` |
+| `lyta-grok-desk-pumpfun` | OpenBot | Pump.fun memecoin trading (Phase 2) | `SIMULATION` + `paper_only` |
 | `lyta-grok-desk-signal` | OpenBot | Signal generator — scans pump.fun for opportunities | Paper-only |
 | `lyta-grok-desk-analyst` | OpenBot | Analyst — evaluates rug risk, liquidity, score | Paper-only |
 | `lyta-grok-desk-trader` | OpenBot | Execution agent — micro-sizing $0.20–$0.85 | Paper-only |
 | `lyta-grok-desk-risk` | OpenBot | Risk manager — 3% risk, 5x max, stand-down | Paper-only |
-| `grok-bot` | Grok Bot | Primary bot — routes tasks to the right LYTA agent | Paper-only |
+| `lyta-grok-desk-scout` | OpenBot | Narrative/rug signal checker — GMGN + wallet analysis | Paper-only |
+| `lyta-grok-desk-devwatch` | OpenBot | On-chain wallet monitoring (Hrundel75 rules) | Paper-only |
+| `lyta-grok-desk-trencher` | OpenBot | TrenchesAI deployment monitor + integration | Paper-only |
+| `grok-bot` | Grok Bot | Server — routes tasks to the right LYTA agent | Paper-only |
 
 ---
 
@@ -35,7 +55,26 @@ The desk is **paper-only**: no real trades, no wallet import, no signing, no ord
 
 > **Current focus (Tightened, Phase 2):** 7/12 consensus, skip >100% 1h pump and <$50k liquidity, −35% SL / +50% TP. Paper observation only.
 
-### Platform Perimeters (Current State)
+### 📋 Platform Comparison (Yes/No)
+
+| Question | OpenBot | Lyta-Grok-Bot |
+|---|---|---|
+| Local-first execution | ✅ Yes | ❌ No |
+| Data stays on your machine | ✅ | ❌ |
+| Cost model | Free (non-commercial) | Self-hosted |
+| Mobile app | ✅ | ❌ |
+| Voice / dictation | ✅ | ❌ |
+| Backup models | ✅ | ❌ |
+| Teams / roles | ✅ | ❌ |
+| Chat / human-in-the-loop | ✅ | ❌ |
+| Schedule automation | ✅ | ✅ |
+| Source code | ✅ Open | ✅ Open |
+
+See [lyta-grok-desk/BOT-COMPARE.md](lyta-grok-desk/BOT-COMPARE.md) for the full contrast with the lean highlighted.
+
+---
+
+## 📊 Trading Desk Parameters
 
 | Platform | Mode | Key Settings | Dynamic Sizing |
 |---|---|---|---|
@@ -52,18 +91,25 @@ The desk is **paper-only**: no real trades, no wallet import, no signing, no ord
 | Stop loss | −35% (0.65x) | −35% (0.65x) | Tightened STOP_LOSS=0.35 / TAKE_PROFIT=0.50 |
 | Stop-loss type | Request-based exit; rug may fill worse or not at all | Same | Guaranteed cap is an illusion; the bot may exit at −35%, −40%, or not at all |
 
-### Trailing Exit Logic
+### Trailing Exit Logic (FIXED — 2026-11-07)
 
-| Setting | Value | Meaning |
+|| Setting | Value | Meaning |
 |---|---|---|
-| `PO_TRAIL` | 2.5x | Target exit multiple |
-| `PO_TRAIL_DD` | 15% | Trailing drawdown threshold |
-| Trail high | `peak_price × 2.5x` | Dynamic exit trigger |
-| Trigger | `peak × 2.5x × (1 − 15%)` | Exit when price falls to this level |
+| `PO_TRAIL` | 2.5x | Target exit multiple (no longer used in trailing rule) |
+| `PO_TRAIL_DD` | 15% | Trailing drawdown threshold from peak |
+| Trail high | `peak_price` (running high) | Dynamic exit trigger |
+| Trigger | `peak × (1 − 15%)` = `peak × 0.85` | Exit when price falls to 85% of running peak |
 
-**Example:** Entry @ 1.00x → Peak @ 1.50x. Trail high = 1.50 × 2.5 = **3.75x**. Trigger = 3.75 × (1 − 0.15) = **3.19x**.
+**Correct rule (v3.7):** Exit when `current_price <= peak_price * (1 - PO_TRAIL_DD)`.
+Previously the logic used `peak_price * PO_TRAIL * (1 - PO_TRAIL_DD)` (2.5x multiplier)
+which created an always-true condition → immediate exit at entry → 5.9% fee-bleed loss
+loop. The fix compares against the running peak only, so a price drop of 15% from peak
+correctly triggers the exit.
 
-### 12-Bot Consensus
+**Example (FIXED):** Entry @ 100 → Peak @ 105.72 (realistic move). Trigger = 105.72 × 0.85 = **89.86**.
+Price must reach 89.86 before a trailing exit fires.
+
+### 10-Bot Consensus
 
 | Bot group | Role |
 |---|---|
@@ -71,7 +117,10 @@ The desk is **paper-only**: no real trades, no wallet import, no signing, no ord
 | Analyst | Expert commentary |
 | Risk Manager | Position sizing (5x) |
 | Semantic (CROSS) | Cross-check |
-| Trailing | Trailing exit logic |
+|| Trailing | Trailing exit logic |
+|| Scout | Narrative/rug signal checker |
+|| DevWatch | On-chain wallet monitoring |
+|| Trencher | TrenchesAI deployment monitor |
 
 ---
 
@@ -201,12 +250,61 @@ All agent performance is logged to `performance_log.csv` with columns:
 
 ---
 
-## 📤 Quick Reference
+## 📁 Repository Layout
+
+```text
+lyta-grokbot-multi/
+├── README.md                   # You are here — overview, platform split, rules
+├── ARCHITECTURE.md             # Dual-platform separation (Grok Bot server / OpenBot agents)
+├── STRATEGY_FINALIZE.md        # Strategy decisions
+├── SECURITY.md                 # Reporting & secrets policy (paper-only)
+├── CONTRIBUTING.md             # How to add rules / agents
+├── paper_desk_simulator.py     # Phase 1 simulator (Circuit BTC/ETH paper)
+├── pumpfun_desk_simulator.py   # Phase 2 simulator (pump.fun memecoins)
+├── pumpfun_adapter.py          # Phase 2: pump.fun wiring (future)
+├── scripts/                    # Auxiliary scripts (runners, monitors, plotters)
+├── config/                     # Local config (git-ignored; see .env.example)
+├── legacy/                     # Experimental / superseded artifacts
+├── lyta-grok-desk/             # OpenBot agent workspace (7 agents, Circuit SDK)
+│   ├── circuit.toml            # Platform config + agent triggers
+│   ├── AGENTS.md               # Agent catalog & runbook
+│   ├── index.ts                # Router entry point
+│   ├── package.json            # Node.js / TypeScript manifest
+│   ├── _paper_agent.ts         # Circuit BTC/ETH paper agent (Phase 1)
+│   ├── _signal_agent.ts        # Signal scanner
+│   ├── _analyst_agent.ts       # Rug/liquidity/score analyst
+│   ├── _trader_agent.ts        # Micro-sizing execution ($0.20–$0.85)
+│   ├── _risk_agent.ts          # Risk gate (3% risk, 5x max, stand-down)
+│   ├── _grok_router.ts         # Server router — routes to LYTA agents
+│   ├── CIRCUIT_AI_PROMPT.txt   # Multi-agent Circuit AI prompt library
+│   ├── CURCH_BOT_MULTI_AGENT_PROMPT.txt
+│   ├── CIRCUIT_AI_12BOT_PROMPT.txt
+│   ├── CIRCUIT_AI_PUMPFUN_PROMPT.txt
+│   ├── CURCH_BOT_STARTUP_PROMPT.txt
+│   └── SECURITY.md
+└── docs/                       # Design & strategy documentation
+    ├── STRATEGY_FINALIZE.md
+    ├── comparison_showcase.md
+    ├── MULTI_VERSION_REPORT.md
+    └── PAPER_COMPLETE.md
+```
+
+## ⚡ Quick Start
+
+| Step | Command / Action |
+|------|-----------------|
+| 1. Install dependencies | `pip install -r requirements.txt` (if present) or use the project venv |
+| 2. Phase 1 paper run (Circuit) | `python paper_desk_simulator.py --test-mode --test-iterations 1` |
+| 3. 80-iteration stability run | `python paper_desk_simulator.py --test-mode --test-iterations 80` (background; ~80 min) |
+| 4. Agent workspace | Open `lyta-grok-desk/` in OpenBot; triggers fire from `circuit.toml` |
+| 5. Phase 2 pump.fun (future) | `python pumpfun_desk_simulator.py` (paper-only until live) |
+
+See `ARCHITECTURE.md` for the full platform split and `lyta-grok-desk/AGENTS.md` for the agent catalog.
 
 - **Freebot/Turnstone:** [aryanvij02](https://x.com/aryanvij02) — run Grok bots on any AI subscription; GrokBot hit usage limits → move bots to Claude/ChatGPT via Turnstone
 - **Open-source alternative stack:** [de1lymoon](https://x.com/de1lymoon) — 9 tools (Rakazo, OpenMausBot, OpenBot, eigent, paperclip, openhuman, hermes-agent, nanoclaw, openclaw); OpenBot (7.0K★) is our platform
 - **Routinizer:** [0ooooo0](https://x.com/0ooooo0) — scripts replace repeating bot routines to cut quota by 80–90%
-- **GitHub:** `https://github.com/Kubo-cmd/lyta-grokbot-multi` (**PRIVATE** — do not publish)
+- **GitHub:** `Kubo-cmd/lyta-grokbot-multi` (**PRIVATE** — do not publish)
 - **OpenBot store:** `~/Library/Application Support/OpenBot/openbot.db`
 - **Grok Bot directory:** `lyta-grok-desk/` (relative to repo root)
 
