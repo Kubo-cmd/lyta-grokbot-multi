@@ -91,6 +91,8 @@ See [lyta-grok-desk/BOT-COMPARE.md](lyta-grok-desk/BOT-COMPARE.md) for the full 
 | Stop loss | −35% (0.65x) | −35% (0.65x) | Tightened STOP_LOSS=0.35 / TAKE_PROFIT=0.50 |
 | Stop-loss type | Request-based exit; rug may fill worse or not at all | Same | Guaranteed cap is an illusion; the bot may exit at −35%, −40%, or not at all |
 
+**Currency clarification:** Paper capital is **$2–$6 USD per platform** — not 1 SOL and not $100. The Trencher AI `0.05 SOL` is the **on-chain buy token size**, not the total paper capital; the total budget is $2–$6 USD regardless of platform.
+
 ### Trailing Exit Logic (FIXED — 2026-11-07)
 
 || Setting | Value | Meaning |

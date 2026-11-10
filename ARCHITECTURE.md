@@ -149,8 +149,8 @@ flowchart TB
 
 || Aspect | Detail |
 ||--------|--------|
-|| **Role** | Secondary platform (paper-only copy) — fixed-size buy, no dynamic sizing |
-|| **Mode** | `PAPER` — fixed 0.05 SOL buy size |
+||| **Role** | Secondary platform (paper-only copy) — fixed-size buy, no dynamic sizing |
+||| **Mode** | `PAPER` — fixed 0.05 SOL buy size (SOL on-chain; paper capital $2–$6 USD total) |
 
 ## 3. Data Flow
 
