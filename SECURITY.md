@@ -46,4 +46,4 @@ and read `agent.walletAddress` at run time; never hard-code credentials.
 
 ---
 
-*This repo is **PRIVATE** (see `README.md`). Do not publish or mirror.*
+*This repo is **PUBLIC** (open GitHub). Mirror allowed with attribution.*

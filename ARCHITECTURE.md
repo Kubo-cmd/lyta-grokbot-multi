@@ -38,7 +38,7 @@ The trading desk uses a **dual-platform separation**:
 **Notes:**
 - OpenBot runs **local agents** — agents execute on your machine, data stays on your machine
 - Grok Bot is the **cloud coordination layer** — always-on, accessible from mobile, voice, chat, team workflows
-- Both are **private working tree**: OpenBot `openbot.io` (open-source), Grok Bot `lyta-grokbot-multi` (private experiments, not public OSS — do not publish)
+- Both are **public working tree**: OpenBot `openbot.io` (open-source), Grok Bot `lyta-grokbot-multi` (public GitHub repo)
 
 ---
 

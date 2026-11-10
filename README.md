@@ -30,8 +30,8 @@ A **10-agent spot trading desk** on **OpenBot** (local, localhost:5173), with Gr
 
 | Item | Status |
 |---|---|
-| GitHub repo | `Kubo-cmd/lyta-grokbot-multi` — **PRIVATE** (do not publish) |
-| License | MIT text tracked in this **PRIVATE** tree — unpublished; do not treat as public OSS |
+| GitHub repo | `Kubo-cmd/lyta-grokbot-multi` — **PUBLIC** |
+| License | MIT License (open-source, permitted) |
 | OpenBot store | `~/Library/Application Support/OpenBot/openbot.db` (platform home) |
 | Grok Bot directory | `lyta-grok-desk/` (relative to repo root) |
 
@@ -206,8 +206,8 @@ All agent performance is logged to `performance_log.csv` with columns:
 
 | Item | Status |
 |---|---|
-| GitHub repo | `Kubo-cmd/lyta-grokbot-multi` — **PRIVATE** (do not publish) |
-| License | MIT text tracked in this **PRIVATE** tree — unpublished; do not treat as public OSS |
+| GitHub repo | `Kubo-cmd/lyta-grokbot-multi` — **PUBLIC** |
+| License | MIT License (open-source, permitted) |
 | OpenBot store | `~/Library/Application Support/OpenBot/openbot.db` (platform home) |
 | Grok Bot directory | `lyta-grok-desk/` (relative to repo root) |
 
