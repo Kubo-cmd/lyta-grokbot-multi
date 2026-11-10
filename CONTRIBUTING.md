@@ -13,7 +13,7 @@ lyta-grokbot-multi/
 ├── scripts/                    # Auxiliary scripts (runners, monitors, plotters)
 ├── config/                     # LOCAL config (git-ignored, example in .env.example)
 ├── legacy/                     # Experimental / superseded artifacts
-├── lyta-grok-desk/             # OpenBot agent workspace (7 agents + Circuit SDK)
+├── lyta-grok-desk/             # OpenBot agent workspace (12 agents + Circuit SDK)
 └── docs/                       # Design & strategy documentation
 ```
 
@@ -22,7 +22,7 @@ lyta-grokbot-multi/
 1. Put the rule in `paper_desk_simulator.py` (Phase 1) or
    `paper_desk_simulator.py` (paper).
 2. If the rule is agent-facing, add a trigger to `lyta-grok-desk/circuit.toml`.
-3. Register the agent in the 7-agent table in `lyta-grok-desk/AGENTS.md`.
+3. Register the agent in the 12-agent table in `lyta-grok-desk/AGENTS.md`.
 4. Document the rule in `README.md` (Trading Desk Parameters).
 
 ## Submitting Changes
@@ -35,6 +35,6 @@ lyta-grokbot-multi/
 ## Agent Platform
 
 - **Grok Bot** = server (managed cloud VM, always-on, task routing)
-- **OpenBot** = agents (local workspace, 7 trading agents)
+- **OpenBot** = agents (local workspace, 12 trading agents)
 
 See `ARCHITECTURE.md` for the full split.

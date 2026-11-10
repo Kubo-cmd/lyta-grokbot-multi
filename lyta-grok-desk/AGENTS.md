@@ -1,25 +1,27 @@
 # OpenBot Agent Workspace
 
 This is the **OpenBot (Agent Execution Layer)** — the local desktop workspace where
-10 trading agents run.
+12 trading agents run.
 
 **Role:** Trading execution, signal generation, analysis, and risk management.
 **Platform:** Local desktop (GitHub `de1lymoon` stack), MCP-native.
 
-## Trading Agents (10)
+## Trading Agents (12)
 
-| Agent | File | Role |
-|-------|------|------|
-| `lyta-grok-desk-paper` | `_paper_agent.ts` | Circuit BTC/ETH paper trading (Phase 1 baseline) |
-| `lyta-grok-desk-paper` | `index.ts` | Spot trading desk (Circuit Papertrade, paper-only) |
-| `lyta-grok-desk-signal` | `_signal_agent.ts` | Signal scanner for market opportunities |
-| `lyta-grok-desk-analyst` | `_analyst_agent.ts` | Rug risk, liquidity, score evaluation |
-| `lyta-grok-desk-trader` | `_trader_agent.ts` | Micro-sizing execution ($0.20–$0.85) |
-| `lyta-grok-desk-risk` | `_risk_agent.ts` | Risk management (3% risk, 5x max, stand-down) |
-| `lyta-grok-desk-scout` | `_scout_agent.ts` | Narrative/rug signal checker — GMGN + wallet analysis |
-| `lyta-grok-desk-devwatch` | `_devwatch_agent.ts` | On-chain wallet monitoring (Hrundel75 rules) |
-| `lyta-grok-desk-trencher` | `_trencher_agent.ts` | TrenchAI deployment monitor + integration |
-| `grok-bot` | `_grok_router.ts` | Server router — routes tasks to LYTA agents |
+|| Agent | File | Role |
+||-------|------|------|
+|| `lyta-grok-desk-paper` | `_paper_agent.ts` | Circuit BTC/ETH paper trading (Phase 1 baseline) |
+|| `lyta-grok-desk-paper` | `index.ts` | Spot trading desk (Circuit Papertrade, paper-only) |
+|| `lyta-grok-desk-spot` | `index.ts` | Spot marketplace agent (12-bot consensus, paper-only) |
+|| `lyta-grok-desk-signal` | `_signal_agent.ts` | Signal scanner for market opportunities |
+|| `lyta-grok-desk-analyst` | `_analyst_agent.ts` | Rug risk, liquidity, score evaluation |
+|| `lyta-grok-desk-trader` | `_trader_agent.ts` | Micro-sizing execution ($0.20–$0.85) |
+|| `lyta-grok-desk-risk` | `_risk_agent.ts` | Risk management (3% risk, 5x max, stand-down) |
+|| `lyta-grok-desk-scout` | `_scout_agent.ts` | Narrative/rug signal checker — GMGN + wallet analysis |
+|| `lyta-grok-desk-devwatch` | `_devwatch_agent.ts` | On-chain wallet monitoring (Hrundel75 rules) |
+|| `lyta-grok-desk-trencher` | `_trencher_agent.ts` | TrenchAI deployment monitor + integration |
+|| `lyta-grok-desk-pumpfun` | `_pumpfun_agent.ts` | 12-bot pump.fun paper desk (12-bot consensus on pump.fun) |
+|| `grok-bot` | `_grok_router.ts` | Server router — routes tasks to LYTA agents |
 
 ## Platform Roles
 

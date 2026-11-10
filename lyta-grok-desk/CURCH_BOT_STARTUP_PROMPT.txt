@@ -13,7 +13,7 @@
 I want to build a multi-agent trading desk with the platform separation:
 
 1. GROK BOT (Server) — runs on managed cloud VM (xAI), always-on, routes tasks to agents
-2. OPENBOT (Agents) — runs on local desktop workspace, 7 trading agents, MCP-native
+2. OPENBOT (Agents) — runs on local desktop workspace, 12 trading agents, MCP-native
 
 Generate:
 1. grok-bot-router agent — server router (code included)
@@ -29,12 +29,12 @@ Generate:
 
 Architecture:
 - Grok Bot = server, do NOT trade, route to OpenBot agents
-- OpenBot = local desktop, 7 agents, FIFO queues, shared files, ACP communication
+- OpenBot = local desktop, 12 agents, FIFO queues, shared files, ACP communication
 - grok-bot (server) uses AGENT_TRIGGER on_trigger handler to route to correct agent
 - OpenBot agents use the circuit run SDK for execution
 ```
 
-**What you get:** A complete multi-agent workspace with routing, all 7 agents, and
+**What you get:** A complete multi-agent workspace with routing, all 12 agents, and
 the platform separation documented. Copy the generated files into `lyta-grok-desk/`.
 
 ---

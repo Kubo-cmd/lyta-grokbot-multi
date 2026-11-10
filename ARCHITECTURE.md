@@ -13,7 +13,7 @@ The trading desk uses a **dual-platform separation**:
 | Component | Platform | Role | Always-On? |
 |-----------|----------|------|------------|
 | **Grok Bot (server)** | Managed cloud VM (xAI) | Coordination, routing, persistent state, task orchestration | ✅ Yes — cloud stays up even when laptop closes |
-|| **OpenBot (agents)** | Local desktop workspace (nightly-labs) | 10 trading agents — circuit paper, signal, analyst, trader, risk, scout, devwatch, trencher, spot, grok-bot | Runs on local machine; agents active when machine is on |
+|| **OpenBot (agents)** | Local desktop workspace (nightly-labs) | 12 trading agents — circuit paper, signal, analyst, trader, risk, scout, devwatch, trencher, spot, grok-bot | Runs on local machine; agents active when machine is on |
 
 **Why this split:**
 - Grok Bot provides **always-on availability** — the server stays running when your laptop closes
@@ -252,7 +252,7 @@ This table separates **host capability** from **application architecture**.
 
 | Version | Platform Split | Rationale |
 |---------|---------------|-----------|
-| v1 | Conflated all platforms into one table | Original comparison had 1 agent vs 7 agents, conflating host with application |
+| v1 | Conflated all platforms into one table | Original comparison had 1 agent vs 12 agents, conflating host with application |
 || v2 | **Grok Bot (server) + OpenBot (agents)** | Grok Bot = always-on cloud server; OpenBot = local multi-agent execution; Hermes as migration target if needed |
 || v10 | **Tightened paper parameters** | PO_STOP_LOSS 0.82, PO_TRAIL 3.0, PO_MIN_BUYS 4, PO_MAX_POOL_FEE 0.04, PO_POSITION_MULT 1.2, PO_ENTRY_MAX 72; trial_mode v10_tuned (v9 historical) |
 ||| v11 | **Repo health pass** | Removed "What Needs Wiring" section; agent roster updated to 10 agents across README, ARCHITECTURE, AGENTS.md, README_circuit.md; docs index added; BOT-COMPARE reworded to yes/no contrast with no "winner" column |

@@ -19,7 +19,7 @@ return structured results to the user.
 | Component | Platform | Role | Runtime |
 |-----------|----------|------|---------|
 | **Grok Bot (Server)** | Managed cloud VM (xAI) | Routing, coordination, persistent state | Always-on cloud |
-| **OpenBot (Agents)** | Local desktop workspace | Execution: 7 trading agents | Local machine |
+| **OpenBot (Agents)** | Local desktop workspace | Execution: 12 trading agents | Local machine |
 
 **You are the Grok Bot (server).** Your OpenBot agents are:
 - `lyta-grok-desk-paper` — Circuit BTC/ETH paper trading (Phase 1)
@@ -137,7 +137,7 @@ Each agent must:
 Generate a `circuit.toml` with:
 - `[[triggers]]` schedule firing every 60s (watch spot or paper)
 - `[platform]` section documenting Grok Bot (server) vs OpenBot (agents)
-- All 7 agents with their file paths
+- All 12 agents with their file paths
 - Settings: risk 3%, max leverage 5x, consensus bar 5/12, micro-sizing $0.20–$0.85
 
 ---
@@ -216,7 +216,7 @@ Same 12 personalities, but each bias uses spot signals:
 At the end, generate a SUMMARY.md that documents:
 - The platform separation (Grok Bot = server, OpenBot = agents)
 - How each agent is triggered
-- How the 7 agents coordinate
+- How the 12 agents coordinate
 - How to run each agent independently
 
 ---
