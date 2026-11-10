@@ -41,7 +41,7 @@ what we found:
 ✅ 12-bot consensus desk
 ✅ trencher and circuit ai tested
 ✅ each platform has its own parameters
-✅ open-source repo, transparent docs
+✅ private working tree, transparent docs
 
 built with Solar Mini4, Grok 4.7, inkling, chatgpt sol
 
@@ -64,7 +64,7 @@ what we found:
 ✅ dual-platform separation (trencher + circuit ai)
 ✅ each platform can have its own agent with its own perimeters
 ✅ paper-only trading, no live capital
-✅ open-source repo, transparent docs
+✅ private working tree, transparent docs
 ✅ built with Solar Mini4, Grok 4.7, inkling, chatgpt sol
 
 what's next:
