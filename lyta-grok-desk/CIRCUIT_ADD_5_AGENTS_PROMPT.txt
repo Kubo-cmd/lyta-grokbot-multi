@@ -8,7 +8,7 @@ They are NOT extra voters. They do NOT change 7/12. They do NOT open positions.
 They are NOT Trencher "Snipe New Launches" / "Copy Whales" / deposit.
 
 Frozen 12 (do not rename, replace, or recount):
-SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM, SCALPER,
+SCOUT, FILTER, ANALYST, DEV_WATCH, CONVICTION, MOMENTUM, SCALPER,
 CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR.
 
 Forbidden workspace names (do not generate or edit):
@@ -134,7 +134,7 @@ Add ONE additional Circuit AI agent to the EXISTING workspace named lyta-grok-de
 TALLY_LOCK is a non-voting 7/12 auditor. It never casts a 13th vote. It never changes the frozen roster. Consensus_bar stays default 7, min 7, max 12.
 
 Role:
-- Receive the twelve voter returns only (SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR). Ignore SIZE_GATE / PAPER_GUARD / COLLISION / OBSERVER when counting.
+- Receive the twelve voter returns only (SCOUT, FILTER, ANALYST, DEV_WATCH, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR). Ignore SIZE_GATE / PAPER_GUARD / COLLISION / OBSERVER when counting.
 - Count long, short, pass. active = 12 - pass.
 - Return {veto: true|false, long, short, pass, needed: 7, reason}.
 - veto=true unless long >= 7 XOR short >= 7 (exactly one side has >= 7). If both sides somehow show >= 7, veto. If the top side is 5 or 6, veto with reason "consensus N/12 < 7".
@@ -213,7 +213,7 @@ Keep the frozen 12 voters and their rules exactly:
 1. SCOUT — last hour's move
 2. FILTER — day's move only if bigger than 0.5%
 3. ANALYST — price against the 24-hour average
-4. PUMP_CHASER — move bigger than 1% over the last 4 hours
+4. DEV_WATCH — move bigger than 1% over the last 4 hours
 5. CONVICTION — votes only when day's move and last 4 hours agree
 6. MOMENTUM — last 4 hours
 7. SCALPER — last hourly candle

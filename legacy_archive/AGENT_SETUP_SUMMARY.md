@@ -34,7 +34,7 @@ All 7 agents are configured in the OpenBot agent store at:
 - **description.md**: Thesis, strategy, exposure parameters
 
 ### 12 Bot Personalities
-SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR
+SCOUT, FILTER, ANALYST, DEV_WATCH, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR
 
 ### Consensus Requirements
 - **Min 5/12 bots** agree on a side

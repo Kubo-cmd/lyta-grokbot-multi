@@ -156,7 +156,7 @@ Generate a main entry that:
 ## _paper_agent.ts — Paper Trading Agent
 
 12-bot Grok desk for Circuit Papertrade:
-- 12 personalities: SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR
+- 12 personalities: SCOUT, FILTER, ANALYST, DEV_WATCH, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR
 - Each has: conviction score, hardStop, positionMult, bias function
 - High consensus bar (5/12 minimum)
 - Micro-sizing $0.20–$0.85

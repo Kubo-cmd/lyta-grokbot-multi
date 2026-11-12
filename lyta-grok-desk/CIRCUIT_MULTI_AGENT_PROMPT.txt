@@ -59,7 +59,7 @@ Voter-agents (vote only, never call positions.open):
 1. SCOUT — the last hour's move.
 2. FILTER — the day's move, but only if bigger than 0.5%.
 3. ANALYST — price against the 24-hour average.
-4. PUMP_CHASER — a move bigger than 1% over the last 4 hours.
+4. DEV_WATCH — a move bigger than 1% over the last 4 hours.
 5. CONVICTION — votes only when the day's move and the last 4 hours agree.
 6. MOMENTUM — the last 4 hours.
 7. SCALPER — the last hourly candle.

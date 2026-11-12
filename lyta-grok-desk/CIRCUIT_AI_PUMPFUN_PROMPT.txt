@@ -43,7 +43,7 @@ Each bot's `bias` uses **pump.fun market data fields**:
 | 1 | SCOUT | 0.75 | `is_pump && new_launch && rug_risk < 0.5` | -7% |
 | 2 | FILTER | 0.65 | `analyst_score > 0.7 && rug_risk < 0.3 && buys_5m > 5` | -4% |
 | 3 | ANALYST | 0.60 | `analyst_score > 0.5 && rug_risk < 0.4 && price_change > 0` | -6% |
-| 4 | PUMP_CHASER | 0.85 | `is_pump && buys_5m > 10 && price_change > 8` | -9% |
+| 4 | DEV_WATCH | 0.85 | `is_pump && buys_5m > 10 && price_change > 8` | -9% |
 | 5 | CONVICTION | 0.55 | `analyst_score > 0.6 && rug_risk < 0.35` | -5% |
 | 6 | MOMENTUM | 0.70 | `price_change > 4 && buys_5m > 8` | -6% |
 | 7 | SCALPER | 0.80 | `price_change > 2.5 || price_change < -2.5` | -3.5% |

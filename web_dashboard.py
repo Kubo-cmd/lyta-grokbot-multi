@@ -43,6 +43,16 @@ DASHBOARD_HTML = """<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LYTA Trading Desk</title>
+<script>
+// Phase 2 pump.fun config - paper-only mode
+window.PHASE = "2";
+window.TRADING_MODE = "pumpfun";
+window.PAPER_ONLY = true;
+window.LIVE_TRADES = false;
+window.WALLET_IMPORT = false;
+window.SIGNING = false;
+window.TELEGRAM_ALERTS = false;
+</script>
 <style>
   :root {
     --bg: #0f1115;

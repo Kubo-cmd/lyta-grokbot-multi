@@ -14,7 +14,7 @@ const BOTS = [
         bias: (m) => m.change24h > 1.5 && m.volume > 80000 },
     { name: "ANALYST", conviction: 0.60, hardStop: -0.06, positionMult: 0.90,
         bias: (m) => m.change24h > 0 && m.rugScore < 0.40 },
-    { name: "PUMP_CHASER", conviction: 0.85, hardStop: -0.09, positionMult: 1.25,
+    { name: "DEV_WATCH", conviction: 0.85, hardStop: -0.09, positionMult: 1.25,
         bias: (m) => m.change24h > 8 && m.volume > 120000 },
     { name: "CONVICTION", conviction: 0.55, hardStop: -0.05, positionMult: 0.80,
         bias: (m) => m.rugScore < 0.35 && m.change24h > -2 },

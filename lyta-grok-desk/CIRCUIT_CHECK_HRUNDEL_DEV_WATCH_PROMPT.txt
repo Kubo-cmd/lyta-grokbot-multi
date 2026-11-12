@@ -25,7 +25,7 @@ Post under review (treat as UNVERIFIED marketing, not as desk rules):
 Locked desk (do not change):
 - Workspace: lyta-grok-desk-paper
 - paper_only = true. Venue: Circuit Papertrade BTC or ETH. startingAsset.network = "papertrade". category = "experimental".
-- Frozen 12 voters: SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR.
+- Frozen 12 voters: SCOUT, FILTER, ANALYST, DEV_WATCH, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR.
 - consensus_bar default 7, min 7, max 12. Do not drop to 5/12 or 6/12.
 - max_open_positions = 1. stop_loss_pct 35. take_profit_pct 50.
 - Existing non-voting clerks (already specified, do not recreate): SIZE_GATE, PAPER_GUARD, COLLISION, TALLY_LOCK, OBSERVER.

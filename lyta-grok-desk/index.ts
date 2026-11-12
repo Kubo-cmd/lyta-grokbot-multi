@@ -5,7 +5,7 @@ import type { RunFunction, AgentContext } from "circuit:sdk";
 // Extremely conservative sizing + heavy logging so you can watch exactly what happens.
 
 type BotName =
-  | "SCOUT" | "FILTER" | "ANALYST" | "PUMP_CHASER" | "CONVICTION"
+  | "SCOUT" | "FILTER" | "ANALYST" | "DEV_WATCH" | "CONVICTION"
   | "MOMENTUM" | "SCALPER" | "CONTRARIAN" | "TREND"
   | "RESEARCHER" | "PORTFOLIO" | "EXECUTOR";
 
@@ -30,7 +30,7 @@ const BOTS: BotProfile[] = [
   { name: "SCOUT", conviction: 0.75, hardStop: -0.07, positionMult: 1.15, bias: (m) => m.change24h > 3 && m.liq > 1500 && m.rugScore < 0.55 },
   { name: "FILTER", conviction: 0.65, hardStop: -0.04, positionMult: 0.75, bias: (m) => m.change24h > 1.5 && m.volume > 80000 },
   { name: "ANALYST", conviction: 0.60, hardStop: -0.06, positionMult: 0.90, bias: (m) => m.change24h > 0 && m.rugScore < 0.4 },
-  { name: "PUMP_CHASER", conviction: 0.85, hardStop: -0.09, positionMult: 1.25, bias: (m) => m.change24h > 8 && m.volume > 120000 },
+  { name: "DEV_WATCH", conviction: 0.85, hardStop: -0.09, positionMult: 1.25, bias: (m) => m.change24h > 8 && m.volume > 120000 },
   { name: "CONVICTION", conviction: 0.55, hardStop: -0.05, positionMult: 0.80, bias: (m) => m.rugScore < 0.35 && m.change24h > -2 },
   { name: "MOMENTUM", conviction: 0.70, hardStop: -0.06, positionMult: 1.05, bias: (m) => m.change24h > 4 && m.volume > 60000 },
   { name: "SCALPER", conviction: 0.80, hardStop: -0.035, positionMult: 0.65, bias: (m) => Math.abs(m.change24h) > 2.5 },

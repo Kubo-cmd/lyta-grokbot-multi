@@ -11,7 +11,7 @@ The user has only ~$6 and wants to run it in paper mode (circuit run --paper or 
 Key requirements:
 - Target: Papertrade venue (synthetic perps)
 - Run mode: Must work well when launched with paper / simulated mode on the platform
-- Same 12 personalities: SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR
+- Same 12 personalities: SCOUT, FILTER, ANALYST, DEV_WATCH, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR
 - High consensus bar: Only open if at least 5 of 12 bots agree
 - Ultra conservative for $2-$6: 
   - 3% risk default

@@ -17,7 +17,7 @@ def _get_market_class():
         return _Market
 
 # BOT_NAMES is imported at runtime via importlib; set here as fallback
-BOT_NAMES = ["SCOUT", "FILTER", "ANALYST", "PUMP_CHASER", "CONVICTION",
+BOT_NAMES = ["SCOUT", "FILTER", "ANALYST", "DEV_WATCH", "CONVICTION",
              "MOMENTUM", "SCALPER", "CONTRARIAN", "TREND", "RESEARCHER",
              "PORTFOLIO", "EXECUTOR"]
 

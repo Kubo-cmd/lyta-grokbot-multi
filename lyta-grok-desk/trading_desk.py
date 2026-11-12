@@ -21,15 +21,32 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 # ---------------------------------------------------------------------------
+# PHASE 2 ACTIVE — PUMP.FUN MEMECOIN (PAPER ONLY)
+# pumpfun trigger: ACTIVATED. Paper-only trading, no live trades,
+# no wallet import, no signing.
+# Trading costs: 0.02% fees, 0.05% slippage, fixed gas per trade
+# 12 bots: SCOUT, FILTER, ANALYST, DEV_WATCH, CONVICTION, MOMENTUM,
+#          SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR
+# Paper pool: $100 (enforced in _paper_agent.ts)
+
 # Bot roster (mirrors the 13 agents in lyta-grok-desk/_paper_agent.ts)
 # ---------------------------------------------------------------------------
 BOT_ROSTER = [
-    "SCOUT", "FILTER", "ANALYST", "FILTER", "CONVICTION",
+    "SCOUT", "FILTER", "ANALYST", "CONVICTION",
     "MOMENTUM", "SCALPER", "CONTRARIAN", "TREND",
     "RESEARCHER", "PORTFOLIO", "EXECUTOR", "DEV_WATCH",
 ]
 
 # ---------------------------------------------------------------------------
+# Global config: Phase 2 active, paper-only
+PHASE = "2"
+TRADING_MODE = "pumpfun"
+PAPER_ONLY = True
+LIVE_TRADES = False
+WALLET_IMPORT = False
+SIGNING = False
+TELEGRAM_ALERTS = False
+
 # State container
 # ---------------------------------------------------------------------------
 @dataclass
@@ -42,6 +59,7 @@ class Position:
     bots: int = 0
     entry_time: float = field(default_factory=time.time)
     exit_time: Optional[float] = None
+    notional: float = 0.0  # notional value of position
 
 @dataclass
 class DeskState:
@@ -59,8 +77,19 @@ class DeskState:
 
     # per-agent vote tally for the "12-bot consensus" dashboard row
     agent_votes: dict[str, dict] = field(default_factory=lambda: {
-        b: {"buy": 0, "sell": 0, "pass": 0} for b in BOT_ROSTER
+        b: {"buy": 0, "sell": 0, "pass": 0, "hold": 0, "stand_down": 0} for b in BOT_ROSTER
     })
+
+    # Trading cost tracking
+    total_fees: float = 0.0
+    total_slippage: float = 0.0
+    total_gas: float = 0.0
+    total_trades: int = 0
+
+    # Performance metrics
+    start_capital: float = 100.0
+    max_drawdown: float = 0.0
+    peak: float = 100.0
 
 
 # ---------------------------------------------------------------------------
@@ -115,6 +144,8 @@ class TradingDesk:
             + self.state.vote_results.get("sell", 0)
             + self.state.vote_results.get("pass", 0)
         )
+        # Track per-agent vote tally for consensus dashboard
+        self.add_agent_vote(bot, side_lower)
 
     def add_position(self, asset: str, side: str, entry: float, bots: int = 12) -> None:
         self.state.positions.append(Position(asset=asset, side=side, entry=entry, bots=bots))
@@ -132,9 +163,37 @@ class TradingDesk:
 
     def update_capital(self, capital: float) -> None:
         self.state.capital = capital
+        # Track peak and max drawdown
+        if capital > self.state.peak:
+            self.state.peak = capital
+        drawdown = (self.state.peak - capital) / self.state.peak
+        self.state.max_drawdown = max(self.state.max_drawdown, drawdown)
+
+    def update_trading_costs(self, fees: float, slippage: float, gas: float, trades: int) -> None:
+        """Track cumulative trading costs."""
+        self.state.total_fees += fees
+        self.state.total_slippage += slippage
+        self.state.total_gas += gas
+        self.state.total_trades += trades
 
     def set_alert(self, message: str) -> None:
         self.state.pending_alert = message
+
+    def add_agent_vote(self, bot_name: str, side: str) -> None:
+        """Record an individual bot vote for the consensus dashboard."""
+        if bot_name in self.state.agent_votes:
+            self.state.agent_votes[bot_name][side] = self.state.agent_votes[bot_name].get(side, 0) + 1
+        self.state.vote_results["total"] += 1
+        if side == "buy":
+            self.state.vote_results["buy"] += 1
+        elif side == "sell":
+            self.state.vote_results["sell"] += 1
+        elif side == "pass":
+            self.state.vote_results["pass"] += 1
+        elif side == "hold":
+            self.state.vote_results["hold"] = self.state.vote_results.get("hold", 0) + 1
+        elif side == "stand_down":
+            self.state.vote_results["stand_down"] = self.state.vote_results.get("stand_down", 0) + 1
 
     # -- rendering ----------------------------------------------------------
     def render(self, show_bot_votes: bool = True) -> str:
@@ -146,14 +205,16 @@ class TradingDesk:
         lines.append("=" * 62)
         lines.append(f"  Config:      {s.config}")
         lines.append(f"  Asset:       {s.asset}")
-        lines.append(f"  Capital:     ${s.capital:.2f}  paper-only")
+        lines.append(f"  Capital:     ${s.capital:.2f}  (paper-only, no real trades)")
         lines.append(f"  Open ports:  {len(s.positions)}")
         lines.append(f"  Closed port: {s.completed_positions}")
         lines.append(f"  Sell legs:   {s.sell_legs}")
-        lines.append(f"  Realized PnL:{s.realized_pnl:+.4f} SOL")
+        lines.append(f"  Realized PnL: ${s.realized_pnl:+.4f}")
+        lines.append(f"  Peak:        ${s.peak:.2f}")
+        lines.append(f"  Max DD:      {s.max_drawdown*100:.2f}%")
         lines.append(f"  Last update: {time.strftime('%H:%M:%S')}")
+        lines.append(f"  Total trades: {s.total_trades}  (fees ${s.total_fees:.4f} + slippage ${s.total_slippage:.4f} + gas ${s.total_gas:.4f} = ${s.total_fees+s.total_slippage+s.total_gas:.4f})")
         lines.append("")
-
         if show_bot_votes and s.vote_results["total"] > 0:
             lines.append("  ─────────────────────────────────────────────")
             lines.append("  BOT VOTES  (12-bot consensus)")
@@ -216,6 +277,16 @@ class TradingDesk:
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
+<script>
+// Phase 2 pump.fun config - paper-only mode
+window.PHASE = "2";
+window.TRADING_MODE = "pumpfun";
+window.PAPER_ONLY = true;
+window.LIVE_TRADES = false;
+window.WALLET_IMPORT = false;
+window.SIGNING = false;
+window.TELEGRAM_ALERTS = false;
+</script>
 <style>
   :root {{
     --bg: #0b0f1a;

@@ -33,7 +33,7 @@ The frozen live rules already specified — keep them exactly:
 - Never buy the same token more than once per day.
 - Still 15-minute cycles.
 - Still 3% of free USDC, raise to Circuit $1 swap minimum, max 5x, micro size.
-- Same 12 personalities: SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR. Do not rewrite their vote rules.
+- Same 12 personalities: SCOUT, FILTER, ANALYST, DEV_WATCH, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR. Do not rewrite their vote rules.
 - Bonding curve: stand down, log "Token still on bonding curve — no swap route yet".
 - Verbose logs every run: balance, 12 votes, [TALLY], [CONSENSUS] or [STAND DOWN] with calculated vs required numbers, [HOLD CHECK], [EXIT] with the exact reason string.
 

@@ -48,7 +48,7 @@ I want to run a 12-personality Grok desk agent on Circuit's Papertrade (syntheti
 for $2-6 paper trading on BTC/ETH.
 
 Requirements:
-- 12 personalities voting: SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM,
+- 12 personalities voting: SCOUT, FILTER, ANALYST, DEV_WATCH, CONVICTION, MOMENTUM,
   SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR
 - Consensus bar: 5 of 12 bots minimum
 - Micro-sizing: $0.20-0.85 margin per trade
@@ -73,7 +73,7 @@ After I get the reply, paste the generated code and I'll review/fix it.
 I want to run the same 12-personality Grok desk on spot markets.
 
 Requirements:
-- Same 12 personalities: SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM,
+- Same 12 personalities: SCOUT, FILTER, ANALYST, DEV_WATCH, CONVICTION, MOMENTUM,
   SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR
 - Each bot's bias uses spot signals: is_pump, analyst_score, rug_risk, liquidity,
   buys_5m, price_change, new_launch

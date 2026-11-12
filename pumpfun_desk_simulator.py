@@ -31,13 +31,13 @@ from dataclasses import dataclass
 from typing import Literal, Optional, Dict
 
 BotName = Literal[
-    "SCOUT", "FILTER", "ANALYST", "PUMP_CHASER", "CONVICTION",
+    "SCOUT", "FILTER", "ANALYST", "DEV_WATCH", "CONVICTION",
     "MOMENTUM", "SCALPER", "CONTRARIAN", "TREND", "RESEARCHER",
     "PORTFOLIO", "EXECUTOR"
 ]
 
 BOT_NAMES = [
-    "SCOUT", "FILTER", "ANALYST", "PUMP_CHASER", "CONVICTION",
+    "SCOUT", "FILTER", "ANALYST", "DEV_WATCH", "CONVICTION",
     "MOMENTUM", "SCALPER", "CONTRARIAN", "TREND", "RESEARCHER",
     "PORTFOLIO", "EXECUTOR"
 ]
@@ -257,7 +257,7 @@ def decide_action(bot: str, market: Market) -> Optional[dict]:
         if market.rug_risk > 0.55:
             side = "short" if random.random() < 0.55 else None
 
-    elif bot == "PUMP_CHASER":
+    elif bot == "DEV_WATCH":
         if market.is_pump:
             side = "long"
             conviction = 0.82
@@ -375,7 +375,7 @@ def check_exit(m: Market, entry_price: float, entry_analyst_100: float, hold_min
         if no_buys_last_hour or not_up_last_hour:
             return "Time exit - no momentum"
 
-    bearish_count = sum(1 for bot in ["SCOUT", "FILTER", "ANALYST", "PUMP_CHASER", "CONVICTION",
+    bearish_count = sum(1 for bot in ["SCOUT", "FILTER", "ANALYST", "DEV_WATCH", "CONVICTION",
                                        "MOMENTUM", "SCALPER", "CONTRARIAN", "TREND", "RESEARCHER",
                                        "PORTFOLIO", "EXECUTOR"] if is_bearish_bot(bot, m))
     if bearish_count >= 4:
@@ -411,7 +411,7 @@ def simulate_cycle(collateral: float = 600.0, cycle_num: int = 1):
         print(f"  rug={m.rug_risk:.3f} | analyst={current_score100:.0f} | Δ1h={m.change_1h}% | buys_last_hr~{m.buys_5m*12} | liq=${m.liquidity:.0f}")
 
         bearish_votes = 0
-        for bot in ["SCOUT", "FILTER", "ANALYST", "PUMP_CHASER", "CONVICTION",
+        for bot in ["SCOUT", "FILTER", "ANALYST", "DEV_WATCH", "CONVICTION",
                     "MOMENTUM", "SCALPER", "CONTRARIAN", "TREND", "RESEARCHER",
                     "PORTFOLIO", "EXECUTOR"]:
             action = decide_action(bot, m)
@@ -457,7 +457,7 @@ def simulate_cycle(collateral: float = 600.0, cycle_num: int = 1):
         long_votes = 0
         short_votes = 0
 
-        for bot in ["SCOUT", "FILTER", "ANALYST", "PUMP_CHASER", "CONVICTION",
+        for bot in ["SCOUT", "FILTER", "ANALYST", "DEV_WATCH", "CONVICTION",
                     "MOMENTUM", "SCALPER", "CONTRARIAN", "TREND", "RESEARCHER",
                     "PORTFOLIO", "EXECUTOR"]:
             action = decide_action(bot, m)
@@ -1294,7 +1294,7 @@ if __name__ == "__main__":
 
     # 12-bot consensus trading loop
     BOT_NAMES = [
-        "SCOUT", "FILTER", "ANALYST", "PUMP_CHASER", "CONVICTION",
+        "SCOUT", "FILTER", "ANALYST", "DEV_WATCH", "CONVICTION",
         "MOMENTUM", "SCALPER", "CONTRARIAN", "TREND", "RESEARCHER",
         "PORTFOLIO", "EXECUTOR"
     ]
@@ -1334,7 +1334,7 @@ if __name__ == "__main__":
             if market.rug_risk > 0.55:
                 side = "short" if random.random() < 0.55 else None
 
-        elif bot == "PUMP_CHASER":
+        elif bot == "DEV_WATCH":
             if market.is_pump:
                 side = "long"
                 conviction = 0.82
@@ -1437,7 +1437,7 @@ if __name__ == "__main__":
         return None
 
     print("=== 100x Full Trading Loop (12-bot consensus) ===")
-    for cycle in range(3):  # 3 cycles for preview
+    for cycle in range(20):  # 20 cycles for longer simulation
         print(f"\n--- Cycle {cycle + 1} ---")
         for m in all_markets[:5]:
             # Run each bot

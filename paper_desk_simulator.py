@@ -401,13 +401,13 @@ def sync_config_to_module_vars(new_config: dict) -> None:
 # ── 12-bot personalities (still documented, used for the reference 12-bot
 #     consensus strategy that the Paper Observer supersedes in the simulator)
 BotName = Literal[
-    "SCOUT", "FILTER", "ANALYST", "PUMP_CHASER", "CONVICTION",
+    "SCOUT", "FILTER", "ANALYST", "DEV_WATCH", "CONVICTION",
     "MOMENTUM", "SCALPER", "CONTRARIAN", "TREND", "RESEARCHER",
     "PORTFOLIO", "EXECUTOR"
 ]
 
 BOT_NAMES = [
-    "SCOUT", "FILTER", "ANALYST", "PUMP_CHASER", "CONVICTION",
+    "SCOUT", "FILTER", "ANALYST", "DEV_WATCH", "CONVICTION",
     "MOMENTUM", "SCALPER", "CONTRARIAN", "TREND", "RESEARCHER",
     "PORTFOLIO", "EXECUTOR"
 ]
@@ -672,7 +672,7 @@ def bot_vote(bot: str, m: Market) -> tuple[str, float]:
     elif bot == "ANALYST":
         if abs(m.change_24h) < 0.2: return "pass", 0.0
         return ("long" if m.change_24h > 0 else "short"), 0.60
-    elif bot == "PUMP_CHASER":
+    elif bot == "DEV_WATCH":
         if abs(m.change_1h) < 1.0: return "pass", 0.0
         return ("long" if m.change_1h > 0 else "short"), 0.80
     elif bot == "CONVICTION":

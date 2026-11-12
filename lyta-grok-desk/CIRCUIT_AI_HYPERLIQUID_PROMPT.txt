@@ -4,7 +4,7 @@ Copy and paste this into Circuit AI / the Builder:
 
 Build the Hyperliquid perps version of the 12-bot Grok desk.
 
-Use the same 12 voters (SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR) with 5-of-12 consensus requirement.
+Use the same 12 voters (SCOUT, FILTER, ANALYST, DEV_WATCH, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR) with 5-of-12 consensus requirement.
 
 Keep these conservative parameters because the user only has ~$6:
 - 3% risk

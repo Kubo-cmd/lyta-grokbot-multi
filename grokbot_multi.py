@@ -13,7 +13,7 @@ Explicit multiple Grok bots / personalities (now 12 for fuller agentic desk):
   - SCOUT          (early pair hunter, aggressive on new launches)
   - FILTER         (strict rule-based killer, only ultra-clean setups)
   - ANALYST        (heavy analyst_score focus, high conviction scorer)
-  - PUMP_CHASER    (loves is_pump signals, classic early momentum chaser)
+  - DEV_WATCH    (loves is_pump signals, classic early momentum chaser)
   - CONVICTION     (selective high-conviction plays)
   - MOMENTUM       (price change + buys focused)
   - SCALPER        (fast in/out, tight stops, small quick targets)
@@ -76,7 +76,7 @@ BOT_PROFILES = {
         "max_rug_tolerance": 0.32,
         "position_mult": 0.80
     },
-    "PUMP_CHASER": {
+    "DEV_WATCH": {
         "hard_stop": -0.06,
         "chatbot_tp": 0.52,
         "trailing_trigger": 0.11,
@@ -433,7 +433,7 @@ def run_autonomous_grok_bots(steps: int = 18):
         GrokBot("SCOUT", "scout", conviction=0.70),
         GrokBot("FILTER", "filter", conviction=0.85),
         GrokBot("ANALYST", "analyst", conviction=0.82),
-        GrokBot("PUMP_CHASER", "pump", conviction=0.68),
+        GrokBot("DEV_WATCH", "pump", conviction=0.68),
         GrokBot("CONVICTION", "conviction", conviction=0.82),
         GrokBot("MOMENTUM", "momentum", conviction=0.72),
         GrokBot("SCALPER", "scalper", conviction=0.65),

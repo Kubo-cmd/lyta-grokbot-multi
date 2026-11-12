@@ -23,7 +23,7 @@
 # SCOUT   — narrative/rug signal checker (GMGN + wallet analysis)
 # FILTER  — hard gates: kills weak coins (holders, wallets, top-10 share, dev share)
 # ANALYST — analyst_score, rug risk, quality judgment
-# PUMP_CHASER — is_pump detection, 5m charge window analysis
+# DEV_WATCH — is_pump detection, 5m charge window analysis
 # CONVICTION — conviction scoring, vote weighting
 # MOMENTUM  — 5m/1h/6h/24h change tracking, buys vs sells
 # SCALPER   — tight stops, fast in/out

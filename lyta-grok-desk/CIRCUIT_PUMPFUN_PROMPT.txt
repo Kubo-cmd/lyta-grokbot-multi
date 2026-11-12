@@ -11,7 +11,7 @@ The user has only ~$6 and wants to run it in paper mode (simulated funds) first.
 Key requirements:
 - Target: Pump.fun memecoin style trading (Solana launches, bonding curve dynamics, high volatility)
 - Run mode: Must work in paper / simulated mode on the platform
-- Same 12 personalities: SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR
+- Same 12 personalities: SCOUT, FILTER, ANALYST, DEV_WATCH, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR
 - High consensus bar: Only open if at least 5 of 12 bots agree on a side
 - Ultra conservative for $2-$6:
   - 3% risk default
@@ -35,7 +35,7 @@ Bot decision rules (adapt these exactly for the code):
 - SCOUT: Early pair hunter — loves brand new launches + is_pump even if riskier (low rug tolerance)
 - FILTER: Extremely strict — only cleanest setups (high analyst_score, low rug, good buys + liquidity)
 - ANALYST: Heavy analyst_score bias, high conviction
-- PUMP_CHASER: Strongly prefers is_pump signals and early momentum
+- DEV_WATCH: Strongly prefers is_pump signals and early momentum
 - CONVICTION: Only when analyst_score is very high and rug is low
 - MOMENTUM: Price change + buys focused
 - SCALPER: Fast moves, tight risk, prefers volume

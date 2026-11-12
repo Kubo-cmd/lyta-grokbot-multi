@@ -7,7 +7,7 @@ Create an ultra-conservative 12-personality autonomous trading desk agent for Ci
 The user only has $2 to $6 paper. The #1 priority is capital preservation and collecting data, not making profit. The agent must stand down the vast majority of the time.
 
 Requirements:
-- Use exactly these 12 Grok personalities that vote: SCOUT, FILTER, ANALYST, PUMP_CHASER, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR.
+- Use exactly these 12 Grok personalities that vote: SCOUT, FILTER, ANALYST, DEV_WATCH, CONVICTION, MOMENTUM, SCALPER, CONTRARIAN, TREND, RESEARCHER, PORTFOLIO, EXECUTOR.
 - Each personality has its own bias and conviction score.
 - The desk only opens a position if at least 5 of the 12 bots agree.
 - When it trades, use extremely small size: between $0.20 and $0.85 margin only.
