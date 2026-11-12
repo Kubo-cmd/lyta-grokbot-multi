@@ -5,11 +5,11 @@
 - [Trading Desk Parameters](#trading-desk-parameters)
 - [Platform Comparison (Yes/No)](#platform-comparison-yesno)
 - [Paper-Only Guard Gates (Verbatim)](#paper-only-guard-gates-verbatim)
-- [Trailing Exit Logic & 12-Bot Consensus](#trailing-exit-logic--12-bot-consensus)
+- [Trailing Exit Logic](#trailing-exit-logic)
 - [Agent Performance Reward System](#agent-performance-reward-system)
 - [Repository Layout](#repository-layout)
 - [Quick Start](#quick-start)
-- [GitHub](#github)
+- [GitHub](https://github.com/Kubo-cmd/lyta-grokbot-multi)
 
 ---
 > **Platform: Grok Bot (server) + OpenBot (agents) | Mode: Paper-only**
