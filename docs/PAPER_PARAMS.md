@@ -60,3 +60,33 @@ Verified against the final paper session: **60 minutes, 10-second ticks, Tick 1�
   Phase 2-specific and gated.
 - Paper pool $100 (enforced in `_paper_agent.ts`); Telegram alerts OFF;
   **no wallet import**; **no signing**; no live trades until explicit user go.
+
+## A2 tuning run — approved after the final session post-mortem
+Final session (358 ticks, 10s ticks, $100 pool) output: **end capital $5.50, win rate 32.1%**
+below the 35–55% band → tuning required. Root cause: current logic acted on *any* dense
+bot-consensus direction, even when the composite signal was near zero and the market
+trend disagreed with the vote direction. Fix applied to `paper_run.py`:
+
+| Gate | Before | After | Effect |
+|---|---|---|---|
+| Consensus min | 5 | **7** (matches Phase 2 "min 7/12") | fewer, stronger entries; fewer noisy trades |
+| Signal gate | none | **\|signal\| ≥ 0.30** | skips near-flat signals (noise) |
+| Trend alignment | act on vote direction | **BUY only on up / SELL only on down** | removes directional-mismatch losses |
+
+Per-trade logging enabled: `trade_history` (last 50) + `tick_history` (last 50) in
+`/api/state` and `trading_desk_state.json`; stand-down reasons printed live every tick.
+
+### What to compare (run once, 60 min, 10s ticks)
+| Metric | Baseline A1 (old) | S1 baseline (this repo, 358 ticks) | A2 will produce |
+|---|---|---|---|
+| Start capital | $100 | $100 | $100 |
+| End capital | $13.67 | $5.50 | **target: keep ≥ $100 drop < 65%** |
+| Win rate | 34.2% | 32.1% | **target 35–55%** |
+| Expectancy | −0.94 | −1.30 | closer to ≥ 0 |
+| Max drawdown | 91.37% | 94.52% | lower |
+| Total trades | 202 | 212 | expect fewer (better quality) |
+
+Run: `python3 paper_run.py --minutes 60 --interval 10` (Terminal B) → compare
+`/api/state` `pnl` block + `trade_history` win/loss distribution. If the band is still
+outside after A2, tune the move-size step (+2%/−1.5% → +1.5%/−1.5%) next.
+

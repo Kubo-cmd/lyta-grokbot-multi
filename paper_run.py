@@ -73,6 +73,8 @@ BOT_NAMES = [
 CONSENSUS_MIN = 5
 # Per-consensus-tick % P&L — feeds win_rate / expectancy on the desk
 _tick_pnls: list[float] = []
+# Per-trade log: tick-level P&L, votes, gate reasons (tuning data)
+_trade_log: list[dict] = []
 
 # ── Signal processor ───────────────────────────────────────────────
 def compute_signal(market: dict) -> dict:
@@ -475,17 +477,34 @@ def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = T
             buy_votes = sum(1 for v in votes.values() if v == "buy")
             sell_votes = sum(1 for v in votes.values() if v == "sell")
             pass_count = sum(1 for v in votes.values() if v == "pass")
+            gate_reasons: list[str] = []
             acted = False
             base_change = 0.0
-            if buy_votes >= CONSENSUS_MIN and buy_votes > sell_votes:
-                base_change = 0.02
+            # Gate 1: minimum signal strength — skip noise (no action below |0.30|)
+            signal_gate = abs(signal["signal"]) >= 0.30
+            # Gate 2: consensus — only the strongest direction moves capital
+            consensus_buy = buy_votes >= CONSENSUS_MIN and buy_votes > sell_votes
+            consensus_sell = sell_votes >= CONSENSUS_MIN and sell_votes > buy_votes
+            # Gate 3: trend alignment — act with the market, never against it
+            trade_with_trend = (market["trend"] == "up" and consensus_buy) or \
+                               (market["trend"] == "down" and consensus_sell)
+            if trade_with_trend and signal_gate:
+                if consensus_buy:
+                    base_change = 0.02
+                else:
+                    base_change = -0.015
                 acted = True
-            elif sell_votes >= CONSENSUS_MIN and sell_votes > buy_votes:
-                base_change = -0.015
-                acted = True
+            else:
+                if not signal_gate:
+                    gate_reasons.append(f"signal_gate (signal {signal['signal']:+.2f} < 0.30)")
+                elif not consensus_buy and not consensus_sell:
+                    gate_reasons.append(f"consensus_min (buy {buy_votes}/sell {sell_votes}, need {CONSENSUS_MIN})")
+                else:
+                    gate_reasons.append(f"trend_mismatch (trend {market['trend']}, signal {signal['signal']:+.2f})")
 
             old_capital = TRADE_DESK.state.capital
             new_capital = old_capital
+            trade_record = None
             if acted:
                 new_capital = old_capital * (1 + base_change)
                 trend_multiplier = 1.0
@@ -505,6 +524,17 @@ def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = T
                 pnl_frac = (new_capital - old_capital) / old_capital if old_capital else 0.0
                 TRADE_DESK.close_position("GOBLIN", pnl_frac)
                 _tick_pnls.append(pnl_frac * 100.0)
+                trade_record = {
+                    "tick": tick,
+                    "symbol": market["symbol"],
+                    "signal": round(float(signal["signal"]), 4),
+                    "votes": {"buy": buy_votes, "sell": sell_votes, "pass": pass_count},
+                    "trend": market["trend"],
+                    "action": "BUY" if base_change > 0 else "SELL",
+                    "base_change_pct": round(base_change * 100, 2),
+                    "pnl_pct": round(pnl_frac * 100, 2),
+                    "win": "win" if pnl_frac > 0 else "loss",
+                }
 
             TRADE_DESK.update_capital(max(0.01, new_capital))
 
@@ -525,6 +555,7 @@ def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = T
                       f"rug {market['rug_risk']:.2f} | liq {market['liquidity']:.2f} | score {market['score']:.0f}")
                 print(f"  Signal: {signal['signal']:+.2f} ({'BUY' if signal['signal'] > 0.05 else 'SELL' if signal['signal'] < -0.05 else 'HOLD'})")
                 print(f"  Bot votes: BUY={buy_count} SELL={sell_count} PASS={pass_count} HOLD={hold_count} STAND_DOWN={stand_down_count}")
+                print(f"  Stand-down: {'; '.join(gate_reasons) if gate_reasons else 'action taken'}")
                 print(f"  Capital: ${TRADE_DESK.state.capital:.2f} (ticker: ${new_capital:.2f})")
 
             # Telegram alert per tick
@@ -589,8 +620,13 @@ def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = T
                     "expectancy": round(expectancy, 2),
                     "total_trades": len(_tick_pnls),
                 },
+                "trade_history": list(_trade_log[-50:]),
                 "error": None
             })
+
+            # Verbose per-trade logging for tuning (state.json keeps last 50)
+            if trade_record is not None:
+                _trade_log.append(trade_record)
 
             # Sleep until next tick
             time.sleep(interval)
