@@ -6,21 +6,18 @@ how the two compare on privacy, cost, and locality.
 
 ## Quick Map
 
-|| Dimension | Grok bot | OpenBot ||
+|  Question | Grok bot | OpenBot |
 |----------|----------|---------|
-|| Type | Cloud paper trader + on-chain scanner | Local desktop agent host |
-|| Agent framework | 12-agent circuit.ts workspace | 7 named agents (FIFO + messaging) |
-|| Execution | Cloud server + local clients | Local desktop |
-|| Data stays on your machine | No | Yes |
-|| Cost | Self-hosted (free), but uses paid providers | Free (non-commercial) |
-|| Scheduler / automation | Yes (market hours) | Yes (Keep awake / routines) |
-|| Ledger | Books local: journal + ledger + state | Books local: chat, files, code |
-|| Chat / human-in-loop | ✅ Yes (text-thread interface) | ✅ Yes (chat, approve actions) |
-|| Mobile app | ✅ Yes (iPhone/Android) | ✅ Yes |
-|| Voice / dictation | ✅ Yes (voice input, voice chat) | ✅ Yes (31 languages) |
-|| Teams / roles | ✅ Yes (group chats, parallel bots, roles) | ✅ Yes (roles, shared channels) |
-|| Backup models | ✅ Yes (cloud backup, multiple plans) | ✅ Yes |
-|| Source code | ✅ Open (lyta-grokbot-multi) | ✅ Open (openbot.io) |
+|  Local-first execution | ❌ No (cloud) | ✅ Yes |
+|  Data stays on your machine | ❌ No (cloud) | ✅ Yes |
+|  Cost model | ❌ Self-hosted/managed plan | ✅ Free (non-commercial) |
+|  Mobile app | ✅ Yes (iOS/Android) | ✅ Yes (iPhone/Android) |
+|  Voice / dictation | ✅ Yes (voice input, voice chat) | ✅ Yes (31 languages) |
+|  Backup models | ✅ Yes (cloud backup, multiple plans) | ✅ Yes |
+|  Teams / roles | ✅ Yes (group chats, parallel bots, roles) | ✅ Yes (roles, shared channels) |
+|  Chat / human-in-loop | ✅ Yes (text-thread interface) | ✅ Yes (chat, approve actions) |
+|  Schedule automation | ✅ Yes (cloud routines) | ✅ Yes (local sweeps) |
+|  Source code | ✅ Open (lyta-grokbot-multi) | ✅ Open (openbot.io) |
 
 ## Design Characteristics
 

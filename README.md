@@ -41,18 +41,18 @@ A **12-agent spot trading desk** on **OpenBot** (local, localhost:5173), with Gr
 
 ### Platform Comparison (Yes/No)
 
-|| Question | Grok bot | OpenBot |
+| Question | Grok bot | OpenBot |
 |----------|----------|---------|
-|| Local-first execution | ✅ Yes (cloud computer always on, local mode available) | ✅ Yes |
-|| Data stays on your machine | ❌ No (cloud) | ✅ Yes |
-|| Cost model | Self-hosted/managed plan | Free (non-commercial) |
-|| Mobile app | ✅ Yes (iOS/Android) | ✅ Yes (iPhone/Android) |
-|| Voice / dictation | ✅ Yes (voice input, voice chat) | ✅ Yes (31 languages) |
-|| Backup models | ✅ Yes (cloud backup, multiple plans) | ✅ Yes |
-|| Teams / roles | ✅ Yes (group chats, parallel bots, roles) | ✅ Yes (roles, shared channels) |
-|| Chat / human-in-loop | ✅ Yes (text-thread interface) | ✅ Yes (chat, approve actions) |
-|| Schedule automation | ✅ Yes (cloud routines) | ✅ Yes (local sweeps) |
-|| Source code | ✅ Open (lyta-grokbot-multi) | ✅ Open (openbot.io) |
+| Local-first execution | ✅ Yes (cloud computer always on, local mode available) | ✅ Yes |
+|  Data stays on your machine | ❌ No (cloud) | ✅ Yes |
+|  Cost model | Self-hosted/managed plan | Free (non-commercial) |
+|  Mobile app | ✅ Yes (iOS/Android) | ✅ Yes (iPhone/Android) |
+|  Voice / dictation | ✅ Yes (voice input, voice chat) | ✅ Yes (31 languages) |
+|  Backup models | ✅ Yes (cloud backup, multiple plans) | ✅ Yes |
+|  Teams / roles | ✅ Yes (group chats, parallel bots, roles) | ✅ Yes (roles, shared channels) |
+|  Chat / human-in-loop | ✅ Yes (text-thread interface) | ✅ Yes (chat, approve actions) |
+|  Schedule automation | ✅ Yes (cloud routines) | ✅ Yes (local sweeps) |
+| Source code | ✅ Open (lyta-grokbot-multi) | ✅ Open (openbot.io) |
 
 See [lyta-grok-desk/BOT-COMPARE.md](lyta-grok-desk/BOT-COMPARE.md) for the full contrast with the lean highlighted.
 
@@ -73,17 +73,17 @@ See [lyta-grok-desk/BOT-COMPARE.md](lyta-grok-desk/BOT-COMPARE.md) for the full 
 
 ### Platform Comparison (Yes/No)
 
-|| Question | Grok bot | OpenBot |
-|--|--|--|--|
+| Question | Grok bot | OpenBot |
+|----------|----------|---------|
 | **Local-first execution** | Cloud computer always on, local mode available | ✅ Yes |
-| **Data stays on your machine** | ❌ No (cloud) | ✅ Yes |
-| **Cost model** | Self-hosted/managed plan | Free (non-commercial) |
-| **Mobile app** | ✅ Yes (iOS/Android) | ✅ Yes (iPhone/Android) |
-| **Voice / dictation** | ✅ Yes (voice input, voice chat) | ✅ Yes (31 languages) |
-| **Backup models** | ✅ Yes (cloud backup, multiple plans) | ✅ Yes |
-| **Teams / roles** | ✅ Yes (group chats, parallel bots, roles) | ✅ Yes (roles, shared channels) |
-| **Chat / human-in-loop** | ✅ Yes (text-thread interface) | ✅ Yes (chat, approve actions) |
-| **Schedule automation** | ✅ Yes (cloud routines) | ✅ Yes (local sweeps) |
+|  **Data stays on your machine** | ❌ No (cloud) | ✅ Yes |
+|  **Cost model** | Self-hosted/managed plan | Free (non-commercial) |
+|  **Mobile app** | ✅ Yes (iOS/Android) | ✅ Yes (iPhone/Android) |
+|  **Voice / dictation** | ✅ Yes (voice input, voice chat) | ✅ Yes (31 languages) |
+|  **Backup models** | ✅ Yes (cloud backup, multiple plans) | ✅ Yes |
+|  **Teams / roles** | ✅ Yes (group chats, parallel bots, roles) | ✅ Yes (roles, shared channels) |
+|  **Chat / human-in-loop** | ✅ Yes (text-thread interface) | ✅ Yes (chat, approve actions) |
+|  **Schedule automation** | ✅ Yes (cloud routines) | ✅ Yes (local sweeps) |
 | **Source code** | ✅ Open (lyta-grokbot-multi) | ✅ Open (openbot.io) |
 
 > Platform comparison is accurate per the official Grok Bot and OpenBot product documentation. Both platforms offer local-first execution, mobile, voice, teams/roles, chat/human-in-loop, schedule automation, and open source — the key differentiators are data privacy (OpenBot stays local; Grok Bot is cloud) and cost (OpenBot is free; Grok Bot has a managed plan).
@@ -134,7 +134,7 @@ Previously the logic used an always-true condition with a 2.5x multiplier, causi
 | SCOUT | Narrative/rug signal checker |
 | FILTER | Low-quality pump filter |
 | ANALYST | Rug/liquidity/score analyst |
-| PUMP_CHASER | Momentum accumulation engine |
+| DEV_WATCH | Momentum accumulation engine |
 | CONVICTION | Trend/filter validator |
 | MOMENTUM | Momentum collector |
 | SCALPER | High-vol scalper |
@@ -381,7 +381,7 @@ the same alerts for the overall summary view.
 | SCOUT | Narrative/rug signal checker (GMGN + wallet analysis) |
 | FILTER | Low-quality pump filter (>5% 24h, >$50k volume) |
 | ANALYST | Rug risk, liquidity, score evaluation |
-| PUMP_CHASER | Momentum accumulation engine (>7% 24h) |
+| DEV_WATCH | Momentum accumulation engine (>7% 24h) |
 | CONVICTION | Trend/filter validator (rugScore <0.35) |
 | MOMENTUM | Momentum collector (>4% 24h + >$50k volume) |
 | SCALPER | High-vol scalper (>2.5% both directions) |

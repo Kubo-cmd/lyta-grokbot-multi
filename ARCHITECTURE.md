@@ -22,11 +22,11 @@ The trading desk uses a **dual-platform separation**:
 
 ### 2.3 Platform Comparison (Yes/No)
 
-|| Question | Grok bot | OpenBot ||
+|| Question | Grok bot | OpenBot |
 |----------|----------|---------|
 || Local-first execution | ✅ Yes (cloud computer always on, local mode available) | ✅ Yes |
 || Data stays on your machine | ❌ No (cloud) | ✅ Yes |
-|| Cost model | Self-hosted/managed plan | Free (non-commercial) |
+|| Cost model | ❌ Self-hosted/managed plan | ✅ Free (non-commercial) |
 || Mobile app | ✅ Yes (iOS/Android) | ✅ Yes (iPhone/Android) |
 || Voice / dictation | ✅ Yes (voice input, voice chat) | ✅ Yes (31 languages) |
 || Backup models | ✅ Yes (cloud backup, multiple plans) | ✅ Yes |
@@ -169,8 +169,8 @@ flowchart TB
 
 || Aspect | Detail |
 ||--------|--------|
-||| **Role** | Secondary platform (paper-only copy) — fixed-size buy, no dynamic sizing |
-||| **Mode** | `PAPER` — fixed 0.05 SOL buy size (SOL on-chain; paper capital 1 SOL or $100 per platform) |
+|| **Role** | Secondary platform (paper-only copy) — fixed-size buy, no dynamic sizing |
+|| **Mode** | `PAPER` — fixed 0.05 SOL buy size (SOL on-chain; paper capital 1 SOL or $100 per platform) |
 
 ## 3. Data Flow
 
@@ -276,7 +276,7 @@ instant signal/entry/exit visibility.
 | SCOUT | Narrative/rug signal checker (GMGN + wallet analysis) |
 | FILTER | Low-quality pump filter (>5% 24h, >$50k volume) |
 | ANALYST | Rug risk, liquidity, score evaluation |
-| PUMP_CHASER | Momentum accumulation engine (>7% 24h) |
+| DEV_WATCH | Momentum accumulation engine (>7% 24h) |
 | CONVICTION | Trend/filter validator (rugScore <0.35) |
 | MOMENTUM | Momentum collector (>4% 24h + >$50k volume) |
 | SCALPER | High-vol scalper (>2.5% both directions) |
@@ -357,8 +357,8 @@ the same alerts for the overall summary view.
 | v1 | Conflated all platforms into one table | Original comparison had 1 agent vs 12 agents, conflating host with application |
 || v2 | **Grok Bot (server) + OpenBot (agents)** | Grok Bot = always-on cloud server; OpenBot = local multi-agent execution; Hermes as migration target if needed |
 || v10 | **Tightened paper parameters** | PO_STOP_LOSS 0.82, PO_TRAIL 3.0, PO_MIN_BUYS 4, PO_MAX_POOL_FEE 0.04, PO_POSITION_MULT 1.2, PO_ENTRY_MAX 72; trial_mode v10_tuned (v9 historical) |
-||| v11 | **Repo health pass** | Removed "What Needs Wiring" section; agent roster updated to 12 agents across README, ARCHITECTURE, AGENTS.md, README_circuit.md; docs index added; BOT-COMPARE reworded to yes/no contrast with no "winner" column |
-||| v12 | **Platform comparison corrected** | Grok Bot confirmed to have mobile app, voice, backup models, teams/roles, chat/human-in-loop, schedule automation, source code (was incorrectly marked as lacking these) |
-||| v13 | **Build stack documented** | Added Solar Mini4, Grok 4.7, inkling, chatgpt sol to repo documentation |
+|| v11 | **Repo health pass** | Removed "What Needs Wiring" section; agent roster updated to 12 agents across README, ARCHITECTURE, AGENTS.md, README_circuit.md; docs index added; BOT-COMPARE reworded to yes/no contrast with no "winner" column |
+|| v12 | **Platform comparison corrected** | Grok Bot confirmed to have mobile app, voice, backup models, teams/roles, chat/human-in-loop, schedule automation, source code (was incorrectly marked as lacking these) |
+|| v13 | **Build stack documented** | Added Solar Mini4, Grok 4.7, inkling, chatgpt sol to repo documentation |
 
 ---
