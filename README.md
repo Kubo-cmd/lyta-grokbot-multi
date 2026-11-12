@@ -58,37 +58,7 @@ See [lyta-grok-desk/BOT-COMPARE.md](lyta-grok-desk/BOT-COMPARE.md) for the full 
 
 ---
 
-## 📊 Trading Desk Parameters
 
-> **Current focus (Tightened):** 7/12 consensus, skip >100% 1h pump and <$50k liquidity, −35% SL / +50% TP. Paper observation only.
-
-### Trading Desk Parameters (Spot Trading)
-
-|| Dimension | Detail |
-|---|---|---|
-| **Core desk** | OpenBot, local-only (localhost:5173), `paper_mode: true` |
-| **Lifecycle** | Paper-only guard gates apply to all trading agents |
-| **Consensus** | 12-bot consensus (multi-agent) |
-| **Screening** | Spot trading only — no pump/fun perimeters |
-
-### Platform Comparison (Yes/No)
-
-| Question | Grok bot | OpenBot |
-|----------|----------|---------|
-| **Local-first execution** | Cloud computer always on, local mode available | ✅ Yes |
-|  **Data stays on your machine** | ❌ No (cloud) | ✅ Yes |
-|  **Cost model** | Self-hosted/managed plan | Free (non-commercial) |
-|  **Mobile app** | ✅ Yes (iOS/Android) | ✅ Yes (iPhone/Android) |
-|  **Voice / dictation** | ✅ Yes (voice input, voice chat) | ✅ Yes (31 languages) |
-|  **Backup models** | ✅ Yes (cloud backup, multiple plans) | ✅ Yes |
-|  **Teams / roles** | ✅ Yes (group chats, parallel bots, roles) | ✅ Yes (roles, shared channels) |
-|  **Chat / human-in-loop** | ✅ Yes (text-thread interface) | ✅ Yes (chat, approve actions) |
-|  **Schedule automation** | ✅ Yes (cloud routines) | ✅ Yes (local sweeps) |
-| **Source code** | ✅ Open (lyta-grokbot-multi) | ✅ Open (openbot.io) |
-
-> Platform comparison is accurate per the official Grok Bot and OpenBot product documentation. Both platforms offer local-first execution, mobile, voice, teams/roles, chat/human-in-loop, schedule automation, and open source — the key differentiators are data privacy (OpenBot stays local; Grok Bot is cloud) and cost (OpenBot is free; Grok Bot has a managed plan).
-
-See [lyta-grok-desk/BOT-COMPARE.md](lyta-grok-desk/BOT-COMPARE.md) for the full contrast with the lean highlighted.
 
 ### 📰 External X References — What We Learned (Nov 2026)
 
