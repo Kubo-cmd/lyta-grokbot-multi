@@ -22,15 +22,15 @@ The trading desk uses a **dual-platform separation**:
 
 ### 2.3 Platform Comparison (Yes/No)
 
-|| Question | Grok bot | OpenBot |
+| Question | Grok bot | OpenBot |
 |----------|----------|---------|
-|| Local-first execution | ✅ Yes (cloud computer always on, local mode available) | ✅ Yes |
-|| Data stays on your machine | ❌ No (cloud) | ✅ Yes |
-|| Cost model | ❌ Self-hosted/managed plan | ✅ Free (non-commercial) |
-|| Mobile app | ✅ Yes (iOS/Android) | ✅ Yes (iPhone/Android) |
-|| Voice / dictation | ✅ Yes (voice input, voice chat) | ✅ Yes (31 languages) |
-|| Backup models | ✅ Yes (cloud backup, multiple plans) | ✅ Yes |
-|| Teams / roles | ✅ Yes (group chats, parallel bots, roles) | ✅ Yes (roles, shared channels) |
+| Local-first execution | ✅ Yes (cloud computer always on, local mode available) | ✅ Yes |
+| Data stays on your machine | ❌ No (cloud) | ✅ Yes |
+| Cost model | ❌ Self-hosted/managed plan | ✅ Free (non-commercial) |
+| Mobile app | ✅ Yes (iOS/Android) | ✅ Yes (iPhone/Android) |
+| Voice / dictation | ✅ Yes (voice input, voice chat) | ✅ Yes (31 languages) |
+| Backup models | ✅ Yes (cloud backup, multiple plans) | ✅ Yes |
+| Teams / roles | ✅ Yes (group chats, parallel bots, roles) | ✅ Yes (roles, shared channels) |
 || Chat / human-in-loop | ✅ Yes (text-thread interface) | ✅ Yes (chat, approve actions) |
 || Schedule automation | ✅ Yes (cloud routines) | ✅ Yes (local sweeps) |
 || Source code | ✅ Open (lyta-grokbot-multi) | ✅ Open (openbot.io) |
