@@ -5,10 +5,10 @@ LYTA Trading Desk Web Dashboard Server
 Serves the live trading_desk.html with auto-refresh.
 Usage:
     python3 web_dashboard.py              # auto-detects paper_run.py
-    python3 web_dashboard.py --port 8888
+    python3 web_dashboard.py --port 8080
     python3 web_dashboard.py --paper-run path/to/paper_run.py
 
-The user opens http://localhost:8000 in a browser and watches the
+The user opens http://localhost:8080 in a browser and watches the
 trading desk update in real-time as paper_run.py regenerates HTML.
 """
 from __future__ import annotations
@@ -165,6 +165,32 @@ window.TELEGRAM_ALERTS = false;
   <div class="card">
     <div class="metric-grid" style="grid-template-columns: 1fr 1fr;">
       <div class="metric" style="text-align:left;">
+        <div class="metric-label">Drawdown</div>
+        <div class="metric-value" id="drawdown">—</div>
+      </div>
+      <div class="metric" style="text-align:left;">
+        <div class="metric-label">Max Drawdown</div>
+        <div class="metric-value" id="max-drawdown">—</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="metric-grid" style="grid-template-columns: 1fr 1fr;">
+      <div class="metric" style="text-align:left;">
+        <div class="metric-label">Win Rate</div>
+        <div class="metric-value" id="win-rate">—</div>
+      </div>
+      <div class="metric" style="text-align:left;">
+        <div class="metric-label">Expectancy</div>
+        <div class="metric-value" id="expectancy">—</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="metric-grid" style="grid-template-columns: 1fr 1fr;">
+      <div class="metric" style="text-align:left;">
         <div class="metric-label">Net Signal</div>
         <div class="metric-value" id="net-signal">—</div>
       </div>
@@ -208,6 +234,22 @@ window.TELEGRAM_ALERTS = false;
   </div>
 
   <div class="card">
+    <h2 style="font-size:0.9rem; font-weight:600; margin-bottom:8px;">Last 10 Ticks</h2>
+    <div class="bot-table">
+      <table id="tick-table">
+        <thead>
+          <tr>
+            <th>#</th><th>Asset</th><th>Trend</th><th>24h</th><th>Score</th><th>Rug</th><th>Liq</th><th>Vol</th><th>Signal</th><th>Buy</th><th>Sell</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="11" style="color:var(--muted); text-align:center;">Waiting for tick data...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
     <h2 style="font-size:0.9rem; font-weight:600; margin-bottom:8px;">Alert Log</h2>
     <div class="alerts" id="alert-log">
       <div class="alert info">System initialized. Waiting for paper_run.py to connect...</div>
@@ -238,7 +280,7 @@ window.TELEGRAM_ALERTS = false;
 
     document.getElementById('capital').textContent = '$' + (data.capital || 0).toFixed(2);
     document.getElementById('asset').textContent = data.asset || '—';
-    document.getElementById('ticks').textContent = data.ticks || 0;
+    document.getElementById('ticks').textContent = data.tick_count || (typeof data.ticks === 'number' ? data.ticks : 0);
     document.getElementById('positions').textContent = data.positions || 0;
     document.getElementById('total-votes').textContent = data.total_votes || 0;
     document.getElementById('last-update').textContent = data.last_update || '—';
@@ -259,31 +301,69 @@ window.TELEGRAM_ALERTS = false;
     document.getElementById('hold-votes').textContent = hold;
     document.getElementById('stand-down-votes').textContent = standDown;
 
-    // Bot table
     const table = document.getElementById('bot-table');
-    if (data.bots && data.bots.length > 0) {
+    if (data.bots && data.bots.length > 0 && table) {
       table.querySelector('tbody').innerHTML = data.bots.map(bot => {
         const cls = bot.side === 'buy' ? 'buy' : bot.side === 'sell' ? 'sell' : bot.side === 'hold' ? 'hold' : bot.side === 'stand_down' ? 'stand_down' : 'pass';
+        const liq = Number(bot.liquidity);
+        const chg = Number(bot.change24h);
         return `<tr>
           <td>${bot.bot || ''}</td>
           <td class="${cls}">${bot.side || ''}</td>
-          <td>${(bot.liquidity ?? '').toFixed(2)}</td>
+          <td>${Number.isFinite(liq) ? liq.toFixed(2) : ''}</td>
           <td>${bot.score ?? ''}</td>
-          <td>${bot.rug_risk ?? ''}</td>
-          <td>${bot.change24h ?? ''}%</td>
+          <td>${bot.rug_risk != null ? Number(bot.rug_risk).toFixed(2) : ''}</td>
+          <td>${Number.isFinite(chg) ? chg.toFixed(1) + '%' : ''}</td>
         </tr>`;
       }).join('');
-    } else {
+    } else if (table) {
       table.querySelector('tbody').innerHTML = '<tr><td colspan="6" style="color:var(--muted); text-align:center;">No bot data yet</td></tr>';
     }
 
+    const tickTable = document.getElementById('tick-table');
+    const history = Array.isArray(data.tick_history) ? data.tick_history
+                  : (Array.isArray(data.ticks) ? data.ticks : []);
+    if (tickTable && history.length > 0) {
+      const ticks = history.slice(-10).reverse();
+      tickTable.querySelector('tbody').innerHTML = ticks.map(t => {
+        const sigCls = t.signal > 0 ? 'buy' : t.signal < 0 ? 'sell' : 'hold';
+        const chg = Number(t.change24h);
+        const sig = Number(t.signal);
+        return `<tr>
+          <td style="color:var(--muted);font-size:0.75rem;">${t.tick || ''}</td>
+          <td>${t.asset || t.symbol || ''}</td>
+          <td>${t.trend || ''}</td>
+          <td>${Number.isFinite(chg) ? chg.toFixed(1) + '%' : ''}</td>
+          <td>${t.score ?? ''}</td>
+          <td>${t.rug_risk ?? ''}</td>
+          <td>${t.liquidity ?? ''}</td>
+          <td>${t.volume ?? ''}</td>
+          <td class="${sigCls}">${Number.isFinite(sig) ? sig.toFixed(2) : ''}</td>
+          <td>${t.votes?.buy ?? 0}</td>
+          <td>${t.votes?.sell ?? 0}</td>
+        </tr>`;
+      }).join('');
+    } else if (tickTable) {
+      tickTable.querySelector('tbody').innerHTML = '<tr><td colspan="11" style="color:var(--muted);text-align:center;">No tick data yet</td></tr>';
+    }
+
+    // P&L metrics
+    if (data.pnl) {
+      document.getElementById('drawdown').textContent = (data.pnl.drawdown || 0).toFixed(2) + '%';
+      document.getElementById('max-drawdown').textContent = (data.pnl.max_drawdown || 0).toFixed(2) + '%';
+      document.getElementById('win-rate').textContent = (data.pnl.win_rate || 0).toFixed(1) + '%';
+      document.getElementById('expectancy').textContent = (data.pnl.expectancy || 0).toFixed(2);
+    }
+    
     // Alerts
     const alerts = data.alerts || [];
     const alertLog = document.getElementById('alert-log');
     if (alerts.length > 0) {
-      alertLog.innerHTML = alerts.slice(-10).map(a =>
-        `<div class="alert ${a.level || 'info'}">${a.message || ''}</div>`
-      ).join('');
+      alertLog.innerHTML = alerts.slice(-10).map(a => {
+        const msg = (typeof a === 'string') ? a : (a.message || JSON.stringify(a));
+        const level = (typeof a === 'string') ? 'info' : (a.level || 'info');
+        return `<div class="alert ${level}">${msg}</div>`;
+      }).join('');
     }
 
     // Clock
@@ -330,7 +410,7 @@ def find_trading_desk() -> str | None:
 
 
 class TradingDeskServer:
-    def __init__(self, port: int = 8000, paper_run: str | None = None):
+    def __init__(self, port: int = 8080, paper_run: str | None = None):
         self.port = port
         self.paper_run = paper_run or find_paper_run()
         self.trading_desk = find_trading_desk()
@@ -394,7 +474,7 @@ class TradingDeskServer:
             print()
             # Use Popen with new session so Ctrl+C doesn't propagate
             proc = subprocess.Popen(
-                ["python3", self.paper_run],
+                ["python3", self.paper_run, "--minutes", "60", "--interval", "10"],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 text=True,
@@ -492,7 +572,7 @@ class TradingDeskServer:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="LYTA Trading Desk Web Server")
-    parser.add_argument("--port", "-P", type=int, default=8000, help="Port to listen on")
+    parser.add_argument("--port", "-P", type=int, default=8080, help="Port to listen on")
     parser.add_argument("--paper-run", "-p", type=str, help="Path to paper_run.py")
     parser.add_argument("--no-open", action="store_true", help="Do not open browser")
     args = parser.parse_args()

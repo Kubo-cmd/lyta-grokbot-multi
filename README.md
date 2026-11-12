@@ -24,6 +24,22 @@ A **12-agent spot trading desk** on **OpenBot** (local, localhost:5173), with Gr
 | **OpenBot (Agents)** | Local desktop workspace (nightly-labs) | 14 trading agents — paper, signal, analyst, trader, risk, etc. | Runs on local machine |
 | **Grok CLI** | Grok Bot | Token analysis pipeline | Paper-only |
 
+## 🚀 Quick start — how this repo is run (one canonical stack)
+
+```bash
+# Terminal A  — trading desk UI + state API (canonical port 8080)
+python3 web_dashboard.py --port 8080 --no-open
+
+# Terminal B  — paper bot feeding the desk (60 min, 10 s ticks)
+python3 paper_run.py --minutes 60 --interval 10
+```
+
+- **UI:** http://localhost:8080/ → live trading desk (also served at `/trading_desk.html`)
+- **State API:** http://localhost:8080/api/state → JSON, rewritten every tick by `paper_run.py`
+- **Paper-only:** $100 paper capital in `_paper_agent.ts`, no wallet import, no signing, no live trades
+
+---
+
 ## 🔓 License & Visibility
 
 | Item | Status |
@@ -352,13 +368,43 @@ the same alerts for the overall summary view.
 
 ### Trading Rules (Phase 2)
 
-- Buy only when >=7 of 12 bots vote BUY (min=7, max=10, default=7)
+- Buy only when >=7 of 12 bots vote BUY (min=7, max=10, default=7) — pump.fun rule set, Phase 2 only
 - Skip coins up >100% in the past hour (max_h1_pump_pct=100)
 - Skip coins with liquidity < $50,000 (min_liquidity_usd=50000)
 - Stop loss: sell whole position at -35% from entry (stop_loss_pct=35)
 - Take profit: sell whole position at +50% from entry (take_profit_pct=50)
 - Exit check first every 15min run (exits checked before any entry)
 - Stand-down messages name the active buy filters when nothing qualifies
+
+**Paper runner (Phase 1) parameters** — see `docs/PAPER_PARAMS.md` (weights, trend
+staleness, `CONSENSUS_MIN=5`, validation table for Ticks 1–358).
+
+### Status
+
+- Phase 1: paper session complete (Ticks 1–358, final capital $13.67, win-rate 34.2%,
+  expectancy −0.94, 202 trades). Paper pool $100, Telegram OFF, no wallet, no signing.
+- Phase 2: **activated only on the `pumpfun` trigger; paper-only until then.**
+
+---
+
+## 📐 Parameter reference (paper)
+
+- `paper_run.py` — weights, `CONSENSUS_MIN = 5`, trend staleness, state writer
+- `lyta-grok-desk/trading_desk.py` — P&L metrics
+- `docs/PAPER_PARAMS.md` — full table + validation (Ticks 1–358, win-rate 34.2%,
+  expectancy −0.94, 202 trades, max drawdown 91.37%)
+- Pump.fun perimeters do **not** transfer to Trencher AI or Circuit AI — they are
+  Phase 2-specific and gated behind the `pumpfun` trigger.
+
+## 📊 Phase 2 status
+
+- **Ready, but not live.** Pump.fun adapter (`pumpfun_adapter.py`), config
+  (`config/pumpfun_desk_config.txt`), docs (`docs/PHASE2.md`), and simulator
+  (`pumpfun_desk_simulator.py`) are all in place and verified.
+- Say `pumpfun` to activate Phase 2 — it will stay **paper-only** until you give the
+  explicit go. No wallet import. No signing. No live trades. Telegram OFF.
+
+
 
 ### Telegram Alert Wiring
 

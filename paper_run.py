@@ -69,6 +69,11 @@ BOT_NAMES = [
     "PORTFOLIO", "EXECUTOR"
 ]
 
+# 5+ bot consensus required before any paper capital move
+CONSENSUS_MIN = 5
+# Per-consensus-tick % P&L — feeds win_rate / expectancy on the desk
+_tick_pnls: list[float] = []
+
 # ── Signal processor ───────────────────────────────────────────────
 def compute_signal(market: dict) -> dict:
     """Compute a composite signal from raw market data."""
@@ -80,12 +85,21 @@ def compute_signal(market: dict) -> dict:
     price = market.get("price", 0.5)
 
     # --- Trend factor (wind direction) ---
-    # Positive for UP trends (push signal higher), negative for DOWN trends
+    # Positive for UP trends, negative for DOWN trends
+    # Trend staleness: decay trend weight over time (1 tick = 5% decay)
+    # Returns get stale in pump.fun; require fresh direction confirmation
     trend_factor = 0.0
     if market.get("trend") == "up":
-        trend_factor = 0.55
+        trend_factor = 0.75
     elif market.get("trend") == "down":
-        trend_factor = -0.55
+        trend_factor = -0.75
+
+    # Trend staleness: decay after the *current* regime has lasted 20 ticks
+    # 5% extra decay per tick past 20, capped at 65% penalty
+    trend_age = int(market.get("trend_age", 0) or 0)
+    if trend_age > 20:
+        decay = min(0.65, (trend_age - 20) * 0.05)
+        trend_factor = trend_factor * (1.0 - decay)
 
     # Normalize score (0-100 -> -1 to +1)
     score_norm = (score / 100) * 2 - 1
@@ -102,16 +116,30 @@ def compute_signal(market: dict) -> dict:
     # Momentum (price momentum, -1 to +1 roughly)
     mom_norm = change24h / 25.0
 
+    # --- Change24h amplification (non-linear) ---
+    # High momentum tokens (> threshold) get non-linear boost
+    # Threshold: 12.5% 24h change (mom_norm > 0.5)
+    # Amplification strength: proportional to deviation from threshold
+    change_amp = 0.0
+    if abs(mom_norm) > 0.5:
+        # Excess momentum beyond threshold
+        excess = abs(mom_norm) - 0.5
+        # Cap amplification at ±0.15
+        change_amp = (excess * 0.3) * (1.0 if mom_norm > 0 else -1.0)
+        change_amp = max(-0.15, min(0.15, change_amp))
+
     # Composite signal: weighted sum.
-    # Trend factor is the wind (45%), quality/momentum refine it.
-    # Increased volume weight to capture liquidity/trading activity
+    # Trend factor reduced to 30% (was 45%) to reduce dominance
+    # Rug and liquidity increased to 20% each to weight survival factors higher
+    # Change amplification adds non-linear boost for high-momentum tokens
     signal = (
-        trend_factor +
-        score_norm * 0.15 +
-        rug_norm * 0.15 +
-        liq_norm * 0.15 +
-        vol_norm * 0.10 +
-        mom_norm * 0.15
+        trend_factor * 0.30 +           # 30% (was ~45%)
+        score_norm * 0.15 +             # 15%
+        rug_norm * 0.20 +               # 20% (was 15%)
+        liq_norm * 0.20 +               # 20% (was 15%)
+        vol_norm * 0.05 +               # 5% (was 10%)
+        mom_norm * 0.10 +               # 10% (was 15%)
+        change_amp                      # non-linear amplification
     )
 
     return {
@@ -262,6 +290,8 @@ _market_state = {
     "volume_mult": max(0.2, min(3.0, random.gauss(1.0, 0.3))),
     "price": random.uniform(0.1, 0.9),
     "last_change": 0.0,
+    "_ticks": [],  # tick history for dashboard + staleness
+    "trend_age": 0,
 }
 
 def generate_market() -> dict:
@@ -289,9 +319,16 @@ def generate_market() -> dict:
     elif _market_state["volatility"] < 0.015:
         _market_state["volatility"] *= 1.05
 
-    # --- Random regime switches ---
+    # --- Random regime switches (reset trend_age on a real change) ---
     if random.random() < 0.08:
-        _market_state["trend"] = random.choice(["up", "down", "sideways"])
+        new_trend = random.choice(["up", "down", "sideways"])
+        if new_trend != _market_state["trend"]:
+            _market_state["trend"] = new_trend
+            _market_state["trend_age"] = 0
+        else:
+            _market_state["trend_age"] += 1
+    else:
+        _market_state["trend_age"] += 1
 
     # --- Generate returns ---
     noise = random.gauss(0, _market_state["volatility"])
@@ -353,6 +390,7 @@ def generate_market() -> dict:
         "volatility": _market_state["volatility"],
         "trend": _market_state["trend"],
         "trend_strength": _market_state["trend_strength"],
+        "trend_age": _market_state["trend_age"],
     }
 
 # ── Realistic trading costs (paper trading) ─────────────────────────
@@ -407,6 +445,10 @@ def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = T
             now = time.time()
             market = generate_market()
 
+            # Add tick history to market dict for trend staleness tracking
+            market['_ticks'] = _market_state['_ticks']
+            market['tick'] = tick
+            
             # Compute composite signal
             signal = compute_signal(market)
 
@@ -429,36 +471,40 @@ def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = T
             for bot, side in votes.items():
                 TRADE_DESK.add_vote(bot, side)
 
-            # Direction-based capital change: +2% buy, -1.5% sell
+            # Direction-based capital change, gated on 5+ bot consensus
             buy_votes = sum(1 for v in votes.values() if v == "buy")
             sell_votes = sum(1 for v in votes.values() if v == "sell")
-            if buy_votes > sell_votes:
+            pass_count = sum(1 for v in votes.values() if v == "pass")
+            acted = False
+            base_change = 0.0
+            if buy_votes >= CONSENSUS_MIN and buy_votes > sell_votes:
                 base_change = 0.02
-            elif sell_votes > buy_votes:
+                acted = True
+            elif sell_votes >= CONSENSUS_MIN and sell_votes > buy_votes:
                 base_change = -0.015
-            else:
-                base_change = 0.0
+                acted = True
 
-            # Capital before trading costs
-            new_capital = TRADE_DESK.state.capital * (1 + base_change)
-
-            # Trend multiplier: amplify or dampen based on market direction
-            trend_multiplier = 1.0
-            if market["trend"] == "up":
-                trend_multiplier = 1.0 + market["trend_strength"] * 0.3
-            elif market["trend"] == "down":
-                trend_multiplier = 1.0 - market["trend_strength"] * 0.3
-
-            # Apply base change with trend amplification
-            new_capital = new_capital * trend_multiplier
-
-            # Apply realistic trading costs
-            total_votes = sum(1 for v in votes.values() if v in ("buy", "sell"))
-            new_capital = apply_trading_costs(new_capital, total_votes)
-
-            # Apply realistic trading costs
-            total_votes = sum(1 for v in votes.values() if v in ("buy", "sell"))
-            new_capital = apply_trading_costs(new_capital, total_votes)
+            old_capital = TRADE_DESK.state.capital
+            new_capital = old_capital
+            if acted:
+                new_capital = old_capital * (1 + base_change)
+                trend_multiplier = 1.0
+                if market["trend"] == "up":
+                    trend_multiplier = 1.0 + abs(market["trend_strength"]) * 0.3
+                elif market["trend"] == "down":
+                    trend_multiplier = 1.0 - abs(market["trend_strength"]) * 0.3
+                new_capital = new_capital * trend_multiplier
+                # One desk-level paper trade (not per-bot); costs applied once
+                new_capital = apply_trading_costs(new_capital, 1)
+                TRADE_DESK.add_position(
+                    "GOBLIN",
+                    "LONG" if base_change > 0 else "SHORT",
+                    float(market["price"]),
+                    bots=max(buy_votes, sell_votes),
+                )
+                pnl_frac = (new_capital - old_capital) / old_capital if old_capital else 0.0
+                TRADE_DESK.close_position("GOBLIN", pnl_frac)
+                _tick_pnls.append(pnl_frac * 100.0)
 
             TRADE_DESK.update_capital(max(0.01, new_capital))
 
@@ -493,14 +539,39 @@ def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = T
                 last_html = now
 
             # Write state JSON for web dashboard
+            wins = sum(1 for p in _tick_pnls if p > 0)
+            win_rate = (wins / len(_tick_pnls) * 100.0) if _tick_pnls else 0.0
+            expectancy = (sum(_tick_pnls) / len(_tick_pnls)) if _tick_pnls else 0.0
+            peak = TRADE_DESK.state.peak or TRADE_DESK.state.start_capital or 100.0
+            current_dd = ((peak - TRADE_DESK.state.capital) / peak * 100.0) if peak else 0.0
+            tick_record = {
+                "tick": tick,
+                "symbol": market["symbol"],
+                "asset": TRADE_DESK.state.asset,
+                "trend": market["trend"],
+                "change24h": round(float(market["change24h"]), 3),
+                "score": market["score"],
+                "rug_risk": round(float(market["rug_risk"]), 3),
+                "liquidity": round(float(market["liquidity"]), 3),
+                "volume": round(float(market["volume"]), 3),
+                "signal": round(float(signal["signal"]), 4),
+                "votes": {"buy": buy_votes, "sell": sell_votes, "pass": pass_count},
+            }
+            _market_state["_ticks"].append(tick_record)
+            if len(_market_state["_ticks"]) > 50:
+                _market_state["_ticks"] = _market_state["_ticks"][-50:]
+            TRADE_DESK.state.tick_history = list(_market_state["_ticks"])
             TRADE_DESK.update_state({
                 "capital": TRADE_DESK.state.capital,
                 "asset": TRADE_DESK.state.asset,
                 "ticks": tick,
-                "positions": len([p for p in TRADE_DESK.state.positions if p]),
-                "total_votes": sum(1 for b in BOT_NAMES if trades.get(b)),
+                "tick_count": tick,
+                "tick_history": list(_market_state["_ticks"][-10:]),
+                "positions": len([p for p in TRADE_DESK.state.positions if p.pnl is None]),
+                "total_votes": TRADE_DESK.state.vote_results.get("total", 0),
                 "last_update": datetime.now().strftime("%H:%M:%S"),
                 "session_running": True,
+                "session_status": "PAPER-ONLY",
                 "alerts": [TRADE_DESK.state.pending_alert] if TRADE_DESK.state.pending_alert else [],
                 "votes": {
                     "buy": TRADE_DESK.state.vote_results.get("buy", 0),
@@ -511,6 +582,13 @@ def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = T
                 },
                 "bots": [{"bot": b, "side": v, "score": market["score"], "liquidity": market["liquidity"],
                          "rug_risk": market["rug_risk"], "change24h": market["change24h"]} for b, v in trades.items()],
+                "pnl": {
+                    "drawdown": round(current_dd, 2),
+                    "max_drawdown": round(TRADE_DESK.state.max_drawdown * 100.0, 2),
+                    "win_rate": round(win_rate, 1),
+                    "expectancy": round(expectancy, 2),
+                    "total_trades": len(_tick_pnls),
+                },
                 "error": None
             })
 

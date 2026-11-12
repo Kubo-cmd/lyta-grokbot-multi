@@ -74,6 +74,7 @@ class DeskState:
     realized_pnl: float = 0.0
     pending_alert: Optional[str] = None
     last_updated: float = field(default_factory=time.time)
+    tick_history: list[dict] = field(default_factory=list)
 
     # per-agent vote tally for the "12-bot consensus" dashboard row
     agent_votes: dict[str, dict] = field(default_factory=lambda: {
@@ -112,7 +113,13 @@ class TradingDesk:
     """
 
     def __init__(self, capital: float = 6.0, asset: str = "GOBLIN", config: str = "v3"):
-        self.state = DeskState(capital=capital, asset=asset, config=config)
+        self.state = DeskState(
+            capital=capital,
+            asset=asset,
+            config=config,
+            start_capital=capital,
+            peak=capital,
+        )
 
     # -- state updates ------------------------------------------------------
     def add_vote(self, bot: str, side: str) -> None:
@@ -133,19 +140,18 @@ class TradingDesk:
         # Update bot's vote
         if side_lower in ("buy", "sell", "pass", "hold", "stand_down"):
             self.state.agent_votes[bot][side_lower] += 1
-        # Update global vote results (only count buy/sell/pass as decisions)
-        if side_lower in ("buy", "sell", "pass"):
+        # Update global vote results once (do not also call add_agent_vote)
+        if side_lower in ("buy", "sell", "pass", "hold", "stand_down"):
             self.state.vote_results[side_lower] = (
                 self.state.vote_results.get(side_lower, 0) + 1
             )
-        # Track total
         self.state.vote_results["total"] = (
             self.state.vote_results.get("buy", 0)
             + self.state.vote_results.get("sell", 0)
             + self.state.vote_results.get("pass", 0)
+            + self.state.vote_results.get("hold", 0)
+            + self.state.vote_results.get("stand_down", 0)
         )
-        # Track per-agent vote tally for consensus dashboard
-        self.add_agent_vote(bot, side_lower)
 
     def add_position(self, asset: str, side: str, entry: float, bots: int = 12) -> None:
         self.state.positions.append(Position(asset=asset, side=side, entry=entry, bots=bots))
@@ -248,6 +254,8 @@ class TradingDesk:
         """Return an HTML string with the overall desk summary."""
         s = self.state
         now = time.strftime("%H:%M:%S")
+        
+        # Position rows
         pos_rows = ""
         for pos in s.positions:
             pnl_str = f"{pos.pnl:+.4f}" if pos.pnl is not None else "—"
@@ -259,7 +267,25 @@ class TradingDesk:
               <td>{pos.bots}/12</td>
               <td>{pnl_str}</td>
             </tr>"""
-
+        
+        # P&L calculations
+        _closed = [p for p in s.positions if p.pnl is not None]
+        _win_rate = (sum(1 for p in _closed if p.pnl > 0) / len(_closed) * 100) if _closed else 0.0
+        _expectancy = (sum(p.pnl for p in _closed) / len(_closed) * 100) if _closed else 0.0
+        _drawdown = (s.max_drawdown * 100) if s.max_drawdown else 0.0
+        
+        # Build tick rows (last 10 ticks)
+        _tick_rows = ""
+        for i, t in enumerate(reversed(s.tick_history[-10:])):
+            _tick_rows += f"""
+<tr>
+  <td>{i + 1}</td><td>{t.get('symbol', t.get('asset', '?'))}</td>
+  <td>{t.get('signal', '—')}</td><td>{t.get('volume', t.get('vol', '—'))}</td>
+  <td>{t.get('rug_risk', t.get('rug', '—'))}</td><td>{t.get('liquidity', t.get('liq', '—'))}</td>
+  <td>{t.get('change24h', '—')}</td><td>{t.get('score', '—')}</td>
+</tr>"""
+        
+        # Build agent rows
         agent_rows = ""
         for bot in BOT_ROSTER:
             v = s.agent_votes.get(bot, {"buy": 0, "sell": 0, "pass": 0})
@@ -270,7 +296,7 @@ class TradingDesk:
               <td>{v['sell']}</td>
               <td>{v['pass']}</td>
             </tr>"""
-
+        
         html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -352,6 +378,8 @@ window.TELEGRAM_ALERTS = false;
   <div class="card">
     <h1>{title}</h1>
     <div class="sub">Updated {now} &middot; paper-only &middot; {s.config}</div>
+    
+    <!-- Stats Grid -->
     <div class="grid">
       <div class="stat"><div class="label">Capital</div><div class="value">${s.capital:.2f}</div></div>
       <div class="stat"><div class="label">Open Ports</div><div class="value">{len(s.positions)}</div></div>
@@ -360,26 +388,54 @@ window.TELEGRAM_ALERTS = false;
       <div class="stat"><div class="label">Realized PnL</div><div class="value">{s.realized_pnl:+.4f} SOL</div></div>
       <div class="stat"><div class="label">Votes Total</div><div class="value">{s.vote_results.get('total',0)}</div></div>
     </div>
+    
+    <!-- P&L Metrics -->
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr));">
+      <div class="stat" style="background:#0f172a;border-color:#10b981;">
+        <div class="label">Win Rate</div>
+        <div class="value" style="color:#10b981;">{_win_rate:.1f}%</div>
+      </div>
+      <div class="stat" style="background:#0f172a;border-color:#3b82f6;">
+        <div class="label">Expectancy</div>
+        <div class="value" style="color:#3b82f6;">{_expectancy:+.1f}%</div>
+      </div>
+      <div class="stat" style="background:#0f172a;border-color:#f59e0b;">
+        <div class="label">Drawdown</div>
+        <div class="value" style="color:#f59e0b;">{_drawdown:.1f}%</div>
+      </div>
+      <div class="stat" style="background:#0f172a;border-color:#ef4444;">
+        <div class="label">Total Trades</div>
+        <div class="value" style="color:#ef4444;">{len(_closed)}</div>
+      </div>
+    </div>
+    
+    <!-- Agent Voting -->
     <table>
-      <thead>
-        <tr><th>Asset</th><th>Side</th><th>Entry</th><th>Bots</th><th>PnL</th></tr>
-      </thead>
-      <tbody>{pos_rows}</tbody>
+      <thead><tr><th>Bot</th><th>Buy</th><th>Sell</th><th>Pass</th></tr></thead>
+      <tbody>
+        {agent_rows}
+      </tbody>
     </table>
+    
+    <!-- Tick Data (Last 10) -->
     <table>
-      <thead>
-        <tr><th>Bot</th><th>Buy</th><th>Sell</th><th>Pass</th></tr>
-      </thead>
-      <tbody>{agent_rows}</tbody>
+      <thead><tr>
+        <th>#</th><th>Symbol</th><th>Signal</th><th>Vol</th><th>Rug</th><th>Liq</th><th>Chg24h</th><th>Score</th>
+      </tr></thead>
+      <tbody>
+        {_tick_rows}
+      </tbody>
     </table>
-    {f'<div class="alert">⚠️ {s.pending_alert}</div>' if s.pending_alert else ''}
-    <div class="footer">LYTA GrokBot Multi — Trading Desk v3 (paper-only)</div>
+    
+    <div class="footer">
+      LYTA Trading Desk &middot; Paper Trading &middot; Phase 2 (Pump.fun) &middot; Observation Only
+    </div>
   </div>
 </body>
 </html>"""
+        
         return html
 
-    # -- JSON for programmatic use -------------------------------------------
     def to_dict(self) -> dict:
         return {
             "config": self.state.config,
@@ -402,8 +458,30 @@ window.TELEGRAM_ALERTS = false;
             "completed_positions": self.state.completed_positions,
             "sell_legs": self.state.sell_legs,
             "realized_pnl": self.state.realized_pnl,
+            # P&L metrics
+            "drawdown": self.state.max_drawdown * 100,
+            "max_drawdown": self.state.max_drawdown * 100,
+            "win_rate": self._calc_win_rate(),
+            "expectancy": self._calc_expectancy(),
+            "total_trades": self.state.total_trades,
             "last_updated": self.state.last_updated,
         }
+
+    def _calc_expectancy(self) -> float:
+        """Calculate average expectancy per trade."""
+        closed = [p for p in self.state.positions if p.pnl is not None]
+        if not closed:
+            return 0.0
+        avg_pnl = sum(p.pnl for p in closed) / len(closed)
+        return avg_pnl * 100  # as percentage of capital
+
+    def _calc_win_rate(self) -> float:
+        """Calculate win rate from completed positions."""
+        closed = [p for p in self.state.positions if p.pnl is not None]
+        if not closed:
+            return 0.0
+        wins = sum(1 for p in closed if p.pnl is not None and p.pnl > 0)
+        return wins / len(closed) * 100
 
     def update_state(self, updates: dict) -> None:
         """Update this TradingDesk instance state from a dict and write
