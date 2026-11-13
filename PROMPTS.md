@@ -126,3 +126,47 @@ Note: today's live pairs never reach 8/8 consent, so live runs stand down.
       The GOBLIN/SOL pair above is a documented paper construction, NOT a live
       fill. No real wallet, no real DEX, no real mint.
 ```
+
+---
+
+## Template D — Two ways to choose (runs paper-only, no capital)
+
+> Use these one-liners to run **way A** (OpenBot local desk) or **way B** (Grok-Bot cloud committee). Both are paper-only and read the same shared simulator. Pick the way above: run A today, move to B when you want always-on Grok-Bot advisory (needs a vault token + funding, outside assistant control).
+
+### (A) OpenBot — local 12-agent paper desk (cheapest, runs now)
+
+```bash
+# single paper step
+cd /Users/test/projects/lyta-grokbot-multi/lyta-grok-desk
+python3 trading_desk_cli.py --once
+
+# full paper loop (20 cycles, local 12 agents)
+cd /Users/test/projects/lyta-grokbot-multi/lyta-grok-desk
+python3 pumpfun_desk_simulator.py
+```
+
+- **What it runs:** 12 local OpenBot agents (circuit paper, spot, signal, analyst, trader, risk, scout, devwatch, trencher, grok-bot, …) via `lyta-grok-desk/circuit.toml` (`paper_only = true`).
+- **Cost:** $0. **Always-on:** No (local only).
+- **Today's result:** exit 0, full diagnostics, 20-cycle run; both desks verified on real paper data.
+
+### (B) Grok-Bot — cloud committee + OpenBot execution (best long-term)
+
+```bash
+cd /Users/test/projects/lyta-grokbot-multi
+python3 grokbot_multi.py            # paper-only Grok-Bot committee, exit 0
+```
+
+- **What it runs:** the 12-Bot Grok-Bot committee (`grokbot_scorer.py` plug point, `grokbot_multi.py` advisory loop, `DeskState.grok_committee_advice`, `grok_signals_for_real_bot.json` export). Reads the shared `pumpfun_desk_simulator.py` paper simulator for execution.
+- **Cost:** Paid managed Grok-Bot plan. **Always-on:** Yes (cloud stays up). **Live advisory:** needs a secure-vault `GROK_BOT_TOKEN` + funding approval (outside assistant control).
+- **Today's result:** 18 steps, 55 simulated paper trades, $280 → **$141.43 equity**, advisory `0.0` (n=0 — every committee step stand-down, *no fabricated scores*).
+
+### Which one to run?
+
+| I want to… | Run |
+|---|---|
+| Test a strategy today, zero risk | **(A) OpenBot** — `python3 pumpfun_desk_simulator.py` |
+| Keep the desk alive with my laptop closed | **(B) Grok-Bot** — `python3 grokbot_multi.py` |
+| Get live Grok-Bot advisory | **(B)** (add your vault token + funding) |
+| Compare both on identical data | **(A)** then **(B)**, read them side by side in `COMPARISON_REPORT.md` |
+
+**Note:** both ways are paper-only here. No real orders, no real capital, no fabricated scores. Switch between them with one command — the shared simulator state is identical.
