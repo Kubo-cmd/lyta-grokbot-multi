@@ -1,0 +1,50 @@
+{
+  "title": "LYTA Trading Desk \u2014 Three Options (paper-only)",
+  "note": "All options run FULLY ON PAPER: no real capital, no real orders, no API keys required.",
+  "run_note": "Grok-Bot committee plug stood down (no Grok key on device); GrokBot ran heuristics paper-only.",
+  "test_window": "0.3m (OpenBot, 17 ticks) | 18 steps (GrokBot)",
+  "options": {
+    "A": {
+      "name": "OpenBot itself",
+      "entry": "python3 paper_run.py --minutes 0.3 --interval 1",
+      "engine": "shared PaperDesk (A3b gate: consent>=8 AND |combined|>=0.35)",
+      "advice": "OpenBot spot/narrative heuristics (no key needed)",
+      "agents": "12 OpenBot bots (SCOUT..EXECUTOR)",
+      "capital": 100.0,
+      "trades_executed": 0,
+      "result": "17 ticks, all stand-downs (A3b gate not met), 0 trades, final paper capital $100.00",
+      "output": "paper_desk_openbot_record.json",
+      "pros": "simple, no key, single file, same engine as B",
+      "cons": "zero trades in this window \u2014 the 12-agent heuristic gate didn't align"
+    },
+    "B": {
+      "name": "GrokBot",
+      "entry": "python3 grokbot_multi.py",
+      "engine": "shared PaperDesk (A3b gate)",
+      "advice": "Grok committee plug (stands down w/o key) OR heuristics paper-only",
+      "agents": "11 GrokBot agents (SCOUT,FILTER,ANALYST,DEV_WATCH,CONVICTION,MOMENTUM,SCALPER,CONTRARIAN,TREND,RESEARCHER,PORTFOLIO)",
+      "capital": 100.0,
+      "trades_executed": 0,
+      "result": "18 steps, all stand-downs (NEKO/LOOT/SPERM), 0 trades, final paper capital $100.00",
+      "output": "paper_trades_autonomous_grok.csv | equity_curve_autonomous_grok.csv",
+      "pros": "richer 11-agent committee-style voting, more signals per tick, extensible to real Grok key later",
+      "cons": "same paper-only window produced zero trades; needs a Grok key to activate the committee advisory"
+    },
+    "C": {
+      "name": "Their own way (custom strategy)",
+      "entry": "extend PaperDesk.advice_fn with a custom advice source; keep the shared A3b gate + paper-only guard",
+      "engine": "shared PaperDesk (reuse the exact same engine)",
+      "advice": "custom strategy (the user's own way \u2014 'the best')",
+      "agents": "custom (any number)",
+      "capital": 100.0,
+      "trades_executed": 0,
+      "result": "custom; replace advice_fn in a new script or subclass PaperDesk \u2014 the engine, gate, and paper guard are shared, so only the advice column changes",
+      "output": "custom record json",
+      "pros": "the user's own strategy \u2014 intended the best; lives on the same shared engine (no rework of the gate/paper guard)",
+      "cons": "must ship the custom advice_fn/data source; honest comparison waits for a real trade window against A and B"
+    }
+  },
+  "decision": "Run the shared engine once (both A and B already did it paper-only). Option C overrides advice_fn with your custom strategy on the same engine. Which is 'best' = whichever earns the first real paper trade; expect A/B to need a longer or re-tuned window before the 12-agent/11-agent heuristic gate aligns.",
+  "verified": true,
+  "committed": "c24c869"
+}
