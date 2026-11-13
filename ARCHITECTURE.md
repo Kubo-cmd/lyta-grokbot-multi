@@ -360,5 +360,18 @@ the same alerts for the overall summary view.
 || v11 | **Repo health pass** | Removed "What Needs Wiring" section; agent roster updated to 12 agents across README, ARCHITECTURE, AGENTS.md, README_circuit.md; docs index added; BOT-COMPARE reworded to yes/no contrast with no "winner" column |
 || v12 | **Platform comparison corrected** | Grok Bot confirmed to have mobile app, voice, backup models, teams/roles, chat/human-in-loop, schedule automation, source code (was incorrectly marked as lacking these) |
 || v13 | **Build stack documented** | Added Solar Mini4, Grok 4.7, inkling, chatgpt sol to repo documentation |
+| v14 | **Both ways documented** | README + ARCHITECTURE + OPTIONS.md present the repo as two ways: (A) OpenBot local 12-agent paper desk (cheapest, runs now) and (B) Grok-Bot cloud committee + OpenBot execution (best long-term). Best option runs day-to-day; the other stays available for comparison. |
+
+## 7. Which path do I use?
+
+| | (A) OpenBot | (B) Grok-Bot |
+|---|---|---|
+| **Runs now** | ✅ | ✅ (paper-only) |
+| **Cost** | $0 | Paid managed plan |
+| **Always-on** | No | Yes |
+| **Best for** | Start here, test strategies | Long-term continuous desk |
+| **Best option** | Run first | Keep for the desk you keep |
+
+**Recommendation:** run **(A)** now — it is free and returns results today. Move to **(B)** when you want always-on Grok-Bot intelligence (cloud coordination + local 12-agent execution via the shared paper simulator). Both read the same `pumpfun_desk_simulator.py`, so switching is a command away.
 
 ---

@@ -22,7 +22,16 @@ A **12-agent spot trading desk** on **OpenBot** (local, localhost:5173), with Gr
 |---|---|---|---|
 | **Grok Bot (Server)** | Managed cloud VM (xAI) | Task routing, coordination, persistent state | ✅ Yes — cloud stays up when laptop closes |
 | **OpenBot (Agents)** | Local desktop workspace (nightly-labs) | 14 trading agents — paper, signal, analyst, trader, risk, etc. | Runs on local machine |
-| **Grok CLI** | Grok Bot | Token analysis pipeline | Paper-only |
+|| **Grok CLI** | Grok Bot | Token analysis pipeline | Paper-only |
+
+## Two ways in this repo
+
+| Path | What it is | Cost | Runs now | Best for | Blocking |
+|---|---|---|---|---|---|
+| **(A) OpenBot** | Local 12-agent paper desk in `lyta-grok-desk/` | $0 | ✅ Yes | Test strategies today | None |
+| **(B) Grok-Bot** | Cloud committee + OpenBot execution | Paid managed plan | ✅ (paper-only) | Always-on desk | Vault token + funding |
+
+**Best option:** run **(A)** to start — it is free and returns results today. Keep **(B)** for the long-term desk (cloud stays up, real Grok-Bot advisory once a token is wired). Both read the same shared paper simulator, so switching costs nothing.
 
 ## 🚀 Quick start — how this repo is run (one canonical stack)
 
