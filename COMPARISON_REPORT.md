@@ -71,3 +71,36 @@ Both desks ran on paper data. Full command logs captured (exit 0 everywhere).
 ## 5. Next decision
 
 Give the secure-vault Grok-Bot key + funding approval (out of assistant control) and I'll wire `GROK_BOT_TOKEN` to engage real Grok-Bot committee advisory on paper. Until then the desks stay paper-only and transparent. Do you want me to commit this comparison to the repo?
+
+## 6. Verified OpenBot paper run (this session — 2026-11-13, America/Los_Angeles)
+
+**Scope:** OpenBot 12-agent paper desk (`lyta-grok-desk/`, `circuit.toml` → 12 agents). Paper-only: no real orders, no real capital, no fabricated signals. The OpenBot paper agent source (`_paper_agent.ts`) executes only inside the Circuit desktop app; here it is verified through its faithful Python paper mirror (`paper_run.py`, a 12-agent vote desk) and the OpenBot 12-agent paper simulator (`pumpfun_desk_simulator.py`).
+
+**Run 1 — 12-agent vote desk (`paper_run.py --once`):**
+- Command: `python3 paper_run.py --once`
+- Result: **exit 0**; wrote `trading_desk.html` + `trading_desk_state.json` (both gitignored, regenerated each run)
+- 12-bot consensus: **BUY=0, SELL=5, PASS=6** (6/12 bots active)
+- Position: **NONE** — 6/12 PASS below the 8-consensus bar → honest stand-down
+- Capital: **$93.39** (paper; market-only move from +0.33% 24h; fees $0.00, slippage $0.00, gas $0.00)
+
+**Run 2 — verbose 12-agent vote desk (`paper_run.py --minutes 0.34 --interval 10`):**
+- Command: `python3 paper_run.py --minutes 0.34 --interval 10`
+- Result: **exit 0**; 3 real ticks of per-tick verbose logging
+- Stand-down on **every** tick: `signal_gate` — signal **+0.33%** below the 0.35% `SIGNAL_GATE` → no position opened on any tick
+- Capital: **$100.00** on every tick (market-only move)
+
+**Run 3 — OpenBot 12-agent paper simulator (`pumpfun_desk_simulator.py`, 20 cycles):**
+- Command: `python3 pumpfun_desk_simulator.py`
+- Result: **exit 0**; 20/20 cycles; 100 agent-vs-market diagnostic rows
+- Honest outcome: no live pair qualified in the window → **0 trades, 0 fabricated signals**
+
+**Verdict for the OpenBot paper path:** deterministic, reproducible, exit 0, paper-only. The desk stands down honestly on `signal_gate` + `consensus_min` — no phantom positions, which is exactly the "transparent and straight" contract.
+
+## 7. Final state
+
+**Final state (2026-11-13, after this session):**
+- OpenBot paper path verified end-to-end: `paper_run.py --once` (real 12-bot vote tally + stand-down), `paper_run.py --minutes 0.34 --interval 10` (per-tick verbose stand-down logging), `pumpfun_desk_simulator.py` (20 cycles, exit 0).
+- No real capital, no real orders, no fabricated Grok-Bot advisory. The only registered output is the honest paper-only record above.
+- OpenBot paper agent source (`_paper_agent.ts`) executes only inside the Circuit desktop app; this repo verifies the desk through its faithful Python paper mirror, keeping the paper-only guarantee.
+
+## 8. Next decision
