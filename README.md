@@ -50,6 +50,7 @@ Replaces the single-source `signal_from_volume()` in `real_trade_feed.py` with a
 
 | File | Role |
 |---|---|
+| `paper_trade_exec.py` | **Paper-only execution layer** built from `paper_desk_simulator.py` (config v10). `run_live()` scans live pump pairs through the gate (all stand down, zero qualify); `run_realistic()` is a constructed qualifying-scenario lifecycle demo on paper money (entry → peak → trailing exit → +P&L). Zero real orders, zero real capital. |
 | `consensus_aggregator.py` | The aggregator: 5 paper bots + 3 volume copies = 8 sources (A3b floor), `ConsensusAggregator.consensus(pair, narrative=...)`, gate stand-down + qualified BUY demo. |
 | `pumpfun_phase2_paper_run.py` | Phase-2 paper-only scanner: fetches 30 live pump pairs via `RealTradeFeed`, runs each through the same `ConsensusAggregator`. 0 of 30 qualify tonight (observation only). |
 | `real_trade_feed.py` | Live DexScreener REST + PumpDev WS wrapper; `signal_from_volume()` REPLACEMENT NOTICE documents how the new aggregator plugs in. |
@@ -85,13 +86,15 @@ python3 pumpfun_phase2_paper_run.py
 
 ### What runs, and what does not
 
-- `run_realistic()` — feeds the 30 live pump/dev pairs from `RealTradeFeed` through the aggregator.
-  Every pair is classified `standby` (gate stand-down). **Zero trades because zero qualify.** All scores
-  are deterministic paper proxies of the Grok-bot committee. No wallet import, no signing, no live capital.
-- `run_constructed()` — a qualifying scenario (8/8 consent, |score| ≥ 0.35) enters on paper, then the
-  simulator drifted the price through the paper-desk trailing rule. That run is a **constructed, documented
-  paper trajectory** (reproducible per pair, `random.Random` seed) — it is *not* a live order and it spends
-  no real capital. It demonstrates the full lifecycle: entry → peak → drawdown → trailing exit → P&L.
+- `run_live()` — scans the live pump pairs the real feed returns (30 pairs) through the
+  `ConsensusAggregator`. All pairs classified `standby` (gate stand-down). **Zero trades because
+  zero qualify.** All scores are deterministic paper proxies of the Grok-bot committee. No wallet
+  import, no signing, no live capital.
+- `run_realistic()` — a **constructed qualifying-scenario lifecycle** on paper money: 5 distinct
+  sources + 3 momentum copies = 8 votes, gate opens, paper fill enters, then the simulator drifts the
+  price through the paper-desk trailing rule. That run is a **documented paper construction**
+  (reproducible per pair by pair_id hash) — it is *not* a live order and it spends no real capital.
+  It demonstrates the full lifecycle: entry → peak → drawdown → trailing exit → P&L.
 
 ### Real-data → paper-trade execution steps (verbatim run)
 

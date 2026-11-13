@@ -17,10 +17,10 @@ Gate spec (committed aggregator, A3b):
 Execution assumptions (documented, explicit, zero-burn):
     * Paper capital: $6.00 (PAPER_CAPITAL)
     * Single-asset demo pair: GOBLIN/SOL
-    * Position sizing: 0.5 SOL (PO_BNavy) on entry
-    * Exit rules (paper_desk_simulator.py defaults): trailing exit at 15% drawdown
-      from peak (PO_TRAIL_DD=0.15), stale exit at 120s (PO_STALE=120), dead exit at
-      300s (PO_DEAD=300)
+    * Position sizing: 0.05 SOL (PO_BNavy) on entry
+    * Exit rules (paper_desk_simulator.py config v10): trailing exit at 15% drawdown
+      from peak (PO_TRAIL_DD=0.15), stale exit at 90s (PO_STALE=90), dead exit at
+      240s (PO_DEAD=240)
     * No real wallet, no real DEX, no real mint; all fills are paper proxies.
 
 This module is the execution LAYER. The real-data feed (real_trade_feed.py) and the
