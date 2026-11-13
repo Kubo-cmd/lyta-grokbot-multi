@@ -69,8 +69,8 @@ BOT_NAMES = [
     "PORTFOLIO", "EXECUTOR"
 ]
 
-# 5+ bot consensus required before any paper capital move
-CONSENSUS_MIN = 5
+# 6+ bot consensus required before any paper capital move
+CONSENSUS_MIN = 6
 # Per-consensus-tick % P&L — feeds win_rate / expectancy on the desk
 _tick_pnls: list[float] = []
 # Per-trade log: tick-level P&L, votes, gate reasons (tuning data)
@@ -480,8 +480,8 @@ def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = T
             gate_reasons: list[str] = []
             acted = False
             base_change = 0.0
-            # Gate 1: minimum signal strength — skip noise (no action below |0.30|)
-            signal_gate = abs(signal["signal"]) >= 0.30
+            # Gate 1: minimum signal strength — skip noise (no action below |0.28|)
+            signal_gate = abs(signal["signal"]) >= 0.28
             # Gate 2: consensus — only the strongest direction moves capital
             consensus_buy = buy_votes >= CONSENSUS_MIN and buy_votes > sell_votes
             consensus_sell = sell_votes >= CONSENSUS_MIN and sell_votes > buy_votes
@@ -490,9 +490,9 @@ def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = T
                                (market["trend"] == "down" and consensus_sell)
             if trade_with_trend and signal_gate:
                 if consensus_buy:
-                    base_change = 0.02
+                    base_change = 0.015
                 else:
-                    base_change = -0.015
+                    base_change = -0.012
                 acted = True
             else:
                 if not signal_gate:
@@ -509,9 +509,9 @@ def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = T
                 new_capital = old_capital * (1 + base_change)
                 trend_multiplier = 1.0
                 if market["trend"] == "up":
-                    trend_multiplier = 1.0 + abs(market["trend_strength"]) * 0.3
+                    trend_multiplier = 1.0 + abs(market["trend_strength"]) * 0.3 if base_change > 0 else 1.0 - abs(market["trend_strength"]) * 0.3
                 elif market["trend"] == "down":
-                    trend_multiplier = 1.0 - abs(market["trend_strength"]) * 0.3
+                    trend_multiplier = 1.0 + abs(market["trend_strength"]) * 0.3 if base_change < 0 else 1.0 - abs(market["trend_strength"]) * 0.3
                 new_capital = new_capital * trend_multiplier
                 # One desk-level paper trade (not per-bot); costs applied once
                 new_capital = apply_trading_costs(new_capital, 1)
