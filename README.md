@@ -36,6 +36,40 @@ python3 paper_run.py --minutes 60 --interval 10
 
 - **UI:** http://localhost:8080/ → live trading desk (also served at `/trading_desk.html`)
 - **State API:** http://localhost:8080/api/state → JSON, rewritten every tick by `paper_run.py`
+
+## 🤖 Multi-Bot A3b Consensus Aggregator (paper-only)
+
+Replaces the single-source `signal_from_volume()` in `real_trade_feed.py` with a transparent multi-source consensus gate, applied to real DEX spot data (DexScreener + PumpDev). Fully paper-only — no live trades, no signing, no real capital.
+
+### Gate spec (preserved verbatim)
+
+    |signal| >= SIGNAL_GATE (0.35)  AND  consent >= CONSENSUS_MIN (8)
+      -> qualifies: base change +1.0% BUY / -1.0% SELL
+
+### Files
+
+| File | Role |
+|---|---|
+| `consensus_aggregator.py` | The aggregator: 5 paper bots + 3 volume copies = 8 sources (A3b floor), `ConsensusAggregator.consensus(pair, narrative=...)`, gate stand-down + qualified BUY demo. |
+| `pumpfun_phase2_paper_run.py` | Phase-2 paper-only scanner: fetches 30 live pump pairs via `RealTradeFeed`, runs each through the same `ConsensusAggregator`. 0 of 30 qualify tonight (observation only). |
+| `real_trade_feed.py` | Live DexScreener REST + PumpDev WS wrapper; `signal_from_volume()` REPLACEMENT NOTICE documents how the new aggregator plugs in. |
+
+### Run
+
+```bash
+# Gate demo (qualifier + stand-down)
+python3 consensus_aggregator.py
+
+# Phase-2 pump.fun paper scanner (zero trades)
+python3 pumpfun_phase2_paper_run.py
+```
+
+### Paper-only notes
+
+- **Zero-burn:** no real trades, no signatures, no live exchange funding. All scores are deterministic paper proxies of the Grok-bot committee.
+- **Real Grok-bot API plugs in later** via `GROK_BOT_SCORE(token) -> float` and `GROK_BOT_RISK(token) -> str` (placeholders, deliberately NOT wired here — paper-only).
+- **Fork rule:** pump.fun metrics are not reliable through "trencher AI" or "circuit AI" — we only get good feedback on spot trading. This aggregator stays on real DEX spot data.
+- **Demo witnesses the gate:** scan #3 = qualified BUY (consent 8/8, score +0.425 ≥ 0.35); scans #1/#2/#4 stand down on weak/red/high-fee data.
 - **Paper-only:** $100 paper capital in `_paper_agent.ts`, no wallet import, no signing, no live trades
 
 ---
