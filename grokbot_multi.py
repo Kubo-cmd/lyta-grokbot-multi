@@ -43,6 +43,19 @@ from dataclasses import dataclass, field, asdict
 from typing import List, Dict, Any, Optional
 from datetime import datetime
 
+# ── Shared paper-only run engine for BOTH desks (OpenBot + Grok-Bot) ─────────
+# lyta-grok-desk is a hyphen dir → not a Python package, so load by path.
+import importlib.util as _ilu
+_CORE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                          "lyta-grok-desk", "paper_run_core.py")
+_CORE_SPEC = _ilu.spec_from_file_location("lyta_grok_desk_paper_core", _CORE_PATH)
+if _CORE_SPEC is None:
+    raise RuntimeError(f"failed to load paper run engine: {_CORE_PATH}")
+_CORE_MOD = _ilu.module_from_spec(_CORE_SPEC)
+sys.modules["lyta_grok_desk_paper_core"] = _CORE_MOD
+_CORE_SPEC.loader.exec_module(_CORE_MOD)
+from lyta_grok_desk_paper_core import PaperDesk, Signal
+
 # === Branding ===
 BRAND = "LYTA GROKBOT MULTI • AUTONOMOUS PAPER TRADER"
 MODE = "MULTI-BOT GROK SYSTEM — PAPER ONLY (ZERO BURN)"
@@ -447,15 +460,9 @@ def export_grok_signals(state: DeskState, bots: list):
 
 
 def run_autonomous_grok_bots(steps: int = 18):
-    print(f"\n{'='*60}")
-    print(f"{BRAND}")
-    print(f"{MODE}")
-    print("12 agents • Full agentic desk (Pump.fun style + Oren tokenized-stock inspiration)")
-    print("Video-tuned ~ -6% hard stops + 8% max size | Oren-style research/portfolio/execution layer")
-    print(f"{'='*60}")
-    print("STRICT: Zero real trades. All paper. Observation only.\n")
+    START_EQUITY = 100.0
+    desk = PaperDesk(name="GrokBot", capital=START_EQUITY)
 
-    state = DeskState(equity=START_EQUITY)
     bots = [
         GrokBot("SCOUT", "scout", conviction=0.70),
         GrokBot("FILTER", "filter", conviction=0.85),
@@ -473,74 +480,109 @@ def run_autonomous_grok_bots(steps: int = 18):
     ]
 
     for step in range(steps):
-        state.logs = state.logs[-10:]
-
         survivors = load_survivors(10)
 
-        # Grok-Bot committee advisory (paper-only; stand-down with no token,
-        # NEVER fabricated). Neutral when stand-down — the bot heuristics still
-        # run. Used as the desk's Grok column below.
-        _grok_board = []
-        _stand = 0
-        for surv in survivors:
-            sc = _grok_committee_score(surv)
-            _grok_board.append(sc)
-            _stand += (sc is None)
-        _grok_card = round(sum(s for s in _grok_board if s is not None) /
-                           max(1, sum(1 for s in _grok_board if s is not None)), 4)
-        state.grok_committee_advice.append(_grok_card)
-        if _stand:
-            print(f"  [GROK-BOT COMMITTEE] stand-down {_stand} of {len(survivors)} (no token configured — no fabricated scores)")
-        print(f"  [GROK-BOT COMMITTEE] advisory {_grok_card} (n={len([s for s in _grok_board if s is not None])})")
-
+        # One shared vote from all 12 bots (each samples one survivor).
+        votes = {}
         for bot in bots:
-            for surv in random.sample(survivors, min(5, len(survivors))):
-                if bot.decide(surv):
-                    if paper_buy(state, surv, bot.name):
-                        bot.trades_made += 1
-                        break
+            surv = random.choice(survivors) if survivors else {}
+            decided = bot.decide(surv)
+            votes[bot.name] = Signal(name=bot.name, kind="buy" if decided else "pass",
+                                      score=1.0 if decided else 0.0)
 
-        manage_risk_autonomous(state)
+        # Shared engine: BOTH desks call the SAME PaperDesk.run_tick. Only the
+        # advisory source differs vs OpenBot — here it is the Grok-Bot committee
+        # plug, which stands down (None) when no token is configured and never
+        # fabricates. Neutral on stand-down; bot heuristics still run.
+        def _vote_fn(pair):
+            return votes
+
+        def _advice_fn(pair, votes=None):
+            board = [_grok_committee_score(s) for s in survivors]
+            board = [s for s in board if s is not None]
+            if not board:
+                return None
+            return round(sum(board) / len(board), 4)
+
+        def _execute_fn(pair, direction, gate):
+            _act = []
+            for bot in bots:
+                if votes.get(bot.name) and votes[bot.name].kind == "buy":
+                    surv = random.choice(survivors) if survivors else {}
+                    if paper_buy(desk, surv, bot.name):
+                        bot.trades_made += 1
+                        _act.append(bot.name)
+            if _act:
+                return {"executed": True, "source": "paper", "bots": _act,
+                        "trade": {"symbol": pair.get("symbol", "GOBLIN")}}
+            return {"executed": False, "source": "paper", "reason": "no buy vote"}
+
+        pair = survivors[0] if survivors else {"symbol": "GOBLIN"}
+        result = desk.run_tick(
+            pair,
+            narrative="Grok-Bot committee advisory plug (paper-only, stand-down w/o token)",
+            vote_fn=_vote_fn,
+            advice_fn=_advice_fn,
+            execute_fn=_execute_fn,
+        )
+
+        if result.get("executed"):
+            _act = result.get("bots") or []
+            desk.trades.append({
+                "bot": _act[0] if _act else "GROK-BOT",
+                "symbol": pair.get("symbol", "GOBLIN"),
+                "pnl": 0.0,
+                "pnl_pct": 0.0,
+                "entry_price": pair.get("price", 0),
+                "exit_price": pair.get("price", 0),
+                "reason": "paper buy",
+                "bot_name": _act,
+            })
+        else:
+            desk.stand_downs += 1
+
+        # Re-run unsupervised risk management on the shared state.
+        manage_risk_autonomous(desk)
 
         is_pump_count = sum(1 for s in survivors if s.get("is_pump"))
-        print(f"Step {step+1}/{steps} | Equity ${state.equity:.2f} | "
-              f"Open: {len(state.open_positions)} | Agents: {len(bots)} | is_pump: {is_pump_count}")
+        print(f"Step {step+1}/{steps} | Equity ${desk.equity:.2f} | "
+              f"Open: {len(desk.open_positions)} | Agents: {len(bots)} | is_pump: {is_pump_count}")
 
-        if step % 3 == 0 and state.trades:
-            last = state.trades[-1]
+        if step % 3 == 0 and desk.trades:
+            last = desk.trades[-1]
             print(f"  Last: {last['bot']} {last['symbol']} {last['reason']} PnL {last['pnl']:+.2f}")
 
         # Enhanced terminal desk dashboard (Oren-style agentic terminal feel)
         if (step + 1) % 5 == 0:
             active = {}
-            for t in state.trades[-25:]:
+            for t in desk.trades[-25:]:
                 b = t.get("bot", "?")
                 active[b] = active.get(b, 0) + 1
             status = " | ".join(f"{k[:4]}:{v}" for k, v in sorted(active.items())[:7])
-            open_count = len(state.open_positions)
-            equity_str = f"${state.equity:.2f}"
+            open_count = len(desk.open_positions)
+            equity_str = f"${desk.equity:.2f}"
             print(f"  [DESK] Agents active: {status} | Open:{open_count} | Equity {equity_str}")
 
         time.sleep(0.4)
 
     # Exports (pure stdlib)
-    if state.trades:
+    if desk.trades:
         with open("paper_trades_autonomous_grok.csv", "w", newline="") as f:
-            w = csv.DictWriter(f, fieldnames=state.trades[0].keys())
+            w = csv.DictWriter(f, fieldnames=desk.trades[0].keys())
             w.writeheader()
-            w.writerows(state.trades)
-        print(f"\n[export] paper_trades_autonomous_grok.csv ({len(state.trades)} trades)")
+            w.writerows(desk.trades)
+        print(f"\n[export] paper_trades_autonomous_grok.csv ({len(desk.trades)} trades)")
 
-    export_equity_curve(state, START_EQUITY)
-    export_grok_signals(state, bots)
+    export_equity_curve(desk, START_EQUITY)
+    export_grok_signals(desk, bots)
 
     # Summary
-    wins = sum(1 for t in state.trades if t["pnl"] > 0)
-    total_pnl = sum(t["pnl"] for t in state.trades)
-    one_five_x = sum(1 for t in state.trades if "1.5x" in t["reason"])
+    wins = sum(1 for t in desk.trades if t["pnl"] > 0)
+    total_pnl = sum(t["pnl"] for t in desk.trades)
+    one_five_x = sum(1 for t in desk.trades if "1.5x" in t["reason"])
 
     print(f"\n=== AUTONOMOUS GROK BOTS COMPLETE ({len(bots)} agents) ===")
-    print(f"Total paper trades: {len(state.trades)} | Wins: {wins} | Win rate: {wins/len(state.trades)*100:.1f}%" if state.trades else "No trades")
+    print(f"Total paper trades: {len(desk.trades)} | Wins: {wins} | Win rate: {wins/len(desk.trades)*100:.1f}%" if desk.trades else "No trades")
     print(f"Total paper PnL: ${total_pnl:.2f}")
     calculated_final = START_EQUITY + total_pnl
     print(f"Final equity: ${calculated_final:.2f} (start ${START_EQUITY})")
@@ -548,7 +590,7 @@ def run_autonomous_grok_bots(steps: int = 18):
 
     print("\nPer-bot:")
     for bot in bots:
-        bot_trades = [t for t in state.trades if t.get("bot", "").upper() == bot.name.upper()]
+        bot_trades = [t for t in desk.trades if t.get("bot", "").upper() == bot.name.upper()]
         if bot_trades:
             b_wins = sum(1 for t in bot_trades if t["pnl"] > 0)
             print(f"  {bot.name}: {len(bot_trades)} trades | {b_wins/len(bot_trades)*100:.0f}% win | PnL ${sum(t['pnl'] for t in bot_trades):.2f}")
@@ -556,7 +598,7 @@ def run_autonomous_grok_bots(steps: int = 18):
             print(f"  {bot.name}: 0 trades")
 
     print("\nAll activity was PAPER ONLY. PATTERN PERSISTS.")
-    return state
+    return desk
 
 
 if __name__ == "__main__":

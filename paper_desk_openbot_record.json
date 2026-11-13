@@ -1,0 +1,23 @@
+{
+  "desk": "OpenBot",
+  "paper_only": true,
+  "start": "2026-11-13T15:25:20-08:00",
+  "duration_min": 0.3,
+  "tick_interval_s": 1.0,
+  "ticks_processed": 17,
+  "final_paper_capital": 100.0,
+  "trades_executed": 0,
+  "stand_downs": 17,
+  "advisory_samples": [
+    0.5834374252406321,
+    0.6376054865015788,
+    0.6879058740709952,
+    0.46389532699174224,
+    0.5607339531741893
+  ],
+  "last_signal": {
+    "sym": "GOBLIN#07",
+    "advisory": 0.5607339531741893
+  },
+  "trades": []
+}

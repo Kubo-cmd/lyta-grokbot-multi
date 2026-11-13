@@ -26,6 +26,7 @@ Requires: python3, no external deps.
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import sys
 import time
@@ -421,217 +422,159 @@ def apply_trading_costs(capital: float, trades: int) -> float:
 
 # ── Main paper trading loop ───────────────────────────────────────
 def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = True):
-    """Run the paper trading session."""
+    """Run the paper trading session through the SHARED engine.
+
+    OpenBot and Grok-Bot both run the SAME shared PaperDesk:
+      * A3b consensus gate (consent >= 8 AND |combined| >= 0.35)
+      * paper-only capital guard (no real capital)
+      * same verbose per-tick stand-down logging (per-bot votes + reasons)
+    Only the advisory column differs per desk (OpenBot heuristics here;
+    Grok committee plug in grokbot_multi.py).  No real trades, no real capital.
+    """
     start = time.time()
     end = start + minutes * 60
     tick = 0
     last_html = 0
     html_interval = 30  # seconds between HTML updates
 
+    # ── SHARED PAPER-ONLY RUN ENGINE (same setup for OpenBot + Grok-Bot) ───
+    import importlib.util as _ilu
+    _core_path = os.path.join(REPO_ROOT, "lyta-grok-desk", "paper_run_core.py")
+    _core_spec = _ilu.spec_from_file_location("lyta_grok_desk_paper_core", _core_path)
+    _core_mod = _ilu.module_from_spec(_core_spec)
+    sys.modules["lyta_grok_desk_paper_core"] = _core_mod
+    _core_spec.loader.exec_module(_core_mod)
+    from lyta_grok_desk_paper_core import PaperDesk, Signal
+    desk = PaperDesk(name="OpenBot", capital=100.0)
+    # ── END SHARED ENGINE ───────────────────────────────────────────────────
+
     print("=" * 72)
-    print("  LYTA GROK DESK — PAPER TRADING RUNNER  (ENHANCED)")
-    print("  Realistic market sim + trading costs + detailed logging")
+    print("  LYTA GROK DESK — PAPER TRADING RUNNER  (SHARED ENGINE)")
+    print("  A3b consensus gate + paper-only capital guard + verbose stand-down logging")
     print("=" * 72)
     print(f"  Start: {datetime.now().strftime('%H:%M:%S')}")
     print(f"  Duration: {minutes} minutes")
     print(f"  Paper capital: $100.00  (paper-only, no real trades)")
     print(f"  Asset: GOBLIN")
     print(f"  Session interval: {interval} seconds")
-    print(f"  Trading fees: {TRADING_FEES*100:.2f}%  Slippage: {SLIPPAGE*100:.2f}%")
     print("-" * 72)
-
-    # Telegram alert if configured
-    if TELEGRAM_CONFIGURED:
-        TelegramAlert.alert(f"🚀 Paper session started | {minutes} min @ {interval}s interval | Capital $100.00", "success")
 
     try:
         while time.time() < end:
             tick += 1
-            trades = {}  # Dict of bot_name -> vote_result for this tick
-            now = time.time()
             market = generate_market()
-
-            # Add tick history to market dict for trend staleness tracking
             market['_ticks'] = _market_state['_ticks']
             market['tick'] = tick
-            
-            # Compute composite signal
+
+            # OpenBot spot/narrative heuristics -> composite signal
             signal = compute_signal(market)
 
-            # Run all bots on the signal
-            votes = {}
-            for bot in BOT_NAMES:
-                votes[bot] = run_bot(bot, signal)
+            # Run all OpenBot bots on the signal
+            votes = {bot: run_bot(bot, signal) for bot in BOT_NAMES}
 
-            # Store votes for state tracking
-            trades = votes
+            def _to_signals(votes_dict):
+                _kind = {"buy": "buy", "sell": "sell", "pass": "pass"}
+                out = {}
+                for name, v in votes_dict.items():
+                    kind = _kind.get(str(v), "pass")
+                    out[name] = Signal(
+                        name=name, kind=kind,
+                        score=1.0 if kind == "buy" else -1.0 if kind == "sell" else 0.0)
+                return out
 
-            # Determine overall signal strength
-            signal_strength = sum(1 for v in votes.values() if v == "buy") - \
-                             sum(1 for v in votes.values() if v == "sell")
+            # OpenBot heuristics = composite spot/narrative signal alone (no committee).
+            def _advice(pair, votes=None):
+                val = float(signal["signal"])
+                return val if abs(val) >= 0.05 else 0.0
 
-            # Update trading desk with this tick
-            TRADE_DESK.set_alert(f"🎯 Tick {tick}: {market['symbol']} — score {market['score']:.0f} | signal {signal['signal']:+.2f} | {market['trend'].upper()}")
-
-            # Add votes
-            for bot, side in votes.items():
-                TRADE_DESK.add_vote(bot, side)
-
-            # Direction-based capital change, gated on 5+ bot consensus
-            buy_votes = sum(1 for v in votes.values() if v == "buy")
-            sell_votes = sum(1 for v in votes.values() if v == "sell")
-            pass_count = sum(1 for v in votes.values() if v == "pass")
-            gate_reasons: list[str] = []
-            acted = False
-            base_change = 0.0
-            # Gate 1: minimum signal strength — skip noise (no action below |0.35|)
-            signal_gate = abs(signal["signal"]) >= SIGNAL_GATE
-            # Gate 2: consensus — only the strongest direction moves capital
-            consensus_buy = buy_votes >= CONSENSUS_MIN and buy_votes > sell_votes
-            consensus_sell = sell_votes >= CONSENSUS_MIN and sell_votes > buy_votes
-            # Gate 3: trend alignment — act with the market, never against it
-            trade_with_trend = (market["trend"] == "up" and consensus_buy) or \
-                               (market["trend"] == "down" and consensus_sell)
-            if trade_with_trend and signal_gate:
-                if consensus_buy:
-                    base_change = BASE_CHANGE_BUY
-                else:
-                    base_change = BASE_CHANGE_SELL
-                acted = True
-            else:
-                if not signal_gate:
-                    gate_reasons.append(f"signal_gate (signal {signal['signal']:+.2f} < SIGNAL_GATE)")
-                elif not consensus_buy and not consensus_sell:
-                    gate_reasons.append(f"consensus_min (buy {buy_votes}/sell {sell_votes}, need {CONSENSUS_MIN})")
-                else:
-                    gate_reasons.append(f"trend_mismatch (trend {market['trend']}, signal {signal['signal']:+.2f})")
-
-            old_capital = TRADE_DESK.state.capital
-            new_capital = old_capital
-            trade_record = None
-            if acted:
-                new_capital = old_capital * (1 + base_change)
-                trend_multiplier = 1.0
-                if market["trend"] == "up":
-                    trend_multiplier = 1.0 + abs(market["trend_strength"]) * 0.3 if base_change > 0 else 1.0 - abs(market["trend_strength"]) * 0.3
-                elif market["trend"] == "down":
-                    trend_multiplier = 1.0 + abs(market["trend_strength"]) * 0.3 if base_change < 0 else 1.0 - abs(market["trend_strength"]) * 0.3
-                new_capital = new_capital * trend_multiplier
-                # One desk-level paper trade (not per-bot); costs applied once
-                new_capital = apply_trading_costs(new_capital, 1)
-                TRADE_DESK.add_position(
-                    "GOBLIN",
-                    "LONG" if base_change > 0 else "SHORT",
-                    float(market["price"]),
-                    bots=max(buy_votes, sell_votes),
-                )
-                pnl_frac = (new_capital - old_capital) / old_capital if old_capital else 0.0
-                TRADE_DESK.close_position("GOBLIN", pnl_frac)
-                _tick_pnls.append(pnl_frac * 100.0)
-                trade_record = {
-                    "tick": tick,
-                    "symbol": market["symbol"],
-                    "signal": round(float(signal["signal"]), 4),
-                    "votes": {"buy": buy_votes, "sell": sell_votes, "pass": pass_count},
-                    "trend": market["trend"],
-                    "action": "BUY" if base_change > 0 else "SELL",
-                    "base_change_pct": round(base_change * 100, 2),
-                    "pnl_pct": round(pnl_frac * 100, 2),
-                    "win": "win" if pnl_frac > 0 else "loss",
+            def _execute(pair, direction, gate):
+                # OpenBot spot/trend paper trade on shared paper capital (paper-only).
+                cap = desk.equity
+                if not gate.get("gate_passed"):
+                    return {"executed": False,
+                            "reason": gate.get("stand_down_reason") or "entry not qualified"}
+                size = cap * 0.10
+                trend_mult = {
+                    "up": 1.0 + abs(market.get("trend_strength", 0.0)) * 0.3,
+                    "down": 1.0 - abs(market.get("trend_strength", 0.0)) * 0.3,
+                }.get(market.get("trend"), 1.0)
+                new_cap = cap * (1.0 + gate["base_change"] * trend_mult)
+                new_cap = apply_trading_costs(new_cap, 1)
+                desk.equity = new_cap
+                side = "LONG" if gate["base_change"] > 0 else "SHORT"
+                pnl_frac = (new_cap - cap) / cap if cap else 0.0
+                desk.trades.append({
+                    "symbol": pair["symbol"], "tick": tick, "side": side,
+                    "size": round(size, 4), "pnl_pct": round(pnl_frac * 100.0, 2),
+                })
+                return {
+                    "executed": True, "symbol": pair["symbol"],
+                    "side": side, "size": round(size, 4),
+                    "base_change": gate["base_change"],
+                    "pnl_pct": round(pnl_frac * 100.0, 2),
                 }
 
-            TRADE_DESK.update_capital(max(0.01, new_capital))
+            result = None
+            try:
+                result = desk.run_tick(
+                    market, narrative=str(signal["signal"]),
+                    vote_fn=_to_signals, advice_fn=_advice, execute_fn=_execute,
+                )
+            except Exception as exc:
+                print(f"  [WARN] tick {tick} engine error: {exc}")
+                result = None
 
-            # Update timestamp
-            TRADE_DESK.state.last_update = datetime.now()
-
-            # Print live summary with rationale
-            if verbose:
-                # Determine net signal
-                buy_count = sum(1 for v in votes.values() if v == "buy")
-                sell_count = sum(1 for v in votes.values() if v == "sell")
-                pass_count = sum(1 for v in votes.values() if v == "pass")
-                stand_down_count = sum(1 for v in votes.values() if v == "stand_down")
-                hold_count = sum(1 for v in votes.values() if v == "hold")
-
-                print(f"\n[{datetime.now().strftime('%H:%M:%S')}] Tick {tick} {market['symbol']}")
-                print(f"  Market: {market['trend'].upper()} trend | {market['change24h']:+.1f}% 24h | vol {market['volume']:.2f} | "
-                      f"rug {market['rug_risk']:.2f} | liq {market['liquidity']:.2f} | score {market['score']:.0f}")
-                print(f"  Signal: {signal['signal']:+.2f} ({'BUY' if signal['signal'] > 0.05 else 'SELL' if signal['signal'] < -0.05 else 'HOLD'})")
-                print(f"  Bot votes: BUY={buy_count} SELL={sell_count} PASS={pass_count} HOLD={hold_count} STAND_DOWN={stand_down_count}")
-                print(f"  Stand-down: {'; '.join(gate_reasons) if gate_reasons else 'action taken'}")
-                print(f"  Capital: ${TRADE_DESK.state.capital:.2f} (ticker: ${new_capital:.2f})")
-
-            # Telegram alert per tick
-            if TELEGRAM_CONFIGURED:
-                TelegramAlert.alert(f"Tick {tick} | {market['symbol']} | capital ${TRADE_DESK.state.capital:.2f}", "info")
-
-            # Generate HTML dashboard periodically
-            if now - last_html > html_interval:
-                html = TRADE_DESK.to_html()
-                with open("trading_desk.html", "w") as f:
-                    f.write(html)
-                last_html = now
-
-            # Write state JSON for web dashboard
-            wins = sum(1 for p in _tick_pnls if p > 0)
-            win_rate = (wins / len(_tick_pnls) * 100.0) if _tick_pnls else 0.0
-            expectancy = (sum(_tick_pnls) / len(_tick_pnls)) if _tick_pnls else 0.0
-            peak = TRADE_DESK.state.peak or TRADE_DESK.state.start_capital or 100.0
-            current_dd = ((peak - TRADE_DESK.state.capital) / peak * 100.0) if peak else 0.0
-            tick_record = {
-                "tick": tick,
-                "symbol": market["symbol"],
-                "asset": TRADE_DESK.state.asset,
-                "trend": market["trend"],
-                "change24h": round(float(market["change24h"]), 3),
-                "score": market["score"],
-                "rug_risk": round(float(market["rug_risk"]), 3),
-                "liquidity": round(float(market["liquidity"]), 3),
-                "volume": round(float(market["volume"]), 3),
-                "signal": round(float(signal["signal"]), 4),
-                "votes": {"buy": buy_votes, "sell": sell_votes, "pass": pass_count},
-            }
-            _market_state["_ticks"].append(tick_record)
-            if len(_market_state["_ticks"]) > 50:
-                _market_state["_ticks"] = _market_state["_ticks"][-50:]
-            TRADE_DESK.state.tick_history = list(_market_state["_ticks"])
+            # Mirror shared-engine state into the Dashboard for the web view.
+            TRADE_DESK.update_capital(max(0.01, desk.equity))
             TRADE_DESK.update_state({
-                "capital": TRADE_DESK.state.capital,
-                "asset": TRADE_DESK.state.asset,
+                "capital": desk.equity,
                 "ticks": tick,
-                "tick_count": tick,
                 "tick_history": list(_market_state["_ticks"][-10:]),
                 "positions": len([p for p in TRADE_DESK.state.positions if p.pnl is None]),
-                "total_votes": TRADE_DESK.state.vote_results.get("total", 0),
+                "total_votes": len(votes),
                 "updated_at": datetime.now().strftime("%Y-%m-%dT%H:%M:%S-08:00"),
                 "last_update": datetime.now().strftime("%H:%M:%S"),
                 "session_running": True,
                 "session_status": "PAPER-ONLY",
-                "alerts": [TRADE_DESK.state.pending_alert] if TRADE_DESK.state.pending_alert else [],
-                "votes": {
-                    "buy": TRADE_DESK.state.vote_results.get("buy", 0),
-                    "sell": TRADE_DESK.state.vote_results.get("sell", 0),
-                    "pass": TRADE_DESK.state.vote_results.get("pass", 0),
-                    "hold": TRADE_DESK.state.vote_results.get("hold", 0),
-                    "stand_down": TRADE_DESK.state.vote_results.get("stand_down", 0),
-                },
-                "bots": [{"bot": b, "side": v, "score": market["score"], "liquidity": market["liquidity"],
-                         "rug_risk": market["rug_risk"], "change24h": market["change24h"]} for b, v in trades.items()],
-                "pnl": {
-                    "drawdown": round(current_dd, 2),
-                    "max_drawdown": round(TRADE_DESK.state.max_drawdown * 100.0, 2),
-                    "win_rate": round(win_rate, 1),
-                    "expectancy": round(expectancy, 2),
-                    "total_trades": len(_tick_pnls),
-                },
-                "trade_history": list(_trade_log[-50:]),
-                "error": None
+                "alerts": TRADE_DESK.state.alerts[-5:] if (hasattr(TRADE_DESK.state, "alerts") and TRADE_DESK.state.alerts) else [],
+                "votes": {b: str(v) for b, v in votes.items()},
+                "bots": [{"bot": b, "side": str(v), "score": market["score"],
+                          "liquidity": market["liquidity"], "rug_risk": market["rug_risk"],
+                          "change24h": market["change24h"]} for b, v in votes.items()],
             })
 
-            # Verbose per-trade logging for tuning (state.json keeps last 50)
-            if trade_record is not None:
-                _trade_log.append(trade_record)
+            # Keep the staleness tracker healthy across ticks.
+            _market_state["_ticks"].append({
+                "tick": tick, "symbol": market["symbol"], "trend": market["trend"],
+                "change24h": market["change24h"], "score": market["score"],
+            })
+            if len(_market_state["_ticks"]) > 200:
+                _market_state["_ticks"] = _market_state["_ticks"][-200:]
+
+            # Per-tick log (pure paper simulation)
+            print(f"\n[{datetime.now().strftime('%H:%M:%S')}] Tick {tick} {market['symbol']}")
+            print(f"  Market: {market['trend'].upper()} trend | {market['change24h']:+.1f}% 24h | "
+                  f"rug {market['rug_risk']:.2f} | liq {market['liquidity']:.2f} | score {market['score']:.0f}")
+            print(f"  Signal: {signal['signal']:+.2f} ({'BUY' if signal['signal'] > 0.05 else 'SELL' if signal['signal'] < -0.05 else 'HOLD'})")
+            print(f"  Bot votes: {votes}")
+            if result is not None:
+                if result.get("executed"):
+                    t = result.get("trade") or {}
+                    print(f"  Engine: {t.get('side')} {t.get('size')} pnl {t.get('pnl_pct')}% | "
+                          f"consent {result['consent']}/8 | score {result['combined_score']:+.3f}")
+                else:
+                    print(f"  Engine stand-down: {result.get('stand_down_reason')}")
+            print(f"  Capital: ${desk.equity:.2f} | Stand-downs: {desk.stand_downs} | "
+                  f"Advisory: {result.get('advice') if result else None}")
+
+            if TELEGRAM_CONFIGURED:
+                TelegramAlert.alert(f"Tick {tick} | {market['symbol']} | capital ${desk.equity:.2f}", "info")
+
+            # Generate HTML dashboard periodically
+            if time.time() - last_html > html_interval:
+                with open("trading_desk.html", "w") as f:
+                    f.write(TRADE_DESK.to_html())
+                last_html = time.time()
 
             # Sleep until next tick
             time.sleep(interval)
@@ -640,23 +583,39 @@ def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = T
         print("\n\nSession stopped by user.")
         print(f"Total ticks processed: {tick}")
 
-    # Final summary
+    # Final summary (shared engine only)
     print("\n" + "=" * 72)
     print("  SESSION COMPLETE")
     print("=" * 72)
     print(f"  Ticks processed: {tick}")
-    print(f"  Final capital: ${TRADE_DESK.state.capital:.2f}")
-    print(f"  Final asset: {TRADE_DESK.state.asset}")
-    print(f"  Open positions: {len(TRADE_DESK.state.positions)}")
-    print(f"  Total votes: {TRADE_DESK.state.vote_results['total']}")
-    print(f"  Last update: {TRADE_DESK.state.last_update}")
+    print(f"  Final paper capital: ${desk.equity:.2f}")
+    print(f"  Trades executed: {len(desk.trades)}")
+    print(f"  Stand-downs: {desk.stand_downs}")
+    print(f"  Advisory samples: {desk.grok_committee_advice[-5:]}")
+    print(f"  Last signal: {desk.signals[-1] if desk.signals else 'n/a'}")
     print(f"  Final HTML: trading_desk.html")
     print("=" * 72)
 
-    # Save final HTML
-    final_html = TRADE_DESK.to_html()
+    # Save final HTML (dashboard still rendered from the live TRADE_DESK)
     with open("trading_desk.html", "w") as f:
-        f.write(final_html)
+        f.write(TRADE_DESK.to_html())
+
+    # Machine-readable paper record for the OpenBot desk
+    record = {
+        "desk": desk.name, "paper_only": True,
+        "start": datetime.now().strftime("%Y-%m-%dT%H:%M:%S-08:00"),
+        "duration_min": minutes, "tick_interval_s": interval,
+        "ticks_processed": tick, "final_paper_capital": round(desk.equity, 2),
+        "trades_executed": len(desk.trades), "stand_downs": desk.stand_downs,
+        "advisory_samples": [a for a in desk.grok_committee_advice][-5:],
+        "last_signal": desk.signals[-1] if desk.signals else None,
+        "trades": list(desk.trades),
+    }
+    with open(os.path.join(REPO_ROOT, "paper_desk_openbot_record.json"), "w") as _f:
+        json.dump(record, _f, indent=2)
+    print(f"  Paper record written: paper_desk_openbot_record.json")
+
+
 
 
 if __name__ == "__main__":
