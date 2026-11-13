@@ -74,6 +74,46 @@ python3 pumpfun_phase2_paper_run.py
 
 ---
 
+## 🔄 Live → Paper execution wiring (paper-only)
+
+`paper_trade_exec.py` is the faithful real-data → paper-trade execution layer, built from the
+`paper_desk_simulator.py` API (config v10). It has two runs and executes **nothing for real**:
+
+| File | Role |
+|---|---|
+| `paper_trade_exec.py` | `GateAndTrade` aggregates `ConsensusAggregator` scores on real DEX spot pairs, then simulates paper fills through the paper-desk simulator. Entry 0.05 SOL (PO_BNavy), paper-desk exit config (PO_STOP_LOSS=0.82 trigger-only, PO_TRAIL_DD=0.15, PO_STALE=90, PO_DEAD=240). |
+
+### What runs, and what does not
+
+- `run_realistic()` — feeds the 30 live pump/dev pairs from `RealTradeFeed` through the aggregator.
+  Every pair is classified `standby` (gate stand-down). **Zero trades because zero qualify.** All scores
+  are deterministic paper proxies of the Grok-bot committee. No wallet import, no signing, no live capital.
+- `run_constructed()` — a qualifying scenario (8/8 consent, |score| ≥ 0.35) enters on paper, then the
+  simulator drifted the price through the paper-desk trailing rule. That run is a **constructed, documented
+  paper trajectory** (reproducible per pair, `random.Random` seed) — it is *not* a live order and it spends
+  no real capital. It demonstrates the full lifecycle: entry → peak → drawdown → trailing exit → P&L.
+
+### Real-data → paper-trade execution steps (verbatim run)
+
+```bash
+# 1) Gate + aggregate the 30 live pairs (real DEX spot data; simulation only)
+python3 paper_trade_exec.py
+
+# 2) Simulated qualifying pair (construction only) — full paper-desk lifecycle
+python3 -c "import paper_trade_exec; print('exec module ok')"  # import gate
+```
+
+### Live → Paper contract (what the paper desk must see)
+
+- Real DEX spot pair (DexScreener + PumpDev) → feeder normalizes to `pair_id`, `price`, `liquidity`, fees.
+- Aggregator returns `{qualified, signal, score, consent, reasons}`. Only `{qualified: true}` pairs become
+  paper positions. `{qualified: false}` pairs are `standby` — the gate block is a design decision, not a
+  failure: we follow real data, and tonight zero of thirty pairs meet the gate.
+- Paper position = `{pair_id, asset, entry_price, peak_price, size: 0.05 SOL, ...}`. The paper-desk
+  simulator drives exit, P&L and fees with zero real execution.
+
+---
+
 ## 🔓 License & Visibility
 
 | Item | Status |
