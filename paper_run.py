@@ -70,7 +70,7 @@ BOT_NAMES = [
 ]
 
 # 6+ bot consensus required before any paper capital move
-CONSENSUS_MIN = 6
+CONSENSUS_MIN = 8
 # Per-consensus-tick % P&L — feeds win_rate / expectancy on the desk
 _tick_pnls: list[float] = []
 # Per-trade log: tick-level P&L, votes, gate reasons (tuning data)
@@ -480,8 +480,8 @@ def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = T
             gate_reasons: list[str] = []
             acted = False
             base_change = 0.0
-            # Gate 1: minimum signal strength — skip noise (no action below |0.28|)
-            signal_gate = abs(signal["signal"]) >= 0.28
+            # Gate 1: minimum signal strength — skip noise (no action below |0.35|)
+            signal_gate = abs(signal["signal"]) >= 0.35
             # Gate 2: consensus — only the strongest direction moves capital
             consensus_buy = buy_votes >= CONSENSUS_MIN and buy_votes > sell_votes
             consensus_sell = sell_votes >= CONSENSUS_MIN and sell_votes > buy_votes
@@ -490,13 +490,13 @@ def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = T
                                (market["trend"] == "down" and consensus_sell)
             if trade_with_trend and signal_gate:
                 if consensus_buy:
-                    base_change = 0.015
+                    base_change = 0.010
                 else:
-                    base_change = -0.012
+                    base_change = -0.010
                 acted = True
             else:
                 if not signal_gate:
-                    gate_reasons.append(f"signal_gate (signal {signal['signal']:+.2f} < 0.30)")
+                    gate_reasons.append(f"signal_gate (signal {signal['signal']:+.2f} < 0.35)")
                 elif not consensus_buy and not consensus_sell:
                     gate_reasons.append(f"consensus_min (buy {buy_votes}/sell {sell_votes}, need {CONSENSUS_MIN})")
                 else:
