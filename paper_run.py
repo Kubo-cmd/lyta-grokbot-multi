@@ -45,8 +45,8 @@ sys.modules["trading_desk"] = _td_mod
 _spec.loader.exec_module(_td_mod)
 TradingDesk = _td_mod.TradingDesk
 
-# TradingDesk initialization
-TRADE_DESK = TradingDesk(config="v3-enhanced", asset="GOBLIN", capital=100.0)
+# TradingDesk initialization — single live instance below (config v3)
+# (A v3-enhanced copy at line 49 was dead code — removed in this cleanup pass.)
 
 # TelegramAlert (Phase 2) - pushes alerts to Telegram if token configured
 _telegram_path = os.path.join(REPO_ROOT, "pumpfun_desk_simulator.py")
@@ -71,6 +71,10 @@ BOT_NAMES = [
 
 # 6+ bot consensus required before any paper capital move
 CONSENSUS_MIN = 8
+# Per-tick direction bias — A3b paper-desk knobs (values live below in run_session)
+SIGNAL_GATE = 0.35      # |signal| >= 0.35 → qualifies for a trade
+BASE_CHANGE_BUY = 0.010 # +1.0% on BUY
+BASE_CHANGE_SELL = -0.010 # −1.0% on SELL
 # Per-consensus-tick % P&L — feeds win_rate / expectancy on the desk
 _tick_pnls: list[float] = []
 # Per-trade log: tick-level P&L, votes, gate reasons (tuning data)
@@ -481,7 +485,7 @@ def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = T
             acted = False
             base_change = 0.0
             # Gate 1: minimum signal strength — skip noise (no action below |0.35|)
-            signal_gate = abs(signal["signal"]) >= 0.35
+            signal_gate = abs(signal["signal"]) >= SIGNAL_GATE
             # Gate 2: consensus — only the strongest direction moves capital
             consensus_buy = buy_votes >= CONSENSUS_MIN and buy_votes > sell_votes
             consensus_sell = sell_votes >= CONSENSUS_MIN and sell_votes > buy_votes
@@ -490,13 +494,13 @@ def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = T
                                (market["trend"] == "down" and consensus_sell)
             if trade_with_trend and signal_gate:
                 if consensus_buy:
-                    base_change = 0.010
+                    base_change = BASE_CHANGE_BUY
                 else:
-                    base_change = -0.010
+                    base_change = BASE_CHANGE_SELL
                 acted = True
             else:
                 if not signal_gate:
-                    gate_reasons.append(f"signal_gate (signal {signal['signal']:+.2f} < 0.35)")
+                    gate_reasons.append(f"signal_gate (signal {signal['signal']:+.2f} < SIGNAL_GATE)")
                 elif not consensus_buy and not consensus_sell:
                     gate_reasons.append(f"consensus_min (buy {buy_votes}/sell {sell_votes}, need {CONSENSUS_MIN})")
                 else:
