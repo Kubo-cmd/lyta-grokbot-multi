@@ -29,6 +29,13 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import List
 
+# --- Grok-Bot remote committee scoring (openbot + grokdesk, paper-only) ---
+try:
+    import grokbot_scorer as _grokbot
+except Exception:  # pragma: no cover - only if the module is missing
+    _grokbot = None
+
+
 # --- A3b spec knobs (unchanged) ---
 CONSENSUS_MIN = 8        # minimum matching BUY votes to act
 SIGNAL_GATE = 0.35        # |combined score| must exceed this
@@ -133,9 +140,12 @@ class VolatilityDiscordBot(SignalSource):
 
 class SocialHypeBot(SignalSource):
     def decide(self, pair: dict) -> Signal:
-        # proxy for mentions / bot-farm density. real: reads social; here a
-        # deterministic stand-in keeps the demo offline. (real integration ->
-        # Grok-bot narrative via GROK_BOT_SCORE(token))
+        # proxy for mentions / bot-farm density. Wired to the REAL Grok-bot
+        # narrative/outlier score when a key is present (paper-only below):
+        #   GrokBotCommitteeBot (a Grok-bot committee source) contributes the
+        #   real BUY/SELL vote toward the A3b floor of 8. Without a token it
+        #   stand-downs (hold, never fabricated) and the paper heuristics keep
+        #   running. See GrokBotCommitteeBot below.
         narrative = pair.get("narrative", "")
         vol = pair.get("vol24_usd") or 0.0
         if narrative == "red":

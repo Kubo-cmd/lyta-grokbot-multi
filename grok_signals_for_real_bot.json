@@ -1,0 +1,279 @@
+{
+  "generated": "2026-11-13T12:56:50.383963",
+  "total_trades": 55,
+  "current_equity": 141.43,
+  "agents": [
+    "SCOUT",
+    "FILTER",
+    "ANALYST",
+    "DEV_WATCH",
+    "CONVICTION",
+    "MOMENTUM",
+    "SCALPER",
+    "CONTRARIAN",
+    "TREND",
+    "RESEARCHER",
+    "PORTFOLIO",
+    "EXECUTOR"
+  ],
+  "signals": [
+    {
+      "bot": "SCOUT",
+      "bias": "scout",
+      "conviction": 0.7,
+      "trades_this_run": 16,
+      "current_open_positions": 1,
+      "profile": {
+        "hard_stop": -0.065,
+        "chatbot_tp": 0.52,
+        "trailing_trigger": 0.09,
+        "max_rug_tolerance": 0.55,
+        "position_mult": 1.1
+      },
+      "last_action": {
+        "symbol": "NEKO",
+        "pnl": -7.55,
+        "pnl_pct": -81.7,
+        "reason": "hard stop -6%",
+        "entry_price": 0.00060089,
+        "exit_price": 9.242e-05,
+        "bot": "SCOUT",
+        "simulated_fees_slippage_applied": true
+      },
+      "timestamp": "2026-11-13T12:56:50.383095"
+    },
+    {
+      "bot": "FILTER",
+      "bias": "filter",
+      "conviction": 0.85,
+      "trades_this_run": 12,
+      "current_open_positions": 0,
+      "profile": {
+        "hard_stop": -0.055,
+        "chatbot_tp": 0.42,
+        "trailing_trigger": 0.14,
+        "max_rug_tolerance": 0.22,
+        "position_mult": 0.7
+      },
+      "last_action": {
+        "symbol": "FRESH",
+        "pnl": 1.07,
+        "pnl_pct": 22.0,
+        "reason": "take profit",
+        "entry_price": 0.00029867,
+        "exit_price": 0.00036744,
+        "bot": "FILTER",
+        "simulated_fees_slippage_applied": true
+      },
+      "timestamp": "2026-11-13T12:56:50.383148"
+    },
+    {
+      "bot": "ANALYST",
+      "bias": "analyst",
+      "conviction": 0.82,
+      "trades_this_run": 13,
+      "current_open_positions": 0,
+      "profile": {
+        "hard_stop": -0.06,
+        "chatbot_tp": 0.5,
+        "trailing_trigger": 0.15,
+        "max_rug_tolerance": 0.32,
+        "position_mult": 0.8
+      },
+      "last_action": {
+        "symbol": "PUMP1",
+        "pnl": -5.06,
+        "pnl_pct": -64.3,
+        "reason": "hard stop -6%",
+        "entry_price": 0.00058078,
+        "exit_price": 0.0001912,
+        "bot": "ANALYST",
+        "simulated_fees_slippage_applied": true
+      },
+      "timestamp": "2026-11-13T12:56:50.383170"
+    },
+    {
+      "bot": "DEV_WATCH",
+      "bias": "pump",
+      "conviction": 0.68,
+      "trades_this_run": 11,
+      "current_open_positions": 0,
+      "profile": {
+        "hard_stop": -0.06,
+        "chatbot_tp": 0.52,
+        "trailing_trigger": 0.11,
+        "max_rug_tolerance": 0.52,
+        "position_mult": 1.0
+      },
+      "last_action": {
+        "symbol": "RUGGY",
+        "pnl": -0.96,
+        "pnl_pct": -14.5,
+        "reason": "hard stop -6%",
+        "entry_price": 0.00030097,
+        "exit_price": 0.00025523,
+        "bot": "DEV_WATCH",
+        "simulated_fees_slippage_applied": true
+      },
+      "timestamp": "2026-11-13T12:56:50.383191"
+    },
+    {
+      "bot": "CONVICTION",
+      "bias": "conviction",
+      "conviction": 0.82,
+      "trades_this_run": 3,
+      "current_open_positions": 0,
+      "profile": {
+        "hard_stop": -0.05,
+        "chatbot_tp": 0.48,
+        "trailing_trigger": 0.17,
+        "max_rug_tolerance": 0.35,
+        "position_mult": 0.85
+      },
+      "last_action": {
+        "symbol": "FRESH",
+        "pnl": -4.7,
+        "pnl_pct": -90.9,
+        "reason": "hard stop -5%",
+        "entry_price": 0.00021387,
+        "exit_price": 8.55e-06,
+        "bot": "CONVICTION",
+        "simulated_fees_slippage_applied": true
+      },
+      "timestamp": "2026-11-13T12:56:50.383209"
+    },
+    {
+      "bot": "MOMENTUM",
+      "bias": "momentum",
+      "conviction": 0.72,
+      "trades_this_run": 0,
+      "current_open_positions": 0,
+      "profile": {
+        "hard_stop": -0.062,
+        "chatbot_tp": 0.58,
+        "trailing_trigger": 0.1,
+        "max_rug_tolerance": 0.45,
+        "position_mult": 0.95
+      },
+      "last_action": null,
+      "timestamp": "2026-11-13T12:56:50.383230"
+    },
+    {
+      "bot": "SCALPER",
+      "bias": "scalper",
+      "conviction": 0.65,
+      "trades_this_run": 0,
+      "current_open_positions": 0,
+      "profile": {
+        "hard_stop": -0.045,
+        "chatbot_tp": 0.22,
+        "trailing_trigger": 0.08,
+        "max_rug_tolerance": 0.4,
+        "position_mult": 0.65
+      },
+      "last_action": null,
+      "timestamp": "2026-11-13T12:56:50.383256"
+    },
+    {
+      "bot": "CONTRARIAN",
+      "bias": "contrarian",
+      "conviction": 0.78,
+      "trades_this_run": 0,
+      "current_open_positions": 0,
+      "profile": {
+        "hard_stop": -0.07,
+        "chatbot_tp": 0.65,
+        "trailing_trigger": 0.2,
+        "max_rug_tolerance": 0.5,
+        "position_mult": 0.75
+      },
+      "last_action": null,
+      "timestamp": "2026-11-13T12:56:50.383278"
+    },
+    {
+      "bot": "TREND",
+      "bias": "trend",
+      "conviction": 0.75,
+      "trades_this_run": 0,
+      "current_open_positions": 0,
+      "profile": {
+        "hard_stop": -0.055,
+        "chatbot_tp": 0.75,
+        "trailing_trigger": 0.12,
+        "max_rug_tolerance": 0.42,
+        "position_mult": 1.05
+      },
+      "last_action": null,
+      "timestamp": "2026-11-13T12:56:50.383300"
+    },
+    {
+      "bot": "RESEARCHER",
+      "bias": "researcher",
+      "conviction": 0.8,
+      "trades_this_run": 0,
+      "current_open_positions": 0,
+      "profile": {
+        "hard_stop": -0.055,
+        "chatbot_tp": 0.68,
+        "trailing_trigger": 0.18,
+        "max_rug_tolerance": 0.35,
+        "position_mult": 0.9
+      },
+      "last_action": null,
+      "timestamp": "2026-11-13T12:56:50.383326"
+    },
+    {
+      "bot": "PORTFOLIO",
+      "bias": "portfolio",
+      "conviction": 0.7,
+      "trades_this_run": 0,
+      "current_open_positions": 0,
+      "profile": {
+        "hard_stop": -0.08,
+        "chatbot_tp": 0.45,
+        "trailing_trigger": 0.15,
+        "max_rug_tolerance": 0.6,
+        "position_mult": 0.55
+      },
+      "last_action": null,
+      "timestamp": "2026-11-13T12:56:50.383352"
+    },
+    {
+      "bot": "EXECUTOR",
+      "bias": "executor",
+      "conviction": 0.75,
+      "trades_this_run": 0,
+      "current_open_positions": 0,
+      "profile": {
+        "hard_stop": -0.04,
+        "chatbot_tp": 0.38,
+        "trailing_trigger": 0.1,
+        "max_rug_tolerance": 0.3,
+        "position_mult": 0.85
+      },
+      "last_action": null,
+      "timestamp": "2026-11-13T12:56:50.383380"
+    }
+  ],
+  "grok_committee_board": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "grok_committee_advisory": 0.0
+}

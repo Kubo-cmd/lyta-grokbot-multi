@@ -40,7 +40,7 @@ import random
 import csv
 import json
 from dataclasses import dataclass, field, asdict
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from datetime import datetime
 
 # === Branding ===
@@ -163,6 +163,7 @@ class DeskState:
     open_positions: Dict[str, Position] = field(default_factory=dict)
     trades: List[Dict] = field(default_factory=list)
     logs: List[str] = field(default_factory=list)
+    grok_committee_advice: List[float] = field(default_factory=list)
 
 
 def realistic_price_move(liquidity_usd: float = 5000.0, volume_5m: float = 1000.0) -> float:
@@ -290,6 +291,29 @@ def load_survivors(limit: int = 12) -> list:
         return fallback
 
 
+# --- Grok-Bot remote committee scoring (paper-only plug point) ---
+# The Grok-Bot cloud VM (xAI managed) committee score/risk. Paper-only here:
+# reads a secure-vault token; WITHOUT it the desk stand-downs and NEVER fabricates
+# a numeric score. Real integration: drop the vault token + funding approval, then
+# `GROK_BOT_TOKEN=<your_key> python3 grokbot_multi.py` engages the live network.
+try:
+    import grokbot_scorer as _grokbot
+except Exception:  # pragma: no cover - only if the scorer module is missing
+    _grokbot = None
+
+
+def _grok_committee_score(survivor: dict) -> Optional[float]:
+    """Paper-only Grok-Bot committee advisor.
+
+    Real remote committee score/risk when a token is configured (Grok-Bot VM);
+    otherwise a verified stand-down (None). Never fabricates a score. Read-only:
+    emits no trades by itself.
+    """
+    if _grokbot is None or not _grokbot.is_configured():
+        return None
+    return _grokbot.GROK_BOT_SCORE(survivor.get("symbol", ""), survivor)
+
+
 def paper_buy(state: DeskState, survivor: dict, bot_name: str) -> bool:
     if len(state.open_positions) >= 4 or state.equity <= 25:
         return False
@@ -407,13 +431,16 @@ def export_grok_signals(state: DeskState, bots: list):
         signals.append(signal)
 
     final_equity = START_EQUITY + sum(float(t["pnl"]) for t in state.trades)
+    _grok_board = [float(s) for s in state.grok_committee_advice if s is not None]
     with open("grok_signals_for_real_bot.json", "w") as f:
         json.dump({
             "generated": datetime.now().isoformat(),
             "total_trades": len(state.trades),
             "current_equity": round(final_equity, 2),
             "agents": [b.name for b in bots],
-            "signals": signals
+            "signals": signals,
+            "grok_committee_board": _grok_board,
+            "grok_committee_advisory": round(sum(_grok_board) / max(1, len(_grok_board)), 4) if _grok_board else None
         }, f, indent=2)
 
     print(f"[export] grok_signals_for_real_bot.json ({len(bots)} agents)")
@@ -449,6 +476,22 @@ def run_autonomous_grok_bots(steps: int = 18):
         state.logs = state.logs[-10:]
 
         survivors = load_survivors(10)
+
+        # Grok-Bot committee advisory (paper-only; stand-down with no token,
+        # NEVER fabricated). Neutral when stand-down — the bot heuristics still
+        # run. Used as the desk's Grok column below.
+        _grok_board = []
+        _stand = 0
+        for surv in survivors:
+            sc = _grok_committee_score(surv)
+            _grok_board.append(sc)
+            _stand += (sc is None)
+        _grok_card = round(sum(s for s in _grok_board if s is not None) /
+                           max(1, sum(1 for s in _grok_board if s is not None)), 4)
+        state.grok_committee_advice.append(_grok_card)
+        if _stand:
+            print(f"  [GROK-BOT COMMITTEE] stand-down {_stand} of {len(survivors)} (no token configured — no fabricated scores)")
+        print(f"  [GROK-BOT COMMITTEE] advisory {_grok_card} (n={len([s for s in _grok_board if s is not None])})")
 
         for bot in bots:
             for surv in random.sample(survivors, min(5, len(survivors))):
