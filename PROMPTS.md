@@ -125,7 +125,60 @@ WIRING TEMPLATE (paper-only):
 Note: today's live pairs never reach 8/8 consent, so live runs stand down.
       The GOBLIN/SOL pair above is a documented paper construction, NOT a live
       fill. No real wallet, no real DEX, no real mint.
-```
+
+### OPTION C — Your own way (custom strategy on the shared engine)
+
+> Use this prompt/template to run **your own strategy** on the shared
+> paper-only engine. Everything the engine does — the A3b consensus gate,
+> the paper-only capital guard, the stand-down logging, the execution hook —
+> is shared verbatim between OpenBot (A) and GrokBot (B). You only replace the
+> advice/vote/execute columns. No new key, no new wallet, no new capital.
+
+Copy-paste this into the parameter-testing platform for a live custom-desk run:
+
+```text
+You are running LYTA Option C: the USER'S OWN STRATEGY on the shared
+paper-only trading engine. Zero real capital, zero real orders, zero live
+execution. Live DEX spot pairs ARE real data; everything else is a transparent
+paper proxy.
+
+PLUGGABLE POINTS (the ONLY things you replace):
+1. ADVICE source -> your scoring function advice_fn(pair, votes) -> float.
+   Positive score = bias buy; negative = sell; near zero = stand down.
+2. VOTE list (optional) -> your own {name: Signal} per-tick inputs.
+   Default = 12 OpenBot agents if you do not replace it.
+3. EXECUTE hook (optional) -> your paper buy/exit logic execute_fn(pair,
+   direction, gate). Default = min(capital*0.01, 5.0) trigger-only paper fill.
+
+SCHEMA (replicate exactly):
+- Data: real DEX spot pairs via real_trade_feed.py (live) or a documented paper
+  construction. Pump.fun metrics are NOT trusted through Trencher/Circuit AI;
+  spot-only feeds are used.
+- Gate (A3b, 8-vote floor): 5 distinct paper bots + 3 momentum copies.
+  |score| >= 0.35 AND consent >= 8 -> QUALIFIED BUY (paper fill).
+  Else -> STAND-DOWN, log reason.
+- Paper sizing: PAPER_CAPITAL=100.0; min(capital*0.01, 5.0) per paper trade.
+- Output: paper_desk_<yourdesk>_record.json + trading_desk.html
+
+RUNNER:
+  python3 lyta-grok-desk/option_c_template.py --minutes 0.3 --interval 1
+  then compare with:
+    A. python3 paper_run.py            (OpenBot 12-agent)
+    B. python3 grokbot_multi.py        (GrokBot 11-agent committee)
+
+How to make YOUR way the best (honest comparison methodology):
+  1. All three options run the SAME engine, so differences are ENTIRELY your
+     custom advice_fn / vote_fn / execute_fn — apples to apples.
+  2. Run each on identical paper market data for a fixed window (3-10 min).
+  3. Record: first paper trade, max paper equity, final paper capital,
+     trades executed, stand-downs per tick, advisory samples.
+  4. "Best" = the option that earns the first real paper trade AND keeps the
+     highest paper equity without violating the paper-only guard.
+
+Note: today's live pairs rarely reach 8/8 consent, so live runs stand down.
+      Paper constructions are used for the custom-strategy test. No real
+      wallet, no real DEX, no real mint.
+``````
 
 ---
 
