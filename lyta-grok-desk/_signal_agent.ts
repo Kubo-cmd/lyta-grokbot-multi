@@ -15,26 +15,7 @@ export const run: RunFunction = async (agent: any) => {
   // 1. New market signals (paper-only first)
   try {
     // placeholder — spot disabled; paper-only signals from circuit terminal
-    if (launches && Array.isArray(launches) && launches.length > 0) {
-      for (const l of launches.slice(0, 5)) {
-        const age = l.ageSeconds ?? l.age ?? 120;
-        const vol = l.volume ?? 0;
-        const holders = l.holders ?? 0;
-        const isNew = age < 300;
-        const rising = vol > 1000;
-        if (isNew && rising && holders > 40) {
-          signals.push({
-            type: "signal:alternate",
-            name: `${l.name ?? "MEME"}-${l.symbol ?? ""}`.slice(0, 20),
-            confidence: 0.85, detail: `age=${age}s vol=${vol} holders=${holders}`,
-          });
-        }
-      }
-    }
-  } catch (_) {}
-
-  // 2. Trending / momentum scanner (Circuit Papertrade)
-  try {
+    // (launches is not available in papertrade mode)
     const markets = await (agent as any).papertrade?.markets?.list?.();
     if (markets && Array.isArray(markets)) {
       for (const m of markets) {
@@ -50,7 +31,7 @@ export const run: RunFunction = async (agent: any) => {
     }
   } catch (_) {}
 
-  // 3. Social lookup (trending on GMGN/dexscreener)
+  // 2. Social lookup (trending on GMGN/dexscreener)
   try {
     const trending = await (agent as any).social?.getTrending?.();
     if (trending?.length) {

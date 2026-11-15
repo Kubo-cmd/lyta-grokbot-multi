@@ -9,9 +9,9 @@ Ultra-conservative 12-agent spot trading desk on Circuit Papertrade for paper tr
 - **Risk:** Stands down on weak consensus, liquidity spikes, or top-10 concentration >30%.
 
 ## Exposure
-- **Holds:** Tiny USDC — paper trading only.
-- **Venue:** Circuit Papertrade — spot trading only (paper).
-- **Leverage:** 5x — Max capped for paper.
-- **Costs:** Trading fees + slippage — Circuit Papertrade.
-- **Data:** Circuit Papertrade + 12-bot consensus — platform data + bot signals.
-- **On unwind:** Closes positions — returns remaining paper USDC.
+- **Holds:** Tiny USDC — paper only.
+- **Venue:** Circuit Papertrade — spot only.
+- **Leverage:** 5x — paper cap.
+- **Costs:** Circuit fees + slippage — open/close.
+- **Data:** Circuit + 12-bot votes — consensus.
+- **On unwind:** Closes positions — returns USDC.

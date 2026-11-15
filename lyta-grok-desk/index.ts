@@ -100,7 +100,7 @@ function decideAction(bot: BotProfile, market: MarketState): { shouldOpen: boole
   };
 }
 
-export const run: RunFunction = async (agent) => {
+export const run = async (agent: any) => {
   // === MICRO CAPITAL SAFETY LAYER ===
   await agent.log("=== LYTA GrokBot Multi (12-agent desk) — PAPER TRADING mode on Circuit Papertrade | Tiny $2-$6 capital | Survival + observation first ===");
 
