@@ -21,6 +21,7 @@ trading desk built on OpenBot (local agent execution) + Grok Bot (server router)
 | [`lyta-grok-desk/circuit.toml`](lyta-grok-desk/circuit.toml) | Circuit papertrade config + agent definitions |
 | [`lyta-grok-desk/BOT-COMPARE.md`](lyta-grok-desk/BOT-COMPARE.md) | OpenBot vs Grok Bot yes/no contrast |
 | [`lyta-grok-desk/DESCRIPTION.md`](lyta-grok-desk/DESCRIPTION.md) | Agent workspace description |
+| [`lyta-grok-desk/grok_team.py`](lyta-grok-desk/grok_team.py) | Paper team routing + lint-rule self-check (no live capital) |
 
 ## 🛠️ Scripts
 

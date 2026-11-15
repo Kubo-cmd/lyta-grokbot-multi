@@ -167,7 +167,7 @@ risk_per_trade = { type = "percentage", default = 3, min = 1, max = 3 }
 micro_size_min = { type = "number", default = 0.20, min = 0.20 }
 micro_size_max = { type = "number", default = 0.85, min = 0.20, max = 0.85 }
 min_collateral = { type = "number", default = 1.5, min = 0.5 }
-consensus_bar = { type = "integer", default = 7, min = 7, max = 10 }
+consensus_bar = { type = "integer", default = 7, min = 7, max = 12 }
 trailing_multiple = { type = "number", default = 2.5, min = 1.0, max = 5.0 }
 trailing_drawdown = { type = "percentage", default = 15, min = 5, max = 30 }
 stop_loss_pct = { type = "percentage", default = 35, min = 35, max = 50 }

@@ -375,3 +375,30 @@ the same alerts for the overall summary view.
 **Recommendation:** run **(A)** now — it is free and returns results today. Move to **(B)** when you want always-on Grok-Bot intelligence (cloud coordination + local 12-agent execution via the shared paper simulator). Both read the same `pumpfun_desk_simulator.py`, so switching is a command away.
 
 ---
+
+## 8. Grok Bot team layer (paper-only)
+
+Learned from the public workshop signals (gatsby / 0xg4tsby; Yarchi @undefinedKi) and implemented locally in `lyta-grok-desk/grok_team.py`. This is **not** a live Grok Bot workshop and **not** a capital path. The resume (paper rules) does not change; what can *run* does.
+
+| Contract | LYTA mapping |
+|----------|----------------|
+| Grok Bot → Chief of Staff → Managers → Workers | `DelegationRouter.route()` ordered chain |
+| 6 bots / 200+ agents (reference fleet) | `TEAM_BOTS = 6`, `TEAM_AGENTS = 200` (constants, not live spawn) |
+| Every agent mistake becomes a lint rule, not a prompt | `DelegationRouter._LINT_RULES` + `verify()` |
+| Workers verify with videos / screenshots / tests | `EvidencePacket.kind ∈ {video, screenshot, test, log, lint_rule, signal}` |
+| Chief of Staff holds the budget envelope | `approve_envelope()` → shared `lyta_budget.evaluate_budget` |
+
+Delegation order (managers before workers, documented):
+
+1. `grok_bot` — decompose the paper task
+2. `chief_of_staff` — budget envelope hold
+3. Managers: narrative, liquidity, rug
+4. Workers: launch monitor, pattern analyzer, evidence packet
+5. `oversight_trencher` — lint rules + evidence verify
+6. `chief_of_staff` — final envelope & verdict hold
+
+Envelope (paper, simulated SOL only): size 0.20–0.85, 1h pump cap 100%, liquidity floor $50k, stop −35%, take-profit +50%. `approve_envelope` returns `compounding` or `stand_down`. Size outside the envelope, negative paper PnL, or a non-compounding budget verdict all stand down. The shared gate's hyphenated `stand-down` is normalized to `stand_down` at this layer so the team contract stays one spelling.
+
+**Zero-burn:** `TeamContext.paper_only` is sticky. The team layer never places a DEX order, never reads a vault key, and never overrides Tightened 7/12. Tests: `tests/test_grok_team.py`.
+
+---

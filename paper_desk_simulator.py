@@ -29,7 +29,22 @@ Paper Observer Parameters (active config v10):
 - Trading hours: 24/7
 - Session P&L limits: off
 
-Rules preserved from the 12-bot consensus (still documented, not the active
+# ── Tightened gate constants (paper-only frame) ──────────────────────────────
+# Mirrors the pumpfun desk config rules from the shared memo (Consensus 7/12
+# buy bar, liquidity floor >= $50k, -35% SL / +50% TP, max H1 pump 100%).
+# Written into the paper-only observer simulator as constraints, not signals:
+#   MIN_VOTES=7      buy bar = 7 of 12 paper bots must agree before entry
+#   MAX_H1_PUMP=100   max +100% one-hour pump (paper-only cap)
+#   MIN_LIQ=50000     liquidity floor in USD at entry
+#   STOP_LOSS_PCT=0.35   -35% trigger
+#   TAKE_PROFIT_PCT=0.50  +50% exit
+MIN_VOTES = 7
+MAX_H1_PUMP = 100
+MIN_LIQ = 50_000
+STOP_LOSS_PCT = 0.35
+TAKE_PROFIT_PCT = 0.50
+
+# ── Rules preserved from the 12-bot consensus (still documented, not the active
 strategy):
 - 7/12 buy bar, liquidity floor ≥$50k, −35% SL / +50% TP, exit rules
   (rug spike, score collapse, 25% first-hour drop, time exit, contrarian).

@@ -43,7 +43,9 @@ import random
 import sys
 import time
 from pathlib import Path
-from typing import Optional
+from lyta_budget import (_GATE_LEDGER, LAYERS,
+                         evaluate_budget as _system_evaluate_budget,
+                         _apply_budget as _system_apply_budget)
 
 BASE_DIR = Path(__file__).resolve().parent
 if str(BASE_DIR) not in sys.path:
@@ -80,7 +82,13 @@ TRAILING_DD = 0.15         # paper-desk trailing drawdown from peak
 STALE = 90.0               # paper-desk stale exit seconds
 DEAD = 240.0               # paper-desk dead exit seconds
 STEPS = 300                # max simulated ticks per position (5 min)
-PAPER_TICK = 1.0           # simulated seconds per paper tick
+# ═══════════════════════════════════════════════════════════════════════════════
+# Budget ledger (Inference Engineering Ch. 1: budget latency & cost per layer)
+# ═══════════════════════════════════════════════════════════════════════════════
+BUDGET_DECISION_LATENCY_S = 0.100    # target wall-clock per decide_pair()
+BUDGET_COST_TOKENS        = 6_000    # paper-only proxy budget per decision
+# (paper proxy = 0 tokens; real Grok-bot scoring is a future cost line)
+PAPER_TICK = 1.0                     # simulated seconds per paper tick
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Real-market builder: maps a REAL DEX pair → (augmented dict + paper Market)
@@ -171,6 +179,8 @@ class PaperTradeSimulator:
             bots.append(VolumeMomentumBot(f"VolumeMomentumBot-copy{i}"))
         self.agg = ConsensusAggregator(bots)
         self.feed = RealTradeFeed()
+        self.ledger = _GATE_LEDGER  # single source of truth (shared system ledger)
+        self.paper_size = float(BUY_SIZE)
 
     def decide_pair(self, pair: dict, narrative: str = "") -> tuple[Optional[dict], Optional["Market"]]:
         """Score a real live pair; returns (result, market) or (None, None)."""
@@ -179,7 +189,7 @@ class PaperTradeSimulator:
         r["symbol"] = augmented.get("base", "?") + "/" + augmented.get("quote", "?")
         return r, mkt
 
-    def enter_live_pair(self, pair: dict, result: dict, market) -> Optional[dict]:
+    def enter_live_pair(self, pair: dict, result: dict, market, entry_size: Optional[float] = None) -> Optional[dict]:
         """Entry signal (paper). Returns None unless qualified BUY."""
         d = result.get("decision")
         if d != "BUY-SIG":
@@ -190,7 +200,7 @@ class PaperTradeSimulator:
             "asset": ASSET,
             "entry_price": p,
             "peak_price": p,
-            "size": BUY_SIZE,          # PO_BNavy paper size (SOL)
+            "size": float(entry_size if entry_size is not None else self.paper_size),
             "entry_time": time.time(),
             "update_time": time.time(),
             "tier1": False,
@@ -279,9 +289,12 @@ class PaperTradeSimulator:
 
         for pair in pairs:
             print(f"\n  real pair: {pair.get('pair_id')}  {pair.get('base')}/{pair.get('quote')}")
+            t0 = time.perf_counter()
             r, mkt = self.decide_pair(pair)
+            decision_latency = round(time.perf_counter() - t0, 6)
             if r is None:
                 print(f"  -> gate return None (stand down); no paper trade")
+                self._apply_budget(decision_latency, 0, None, record=False)
                 continue
             print(f"  -> consent  = {r['consent']}/{8}  score = {r['combined_score']:+.3f}"
                   f"  tag = {r['tag'] or '-'}  -> {r['decision']}")
@@ -289,12 +302,38 @@ class PaperTradeSimulator:
                 entry = self.enter_live_pair(pair, r, mkt)
                 if entry:
                     closed = self.drift_to_exit(entry, mkt)
-                    self._log_cycle(closed, "real-live")
+                    self._log_cycle(closed, "real-live", decision_latency, 0)
+                    self._apply_budget(decision_latency, 0, closed.get("pnl_pct"), record=True)
                 else:
                     print("    -> gate says BUY-SIG but paper entry returned None")
+                    self._apply_budget(decision_latency, 0, None, record=False)
             else:
                 print("    -> stand down; no paper trade")
+                self._apply_budget(decision_latency, 0, None, record=False)
+        self.ledger.report()
         return 0
+
+    # ── Book's "taste and optimize" loop — budget gating (Ch. 1) ──────────────
+    @staticmethod
+    def evaluate_budget(latency_s: float, cost_tokens: int, pnl_pct: Optional[float]) -> dict:
+        """Delegates to the shared system gate (lyta_budget.py) for one verdict."""
+        return _system_evaluate_budget(latency_s, cost_tokens, pnl_pct)
+
+    def _apply_budget(self, latency_s: float, cost_tokens: int,
+                      pnl_pct: Optional[float], *, record: bool = False) -> dict:
+        """Taste-and-optimize gate hook. The shared module (lyta_budget.py) is
+        the single source of truth: it records the cycle to the ledger and
+        halves paper_size on stand-down (floored at BUDGET_PAPER_SIZE_FLOOR)
+        when record=True, and returns the updated paper_size. Console
+        formatting and account state stay in the runner. Zero-burn: paper-only,
+        never a live order."""
+        # Feed the runner's own current paper size into the shared hook so no
+        # observation-only stand-down can wipe the account state.
+        budget, self.paper_size = _system_apply_budget(
+            latency_s, cost_tokens, pnl_pct, record=record, paper_size=self.paper_size)
+        print(f"  [budget] verdict={budget['verdict']} latency_ok={budget['latency_ok']} "
+              f"cost_ok={budget['cost_ok']} pnl_ok={budget['pnl_ok']}")
+        return budget
 
     def run_realistic(self) -> int:
         """Simulate a realistic qualifying scenario through the FULL paper desk
@@ -327,9 +366,11 @@ class PaperTradeSimulator:
             "age_minutes": 60,
             "narrative": "green",
         }
-        print("\n  scenario pair: GOBLIN/SOL  vol24_usd=3.0M liq=4.0M fee=0.2% age=60")
+        print("  scenario pair: GOBLIN/SOL  vol24_usd=3.0M liq=4.0M fee=0.2% age=60")
         print("  narrative override: green (documented real spot signal)")
+        t0 = time.perf_counter()
         r, mkt = self.decide_pair(qualified_pair, narrative="green")
+        decision_latency = round(time.perf_counter() - t0, 6)
         if r is None or not r.get("qualified"):
             print(f"  -> gate did not qualify: consent={r.get('consent')} score={r.get('combined_score'):.3f}")
             return 0
@@ -344,23 +385,32 @@ class PaperTradeSimulator:
         print(f"  -> ENTRY price = {entry['entry_price']:.4f} SOL "
               f"(paper size {entry['size']} SOL)")
         closed = self.drift_to_exit(entry, mkt)
-        self._log_cycle(closed, "paper-simulated")
+        self._log_cycle(closed, "paper-simulated", decision_latency, 0)
 
         pnl = closed.get("pnl_pct")
-        status = "compounding (green)" if pnl and pnl >= 0 else "stand-down (red)"
+        budget = self._apply_budget(decision_latency, 0, pnl, record=True)
+        status = "compounding (green)" if budget["verdict"] == "compounding" else "stand-down (red)"
         print(f"\n  PAPER P&L: {pnl:+.3f}%  exit={closed.get('exit_price')}  reason={closed.get('exit_reason')}")
         print(f"  -> {status}: simulated, NO real capital, NO real orders")
+        self.ledger.report()
         return 0
 
     @staticmethod
-    def _log_cycle(closed: dict, tag: str) -> None:
+    def _log_cycle(closed: dict, tag: str, latency_s: float = 0.0, cost_tokens: int = 0) -> None:
         print(f"\n  [{tag}] drift limited to {STEPS} ticks (max 5 min) - "
               f"exit_reason={closed.get('exit_reason')} exit_price={closed.get('exit_price')}"
               f" pnl_pct={closed.get('pnl_pct'):+.3f}%")
+        print(f"  [paper] decision latency {latency_s}s, cost proxy {cost_tokens} tokens, "
+              f"{closed.get('pair_id', ASSET + '/' + ASSET)}")
         if closed.get("pnl_pct") is not None:
-            print(f"  [paper] P&L ${closed['pnl_pct']:+.3f}% on paper pair "
+            print(f"  [paper] P&L ${closed.get('pnl_pct'):+.3f}% on paper pair "
                   f"{closed.get('pair_id', ASSET + '/' + ASSET)}")
 
+
+# ── Book Ch.1 "taste and optimize" loop — per-layer budget ledger ─────────────
+# Ledger semantics and the gate live in the shared system module (lyta_budget.py).
+# This duplicate class was removed so both the paper runner and the lyta system
+# use one source of truth.
 
 def main() -> int:
     sim = PaperTradeSimulator()
