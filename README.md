@@ -61,7 +61,8 @@ Replaces the single-source `signal_from_volume()` in `real_trade_feed.py` with a
 |---|---|
 | `paper_trade_exec.py` | **Paper-only execution layer** built from `paper_desk_simulator.py` (config v10). `run_live()` scans live pump pairs through the gate (all stand down, zero qualify); `run_realistic()` is a constructed qualifying-scenario lifecycle demo on paper money (entry → peak → trailing exit → +P&L). Zero real orders, zero real capital. |
 | `consensus_aggregator.py` | The aggregator: 5 paper bots + 3 volume copies = 8 sources (A3b floor), `ConsensusAggregator.consensus(pair, narrative=...)`, gate stand-down + qualified BUY demo. |
-| `pumpfun_phase2_paper_run.py` | Phase-2 paper-only scanner: fetches 30 live pump pairs via `RealTradeFeed`, runs each through the same `ConsensusAggregator`. 0 of 30 qualify tonight (observation only). |
+| `pumpfun_phase2_paper_run.py` | Phase-2 paper-only scanner: fetches 30 live pump pairs via `RealTradeFeed`, runs each through the same `ConsensusAggregator`. 0 of 30 qualify tonight (observation only). Deprecated: aggregate-only table. |
+| `pumpfun_phase2_verbose_run.py` | Phase-2 paper-only scanner: verbose per-pair rollup — per-bot A3b gate votes, consent out of 8, gate tag, decision, and one stand-down reason per pair. Zero trades, exit always 0. |
 | `real_trade_feed.py` | Live DexScreener REST + PumpDev WS wrapper; `signal_from_volume()` REPLACEMENT NOTICE documents how the new aggregator plugs in. |
 
 ### Run

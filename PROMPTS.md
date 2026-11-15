@@ -217,9 +217,27 @@ python3 grokbot_multi.py            # paper-only Grok-Bot committee, exit 0
 
 | I want to… | Run |
 |---|---|
-| Test a strategy today, zero risk | **(A) OpenBot** — `python3 pumpfun_desk_simulator.py` |
-| Keep the desk alive with my laptop closed | **(B) Grok-Bot** — `python3 grokbot_multi.py` |
-| Get live Grok-Bot advisory | **(B)** (add your vault token + funding) |
-| Compare both on identical data | **(A)** then **(B)**, read them side by side in `COMPARISON_REPORT.md` |
+│ Test a strategy today, zero risk | **(A) OpenBot** — `python3 pumpfun_desk_simulator.py` |
+│ Keep the desk alive with my laptop closed | **(B) Grok-Bot** — `python3 grokbot_multi.py` |
+│ Get live Grok-Bot advisory | **(B)** (add your vault token + funding) |
+│ Compare both on identical data | **(A)** then **(B)**, read them side by side in `COMPARISON_REPORT.md` |
+
+**P2 — Verbose Phase-2 paper run for the pump.fun scanner (ready to paste)**
+
+**This run is observation only. NO trades executed.**
+
+```bash
+python3 pumpfun_phase2_verbose_run.py
+```
+
+What the paper-only output shows per pair: the per-bot A3b gate rollup (8 votes:
+5 heuristics + 3 momentum copies), consent out of 8, `|combined|`, gate tag,
+decision, and one stand-down reason (consensus_min / signal_gate / tag). Exit
+code is always 0.
+
+Wrap the old aggregate runner for reference (do not edit it):
+```bash
+python3 pumpfun_phase2_paper_run.py      # aggregate-only; deprecated
+```
 
 **Note:** both ways are paper-only here. No real orders, no real capital, no fabricated scores. Switch between them with one command — the shared simulator state is identical.
