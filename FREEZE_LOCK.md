@@ -2,15 +2,15 @@
 
 **This run is observation only. No trades executed.**
 
-**Status: FREEZE RE-OPENED (local paper freeze — observation only).**
-Filter-sensitivity probe executed on the frozen 24-candidate pool
-(V0 baseline / V1 loose / V2 looser / V3 tight). Remote stays PRIVATE, no push
-until user approval.
+**Status: FINAL — paper freeze closed after user approval (2026-11-16).**
+Filter-sensitivity probe executed on the frozen 24-candidate pool (V0 baseline /
+V1 loose / V2 looser / V3 tight). Remote stays PRIVATE unless user approval.
 
 ## 1. Freeze state (as of commit 636c8d7)
 
-- **Remote:** `origin/main` is **PRIVATE** (`Kubo-cmd/lyta-grokbot-multi`).
-  Local == remote == `636c8d7`, verified in sync. No further push until user approval.
+- **Remote:** `origin/main` is **private** (`Kubo-cmd/lyta-grokbot-multi`).
+  Local == remote == `084334d` at freeze-lock update; local now ahead at
+  `b76fb3a` (+ this lock record).
 - **Last committed freeze set:**
   - `b7d3cbd` — Route B: pump.fun Phase 2 zero-burn calibrated paper run
   - `636c8d7` — adapter extension (`pumpfun_phase2_adapter_ext_run.py`) + comparison report (`PAPER_COMPARE_ROUTE_B_ADAPTER.md`)
@@ -45,10 +45,14 @@ V2=6/0.20 (loosened), V3=8/0.50.
   8 buy votes (max observed = 7), so under the frozen **consensus_min=8 floor
   the pool is structurally stand-down**, independent of the score floor.
 Conclusion: the "different filter" that can at all qualify rows on this pool is a
-loosened vote floor (V2: CONSENSUS_MIN=6, SIGNAL_GATE=0.20), and even then it is
-3 green candidates carrying an unresolved hidden-liquidity tag.
+loosened vote floor (V2: CONSENSUS_MIN=6, SIGNAL_GATE=0.20), and even then
+it is 20 qualified candidates carrying an unresolved hidden-liquidity tag (V1
+loose 7/0.25 → 15 qualified; V3 tight 8/0.50 → 0).
 
-## 5. Decision gate (for the user)
+- **Decision gate status (2026-11-15, user-approved):** commit `b76fb3a`
+  (Phase 2 simulator + Circuit Builder prompt) pushed to origin/main; freeze
+  record corrected to the verified frozen probe log (V0 0/60, V1 15/45, V2 20/40,
+  V3 0/60).
 - **No further commits/pushes** until the user approves.
 - Next trigger (if approved): reopen the freeze and run additional paper rounds
   (20+ positions) before any fine-tuning; MIN_LIQ revisit ($50k→$20k) only if
@@ -64,8 +68,10 @@ loosened vote floor (V2: CONSENSUS_MIN=6, SIGNAL_GATE=0.20), and even then it is
 | 9 | 45 | V0 frozen (8/0.35) | 0 | 45 | 0 | $0.00 |
 | 10 | 24 | V2 looser (6/0.20) | 3 | 21 | 0 | $0.00 |
 | 11 | 45 | V2 looser (6/0.20) | 14 | 31 | 0 | $0.00 |
-| 12 | 60 | V2 looser (6/0.20) | 15 | 45 | 0 | $0.00 |
-| 12 | 60 | V0 frozen (8/0.35) | 0 | 60 | 0 | $0.00 |
+|| 12 | 60 | V0 frozen (8/0.35) | 0 | 60 | 0 | $0.00 |
+|| 12 | 60 | V1 loose (7/0.25) | 15 | 45 | 0 | $0.00 |
+|| 12 | 60 | V2 looser (6/0.20) | 20 | 40 | 0 | $0.00 |
+|| 12 | 60 | V3 tight (8/0.50) | 0 | 60 | 0 | $0.00 |
 
 Logs: `round10_v2_20261115.log`, `round11_v2_20261115.log`,
 `round11_baseline_20261115.log`, `round12_v2_20261115.log`,
@@ -73,16 +79,17 @@ Logs: `round10_v2_20261115.log`, `round11_v2_20261115.log`,
 
 Structured finding (final, paper window closed): under the frozen V0 baseline
 the pool is structurally stand-down (max consent 7/8 vs required 8). Under
-the loosened V2 floor the qualified set GROWS with sample size (3/24 →
-14/45 → 15/60), but every qualified row sits at the consent ceiling (7 vs
-floor 6) AND carries `hidden_liquidity` (liquidity < 2× vol24h). The loose
-floor does not find healthy liquidity — it finds green-ish candidates with
-thin depth. No tradable pattern established from paper evidence; zero trades
-executed across 200+ candidate screenings.
+under the loosened V2 floor the qualified set GROWS with sample size (15/45 under
+V1 loose; 20/40 under V2 looser; both on the frozen 60-candidate pool), but every
+qualified row sits at the consent ceiling (7 vs 6/7 floor) AND carries
+`hidden_liquidity` (liquidity < 2× vol24h). The loose floor does not find healthy
+liquidity — it finds green-ish candidates with thin depth. No tradable pattern
+established from paper evidence; zero trades executed across 200+ candidate
+screenings.
 
-## 8. Decision gate — final (for the user)
-
-- **No further commits/pushes** until user approval. Repo remains PRIVATE.
+- **Decision gate — final (for the user):** CLOSED after approval. Commit
+  `b76fb3a` (+ freeze lock update) is on origin/main. Zero trades executed;
+  no tradable pattern; repo stays private pending further user approval.
 - **Recommended: Option C — STOP.** Close the paper freeze with the
   documented conclusion (no tradable pattern; flexible floor confirms the
   vote-ceiling + hidden-liquidity finding). This matches "private until
