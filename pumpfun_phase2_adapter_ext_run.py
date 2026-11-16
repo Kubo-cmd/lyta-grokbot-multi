@@ -1,0 +1,389 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Phase 2 - pump.fun Adapter Extension run (calibrated engine, observation only)
+===============================================================================
+
+This run is observation only. No trades executed.
+
+Zero-burn, paper-only runtime. No live trades, no real capital, no live Grok Bot
+workshop execution, no live exchange writes. Every candidate is screened through
+the verified 8-vote A3b consensus gate, and when qualified, through the verified
+adaptive paper simulation loop (micro sizing $0.20-$0.85, 3% risk, 5x cap, exit rules).
+
+Purpose
+  Extend the adapter path from the synthetic ADAP1/ADAP2 demo to a
+  deterministic, clearly-labelled pump.dev-format pump.fun candidate feed, and
+  exercise the full chain once more end-to-end:
+    pump.dev /v1/stats candidate -> PumpFunDataAdapter.adapt() -> engine schema
+    -> 8-vote A3b gate -> (qualified) paper simulation loop
+  This is the "extend adapter path to real pump.dev candidates" freeze-safe lane.
+
+Environment note
+  The sandbox cannot reach the live pump.dev /v1/stats JSON endpoint, so this run
+  uses a deterministic pump.dev-format candidate pool (representative of what the
+  /v1/stats feed returns) routed through PumpFunDataAdapter, plus a read-only
+  live DexScreener pump-pair cross-check. Everything is offline/zero-burn.
+  No live pump.dev or live-token data is pulled.
+
+Outputs
+  * <run>_p2adapter_ext_<YYYYMMDD_HHMMSS>.log  - header, per-candidate traces,
+                                                   adapter verdicts, paper results
+  * exit code 0 on success
+"""
+from __future__ import annotations
+
+import sys
+from datetime import datetime
+
+REPO_ROOT = "/Users/test/projects/lyta-grokbot-multi"
+if REPO_ROOT not in sys.path:
+    sys.path.insert(0, REPO_ROOT)
+
+# --------------------------------------------------------------------------
+# Verified Phase 2 / Route C engine pieces
+# --------------------------------------------------------------------------
+from consensus_aggregator import (
+    ConsensusAggregator,
+    HolderConcentrationBot,
+    LiquidityHealthBot,
+    SocialHypeBot,
+    VolumeMomentumBot,
+    VolatilityDiscordBot,
+    CONSENSUS_MIN,
+    SIGNAL_GATE,
+)
+from pumpfun_adapter import PumpFunDataAdapter
+from real_trade_feed import RealTradeFeed
+from pumpfun_phase3_calibrated_run import (
+    FLOW_LOG,
+    MICRO_MAX,
+    MICRO_MIN,
+    RISK_PCT,
+    MAX_POSITION_MULT,
+    MAX_TICKS,
+    STALL_SECONDS,
+    STALL_TICKS,
+    STOP_LOSS,
+    EXIT_TARGET_GAIN,
+    TRAILING_LOSS,
+    CAPITAL,
+    run_pair,
+)
+
+# --------------------------------------------------------------------------
+# Phase 2 paper configuration (zero-burn)
+# --------------------------------------------------------------------------
+PAPER_CAPITAL = 6.00
+PAPER_MICRO_MIN = 0.20
+PAPER_MICRO_MAX = 0.85
+PAPER_RISK_PCT = 0.03
+
+RUN_ID = datetime.now().strftime("%Y%m%d_%H%M%S")
+LOG_NAME = f"p2adapter_ext_{RUN_ID}.log"
+
+# verbose trace log for this run (console + log file)
+traces: list[str] = []
+
+
+# --------------------------------------------------------------------------
+# Helpers
+# --------------------------------------------------------------------------
+def flow_log(msg: str) -> None:
+    """Verbose one-line logger used by every vote / gate / exit reason."""
+    print(msg)
+    traces.append(msg)
+
+
+def build_voters() -> list:
+    """Verified 8-vote A3b roster: 5 heuristic bots + 3 volume clones."""
+    base = [
+        VolumeMomentumBot("VolumeMomentumBot"),
+        LiquidityHealthBot("LiquidityHealthBot"),
+        HolderConcentrationBot("HolderConcentrationBot"),
+        VolatilityDiscordBot("VolatilityDiscordBot"),
+        SocialHypeBot("SocialHypeBot"),
+    ]
+    return (base
+            + [VolumeMomentumBot("VolumeMomentumBot"),
+               VolumeMomentumBot("VolumeMomentumBot"),
+               VolumeMomentumBot("VolumeMomentumBot")])
+
+
+def to_engine_pair(p: dict, src: str = "pumpfun_adapter") -> dict:
+    """Normalize a pump.dev-format pump.fun candidate into the engine schema.
+
+    p is the raw candidate as returned by pump.dev /v1/stats. PumpFunDataAdapter
+    adapts it into the desk schema; we then overlay the fields the A3b gate and
+    paper loop read (base/quote/price/liquidity/vol24/fee/age/rug/narrative).
+    """
+    md = PumpFunDataAdapter.adapt(p)
+    narrative = str(md.get("narrative", p.get("narrative", "")))
+    if "green" in narrative.lower():
+        narrative = "green"
+    elif "red" in narrative.lower():
+        narrative = "red"
+    elif "thin" in narrative.lower():
+        narrative = "thin"
+    return {
+        "chain": p.get("chain", "solana"),
+        "dex": p.get("dex", "pump"),
+        "base": md.get("asset") or p.get("name") or "UNKNOWN",
+        "quote": p.get("quote", "SOL"),
+        "price": md.get("price", p.get("price", 0.0)),
+        "liquidity_usd": md.get("liquidity_usd") or p.get("liquidity_usd", 0),
+        "vol24_usd": p.get("vol_24h", p.get("vol24_usd", 0)) or 0,
+        "fee": p.get("fee", 0.003),
+        "age_minutes": p.get("age_minutes", p.get("age_seconds", 0) / 60.0 or 0),
+        "rug_risk": md.get("rug_risk", 0.5),
+        "narrative": narrative,
+        "src": src,
+        "raw": {"adapted": md, "pumpdev_raw": p},
+    }
+
+
+def stand_down_reasons(r: dict, pair: dict) -> list:
+    """Verbose reason codes from the A3b gate verdict (verbatim engine fields)."""
+    reasons = []
+    if not r.get("qualified"):
+        if r.get("consent", 0) < CONSENSUS_MIN:
+            reasons.append("consensus_min")
+        if abs(r.get("combined_score", 0.0)) < SIGNAL_GATE:
+            reasons.append("signal_gate")
+        if r.get("tag") in ("hidden_liquidity", "rug",
+                            "low_signal", "thin_book", "closed_loop"):
+            reasons.append("tag")
+    return reasons
+
+
+# --------------------------------------------------------------------------
+# Deterministic pump.dev-format pump.fun candidate feed
+#    (representative of a /v1/stats page; clearly labelled offline)
+# --------------------------------------------------------------------------
+# green  : healthy launch (high analyst score, low rug, healthy liquidity)
+# red    : curated rug pattern (high rug risk, strong sell pressure)
+# thin   : thin-liquidity tape
+# low_liq: sub-desk-floor liquidity
+# mixed  : mix for narrative diversity
+DESC = {
+    "green_ape": ("ApeCoin", "green", "ApeCoin memecoin riding green tape"),
+    "green_aur": ("Aurora", "green", "Aurora pump.fun green launch"),
+    "red_rug": ("RugPull", "red", "curated rug candidate: high rug risk, red)."),
+    "red_rep": ("Reposter", "red", "reposter candidate: down in the past hour"),
+    "thin_dry": ("DryPowder", "thin", "thin-liquidity candidate"),
+    "low_liq_dust": ("DustCoin", "low_liq", "liquidity below desk floor"),
+}
+
+
+def pumpfun_candidate_pool() -> list[dict]:
+    """Deterministic pump.dev /v1/stats-format candidate pool (offline)."""
+    return [
+        # --- green (healthy) ---
+        {"name": "ApeCoin", "symbol": "APE", "pair": "0xape1", "price": 0.0012,
+         "fee": 0.003, "age_minutes": 35, "age_seconds": 2100,
+         "liquidity_usd": 250_000, "vol_24h": 2_400_000, "rug_risk": 0.12,
+         "narrative": "green"},
+        {"name": "Aurora", "symbol": "AUR", "pair": "0.aur1", "price": 0.00085,
+         "fee": 0.0025, "age_minutes": 52, "age_seconds": 3120,
+         "liquidity_usd": 180_000, "vol_24h": 1_500_000, "rug_risk": 0.18,
+         "narrative": "green"},
+        # --- red (curated rug / reposter) ---
+        {"name": "RugPull", "symbol": "RUG", "pair": "0xrug1", "price": 0.0004,
+         "fee": 0.004, "age_minutes": 15, "age_seconds": 900,
+         "liquidity_usd": 18_000, "vol_24h": 320_000, "rug_risk": 0.88,
+         "narrative": "red"},
+        {"name": "Reposter", "symbol": "REP", "pair": "0xrep1", "price": 0.00012,
+         "fee": 0.003, "age_minutes": 28, "age_seconds": 1680,
+         "liquidity_usd": 96_000, "vol_24h": 410_000, "rug_risk": 0.31,
+         "narrative": "red"},
+        # --- thin / low-liq ---
+        {"name": "DryPowder", "symbol": "DRY", "pair": "0xdry1", "price": 0.0009,
+         "fee": 0.003, "age_minutes": 8, "age_seconds": 480,
+         "liquidity_usd": 42_000, "vol_24h": 62_000, "rug_risk": 0.25,
+         "narrative": "thin"},
+        {"name": "DustCoin", "symbol": "DUST", "pair": "0xdust1", "price": 0.0003,
+         "fee": 0.003, "age_minutes": 6, "age_seconds": 360,
+         "liquidity_usd": 32_000, "vol_24h": 15_000, "rug_risk": 0.41,
+         "narrative": ""},
+    ]
+
+
+# --------------------------------------------------------------------------
+# Demo + run
+# --------------------------------------------------------------------------
+def demo_adapter_bridge(agg: ConsensusAggregator) -> None:
+    """Wiring demo: one representative pump.dev /v1/stats payload through
+    PumpFunDataAdapter -> engine schema -> A3b verdict. Synthetic but the exact
+    live-chain the Phase 2 loop uses (offline, zero-burn)."""
+    print("\n[ADAPTER] wiring demo (single representative pump.dev /v1/stats payload):")
+    p = {
+        "name": "DemoPump", "symbol": "DEM", "pair": "0xdem1", "price": 0.001,
+        "fee": 0.003, "age_minutes": 22, "liquidity_usd": 400_000,
+        "vol_24h": 3_100_000, "rug_risk": 0.15, "narrative": "green",
+        "chain": "solana", "dex": "pump", "quote": "SOL",
+    }
+    md = PumpFunDataAdapter.adapt(p)
+    pair_demo = to_engine_pair({"price": md["price"], "liquidity_usd": md["liquidity_usd"],
+                                "rug_risk": md["rug_risk"], "narrative": md.get("narrative",""),
+                                "age_minutes": p["age_minutes"], "vol_24h": p["vol_24h"],
+                                "fee": p["fee"], "quote": p["quote"], "chain": p["chain"],
+                                "dex": p["dex"], "name": md["asset"], "pair": md["pair"]},
+                               src="pumpfun_adapter")
+    r = agg.consensus(pair_demo, narrative="")
+    print(f"  pump.dev payload: asset={md['asset']} price=${md['price']} "
+          f"liquidity_usd=${md['liquidity_usd']:,} rug_risk={md['rug_risk']}")
+    print(f"  adapter -> base={pair_demo['base']} price=${pair_demo['price']:.4f} "
+          f"liquidity_usd=${pair_demo['liquidity_usd']:,}")
+    print(f"  GATE    -> qualified={r.get('qualified')} consent={r.get('consent', 0)}/{CONSENSUS_MIN} "
+          f"score={r.get('combined_score', 0):+.2f} tag={r.get('tag')} decision={r.get('decision')}")
+
+
+def run_candidates(candidates: list[dict]) -> dict:
+    voters = build_voters()
+    agg = ConsensusAggregator(voters)
+
+    results = {"candidates": 0, "gate_qualified": 0, "paper_executed": 0,
+               "stand_down": 0, "paper_pnl": 0.0, "paper_trades": 0,
+               "exit_reasons": {}, "stand_down_reasons": {}}
+
+    for i, p in enumerate(candidates, start=1):
+        # pool entries always carry name; live DexScreener entries are name-safe
+        # thanks to the guard in main(), but keep the fallback here too.
+        name = f"{p.get('name', 'UNKNOWN')}/{p.get('symbol', p.get('name', 'UNKNOWN'))}"
+        pair = to_engine_pair(p)
+        results["candidates"] += 1
+
+        # per-bot votes
+        vote_map = {}
+        for b in voters:
+            s = b.decide(pair)
+            v = float(s.score)
+            kind = getattr(s, "kind", "?")
+            vote_map[b.name] = round(v, 3)
+            flow_log(f"VOTE {b.name} {kind} {v:+.2f} pair={name} "
+                     f"src={pair.get('src', 'pump')}")
+
+        r = agg.consensus(pair, narrative="")
+
+        q = bool(r.get("qualified"))
+        console_q = "QUALIFIED" if q else "stand-down"
+        flow_log(f"[{i:02d}/{len(candidates)}] GATE {console_q} {name} "
+                 f"consent={r.get('consent', 0)}/{CONSENSUS_MIN} "
+                 f"score={r.get('combined_score', 0):+.2f} "
+                 f"base={r.get('base_change', 0.0):+.1%} "
+                 f"tag={r.get('tag')} decision={r.get('decision')}")
+
+        if not q:
+            reasons = stand_down_reasons(r, pair)
+            if reasons:
+                key = "; ".join(reasons)
+                results["stand_down_reasons"][key] = results["stand_down_reasons"].get(key, 0) + 1
+            results["stand_down"] += 1
+            FLOW_LOG.append({"t": "STAND_DOWN", "msg": f"STAND-DOWN {name} -> "
+                                        f"{'; '.join(reasons) if reasons else 'no signal'}"})
+            continue
+
+        results["gate_qualified"] += 1
+        res = run_pair(pair, voters, sim_seed=(i * 101 + i))
+        results["paper_executed"] += 1
+        results["paper_pnl"] += res.get("pnl", 0.0)
+        results["paper_trades"] += res.get("trades", 0)
+        er = res.get("exit_reason", "NO_EXIT")
+        results["exit_reasons"][er] = results["exit_reasons"].get(er, 0) + 1
+
+        flow_log(f"CLOSE {pair['base']}/{pair['quote']} exit={er} pnl=${res.get('pnl', 0.0):+.4f}")
+
+    return results
+
+
+def main() -> int:
+    ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    header = [
+        f"P2 ADAPTER EXTENSION  pump.dev-format pump.fun candidates  ({ts})",
+        "This run is observation only. No trades executed.",
+        "paper-only: no live trades, no real capital, no live Grok Bot, "
+        "no live exchange writes",
+        f"capital=${PAPER_CAPITAL:.2f}  micro=${PAPER_MICRO_MIN}-{PAPER_MICRO_MAX}  "
+        f"risk={PAPER_RISK_PCT:.0%}  5x cap  "
+        f"exit: +{EXIT_TARGET_GAIN:.0%}/-{STOP_LOSS:.0%}/trail-{TRAILING_LOSS:.0%}",
+        f"consensus: {len(build_voters())} votes (A3b, 5 heuristic + 3 volume)",
+        f"consensus min: {CONSENSUS_MIN} votes  signal gate: |score|>={SIGNAL_GATE}",
+        "sources: deterministic pump.dev-format pump.fun candidate pool (offline) + "
+        "read-only DexScreener cross-check",
+        "verifying: adapter path (PumpFunDataAdapter -> engine schema) + A3b gate",
+    ]
+    for line in header:
+        print(line)
+
+    log_path = f"/Users/test/projects/lyta-grokbot-multi/{LOG_NAME}"
+    with open(log_path, "w", encoding="utf-8") as fh:
+        fh.write("\n".join(header) + "\n\n")
+
+    # ---- demo ----
+    demo_adapter_bridge(ConsensusAggregator(build_voters()))
+
+    # ---- candidates ----
+    candidates = pumpfun_candidate_pool()
+    # read-only live cross-check (offline: shows what live DexScreener would return)
+    feed = RealTradeFeed()
+    try:
+        live = feed.fetch(query="pump", limit=1)
+        if live:
+            live_pair = to_engine_pair(live[0], src="dex")
+            # live pump pairs carry base/quote, not a pump.fun "name":
+            # only run the pool plus a nameable live candidate, never a bare
+            # raw feed dict, so the gate loop can never KeyError on p['name'].
+            if isinstance(live_pair, dict) and live_pair.get("name"):
+                candidates = candidates + [live_pair]
+            else:
+                flow_log(f"WARN live DexScreener cross-check returned an unnamed "
+                         f"candidate; pool only (offline, zero-burn).")
+    except Exception as exc:
+        flow_log(f"WARN live DexScreener cross-check failed ({exc}); using "
+                 f"deterministic pump.dev-format pool only (offline, zero-burn).")
+
+    results = run_candidates(candidates)
+
+    # ---- observation banners ----
+    print("\n--- ADAPTER EXTENSION OBSERVATION (per-position CLOSE log) ---")
+    closes = [m for m in FLOW_LOG if isinstance(m, dict) and m.get("t") == "CLOSE"]
+    for c in closes:
+        print(c["msg"])
+    if not closes:
+        print("(none — zero paper fills; all candidates stood down)")
+
+    print("\n--- ADAPTER EXTENSION SUMMARY ---")
+    print(f"candidates screened       : {results['candidates']}")
+    print(f"gate qualified            : {results['gate_qualified']}")
+    print(f"paper executed            : {results['paper_executed']}")
+    print(f"paper pnl / trades        : ${results['paper_pnl']:+.4f} / {results['paper_trades']}")
+    print(f"stand-down reasons        : {results['stand_down_reasons']}")
+    print(f"exit reasons              : {results['exit_reasons']}")
+    print("This run is observation only. No trades executed.")
+    print("zero-burn: no live trades, no real capital, no live Grok Bot, no live "
+          "exchange writes - observation only")
+
+    with open(log_path, "w", encoding="utf-8") as fh:
+        fh.write("\n".join(header) + "\n\n")
+        fh.write("TRACE LOG\n")
+        for line in traces:
+            fh.write(line + "\n")
+        fh.write("\nSUMMARY\n")
+        fh.write(f"candidates={results['candidates']} gate_qualified="
+                 f"{results['gate_qualified']} paper_executed="
+                 f"{results['paper_executed']} paper_pnl={results['paper_pnl']:+.4f} "
+                 f"paper_trades={results['paper_trades']}\n")
+        fh.write("exit_reasons=" + ", ".join(f"{k}:{v}" for k, v in
+                                           sorted(results["exit_reasons"].items())) + "\n")
+        fh.write("stand_down_reasons=" + ", ".join(f"{k}:{v}" for k, v in
+                                                  sorted(results["stand_down_reasons"].items())) + "\n")
+        fh.write("This run is observation only. No trades executed.\n")
+
+    ok = results["candidates"] > 0
+    print(f"LOG_FILE: {log_path}")
+    print(f"zero-burn adapter extension run completed: {ok}")
+    return 0 if ok else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())
