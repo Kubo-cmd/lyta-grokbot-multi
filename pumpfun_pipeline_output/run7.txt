@@ -1,0 +1,35 @@
+[PIPELINE] live poll loop: rounds=6, interval=1.5s, limit=33
+[STAND]  pumpfun|DEVFEES standby << fee-resilience thin (setting-change run) ; high_fee_new ; thin ; thin_volume
+[STAND]  pumpfun|Zhaki  standby << green_spot ; thin ; thin_volume
+[STAND]  pumpswap|CM    standby << green_spot ; high_fee_new ; thin ; thin_volume
+[STAND]  pumpfun|CM     standby << fee-resilience thin (setting-change run) ; thin ; thin_volume
+[STAND]  pumpswap|MAYA  standby << hidden_liquidity ; pump_and_dump / wash_grind signature ; rug ; thin ; thin_volume
+[STAND]  pumpfun|MAYA   standby << fee-resilience thin (setting-change run) ; pump_and_dump / wash_grind signature ; rug ; thin ; thin_volume
+[STAND]  pumpfun|cashcat standby << fee-resilience thin (setting-change run) ; high_fee_new ; thin ; thin_volume
+[STAND]  pumpfun|Lemon  standby << fee-resilience thin (setting-change run) ; high_fee_new ; thin ; thin_volume
+[STAND]  pumpswap|CI    standby << fee-resilience thin (setting-change run) ; hidden_liquidity ; thin ; thin_volume
+[STAND]  pumpfun|CI     standby << fee-resilience thin (setting-change run) ; pump_and_dump / wash_grind signature ; rug ; thin ; thin_volume
+[STAND]  pumpswap|MoonBoy standby << active_volume ; fee-resilience thin (setting-change run) ; hidden_liquidity ; hype_proxy ; thin
+[STAND]  meteora|MoonBoy standby << fee-resilience thin (setting-change run) ; hidden_liquidity ; high_fee_new ; thin ; thin_volume
+[STAND]  raydium|MoonBoy standby << fee-resilience thin (setting-change run) ; high_fee_new ; pump_and_dump / wash_grind signature ; rug ; thin ; thin_volume
+[STAND]  meteora|       standby << fee-resilience thin (setting-change run) ; high_fee_new ; pump_and_dump / wash_grind signature ; rug ; thin ; thin_volume
+[STAND]  pumpfun|MoonBoy standby << fee-resilience thin (setting-change run) ; pump_and_dump / wash_grind signature ; rug ; thin ; thin_volume
+[STAND]  uniswap|MOIRA  standby << fee-resilience thin (setting-change run) ; thin ; thin_volume
+[STAND]  ramses|MOIRA   standby << fee-resilience thin (setting-change run) ; high_fee_new ; pump_and_dump / wash_grind signature ; rug ; thin ; thin_volume
+[STAND]  uniswap|Prodigy standby << fee-resilience thin (setting-change run) ; high_fee_new ; rug ; thin ; thin_volume
+[STAND]  pumpfun|TILLY  standby << fee-resilience thin (setting-change run) ; high_fee_new ; thin ; thin_volume
+[STAND]  pumpswap|FoMo  standby << fee-resilience thin (setting-change run) ; high_fee_new ; thin ; thin_volume
+[STAND]  pumpfun|FoMo   standby << fee-resilience thin (setting-change run) ; thin ; thin_volume
+[STAND]  pumpswap|ZERO  standby << hidden_liquidity ; pump_and_dump / wash_grind signature ; rug ; thin ; thin_volume
+[STAND]  pumpfun|ZERO   standby << fee-resilience thin (setting-change run) ; pump_and_dump / wash_grind signature ; rug ; thin ; thin_volume
+[STAND]  pumpfun|SNIBBU standby << fee-resilience thin (setting-change run) ; thin ; thin_volume
+[STAND]  pumpfun|DEGENMAS standby << fee-resilience thin (setting-change run) ; high_fee_new ; thin ; thin_volume
+[STAND]  pumpswap|WINTER standby << fee-resilience thin (setting-change run) ; thin ; thin_volume
+[STAND]  pumpfun|WINTER standby << fee-resilience thin (setting-change run) ; pump_and_dump / wash_grind signature ; rug ; thin ; thin_volume
+[STAND]  uniswap|DAILY  standby << green_spot ; thin_volume
+[PIPELINE] round 72: no new candidates (live data or fallback seeds only)
+[PIPELINE] round 73: no new candidates (live data or fallback seeds only)
+[PIPELINE] round 74: no new candidates (live data or fallback seeds only)
+[PIPELINE] round 75: no new candidates (live data or fallback seeds only)
+[PIPELINE] round 76: no new candidates (live data or fallback seeds only)
+[VERIFY] live state written -> pumpfun_pipeline_output/state.json

@@ -1,0 +1,80 @@
+# ──────────────────────────────────────────────────────────────
+# FIXED BEHAVIOR (how an entry MUST look, verbatim):
+#   Rebuild the 12-bot paper desk TASK for the Grok Bot.
+#   Paste this whole block into the Grok Bot app's Agent Builder as
+#   the "Task Prompt" for a new 12-bot round, then run the local paper
+#   environment:  python3 /path/to/lyta-grok-desk/paper_run.py
+#
+#   This prompt reproduces the reverse-engineering method the video
+#   "I Reverse Engineered 3 Polymarket Bots That Made $4.3M" used on
+#   PUBLIC trade data, applied to pump.fun memecoins.  It is paper-only:
+#   NO trades are executed by these prompts.  They only score, label
+#   and stand the desk down.
+# ──────────────────────────────────────────────────────────────
+
+TASK TITLE
+  pumpfun_bot_reverse_engineer (paper-only, zero-burn)
+
+INSTRUCTIONS (verbatim text the bots receive)
+
+  1. FETCH
+     Pull the live Solana candidate pool from the local simulator's
+     DexScreener adapter:  pumpfun_desk_simulator.DexScreenerDataAdapter
+     (chain=solana, limit=12).  If the network is offline, use the
+     deterministic seed pool inside that same module.  Log the source
+     and the N candidates at the top of every round.
+
+  2. RUN THE BOT-X-RAY ON EVERY CANDIDATE.  For each token emit a JSON
+     record {asset, dexId, pairAddress, price_usd, buys_5m, sells_5m,
+     change_5m, change_1h, change_6h, volume_h24, market_cap, score,
+     signature, luck, still_works, opinion} where:
+
+     A. WHAT DOES IT DO?  (signature)
+        - fills_share   = buys_5m / (buys_5m + sells_5m)
+        - momentum_ramp = change_5m / |change_1h|
+        - dilution_risk = |change_1h| / volume_h24  (pct)
+        - vmc           = volume_h24 / market_cap
+        - mode = SNIPER-TRANCHE if ramp>40 and fills_share>0.62;
+                 PUMP-AND-DUMP if ramp>25 and fills_share<0.45;
+                 KINETIC-HOLD if ramp>12 and fills_share>0.5;
+                 WASH-GRIND if ramp<8 and vmc<1;
+                 MIXED otherwise.
+
+     B. SKILL OR LUCK?  (luck)
+        - buyer_share  vs a fair-coin baseline 0.50
+        - sniper_suction_index = (buys_5m - sells_5m) / volume_h24 * 100
+        - momentum_fatigue = change_6h - change_5m
+        - verdict = SKILL-THIN if buyer_share>0.66 and suction>0.005
+                   SKILL-PARTIAL if buyer_share>0.60
+                   LUCK-STICKY  if suction>0.01
+                   LUCK-FAIR  otherwise
+
+     C. STILL WORKS AFTER THE SETTING CHANGE?  (still_works)
+        Paper-only sensitivity: fee=1%, slippage=0.3%, wash_estimate=10%.
+        overhead = fee + slippage + wash*(buys/(buys+sells))
+        margin   = (fills_share - 0.50)*100 - overhead*100
+        survives = margin > 1.0  -> STILL-WORKS else STOP-SHORT
+
+  3. OUTPUT (VERBOSE, per candidate)
+     Print the header, a table row, then a per-candidate block with the
+     signature, luck verdict, still-works verdict and the STAND DOWN
+     opinion.  Always end with a stand-down notice if nothing qualified.
+
+  4. STAND DOWN RULES
+     + PUMP-AND-DUMP or WASH-GRIND mode      -> stand down, label lot
+     + margin <= 1.0pp                      -> stand down, label lot
+     + no live trades executed anywhere
+     + every verdict must be backed by real data printed above
+
+  5. REPORT
+     Then run the local paper runner.  The runner aggregates votes,
+     prints the 12-bot tally and outputs a JSON results file under
+     /path/to/lyta-grok-desk/output/.  Show the top-3 candidates that
+     survive the stand-down rules, with their 3-question verdict.
+
+VERIFICATION
+  - This run is observation only.  No trades executed.
+  - The local simulator prints pumpfun_desk_simulator.py and
+    lyta-grok-desk/trading_desk.py; the trading desk never executes a
+    position.  The paper runner prints a STAND DOWN line on every empty
+    round so a consumed signal cannot hide.

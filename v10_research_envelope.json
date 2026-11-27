@@ -1,0 +1,237 @@
+{
+  "executed_n": 8,
+  "stand_down_n": 232,
+  "executed": {
+    "change24h": {
+      "mean": 6.405,
+      "std": 0.433,
+      "min": 6.0,
+      "max": 6.81
+    },
+    "score": {
+      "mean": 74.0,
+      "std": 7.4833,
+      "min": 67.0,
+      "max": 81.0
+    },
+    "rug_risk": {
+      "mean": 0.212,
+      "std": 0.0032,
+      "min": 0.209,
+      "max": 0.215
+    },
+    "liquidity": {
+      "mean": 0.7235,
+      "std": 0.0358,
+      "min": 0.69,
+      "max": 0.757
+    },
+    "volume": {
+      "mean": 0.802,
+      "std": 0.7462,
+      "min": 0.104,
+      "max": 1.5
+    },
+    "signal": {
+      "mean": 0.665,
+      "std": 0.0246,
+      "min": 0.642,
+      "max": 0.688
+    },
+    "trend_strength": {
+      "mean": 0.0135,
+      "std": 0.0091,
+      "min": 0.005,
+      "max": 0.022
+    },
+    "buy_votes": {
+      "mean": 8.0,
+      "std": 0.0,
+      "min": 8.0,
+      "max": 8.0
+    },
+    "sell_votes": {
+      "mean": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    },
+    "pass_votes": {
+      "mean": 3.5,
+      "std": 0.5345,
+      "min": 3.0,
+      "max": 4.0
+    },
+    "stand_down_votes": {
+      "mean": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    },
+    "combined_score": {
+      "mean": 0.667,
+      "std": 0.0,
+      "min": 0.667,
+      "max": 0.667
+    },
+    "base_change": {
+      "mean": 0.015,
+      "std": 0.0,
+      "min": 0.015,
+      "max": 0.015
+    },
+    "pnl_pct": {
+      "mean": 1.435,
+      "std": 0.0053,
+      "min": 1.43,
+      "max": 1.44
+    },
+    "consent": {
+      "mean": 8.0,
+      "std": 0.0,
+      "min": 8.0,
+      "max": 8.0
+    }
+  },
+  "stand_down": {
+    "change24h": {
+      "mean": 0.3747,
+      "std": 7.6933,
+      "min": -11.3,
+      "max": 12.7
+    },
+    "score": {
+      "mean": 71.0043,
+      "std": 12.3012,
+      "min": 50.0,
+      "max": 90.0
+    },
+    "rug_risk": {
+      "mean": 0.3461,
+      "std": 0.2709,
+      "min": 0.02,
+      "max": 0.85
+    },
+    "liquidity": {
+      "mean": 0.5993,
+      "std": 0.1939,
+      "min": 0.05,
+      "max": 1.0
+    },
+    "volume": {
+      "mean": 0.2967,
+      "std": 0.1938,
+      "min": 0.05,
+      "max": 0.83
+    },
+    "signal": {
+      "mean": 0.3329,
+      "std": 0.2234,
+      "min": -0.118,
+      "max": 0.694
+    },
+    "trend_strength": {
+      "mean": 0.0234,
+      "std": 0.0137,
+      "min": -0.0,
+      "max": 0.051
+    },
+    "buy_votes": {
+      "mean": 2.7371,
+      "std": 1.8481,
+      "min": 0.0,
+      "max": 7.0
+    },
+    "sell_votes": {
+      "mean": 2.8534,
+      "std": 2.8046,
+      "min": 0.0,
+      "max": 9.0
+    },
+    "pass_votes": {
+      "mean": 5.6983,
+      "std": 2.3456,
+      "min": 1.0,
+      "max": 10.0
+    },
+    "stand_down_votes": {
+      "mean": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    },
+    "combined_score": {
+      "mean": -0.0097,
+      "std": 0.3359,
+      "min": -0.75,
+      "max": 0.583
+    },
+    "base_change": {
+      "mean": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    },
+    "pnl_pct": {
+      "mean": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    },
+    "consent": {
+      "mean": 2.7371,
+      "std": 1.8481,
+      "min": 0.0,
+      "max": 7.0
+    }
+  },
+  "delta_exec_minus_sd": {
+    "change24h": 6.0303,
+    "score": 2.9957,
+    "rug_risk": -0.1341,
+    "liquidity": 0.1242,
+    "volume": 0.5053,
+    "signal": 0.3321,
+    "trend_strength": -0.0099,
+    "buy_votes": 5.2629,
+    "sell_votes": -2.8534,
+    "pass_votes": -2.1983,
+    "stand_down_votes": 0.0,
+    "combined_score": 0.6767,
+    "base_change": 0.015,
+    "pnl_pct": 1.435,
+    "consent": 5.2629
+  },
+  "executed_token_pairs": [
+    "LONG"
+  ],
+  "executed_gate_pattern": [
+    [
+      "8",
+      "0",
+      "3",
+      "0"
+    ],
+    [
+      "8",
+      "0",
+      "4",
+      "0"
+    ]
+  ],
+  "session_notes": [
+    {
+      "session": "20261127",
+      "fix": "paper_run.py gate key corrected: gate.get('qualified') instead of gate.get('gate_passed')",
+      "results": {
+        "live_8min_stand_downs": 429,
+        "live_8min_consent": 0,
+        "v10_executed": 8,
+        "v10_stand_downs": 232,
+        "v10_executed_pnl": "+1.43/+1.44",
+        "v10_consent": "8/8"
+      },
+      "artifact": "v10_research_envelope.json"
+    }
+  ]
+}

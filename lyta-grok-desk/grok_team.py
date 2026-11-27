@@ -55,10 +55,11 @@ TEAM_NAME = "LYTA-Grok-Bot-Team"
 TEAM_BOTS = 6            # reference team size (Lauren Tan's crew): 6 bots
 TEAM_AGENTS = 200        # reference fleet: 200+ agents
 
-# Minimal paper envelope (SOL). Matches the paper-only rules of the shared
-# gate module and the TRENCHER/AI paper-lens guardrails already in the desk.
-PAPER_MIN_SIZE = 0.20      # paper min size (SOL) -- micro sizing
-PAPER_MAX_SIZE = 0.85      # paper max size (SOL)
+# Paper envelope (paper-only SOL bounds). Single source of truth for the
+# gate; the lint rules in _LINT_RULES reference these so the desk fails
+# fast without duplication. 0.20 SOL floor / 0.85 SOL ceiling (micro size).
+PAPER_MIN_SIZE = 0.20
+PAPER_MAX_SIZE = 0.85
 PAPER_MAX_H1_PUMP = 100.0  # max +100% one-hour pump cap
 PAPER_MIN_LIQUIDITY = 50_000  # liquidity floor USD at entry
 PAPER_STOP_LOSS_PCT = 0.35

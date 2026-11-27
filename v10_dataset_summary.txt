@@ -1,0 +1,8 @@
+=== v10 paper trader tuning — multi-seed dataset (4 seeds x 60 rounds) ===
+seed 42: rounds=60 entered=2 pnl=[1.43, 1.44] consent_mean=2.97
+seed 43: rounds=60 entered=2 pnl=[1.43, 1.44] consent_mean=2.95
+seed 44: rounds=60 entered=2 pnl=[1.43, 1.44] consent_mean=2.85
+seed 45: rounds=60 entered=2 pnl=[1.43, 1.44] consent_mean=2.88
+AGG (all seeds): total rounds=240
+  executed trades=8 all LONG | pnl% mean=+1.44 range=+1.43..+1.44
+  consent_mean per seed: [2.966666666666667, 2.95, 2.85, 2.8833333333333333] | mean=2.91

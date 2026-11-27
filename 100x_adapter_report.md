@@ -111,15 +111,15 @@ for adapter_class in sim.AdapterRegistry.get_all():
 - [x] Full 100x coverage test passes
 
 ### Phase 2 — Add 90+ real adapters
-|| Source | Chain | Adapter |
-||---|---|---|
-|| Circuit papertrade API (real key) | multiple | `SpotDataAdapter` |
-|| DexScreener | Solana | `DexScreenerDataAdapter` |
-|| GeckoTerminal | Solana | `GeckoTerminalDataAdapter` |
-|| Birdeye | multiple | `BirdeyeDataAdapter` |
-|| GeckoTerminal | Ethereum | `GeckoTerminalDataAdapter` (eth chain) |
-|| DexScreener | Ethereum | `DexScreenerDataAdapter` (eth chain) |
-|| DexScreener | BNB | `DexScreenerDataAdapter` (bsc chain) |
+| Source | Chain | Adapter |
+|---|---|---|
+| Circuit papertrade API (real key) | multiple | `SpotDataAdapter` |
+| DexScreener | Solana | `DexScreenerDataAdapter` |
+| GeckoTerminal | Solana | `GeckoTerminalDataAdapter` |
+| Birdeye | multiple | `BirdeyeDataAdapter` |
+| GeckoTerminal | Ethereum | `GeckoTerminalDataAdapter` (eth chain) |
+| DexScreener | Ethereum | `DexScreenerDataAdapter` (eth chain) |
+| DexScreener | BNB | `DexScreenerDataAdapter` (bsc chain) |
 
 Add these to the registry registration block in the main block.
 

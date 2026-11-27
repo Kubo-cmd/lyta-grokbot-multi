@@ -611,6 +611,6 @@ if __name__ == "__main__":
         else:
             try:
                 steps = int(arg)
-            except:
+            except ValueError:
                 pass
     run_autonomous_grok_bots(steps)

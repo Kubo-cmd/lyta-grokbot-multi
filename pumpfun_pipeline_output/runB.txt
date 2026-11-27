@@ -1,0 +1,254 @@
+FILTER-SENSITIVITY PROBE (observation only, zero-burn): 60 deterministic pump.dev-format candidates (offline)
+
+== V0  baseline engine (frozen evidence) ==  CONSENSUS_MIN=8, SIGNAL_GATE=0.35
+   candidates screened : 60   gate_qualified : 0   stand-down: 60
+     stand-down  ApeCoin        consent=7/8 score=+0.258 tag=hidden_liquidity
+     stand-down  Aurora         consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Cobalt         consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Lumen          consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Vex            consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Etherion       consent=7/8 score=+0.242 tag=hidden_liquidity
+     stand-down  Zenith         consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Ovation        consent=7/8 score=+0.278 tag=hidden_liquidity
+     stand-down  Ely            consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  FoxCore        consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Nexus          consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  RugPull        consent=2/8 score=+0.025 tag=hidden_liquidity
+     stand-down  Reposter       consent=2/8 score=+0.025 tag=hidden_liquidity
+     stand-down  Gutter         consent=2/8 score=+0.025 tag=hidden_liquidity
+     stand-down  Paste          consent=2/8 score=+0.025 tag=hidden_liquidity
+     stand-down  Nightmare      consent=2/8 score=+0.025 tag=hidden_liquidity
+     stand-down  JetFuel        consent=2/8 score=+0.013 tag=hidden_liquidity
+     stand-down  DryPowder      consent=2/8 score=+0.080 tag=hidden_liquidity
+     stand-down  DustCoin       consent=1/8 score=+0.008 tag=
+     stand-down  Hydroponics    consent=2/8 score=+0.075 tag=hidden_liquidity
+     stand-down  ChipCoin       consent=2/8 score=+0.065 tag=hidden_liquidity
+     stand-down  DustCoin       consent=1/8 score=+0.008 tag=
+     stand-down  Chemist        consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Rusty          consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Nova           consent=7/8 score=+0.388 tag=hidden_liquidity
+     stand-down  Vega           consent=7/8 score=+0.388 tag=hidden_liquidity
+     stand-down  Kinetix        consent=7/8 score=+0.378 tag=hidden_liquidity
+     stand-down  Obfus          consent=7/8 score=+0.215 tag=hidden_liquidity
+     stand-down  Phobe          consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Qwip           consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Rex            consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Syscoin        consent=7/8 score=+0.388 tag=hidden_liquidity
+     stand-down  Yorda          consent=7/8 score=+0.237 tag=hidden_liquidity
+     stand-down  Zep            consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Storm          consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Alchem         consent=7/8 score=+0.270 tag=hidden_liquidity
+     stand-down  Birch          consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Nimbus         consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Elara          consent=7/8 score=+0.347 tag=hidden_liquidity
+     stand-down  Fathom         consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Cascade        consent=7/8 score=+0.282 tag=hidden_liquidity
+     stand-down  Dune           consent=7/8 score=+0.273 tag=hidden_liquidity
+     stand-down  Flux           consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Helios         consent=7/8 score=+0.292 tag=hidden_liquidity
+     stand-down  Iridium        consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Argent         consent=7/8 score=+0.292 tag=hidden_liquidity
+     stand-down  Borax          consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Cols           consent=7/8 score=+0.233 tag=hidden_liquidity
+     stand-down  Dray           consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Envy           consent=7/8 score=+0.258 tag=hidden_liquidity
+     stand-down  Fable          consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Glint          consent=7/8 score=+0.312 tag=hidden_liquidity
+     stand-down  Halcyon        consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Ink            consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Jolt           consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Koda           consent=7/8 score=+0.242 tag=hidden_liquidity
+     stand-down  Lenz           consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Mire           consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Nyle           consent=7/8 score=+0.268 tag=hidden_liquidity
+     stand-down  Obsidian       consent=2/8 score=+0.081 tag=hidden_liquidity
+
+== V1  loose floor ==  CONSENSUS_MIN=7, SIGNAL_GATE=0.25
+   candidates screened : 60   gate_qualified : 15   stand-down: 45
+     stand-down  Aurora         consent=3/7 score=+0.138 tag=hidden_liquidity
+     stand-down  Cobalt         consent=3/7 score=+0.138 tag=hidden_liquidity
+     stand-down  Lumen          consent=3/7 score=+0.138 tag=hidden_liquidity
+     stand-down  Vex            consent=3/7 score=+0.138 tag=hidden_liquidity
+     stand-down  Etherion       consent=7/7 score=+0.242 tag=hidden_liquidity
+     stand-down  Zenith         consent=3/7 score=+0.138 tag=hidden_liquidity
+     stand-down  Ely            consent=3/7 score=+0.138 tag=hidden_liquidity
+     stand-down  FoxCore        consent=3/7 score=+0.138 tag=hidden_liquidity
+     stand-down  Nexus          consent=3/7 score=+0.138 tag=hidden_liquidity
+     stand-down  RugPull        consent=2/7 score=+0.025 tag=hidden_liquidity
+     stand-down  Reposter       consent=2/7 score=+0.025 tag=hidden_liquidity
+     stand-down  Gutter         consent=2/7 score=+0.025 tag=hidden_liquidity
+     stand-down  Paste          consent=2/7 score=+0.025 tag=hidden_liquidity
+     stand-down  Nightmare      consent=2/7 score=+0.025 tag=hidden_liquidity
+     stand-down  JetFuel        consent=2/7 score=+0.013 tag=hidden_liquidity
+     stand-down  DryPowder      consent=2/7 score=+0.080 tag=hidden_liquidity
+     stand-down  DustCoin       consent=1/7 score=+0.008 tag=
+     stand-down  Hydroponics    consent=2/7 score=+0.075 tag=hidden_liquidity
+     stand-down  ChipCoin       consent=2/7 score=+0.065 tag=hidden_liquidity
+     stand-down  DustCoin       consent=1/7 score=+0.008 tag=
+     stand-down  Chemist        consent=2/7 score=+0.081 tag=hidden_liquidity
+     stand-down  Rusty          consent=2/7 score=+0.081 tag=hidden_liquidity
+     stand-down  Obfus          consent=7/7 score=+0.215 tag=hidden_liquidity
+     stand-down  Phobe          consent=2/7 score=+0.081 tag=hidden_liquidity
+     stand-down  Qwip           consent=2/7 score=+0.081 tag=hidden_liquidity
+     stand-down  Rex            consent=2/7 score=+0.081 tag=hidden_liquidity
+     stand-down  Yorda          consent=7/7 score=+0.237 tag=hidden_liquidity
+     stand-down  Zep            consent=3/7 score=+0.138 tag=hidden_liquidity
+     stand-down  Storm          consent=2/7 score=+0.081 tag=hidden_liquidity
+     stand-down  Birch          consent=3/7 score=+0.138 tag=hidden_liquidity
+     stand-down  Nimbus         consent=2/7 score=+0.081 tag=hidden_liquidity
+     stand-down  Fathom         consent=2/7 score=+0.081 tag=hidden_liquidity
+     stand-down  Flux           consent=2/7 score=+0.081 tag=hidden_liquidity
+     stand-down  Iridium        consent=2/7 score=+0.081 tag=hidden_liquidity
+     stand-down  Borax          consent=2/7 score=+0.081 tag=hidden_liquidity
+     stand-down  Cols           consent=7/7 score=+0.233 tag=hidden_liquidity
+     stand-down  Dray           consent=2/7 score=+0.081 tag=hidden_liquidity
+     stand-down  Fable          consent=3/7 score=+0.138 tag=hidden_liquidity
+     stand-down  Halcyon        consent=2/7 score=+0.081 tag=hidden_liquidity
+     stand-down  Ink            consent=3/7 score=+0.138 tag=hidden_liquidity
+     stand-down  Jolt           consent=2/7 score=+0.081 tag=hidden_liquidity
+     stand-down  Koda           consent=7/7 score=+0.242 tag=hidden_liquidity
+     stand-down  Lenz           consent=3/7 score=+0.138 tag=hidden_liquidity
+     stand-down  Mire           consent=2/7 score=+0.081 tag=hidden_liquidity
+     stand-down  Obsidian       consent=2/7 score=+0.081 tag=hidden_liquidity
+     >>> qualified ApeCoin        consent=7/7 score=+0.258 tag=hidden_liquidity
+     >>> qualified Ovation        consent=7/7 score=+0.278 tag=hidden_liquidity
+     >>> qualified Nova           consent=7/7 score=+0.388 tag=hidden_liquidity
+     >>> qualified Vega           consent=7/7 score=+0.388 tag=hidden_liquidity
+     >>> qualified Kinetix        consent=7/7 score=+0.378 tag=hidden_liquidity
+     >>> qualified Syscoin        consent=7/7 score=+0.388 tag=hidden_liquidity
+     >>> qualified Alchem         consent=7/7 score=+0.270 tag=hidden_liquidity
+     >>> qualified Elara          consent=7/7 score=+0.347 tag=hidden_liquidity
+     >>> qualified Cascade        consent=7/7 score=+0.282 tag=hidden_liquidity
+     >>> qualified Dune           consent=7/7 score=+0.273 tag=hidden_liquidity
+     >>> qualified Helios         consent=7/7 score=+0.292 tag=hidden_liquidity
+     >>> qualified Argent         consent=7/7 score=+0.292 tag=hidden_liquidity
+     >>> qualified Envy           consent=7/7 score=+0.258 tag=hidden_liquidity
+     >>> qualified Glint          consent=7/7 score=+0.312 tag=hidden_liquidity
+     >>> qualified Nyle           consent=7/7 score=+0.268 tag=hidden_liquidity
+
+== V2  looser floor ==  CONSENSUS_MIN=6, SIGNAL_GATE=0.2
+   candidates screened : 60   gate_qualified : 20   stand-down: 40
+     stand-down  Aurora         consent=3/6 score=+0.138 tag=hidden_liquidity
+     stand-down  Cobalt         consent=3/6 score=+0.138 tag=hidden_liquidity
+     stand-down  Lumen          consent=3/6 score=+0.138 tag=hidden_liquidity
+     stand-down  Vex            consent=3/6 score=+0.138 tag=hidden_liquidity
+     stand-down  Zenith         consent=3/6 score=+0.138 tag=hidden_liquidity
+     stand-down  Ely            consent=3/6 score=+0.138 tag=hidden_liquidity
+     stand-down  FoxCore        consent=3/6 score=+0.138 tag=hidden_liquidity
+     stand-down  Nexus          consent=3/6 score=+0.138 tag=hidden_liquidity
+     stand-down  RugPull        consent=2/6 score=+0.025 tag=hidden_liquidity
+     stand-down  Reposter       consent=2/6 score=+0.025 tag=hidden_liquidity
+     stand-down  Gutter         consent=2/6 score=+0.025 tag=hidden_liquidity
+     stand-down  Paste          consent=2/6 score=+0.025 tag=hidden_liquidity
+     stand-down  Nightmare      consent=2/6 score=+0.025 tag=hidden_liquidity
+     stand-down  JetFuel        consent=2/6 score=+0.013 tag=hidden_liquidity
+     stand-down  DryPowder      consent=2/6 score=+0.080 tag=hidden_liquidity
+     stand-down  DustCoin       consent=1/6 score=+0.008 tag=
+     stand-down  Hydroponics    consent=2/6 score=+0.075 tag=hidden_liquidity
+     stand-down  ChipCoin       consent=2/6 score=+0.065 tag=hidden_liquidity
+     stand-down  DustCoin       consent=1/6 score=+0.008 tag=
+     stand-down  Chemist        consent=2/6 score=+0.081 tag=hidden_liquidity
+     stand-down  Rusty          consent=2/6 score=+0.081 tag=hidden_liquidity
+     stand-down  Phobe          consent=2/6 score=+0.081 tag=hidden_liquidity
+     stand-down  Qwip           consent=2/6 score=+0.081 tag=hidden_liquidity
+     stand-down  Rex            consent=2/6 score=+0.081 tag=hidden_liquidity
+     stand-down  Zep            consent=3/6 score=+0.138 tag=hidden_liquidity
+     stand-down  Storm          consent=2/6 score=+0.081 tag=hidden_liquidity
+     stand-down  Birch          consent=3/6 score=+0.138 tag=hidden_liquidity
+     stand-down  Nimbus         consent=2/6 score=+0.081 tag=hidden_liquidity
+     stand-down  Fathom         consent=2/6 score=+0.081 tag=hidden_liquidity
+     stand-down  Flux           consent=2/6 score=+0.081 tag=hidden_liquidity
+     stand-down  Iridium        consent=2/6 score=+0.081 tag=hidden_liquidity
+     stand-down  Borax          consent=2/6 score=+0.081 tag=hidden_liquidity
+     stand-down  Dray           consent=2/6 score=+0.081 tag=hidden_liquidity
+     stand-down  Fable          consent=3/6 score=+0.138 tag=hidden_liquidity
+     stand-down  Halcyon        consent=2/6 score=+0.081 tag=hidden_liquidity
+     stand-down  Ink            consent=3/6 score=+0.138 tag=hidden_liquidity
+     stand-down  Jolt           consent=2/6 score=+0.081 tag=hidden_liquidity
+     stand-down  Lenz           consent=3/6 score=+0.138 tag=hidden_liquidity
+     stand-down  Mire           consent=2/6 score=+0.081 tag=hidden_liquidity
+     stand-down  Obsidian       consent=2/6 score=+0.081 tag=hidden_liquidity
+     >>> qualified ApeCoin        consent=7/6 score=+0.258 tag=hidden_liquidity
+     >>> qualified Etherion       consent=7/6 score=+0.242 tag=hidden_liquidity
+     >>> qualified Ovation        consent=7/6 score=+0.278 tag=hidden_liquidity
+     >>> qualified Nova           consent=7/6 score=+0.388 tag=hidden_liquidity
+     >>> qualified Vega           consent=7/6 score=+0.388 tag=hidden_liquidity
+     >>> qualified Kinetix        consent=7/6 score=+0.378 tag=hidden_liquidity
+     >>> qualified Obfus          consent=7/6 score=+0.215 tag=hidden_liquidity
+     >>> qualified Syscoin        consent=7/6 score=+0.388 tag=hidden_liquidity
+     >>> qualified Yorda          consent=7/6 score=+0.237 tag=hidden_liquidity
+     >>> qualified Alchem         consent=7/6 score=+0.270 tag=hidden_liquidity
+     >>> qualified Elara          consent=7/6 score=+0.347 tag=hidden_liquidity
+     >>> qualified Cascade        consent=7/6 score=+0.282 tag=hidden_liquidity
+     >>> qualified Dune           consent=7/6 score=+0.273 tag=hidden_liquidity
+     >>> qualified Helios         consent=7/6 score=+0.292 tag=hidden_liquidity
+     >>> qualified Argent         consent=7/6 score=+0.292 tag=hidden_liquidity
+     >>> qualified Cols           consent=7/6 score=+0.233 tag=hidden_liquidity
+     >>> qualified Envy           consent=7/6 score=+0.258 tag=hidden_liquidity
+     >>> qualified Glint          consent=7/6 score=+0.312 tag=hidden_liquidity
+     >>> qualified Koda           consent=7/6 score=+0.242 tag=hidden_liquidity
+     >>> qualified Nyle           consent=7/6 score=+0.268 tag=hidden_liquidity
+
+== V3  tight gate ==  CONSENSUS_MIN=8, SIGNAL_GATE=0.5
+   candidates screened : 60   gate_qualified : 0   stand-down: 60
+     stand-down  ApeCoin        consent=7/8 score=+0.258 tag=hidden_liquidity
+     stand-down  Aurora         consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Cobalt         consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Lumen          consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Vex            consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Etherion       consent=7/8 score=+0.242 tag=hidden_liquidity
+     stand-down  Zenith         consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Ovation        consent=7/8 score=+0.278 tag=hidden_liquidity
+     stand-down  Ely            consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  FoxCore        consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Nexus          consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  RugPull        consent=2/8 score=+0.025 tag=hidden_liquidity
+     stand-down  Reposter       consent=2/8 score=+0.025 tag=hidden_liquidity
+     stand-down  Gutter         consent=2/8 score=+0.025 tag=hidden_liquidity
+     stand-down  Paste          consent=2/8 score=+0.025 tag=hidden_liquidity
+     stand-down  Nightmare      consent=2/8 score=+0.025 tag=hidden_liquidity
+     stand-down  JetFuel        consent=2/8 score=+0.013 tag=hidden_liquidity
+     stand-down  DryPowder      consent=2/8 score=+0.080 tag=hidden_liquidity
+     stand-down  DustCoin       consent=1/8 score=+0.008 tag=
+     stand-down  Hydroponics    consent=2/8 score=+0.075 tag=hidden_liquidity
+     stand-down  ChipCoin       consent=2/8 score=+0.065 tag=hidden_liquidity
+     stand-down  DustCoin       consent=1/8 score=+0.008 tag=
+     stand-down  Chemist        consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Rusty          consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Nova           consent=7/8 score=+0.388 tag=hidden_liquidity
+     stand-down  Vega           consent=7/8 score=+0.388 tag=hidden_liquidity
+     stand-down  Kinetix        consent=7/8 score=+0.378 tag=hidden_liquidity
+     stand-down  Obfus          consent=7/8 score=+0.215 tag=hidden_liquidity
+     stand-down  Phobe          consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Qwip           consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Rex            consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Syscoin        consent=7/8 score=+0.388 tag=hidden_liquidity
+     stand-down  Yorda          consent=7/8 score=+0.237 tag=hidden_liquidity
+     stand-down  Zep            consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Storm          consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Alchem         consent=7/8 score=+0.270 tag=hidden_liquidity
+     stand-down  Birch          consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Nimbus         consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Elara          consent=7/8 score=+0.347 tag=hidden_liquidity
+     stand-down  Fathom         consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Cascade        consent=7/8 score=+0.282 tag=hidden_liquidity
+     stand-down  Dune           consent=7/8 score=+0.273 tag=hidden_liquidity
+     stand-down  Flux           consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Helios         consent=7/8 score=+0.292 tag=hidden_liquidity
+     stand-down  Iridium        consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Argent         consent=7/8 score=+0.292 tag=hidden_liquidity
+     stand-down  Borax          consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Cols           consent=7/8 score=+0.233 tag=hidden_liquidity
+     stand-down  Dray           consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Envy           consent=7/8 score=+0.258 tag=hidden_liquidity
+     stand-down  Fable          consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Glint          consent=7/8 score=+0.312 tag=hidden_liquidity
+     stand-down  Halcyon        consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Ink            consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Jolt           consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Koda           consent=7/8 score=+0.242 tag=hidden_liquidity
+     stand-down  Lenz           consent=3/8 score=+0.138 tag=hidden_liquidity
+     stand-down  Mire           consent=2/8 score=+0.081 tag=hidden_liquidity
+     stand-down  Nyle           consent=7/8 score=+0.268 tag=hidden_liquidity
+     stand-down  Obsidian       consent=2/8 score=+0.081 tag=hidden_liquidity
+

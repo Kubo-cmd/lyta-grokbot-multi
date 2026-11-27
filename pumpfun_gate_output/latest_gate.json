@@ -1,0 +1,110 @@
+{
+  "tag": "paper_gate",
+  "date": "20261127T230212Z",
+  "reverse_engineer_input": "round_20261127T230212Z.json",
+  "surviving_candidates": [
+    {
+      "asset": "Maebashi",
+      "mode": "MIXED",
+      "consent": 1,
+      "combined_score": 0.0638,
+      "tag": "",
+      "decision": "standby",
+      "base_change": 0.0,
+      "stand_down_reasons": [
+        "green_spot",
+        "thin",
+        "thin_volume"
+      ],
+      "micro_budget_ok": false,
+      "source_round": "paper"
+    },
+    {
+      "asset": "Hyperball",
+      "mode": "MIXED",
+      "consent": 6,
+      "combined_score": 0.224,
+      "tag": "hidden_liquidity",
+      "decision": "standby",
+      "base_change": 0.0,
+      "stand_down_reasons": [
+        "active_volume",
+        "green_spot",
+        "hidden_liquidity",
+        "thin"
+      ],
+      "micro_budget_ok": false,
+      "source_round": "paper"
+    },
+    {
+      "asset": "SPEC",
+      "mode": "MIXED",
+      "consent": 1,
+      "combined_score": 0.0831,
+      "tag": "",
+      "decision": "standby",
+      "base_change": 0.0,
+      "stand_down_reasons": [
+        "green_spot",
+        "thin",
+        "thin_volume"
+      ],
+      "micro_budget_ok": false,
+      "source_round": "paper"
+    },
+    {
+      "asset": "Compute",
+      "mode": "MIXED",
+      "consent": 2,
+      "combined_score": 0.0727,
+      "tag": "",
+      "decision": "standby",
+      "base_change": 0.0,
+      "stand_down_reasons": [
+        "green_spot",
+        "high_fee_new",
+        "thin",
+        "thin_volume"
+      ],
+      "micro_budget_ok": false,
+      "source_round": "paper"
+    },
+    {
+      "asset": "Sol",
+      "mode": "MIXED",
+      "consent": 3,
+      "combined_score": 0.0661,
+      "tag": "hidden_liquidity",
+      "decision": "standby",
+      "base_change": 0.0,
+      "stand_down_reasons": [
+        "green_spot",
+        "hidden_liquidity",
+        "high_fee_new",
+        "thin",
+        "thin_volume"
+      ],
+      "micro_budget_ok": false,
+      "source_round": "paper"
+    }
+  ],
+  "zero_burn": "observation only, no trades executed",
+  "commitment": "advance on explicit ADVANCE; stand down on STAND DOWN",
+  "top_advance": {
+    "asset": "Hyperball",
+    "mode": "MIXED",
+    "consent": 6,
+    "combined_score": 0.224,
+    "tag": "hidden_liquidity",
+    "decision": "standby",
+    "base_change": 0.0,
+    "stand_down_reasons": [
+      "active_volume",
+      "green_spot",
+      "hidden_liquidity",
+      "thin"
+    ],
+    "micro_budget_ok": false,
+    "source_round": "paper"
+  }
+}

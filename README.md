@@ -21,8 +21,8 @@ A **12-agent spot trading desk** on **OpenBot** (local, localhost:5173), with Gr
 | Component | Platform | Role | Always-On? |
 |---|---|---|---|
 | **Grok Bot (Server)** | Managed cloud VM (xAI) | Task routing, coordination, persistent state | ✅ Yes — cloud stays up when laptop closes |
-| **OpenBot (Agents)** | Local desktop workspace (nightly-labs) | 14 trading agents — paper, signal, analyst, trader, risk, etc. | Runs on local machine |
-|| **Grok CLI** | Grok Bot | Token analysis pipeline | Paper-only |
+| **OpenBot (Agents)** | Local desktop workspace (nightly-labs) | 12-agent paper desk (scout through executor); workspace also registers paper + grok-bot | Runs on local machine |
+| **Grok CLI** | Grok Bot | Token analysis pipeline | Paper-only |
 
 ## Two ways in this repo
 
@@ -92,7 +92,7 @@ python3 pumpfun_phase2_paper_run.py
 
 | File | Role |
 |---|---|
-| `paper_trade_exec.py` | `GateAndTrade` aggregates `ConsensusAggregator` scores on real DEX spot pairs, then simulates paper fills through the paper-desk simulator. Entry 0.05 SOL (PO_BNavy), paper-desk exit config (PO_STOP_LOSS=0.82 trigger-only, PO_TRAIL_DD=0.15, PO_STALE=90, PO_DEAD=240). |
+| `paper_trade_exec.py` | `GateAndTrade` aggregates `ConsensusAggregator` scores on real DEX spot pairs, then simulates paper fills through the paper-desk simulator. Entry 0.05 SOL (`PO_BNavy` paper buy size), paper-desk exit config (PO_STOP_LOSS=0.82 trigger-only, PO_TRAIL_DD=0.15, PO_STALE=90, PO_DEAD=240). |
 
 ### What runs, and what does not
 
@@ -175,11 +175,11 @@ All trading agents enforce these paper-only guard gates:
 | `no_signing_or_order_execution` | `send_transaction`, `sign_transaction`, `place_order`, `execute_swap` |
 | `paper_label_present` | Requires `PAPER ONLY` + `SIMULATION` labels |
 | `shared_state_paper_flag` | Requires `paper_only: true` in state |
-|| `spec_simulation_only` | Spec declares `SIMULATION` + `paper_only: true` |
+| `spec_simulation_only` | Spec declares `SIMULATION` + `paper_only: true` |
 
 ### Trailing Exit Logic
 
-|| Setting | Value | Meaning |
+| Setting | Value | Meaning |
 |---|---|---|
 | `PO_TRAIL_DD` | 15% | Trailing drawdown threshold from peak |
 | Trail high | `peak_price` (running high) | Dynamic exit trigger |
@@ -190,7 +190,7 @@ Previously the logic used an always-true condition with a 2.5x multiplier, causi
 
 ### 12-Bot Consensus Architecture
 
-|| Bot group | Role |
+| Bot group | Role |
 |---|---|---|
 | SCOUT | Narrative/rug signal checker |
 | FILTER | Low-quality pump filter |

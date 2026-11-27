@@ -29,32 +29,28 @@ Paper Observer Parameters (active config v10):
 - Trading hours: 24/7
 - Session P&L limits: off
 
-# ── Tightened gate constants (paper-only frame) ──────────────────────────────
-# Mirrors the pumpfun desk config rules from the shared memo (Consensus 7/12
-# buy bar, liquidity floor >= $50k, -35% SL / +50% TP, max H1 pump 100%).
-# Written into the paper-only observer simulator as constraints, not signals:
-#   MIN_VOTES=7      buy bar = 7 of 12 paper bots must agree before entry
-#   MAX_H1_PUMP=100   max +100% one-hour pump (paper-only cap)
-#   MIN_LIQ=50000     liquidity floor in USD at entry
-#   STOP_LOSS_PCT=0.35   -35% trigger
-#   TAKE_PROFIT_PCT=0.50  +50% exit
-MIN_VOTES = 7
-MAX_H1_PUMP = 100
-MIN_LIQ = 50_000
-STOP_LOSS_PCT = 0.35
-TAKE_PROFIT_PCT = 0.50
+Tightened gate constants (paper-only frame; live values live in
+pumpfun_desk_simulator.py):
+- MIN_VOTES=7           buy bar = 7 of 12 paper bots must agree before entry
+- MAX_H1_PUMP=100       max +100% one-hour pump (paper-only cap)
+- MIN_LIQ=50000         liquidity floor in USD at entry
+- STOP_LOSS_PCT=0.35    -35% trigger
+- TAKE_PROFIT_PCT=0.50  +50% exit
 
-# ── Rules preserved from the 12-bot consensus (still documented, not the active
+Rules preserved from the 12-bot consensus (documented, not the active
 strategy):
 - 7/12 buy bar, liquidity floor ≥$50k, −35% SL / +50% TP, exit rules
   (rug spike, score collapse, 25% first-hour drop, time exit, contrarian).
 """
 
+import argparse
+import json
+import os
 import random
-import time
 import sys
+import time
 from dataclasses import dataclass, field
-from typing import Literal, Optional, Dict, Any
+from typing import Any, Dict, List, Literal, Optional, Tuple
 
 # ── Paper Observer config v3 (the "bet") ──────────────────────────────────────
 # All values below are DEFAULTS. They can be overridden via CLI flags or
@@ -63,12 +59,13 @@ from typing import Literal, Optional, Dict, Any
 # / etc. to activate them. This enables A/B testing: run the same
 # simulation with different perimeter combinations and compare results.
 
-import argparse
-import json
-import os
-import sys
-from dataclasses import dataclass, field
-from typing import Optional, Dict, Any, List, Tuple
+# Tightened paper-only gates (must stay module-level; tests/test_tightened_gates.py locks these).
+MIN_VOTES = 7
+MAX_H1_PUMP = 100
+MIN_LIQ = 50_000
+STOP_LOSS_PCT = 0.35
+TAKE_PROFIT_PCT = 0.50
+
 
 def load_config(config_path: Optional[str] = None) -> Dict[str, Any]:
     """Load configuration from JSON file or use defaults.
@@ -78,7 +75,7 @@ def load_config(config_path: Optional[str] = None) -> Dict[str, Any]:
         # Paper Observer (config v10) defaults
         # Tuned based on 80-iter regression: v3 caused all-stale-exit losses (-0.0284 SOL)
         # Key fixes: tighter stop-loss, better trailing, tighter exits, shorter stale/dead
-        "PO_BNavy": 0.05,
+        "PO_BNavy": 0.05,  # paper buy size in SOL (name kept for config compatibility)
         "PO_FEE_BREAK_EVEN": 1.06,
         "PO_ENTRY_MIN": 10,
         "PO_ENTRY_MAX": 72,
@@ -115,12 +112,9 @@ def load_config(config_path: Optional[str] = None) -> Dict[str, Any]:
         "PO_PROTOCOL_FEE": 0.01,
         # Flat transaction cost per leg (SOL)
         "PO_FLAT_FEE_PER_LEG": 0.001015,
-        # Entry slippage tolerance (max, not guaranteed)
-        "PO_SLIPPAGE_ENTRY": 0.15,
-        # Exit slippage tolerance (max, not guaranteed)
-        "PO_SLIPPAGE_EXIT": 0.05,
+        # Entry/exit slippage already set above (PO_SLIPPAGE_ENTRY / PO_SLIPPAGE_EXIT)
     }
-    # Load from JSON file if provided file if provided
+    # Load from JSON file if provided
     if config_path and os.path.exists(config_path):
         with open(config_path, 'r') as f:
             file_config = json.load(f)
@@ -136,7 +130,7 @@ PO_MAX_POS_PCT = 0.25
 PO_LIQ_DIST_WATCH = False
 PO_TWO_VISIT_CONFIRM = False
 PO_STAGGERED_EXITS = False
-PO_BNavy = 0.05
+PO_BNavy = 0.05  # paper buy size in SOL
 PO_FEE_BREAK_EVEN = 1.06
 PO_ENTRY_MIN = 10
 PO_ENTRY_MAX = 72
@@ -361,7 +355,7 @@ def sync_config_to_module_vars(new_config: dict) -> None:
     # Update the module-level config dict with new values, keeping all keys
     config.clear()
     config.update({
-        "PO_BNavy": 0.05,
+        "PO_BNavy": 0.05,  # paper buy size in SOL
         "PO_FEE_BREAK_EVEN": 1.06,
         "PO_ENTRY_MIN": 8,
         "PO_ENTRY_MAX": 70,

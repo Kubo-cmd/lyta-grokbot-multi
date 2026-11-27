@@ -1,0 +1,43 @@
+Paper Observer v3 — continuous screening mode (paper-only).
+No fixed cycle. No shorts. No live money.
+Press Ctrl+C to stop.
+
+
+[PERIMETERS] Opt-in v3.1 enabled: max-pos-pct=0.25,
+  liq-dist-watch=False, two-visit=False,
+  staggered-exits=False
+[A/B TEST] config_id=default (run with --ab-name <name> for comparison)
+
+======================================================================
+LYTA GROKBOT MULTI — PAPER OBSERVER v3 (the BET)
+Collateral: 6.00 SOL | Asset: GOBLIN | paper-only
+======================================================================
+
+[CONFIG] Config v3 active
+[CONFIG] Enabled perimeters: max-pos-pct=0.25, liq-dist-watch=False,
+         two-visit=False, staggered-exits=False
+[CONFIG] Buy size: 0.05 SOL | analyst-min: 10% | analyst-max: 72%
+[CONFIG] Risk: 5x max | 12-bot consensus | $2-6 paper capital
+[EVIDENCE] Evidence-floor guardrail: warning-only, below 20 = INSUFFICIENT_EVIDENCE
+
+[BUY] GOBLIN | price $41.1604 | progress 20.8%
+  Entry: 0.05 SOL | liquidity $1670 | analyst 0.60
+  P&L basis: full entry cash outflow = 0.0515 SOL (base + 1% protocol + 0.001015 flat)
+  [EXIT LOG] active — stop 0.1x, trail 2.5x/15%
+
+[INSUFFICIENT_EVIDENCE] completed_positions=0 (< 20 floor) | sell_legs=0 | realized_pnl=0.0000 SOL | config=v3 | below 20 is NOT proof of profitability
+
+[INSUFFICIENT_EVIDENCE] completed_positions=0 (< 20 floor) | sell_legs=0 | realized_pnl=0.0000 SOL | config=v3 | below 20 is NOT proof of profitability
+  [COMPLETED] position 1
+
+[EXIT] GOBLIN | reason: stale exit
+  entry $41.1604 | exit $40.4080 | fraction_sold=1.00
+  Gross: 0.0491 SOL | Net: 0.0476 SOL | PnL: -0.0039 SOL (-7.6%)
+  sell_legs=1 | completed=1 | realized_pnl=-0.0039 SOL
+
+[BE] Two-mode break-even (0.05 SOL):
+  Standard fee model: ≈ 1.06x (actual fills)
+  Worst-case tolerance: ≈ 1.31x (15% entry + 5% exit slippage)
+  P&L % denominator = full entry cash outflow (0.05152 SOL), not 0.05 SOL
+
+[INSUFFICIENT_EVIDENCE] completed_positions=1 (< 20 floor) | sell_legs=1 | realized_pnl=-0.0039 SOL | config=v3 | below 20 is NOT proof of profitability

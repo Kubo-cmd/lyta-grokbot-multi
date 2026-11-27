@@ -1,0 +1,66 @@
+==========================================================================
+  L Y T A   G R O K   T R A D I N G   D E S K
+  ROUTE C — paper-only calibrated execution (observation only)
+  No real trades, no wallet, no signing. All paper.
+==========================================================================
+  capital    $6.00  (paper)        micro-size 0.20–0.85  risk 3%  5× cap
+  consensus  8 votes (A3b)   entry gate |score|>=0.35
+  exits      +3% / -35% stop / -30% trailing / 30s stall / bc_drop
+--------------------------------------------------------------------------
+  Start 14:11:38   pools:  live DEX scan + calibrated simulated pool
+
+[POOL 1] LIVE DEX observation (read-only, zero-burn)
+--------------------------------------------------------------------------
+  [ 1] PUMP/WETH       stand-down
+  [ 2] PUMP/WETH       stand-down
+  [ 3] PUMP/WETH       stand-down
+  [ 4] PUMP/USDC       stand-down
+  [ 5] PUMP/SOL        stand-down
+  [ 6] PUMP/USDC       stand-down
+  [ 7] PUMP/SOL        stand-down
+  [ 8] PUMP/USDC       stand-down
+  [ 9] PUMP/WBNB       stand-down
+  [10] PUMP/USDC       stand-down
+  [11] PUMP/SOL        stand-down
+  [12] PUMP/SOL        stand-down
+  [13] PUMP/USDC       stand-down
+  [14] PUMP/USDC       stand-down
+  [15] PUMP/WBNB       stand-down
+  [16] PUMP/SOL        stand-down
+  [17] PUMP/WPLS       stand-down
+  [18] PUMP/WCRO       stand-down
+  [19] PUMP/SOL        stand-down
+  [20] PUMP/USDC       stand-down
+  [21] PUMP/SOL        stand-down
+  [22] PUMP/USDC       stand-down
+  [23] PUMP/USDT       stand-down
+  [24] PUMP/SOL        stand-down
+  [25] PUMP/USDC       stand-down
+  [26] PUMP/Sol        stand-down
+  [27] PUMP/PUMP       stand-down
+  [28] PUMP/USDC       stand-down
+  [29] PUMP/Sol        stand-down
+  [30] PUMP/USDC       stand-down
+  live: 30 scanned, 0 qualified, 0 simulated trades (0 won)
+
+[POOL 2] calibrated simulated pool (deterministic, zero-burn)
+--------------------------------------------------------------------------
+  [ 1] MOON/SOL        QUALIFIED → simulated position
+  [ 2] GOBLIN/SOL        QUALIFIED → simulated position
+  [ 3] FIVE/SOL        stand-down
+  [ 4] GOLD/SOL        stand-down
+  [ 5] TITAN/SOL        QUALIFIED → simulated position
+  [ 6] JADECLAW/SOL        QUALIFIED → simulated position
+  [ 7] NIGHT/SOL        QUALIFIED → simulated position
+  sim : 7 scanned, 5 qualified, 5 simulated trades (2 won)
+
+--------------------------------------------------------------------------
+  ROUTE C SUMMARY
+  live   : 30 scanned, 0 qualified, 0 trades, 0 won
+  sim    : 7 scanned, 5 qualified, 5 trades, 2 won
+  realized P&L : $-0.0676  | avg/trade $-0.0135
+  exit reasons : {'STALL': 3, 'TARGET_GAIN': 2}
+  win rate     : 40% (simulated pool)
+  (zero-burn: no real trades executed, no capital moved)
+
+  verbose log written: /Users/test/projects/lyta-grokbot-multi/ROUTE_C_20261127_141138.log

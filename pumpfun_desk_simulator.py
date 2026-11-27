@@ -626,7 +626,7 @@ class PumpFunDataAdapter:
         for c in raw:
             try:
                 out.append(cls.adapt({"candidate": c, **list_payload}))
-            except Exception:
+            except (TypeError, ValueError, AttributeError, OverflowError):
                 continue
         return out
 
@@ -1248,51 +1248,108 @@ class PaperAdapter(DataAdapter):
         )
 
 if __name__ == "__main__":
-    print("LYTA Pump.fun Grok Desk — 100x Adapter Coverage")
-    print("Source: pumpfun_desk_simulator.py | 12-bot consensus | Paper only")
-    print("Rule: 7/12 votes | <=100% 1h pump | $50k+ liq | -35% SL | +50% TP\n")
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description=(
+            "LYTA Pump.fun Grok Desk - local Phase-2 simulator. Paper-only default "
+            "(zero live-API burn): 12-bot consensus gate, tightened rules (7/12 votes, "
+            "+100% 1h pump cap, $50k+ liquidity floor, -35% stop, +50% take-profit). "
+            "Use --live to query real pump.fun / DexScreener / GeckoTerminal / Birdeye APIs."
+        )
+    )
+    parser.add_argument(
+        "--live",
+        action="store_true",
+        help="Query live APIs (pump.fun, DexScreener, GeckoTerminal, Birdeye). "
+             "Requires env vars: PUMPFUN_API_KEY, DEXSCREENER_API_KEY, "
+             "GECKO_TERMINAL_API_KEY, BIRDEYE_API_KEY.",
+    )
+    parser.add_argument(
+        "--cycles", type=int, default=20, help="Trading-loop cycles (paper default 20)."
+    )
+    parser.add_argument(
+        "--markets", type=int, default=8, help="Paper-only candidate markets (default 8)."
+    )
+    parser.add_argument(
+        "--quiet", action="store_true", help="Minimal output; no per-cycle tables."
+    )
+    args = parser.parse_args()
+
     random.seed(42)  # repeatable preview
 
-    # Register all real adapters (PUMPFUN + DEXSCREENU + GECKO + BIRDEYE)
-    from pumpfun_desk_simulator import PumpFunDataAdapter
-    from pumpfun_desk_simulator import DexScreenerDataAdapter
-    from pumpfun_desk_simulator import GeckoTerminalDataAdapter
-    from pumpfun_desk_simulator import BirdeyeDataAdapter
+    from pumpfun_desk_simulator import (
+        Market,
+        PaperAdapter,
+        AdapterRegistry,
+        STOP_LOSS_PCT,
+        TAKE_PROFIT_PCT,
+        is_bearish_bot,
+    )
 
-    # Register specialized adapters (7)
-    AdapterRegistry.register("pumpfun_live", PumpFunDataAdapter)
-    AdapterRegistry.register("dexscreener_sol", DexScreenerDataAdapter(chain="solana"))
-    AdapterRegistry.register("dexscreener_eth", DexScreenerDataAdapter(chain="ethereum"))
-    AdapterRegistry.register("dexscreener_bsc", DexScreenerDataAdapter(chain="bsc"))
-    AdapterRegistry.register("gecko_sol", GeckoTerminalDataAdapter)
-    AdapterRegistry.register("gecko_eth", GeckoTerminalDataAdapter)
-    AdapterRegistry.register("birdeye_sol", BirdeyeDataAdapter)
+    # ════════════════════════════════════════════════════════════════════
+    # DEFAULT: paper-only preview - offline, deterministic, instant.
+    # No network calls, no API keys, no build-out.
+    # ════════════════════════════════════════════════════════════════════
+    if not args.live:
+        for i in range(args.markets):
+            AdapterRegistry.register(f"pad_{i:03d}", PaperAdapter)
+        all_markets = [
+            m for factory in AdapterRegistry.get_all() for m in factory().fetch_candidates()
+        ]
+    else:
+        # ════════════════════════════════════════════════════════════════════
+        # LIVE PATH - real APIs. Refuses to run without the exact env keys.
+        # ════════════════════════════════════════════════════════════════════
+        required = {
+            "pumpfun_live": "PUMPFUN_API_KEY",
+            "dexscreener_sol": "DEXSCREENER_API_KEY",
+            "gecko_sol": "GECKO_TERMINAL_API_KEY",
+            "birdeye_sol": "BIRDEYE_API_KEY",
+        }
+        missing = [name for name, env in required.items() if not os.environ.get(env)]
+        if missing:
+            parser.error(
+                "LIVE mode requires API keys, missing: " + ", ".join(missing)
+            )
+        from pumpfun_desk_simulator import (
+            PumpFunDataAdapter,
+            DexScreenerDataAdapter,
+            GeckoTerminalDataAdapter,
+            BirdeyeDataAdapter,
+        )
 
-    # Register 96 clones (adapter_000 to adapter_095)
-    for i in range(96):
-        AdapterRegistry.register(f"adapter_{i:03d}", PumpFunDataAdapter)
+        AdapterRegistry.register("pumpfun_live", PumpFunDataAdapter)
+        AdapterRegistry.register("dexscreener_sol", DexScreenerDataAdapter, chain="solana")
+        AdapterRegistry.register("dexscreener_eth", DexScreenerDataAdapter, chain="ethereum")
+        AdapterRegistry.register("dexscreener_bsc", DexScreenerDataAdapter, chain="bsc")
+        AdapterRegistry.register("gecko_sol", GeckoTerminalDataAdapter)
+        AdapterRegistry.register("gecko_eth", GeckoTerminalDataAdapter)
+        AdapterRegistry.register("birdeye_sol", BirdeyeDataAdapter)
 
-    print(f"[100x] Registered {len(AdapterRegistry.list_names())} total adapters")
-    print(f"[100x] Specialized: pumpfun_live, dexscreener_sol/eth/bsc, gecko_sol/eth, birdeye_sol")
-    print(f"[100x] Clones: adapter_000 - adapter_095 (96 PaperAdapter instances)")
-    print()
+        # Register 96 clones (adapter_000 to adapter_095) - exact match to old path.
+        for i in range(96):
+            AdapterRegistry.register(f"adapter_{i:03d}", PumpFunDataAdapter)
 
-    # Collect all markets from all registered adapters
-    all_markets = []
-    for adapter_item in AdapterRegistry.get_all():
-        # factory functions (for classes) must be called; instances used directly
-        adapter = adapter_item() if callable(adapter_item) else adapter_item
-        try:
-            raw_list = adapter.fetch_candidates()
-            for c in raw_list:
-                all_markets.append(adapter.make_market(c))
-        except Exception as e:
-            print(f"[WARN] {adapter_item.__name__ if hasattr(adapter_item, '__name__') else type(adapter).__name__}: {e}")
+        all_markets = []
+        for adapter_item in AdapterRegistry.get_all():
+            adapter = adapter_item() if callable(adapter_item) else adapter_item
+            try:
+                raw_list = adapter.fetch_candidates()
+                for c in raw_list:
+                    all_markets.append(adapter.make_market(c))
+            except Exception as e:
+                name = (
+                    adapter_item.__name__
+                    if hasattr(adapter_item, "__name__")
+                    else type(adapter).__name__
+                )
+                print(f"[WARN] {name}: {e}")
 
-    print(f"[100x] Total candidate markets loaded: {len(all_markets)}")
-    print()
+    if args.quiet:
+        args.cycles = max(1, args.cycles)
 
-    # 12-bot consensus trading loop
+    # 12-bot consensus trading loop (unchanged logic, new fast/safe feed)
     BOT_NAMES = [
         "SCOUT", "FILTER", "ANALYST", "DEV_WATCH", "CONVICTION",
         "MOMENTUM", "SCALPER", "CONTRARIAN", "TREND", "RESEARCHER",
@@ -1403,7 +1460,8 @@ if __name__ == "__main__":
             return {"side": side, "conviction": min(1.0, conviction), "sizeMult": size_mult}
         return None
 
-    def check_exit(m: Market, entry_price: float, entry_analyst_100: float, hold_minutes: int, cycle_num: int) -> Optional[str]:
+    def check_exit(m: Market, entry_price: float, entry_analyst_100: float,
+                   hold_minutes: int, cycle_num: int) -> Optional[str]:
         current_score100 = m.analyst_score * 100
 
         # NEW: Stop loss -35%
@@ -1437,10 +1495,10 @@ if __name__ == "__main__":
         return None
 
     print("=== 100x Full Trading Loop (12-bot consensus) ===")
-    for cycle in range(20):  # 20 cycles for longer simulation
+    cycles = args.cycles if args.quiet else args.cycles
+    for cycle in range(cycles):
         print(f"\n--- Cycle {cycle + 1} ---")
         for m in all_markets[:5]:
-            # Run each bot
             votes = []
             for bot in BOT_NAMES:
                 result = decide_action(bot, m)
@@ -1450,17 +1508,18 @@ if __name__ == "__main__":
             consensus = sum(1 for _, side, _ in votes if side == "long")
             total = len(votes)
 
-            # Exit check
             entry_price = m.price
             entry_analyst = m.analyst_score * 100
             exit_reason = check_exit(m, entry_price, entry_analyst, cycle * 15 + 15, cycle)
 
-            print(f"  {m.asset[:14] if hasattr(m, 'asset') else 'N/A':<14} | "
-                  f"score={m.analyst_score:.2f} | "
-                  f"liq={m.liquidity:,.0f} | "
-                  f"pump={m.is_pump} | "
-                  f"robots={consensus}/{total} | "
-                  f"exit={exit_reason if exit_reason else 'None'}")
+            if not args.quiet:
+                print(f"  {m.asset[:14]:<14} | "
+                      f"score={m.analyst_score:.2f} | "
+                      f"liq={m.liquidity:,.0f} | "
+                      f"pump={m.is_pump} | "
+                      f"robots={consensus}/{total} | "
+                      f"exit={exit_reason if exit_reason else 'None'}")
 
     print()
     print("Done: 100x adapter coverage complete")
+

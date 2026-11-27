@@ -1,0 +1,5498 @@
+{
+  "rounds": [
+    {
+      "round": "pumpfun_pipeline_round_0",
+      "as_of": "20261127T225857Z",
+      "candidate": {
+        "asset": "BABYCATE",
+        "chain": "solana",
+        "dexId": "pumpfun",
+        "pairAddress": "DFMr3QfdBYkMGm4Fte1D4gH9r88DimHbsnFdk8J6gbux",
+        "price_usd": 1.516e-05,
+        "buys_5m": 912,
+        "sells_5m": 709,
+        "change_5m": 7.47,
+        "change_1h": 111,
+        "change_6h": 111,
+        "change_24h": 111,
+        "volume_h24": 71037.17,
+        "market_cap": 15162.69,
+        "fdv": 15162.69,
+        "pair_created_at": 1795819939000,
+        "url": "https://dexscreener.com/solana/dfmr3qfdbykmgm4fte1d4gh9r88dimhbsnfdk8j6gbux",
+        "score": 0.4903103624542177,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1458900.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 675600.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "buy",
+            "score": 1.0,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 2.1594
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "vol24": 1458900.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1458900.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1458900.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1458900.0
+            }
+          }
+        ],
+        "consent": 2,
+        "combined_score": 0.0625,
+        "tag": "hidden_liquidity",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 1.11,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1458900.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 675600.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "buy",
+            "score": 1.0,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 2.1594
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "vol24": 1458900.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1458900.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1458900.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1458900.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_0",
+        "price_usd": 1.516e-05,
+        "score_usd": 0.4903103624542177,
+        "vol24_usd": 71037.17,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "fee-resilience thin (setting-change run)",
+          "hidden_liquidity",
+          "high_fee_new",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_1",
+      "as_of": "20261127T225857Z",
+      "candidate": {
+        "asset": "Compute",
+        "chain": "solana",
+        "dexId": "pumpfun",
+        "pairAddress": "548TUnrxRodQHAxiDsZskA2G7hxXM3AZyjhXc443pLrD",
+        "price_usd": 1.189e-05,
+        "buys_5m": 352,
+        "sells_5m": 208,
+        "change_5m": -24.92,
+        "change_1h": 67.12,
+        "change_6h": 67.12,
+        "change_24h": 67.12,
+        "volume_h24": 39385.47,
+        "market_cap": 11899.65,
+        "fdv": 11899.65,
+        "pair_created_at": 1795819959000,
+        "url": "https://dexscreener.com/solana/548tunrxrodqhaxidszska2g7hxxm3azyjhxc443plrd",
+        "score": 0.3419549402764513,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 504000.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 754800.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "buy",
+            "score": 0.0013,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.6677
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "buy",
+            "score": 0.9,
+            "tag": "green_spot",
+            "evidence": {
+              "narrative": "green"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 504000.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 504000.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 504000.0
+            }
+          }
+        ],
+        "consent": 3,
+        "combined_score": 0.0563,
+        "tag": "hidden_liquidity",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 0.6712,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 504000.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 754800.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "buy",
+            "score": 0.0013,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.6677
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "buy",
+            "score": 0.9,
+            "tag": "green_spot",
+            "evidence": {
+              "narrative": "green"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 504000.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 504000.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 504000.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_1",
+        "price_usd": 1.189e-05,
+        "score_usd": 0.3419549402764513,
+        "vol24_usd": 39385.47,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "green_spot",
+          "hidden_liquidity",
+          "high_fee_new",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_2",
+      "as_of": "20261127T225857Z",
+      "candidate": {
+        "asset": "Sol",
+        "chain": "solana",
+        "dexId": "pumpswap",
+        "pairAddress": "FAW4krf9c8MVjZp87ftKBo7J8M8WL1Hsd71DiTRWEjri",
+        "price_usd": 0.0001219,
+        "buys_5m": 466,
+        "sells_5m": 266,
+        "change_5m": -11.66,
+        "change_1h": 76.39,
+        "change_6h": 76.39,
+        "change_24h": 76.39,
+        "volume_h24": 1278746.63,
+        "market_cap": 121979,
+        "fdv": 121979,
+        "pair_created_at": 1795817049000,
+        "url": "https://dexscreener.com/solana/faw4krf9c8mvjzp87ftkbo7j8m8wl1hsd71ditrwejri",
+        "score": 0.3855809507035829,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 658800.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 764400.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "buy",
+            "score": 0.2342,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.8619
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "buy",
+            "score": 0.9,
+            "tag": "green_spot",
+            "evidence": {
+              "narrative": "green"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 658800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 658800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 658800.0
+            }
+          }
+        ],
+        "consent": 3,
+        "combined_score": 0.0709,
+        "tag": "hidden_liquidity",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 0.7639,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 658800.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 764400.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "buy",
+            "score": 0.2342,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.8619
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "buy",
+            "score": 0.9,
+            "tag": "green_spot",
+            "evidence": {
+              "narrative": "green"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 658800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 658800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 658800.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_2",
+        "price_usd": 0.0001219,
+        "score_usd": 0.3855809507035829,
+        "vol24_usd": 1278746.63,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "green_spot",
+          "hidden_liquidity",
+          "high_fee_new",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_3",
+      "as_of": "20261127T225857Z",
+      "candidate": {
+        "asset": "Sol",
+        "chain": "solana",
+        "dexId": "meteora",
+        "pairAddress": "CnDKj7y8aQDy2VWDnATjAWNBK5nv96SNUEH5NWrsxNk3",
+        "price_usd": 0.0001231,
+        "buys_5m": 1,
+        "sells_5m": 12,
+        "change_5m": -21.92,
+        "change_1h": 46641,
+        "change_6h": 46641,
+        "change_24h": 46641,
+        "volume_h24": 14522.17,
+        "market_cap": 120802,
+        "fdv": 120802,
+        "pair_created_at": 1795817515000,
+        "url": "https://dexscreener.com/solana/cndkj7y8aqdy2vwdnatjawnbk5nv96snueh5nwrsxnk3",
+        "score": 0.98,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 11700.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 200000
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "age_min": 46662.92
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7298,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.0585
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 11700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 11700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 11700.0
+            }
+          }
+        ],
+        "consent": 0,
+        "combined_score": -0.2037,
+        "tag": "",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 466.41,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 11700.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 200000
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "age_min": 46662.92
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7298,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.0585
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 11700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 11700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 11700.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_3",
+        "price_usd": 0.0001231,
+        "score_usd": 0.98,
+        "vol24_usd": 14522.17,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "fee-resilience thin (setting-change run)",
+          "pump_and_dump / wash_grind signature",
+          "rug",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_4",
+      "as_of": "20261127T225857Z",
+      "candidate": {
+        "asset": "",
+        "chain": "solana",
+        "dexId": "meteora",
+        "pairAddress": "AF6X3bYDgnhrpx8i89YPwwkgsVrbpso133b32WxRMqQ8",
+        "price_usd": 0.000119,
+        "buys_5m": 17,
+        "sells_5m": 25,
+        "change_5m": 1.3,
+        "change_1h": -51.64,
+        "change_6h": -51.64,
+        "change_24h": -51.64,
+        "volume_h24": 2319.75,
+        "market_cap": 0,
+        "fdv": 0,
+        "pair_created_at": 1795817949000,
+        "url": "https://dexscreener.com/solana/af6x3bydgnhrpx8i89ypwwkgsvrbpso133b32wxrmqq8",
+        "score": 0.22872135036103028,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 37800.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 486000.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7067,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.0778
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 37800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 37800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 37800.0
+            }
+          }
+        ],
+        "consent": 1,
+        "combined_score": -0.2008,
+        "tag": "",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": -0.5164,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 37800.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 486000.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7067,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.0778
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 37800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 37800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 37800.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_4",
+        "price_usd": 0.000119,
+        "score_usd": 0.22872135036103028,
+        "vol24_usd": 2319.75,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "fee-resilience thin (setting-change run)",
+          "high_fee_new",
+          "pump_and_dump / wash_grind signature",
+          "rug",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_5",
+      "as_of": "20261127T225857Z",
+      "candidate": {
+        "asset": "Sol",
+        "chain": "solana",
+        "dexId": "pumpfun",
+        "pairAddress": "9h3R763ZvQEcMxGkKEvNCqosYJCQU3efRFUsf7S3pZg4",
+        "price_usd": 5.878e-05,
+        "buys_5m": 0,
+        "sells_5m": 0,
+        "change_5m": 0.0,
+        "change_1h": 45.4,
+        "change_6h": 940,
+        "change_24h": 940,
+        "volume_h24": 106099.32,
+        "market_cap": 58783.27,
+        "fdv": 58783.27,
+        "pair_created_at": 1795815508000,
+        "url": "https://dexscreener.com/solana/9h3r763zvqecmxgkkevncqosyjcqu3efrfusf7s3pzg4",
+        "score": 0.36810008817490497,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 600000.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "age_min": 940.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7964,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.003
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          }
+        ],
+        "consent": 0,
+        "combined_score": -0.0995,
+        "tag": "",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 9.4,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 600000.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "age_min": 940.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7964,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.003
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_5",
+        "price_usd": 5.878e-05,
+        "score_usd": 0.36810008817490497,
+        "vol24_usd": 106099.32,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "fee-resilience thin (setting-change run)",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_6",
+      "as_of": "20261127T225857Z",
+      "candidate": {
+        "asset": "DRIFT",
+        "chain": "solana",
+        "dexId": "pumpfun",
+        "pairAddress": "EmNr3eR3DNLnqJD1zHhRZ71HifQVw1Gn9f1pnosBxobs",
+        "price_usd": 2.33e-06,
+        "buys_5m": 212,
+        "sells_5m": 448,
+        "change_5m": -87.98,
+        "change_1h": -39.48,
+        "change_6h": -39.48,
+        "change_24h": -39.48,
+        "volume_h24": 54405.04,
+        "market_cap": 2330.07,
+        "fdv": 2330.07,
+        "pair_created_at": 1795819258000,
+        "url": "https://dexscreener.com/solana/emnr3er3dnlnqjd1zhhrz71hifqvw1gn9f1pnosbxobs",
+        "score": 0.022388682617480414,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 594000.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 385200.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "buy",
+            "score": 1.0,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 1.5421
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 594000.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 594000.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 594000.0
+            }
+          }
+        ],
+        "consent": 2,
+        "combined_score": 0.0062,
+        "tag": "hidden_liquidity",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": -0.3948,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 594000.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 385200.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "buy",
+            "score": 1.0,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 1.5421
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 594000.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 594000.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 594000.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_6",
+        "price_usd": 2.33e-06,
+        "score_usd": 0.022388682617480414,
+        "vol24_usd": 54405.04,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "fee-resilience thin (setting-change run)",
+          "hidden_liquidity",
+          "high_fee_new",
+          "rug",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_7",
+      "as_of": "20261127T230238Z",
+      "candidate": {
+        "asset": "BABYCATE",
+        "chain": "solana",
+        "dexId": "pumpfun",
+        "pairAddress": "DFMr3QfdBYkMGm4Fte1D4gH9r88DimHbsnFdk8J6gbux",
+        "price_usd": 1.516e-05,
+        "buys_5m": 912,
+        "sells_5m": 709,
+        "change_5m": 7.47,
+        "change_1h": 111,
+        "change_6h": 111,
+        "change_24h": 111,
+        "volume_h24": 71037.17,
+        "market_cap": 15162.69,
+        "fdv": 15162.69,
+        "pair_created_at": 1795819939000,
+        "url": "https://dexscreener.com/solana/dfmr3qfdbykmgm4fte1d4gh9r88dimhbsnfdk8j6gbux",
+        "score": 0.4903103624542177,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1458900.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 675600.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "buy",
+            "score": 1.0,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 2.1594
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "vol24": 1458900.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1458900.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1458900.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1458900.0
+            }
+          }
+        ],
+        "consent": 2,
+        "combined_score": 0.0625,
+        "tag": "hidden_liquidity",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 1.11,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1458900.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 675600.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "buy",
+            "score": 1.0,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 2.1594
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "vol24": 1458900.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1458900.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1458900.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1458900.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_7",
+        "price_usd": 1.516e-05,
+        "score_usd": 0.4903103624542177,
+        "vol24_usd": 71037.17,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "fee-resilience thin (setting-change run)",
+          "hidden_liquidity",
+          "high_fee_new",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_8",
+      "as_of": "20261127T230238Z",
+      "candidate": {
+        "asset": "Compute",
+        "chain": "solana",
+        "dexId": "pumpfun",
+        "pairAddress": "548TUnrxRodQHAxiDsZskA2G7hxXM3AZyjhXc443pLrD",
+        "price_usd": 1.189e-05,
+        "buys_5m": 352,
+        "sells_5m": 208,
+        "change_5m": -24.92,
+        "change_1h": 67.12,
+        "change_6h": 67.12,
+        "change_24h": 67.12,
+        "volume_h24": 39385.47,
+        "market_cap": 11899.65,
+        "fdv": 11899.65,
+        "pair_created_at": 1795819959000,
+        "url": "https://dexscreener.com/solana/548tunrxrodqhaxidszska2g7hxxm3azyjhxc443plrd",
+        "score": 0.3419549402764513,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 504000.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 754800.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "buy",
+            "score": 0.0013,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.6677
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "buy",
+            "score": 0.9,
+            "tag": "green_spot",
+            "evidence": {
+              "narrative": "green"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 504000.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 504000.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 504000.0
+            }
+          }
+        ],
+        "consent": 3,
+        "combined_score": 0.0563,
+        "tag": "hidden_liquidity",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 0.6712,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 504000.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 754800.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "buy",
+            "score": 0.0013,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.6677
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "buy",
+            "score": 0.9,
+            "tag": "green_spot",
+            "evidence": {
+              "narrative": "green"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 504000.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 504000.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 504000.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_8",
+        "price_usd": 1.189e-05,
+        "score_usd": 0.3419549402764513,
+        "vol24_usd": 39385.47,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "green_spot",
+          "hidden_liquidity",
+          "high_fee_new",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_9",
+      "as_of": "20261127T230238Z",
+      "candidate": {
+        "asset": "Sol",
+        "chain": "solana",
+        "dexId": "pumpswap",
+        "pairAddress": "FAW4krf9c8MVjZp87ftKBo7J8M8WL1Hsd71DiTRWEjri",
+        "price_usd": 0.0001219,
+        "buys_5m": 466,
+        "sells_5m": 266,
+        "change_5m": -11.66,
+        "change_1h": 76.39,
+        "change_6h": 76.39,
+        "change_24h": 76.39,
+        "volume_h24": 1278746.63,
+        "market_cap": 121979,
+        "fdv": 121979,
+        "pair_created_at": 1795817049000,
+        "url": "https://dexscreener.com/solana/faw4krf9c8mvjzp87ftkbo7j8m8wl1hsd71ditrwejri",
+        "score": 0.3855809507035829,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 658800.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 764400.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "buy",
+            "score": 0.2342,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.8619
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "buy",
+            "score": 0.9,
+            "tag": "green_spot",
+            "evidence": {
+              "narrative": "green"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 658800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 658800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 658800.0
+            }
+          }
+        ],
+        "consent": 3,
+        "combined_score": 0.0709,
+        "tag": "hidden_liquidity",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 0.7639,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 658800.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 764400.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "buy",
+            "score": 0.2342,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.8619
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "buy",
+            "score": 0.9,
+            "tag": "green_spot",
+            "evidence": {
+              "narrative": "green"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 658800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 658800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 658800.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_9",
+        "price_usd": 0.0001219,
+        "score_usd": 0.3855809507035829,
+        "vol24_usd": 1278746.63,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "green_spot",
+          "hidden_liquidity",
+          "high_fee_new",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_10",
+      "as_of": "20261127T230239Z",
+      "candidate": {
+        "asset": "Sol",
+        "chain": "solana",
+        "dexId": "meteora",
+        "pairAddress": "CnDKj7y8aQDy2VWDnATjAWNBK5nv96SNUEH5NWrsxNk3",
+        "price_usd": 0.0001231,
+        "buys_5m": 1,
+        "sells_5m": 12,
+        "change_5m": -21.92,
+        "change_1h": 46641,
+        "change_6h": 46641,
+        "change_24h": 46641,
+        "volume_h24": 14522.17,
+        "market_cap": 120802,
+        "fdv": 120802,
+        "pair_created_at": 1795817515000,
+        "url": "https://dexscreener.com/solana/cndkj7y8aqdy2vwdnatjawnbk5nv96snueh5nwrsxnk3",
+        "score": 0.98,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 11700.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 200000
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "age_min": 46662.92
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7298,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.0585
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 11700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 11700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 11700.0
+            }
+          }
+        ],
+        "consent": 0,
+        "combined_score": -0.2037,
+        "tag": "",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 466.41,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 11700.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 200000
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "age_min": 46662.92
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7298,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.0585
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 11700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 11700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 11700.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_10",
+        "price_usd": 0.0001231,
+        "score_usd": 0.98,
+        "vol24_usd": 14522.17,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "fee-resilience thin (setting-change run)",
+          "pump_and_dump / wash_grind signature",
+          "rug",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_11",
+      "as_of": "20261127T230239Z",
+      "candidate": {
+        "asset": "",
+        "chain": "solana",
+        "dexId": "meteora",
+        "pairAddress": "AF6X3bYDgnhrpx8i89YPwwkgsVrbpso133b32WxRMqQ8",
+        "price_usd": 0.000119,
+        "buys_5m": 17,
+        "sells_5m": 25,
+        "change_5m": 1.3,
+        "change_1h": -51.64,
+        "change_6h": -51.64,
+        "change_24h": -51.64,
+        "volume_h24": 2319.75,
+        "market_cap": 0,
+        "fdv": 0,
+        "pair_created_at": 1795817949000,
+        "url": "https://dexscreener.com/solana/af6x3bydgnhrpx8i89ypwwkgsvrbpso133b32wxrmqq8",
+        "score": 0.22872135036103028,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 37800.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 486000.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7067,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.0778
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 37800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 37800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 37800.0
+            }
+          }
+        ],
+        "consent": 1,
+        "combined_score": -0.2008,
+        "tag": "",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": -0.5164,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 37800.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 486000.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7067,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.0778
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 37800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 37800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 37800.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_11",
+        "price_usd": 0.000119,
+        "score_usd": 0.22872135036103028,
+        "vol24_usd": 2319.75,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "fee-resilience thin (setting-change run)",
+          "high_fee_new",
+          "pump_and_dump / wash_grind signature",
+          "rug",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_12",
+      "as_of": "20261127T230239Z",
+      "candidate": {
+        "asset": "Sol",
+        "chain": "solana",
+        "dexId": "pumpfun",
+        "pairAddress": "9h3R763ZvQEcMxGkKEvNCqosYJCQU3efRFUsf7S3pZg4",
+        "price_usd": 5.878e-05,
+        "buys_5m": 0,
+        "sells_5m": 0,
+        "change_5m": 0.0,
+        "change_1h": 45.4,
+        "change_6h": 940,
+        "change_24h": 940,
+        "volume_h24": 106099.32,
+        "market_cap": 58783.27,
+        "fdv": 58783.27,
+        "pair_created_at": 1795815508000,
+        "url": "https://dexscreener.com/solana/9h3r763zvqecmxgkkevncqosyjcqu3efrfusf7s3pzg4",
+        "score": 0.36810008817490497,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 600000.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "age_min": 940.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7964,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.003
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          }
+        ],
+        "consent": 0,
+        "combined_score": -0.0995,
+        "tag": "",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 9.4,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 600000.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "age_min": 940.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7964,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.003
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_12",
+        "price_usd": 5.878e-05,
+        "score_usd": 0.36810008817490497,
+        "vol24_usd": 106099.32,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "fee-resilience thin (setting-change run)",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_13",
+      "as_of": "20261127T230239Z",
+      "candidate": {
+        "asset": "DRIFT",
+        "chain": "solana",
+        "dexId": "pumpfun",
+        "pairAddress": "EmNr3eR3DNLnqJD1zHhRZ71HifQVw1Gn9f1pnosBxobs",
+        "price_usd": 2.33e-06,
+        "buys_5m": 212,
+        "sells_5m": 448,
+        "change_5m": -87.98,
+        "change_1h": -39.48,
+        "change_6h": -39.48,
+        "change_24h": -39.48,
+        "volume_h24": 54405.04,
+        "market_cap": 2330.07,
+        "fdv": 2330.07,
+        "pair_created_at": 1795819258000,
+        "url": "https://dexscreener.com/solana/emnr3er3dnlnqjd1zhhrz71hifqvw1gn9f1pnosbxobs",
+        "score": 0.022388682617480414,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 594000.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 385200.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "buy",
+            "score": 1.0,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 1.5421
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 594000.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 594000.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 594000.0
+            }
+          }
+        ],
+        "consent": 2,
+        "combined_score": 0.0062,
+        "tag": "hidden_liquidity",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": -0.3948,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 594000.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 385200.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "buy",
+            "score": 1.0,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 1.5421
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 594000.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 594000.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 594000.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_13",
+        "price_usd": 2.33e-06,
+        "score_usd": 0.022388682617480414,
+        "vol24_usd": 54405.04,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "fee-resilience thin (setting-change run)",
+          "hidden_liquidity",
+          "high_fee_new",
+          "rug",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_14",
+      "as_of": "20261127T230239Z",
+      "candidate": {
+        "asset": "Maebashi",
+        "chain": "solana",
+        "dexId": "pumpfun",
+        "pairAddress": "8vfEiFdb6UMEjqa9PuPXcKvrXfN5pGFnfV4utBAQ4uW8",
+        "price_usd": 1.457e-05,
+        "buys_5m": 183,
+        "sells_5m": 113,
+        "change_5m": 67.9,
+        "change_1h": 486,
+        "change_6h": 486,
+        "change_24h": 486,
+        "volume_h24": 30947.31,
+        "market_cap": 14577.57,
+        "fdv": 14577.57,
+        "pair_created_at": 1795819548000,
+        "url": "https://dexscreener.com/solana/8vfeifdb6umejqa9pupxckvrxfn5pgfnfv4utbaq4uw8",
+        "score": 0.98,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 266400.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 741600.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "age_min": 418.1
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.3689,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.3592
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "buy",
+            "score": 0.9,
+            "tag": "green_spot",
+            "evidence": {
+              "narrative": "green"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 266400.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 266400.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 266400.0
+            }
+          }
+        ],
+        "consent": 1,
+        "combined_score": 0.0664,
+        "tag": "",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 4.86,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 266400.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 741600.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "age_min": 418.1
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.3689,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.3592
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "buy",
+            "score": 0.9,
+            "tag": "green_spot",
+            "evidence": {
+              "narrative": "green"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 266400.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 266400.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 266400.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_14",
+        "price_usd": 1.457e-05,
+        "score_usd": 0.98,
+        "vol24_usd": 30947.31,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "green_spot",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_15",
+      "as_of": "20261127T230239Z",
+      "candidate": {
+        "asset": "Hyperball",
+        "chain": "solana",
+        "dexId": "pumpswap",
+        "pairAddress": "JBk1DDp65Eroa9zdv5GgjFX5BuG6kD7Y8g2GncfSokWo",
+        "price_usd": 0.0001076,
+        "buys_5m": 1514,
+        "sells_5m": 986,
+        "change_5m": 0.52,
+        "change_1h": 109,
+        "change_6h": 109,
+        "change_24h": 109,
+        "volume_h24": 183073.64,
+        "market_cap": 107524,
+        "fdv": 107524,
+        "pair_created_at": 1795820099000,
+        "url": "https://dexscreener.com/solana/jbk1ddp65eroa9zdv5ggjfx5bug6kd7y8g2gncfsokwo",
+        "score": 0.4681081197665327,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "buy",
+            "score": 0.45,
+            "tag": "active_volume",
+            "evidence": {
+              "vol24": 2250000.0,
+              "fee": 0.01
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 727200.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "buy",
+            "score": 1.0,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 3.0941
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "buy",
+            "score": 0.9,
+            "tag": "green_spot",
+            "evidence": {
+              "narrative": "green"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "buy",
+            "score": 0.45,
+            "tag": "active_volume",
+            "evidence": {
+              "vol24": 2250000.0,
+              "fee": 0.01
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "buy",
+            "score": 0.45,
+            "tag": "active_volume",
+            "evidence": {
+              "vol24": 2250000.0,
+              "fee": 0.01
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "buy",
+            "score": 0.45,
+            "tag": "active_volume",
+            "evidence": {
+              "vol24": 2250000.0,
+              "fee": 0.01
+            }
+          }
+        ],
+        "consent": 7,
+        "combined_score": 0.2313,
+        "tag": "hidden_liquidity",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 1.09,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "buy",
+            "score": 0.45,
+            "tag": "active_volume",
+            "evidence": {
+              "vol24": 2250000.0,
+              "fee": 0.01
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 727200.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "buy",
+            "score": 1.0,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 3.0941
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "buy",
+            "score": 0.9,
+            "tag": "green_spot",
+            "evidence": {
+              "narrative": "green"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "buy",
+            "score": 0.45,
+            "tag": "active_volume",
+            "evidence": {
+              "vol24": 2250000.0,
+              "fee": 0.01
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "buy",
+            "score": 0.45,
+            "tag": "active_volume",
+            "evidence": {
+              "vol24": 2250000.0,
+              "fee": 0.01
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "buy",
+            "score": 0.45,
+            "tag": "active_volume",
+            "evidence": {
+              "vol24": 2250000.0,
+              "fee": 0.01
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_15",
+        "price_usd": 0.0001076,
+        "score_usd": 0.4681081197665327,
+        "vol24_usd": 183073.64,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "active_volume",
+          "green_spot",
+          "hidden_liquidity",
+          "high_fee_new",
+          "thin"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_16",
+      "as_of": "20261127T230239Z",
+      "candidate": {
+        "asset": "Hyperball",
+        "chain": "solana",
+        "dexId": "meteora",
+        "pairAddress": "2KPA53AFNASLvwoc6622q5Seg8etn33syz2novfQKs2j",
+        "price_usd": 0.0001088,
+        "buys_5m": 8,
+        "sells_5m": 8,
+        "change_5m": 13.4,
+        "change_1h": 13.4,
+        "change_6h": 13.4,
+        "change_24h": 13.4,
+        "volume_h24": 447.34,
+        "market_cap": 107174,
+        "fdv": 107174,
+        "pair_created_at": 1795820325000,
+        "url": "https://dexscreener.com/solana/2kpa53afnaslvwoc6622q5seg8etn33syz2novfqks2j",
+        "score": 0.36075355638848694,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 14400.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 600000.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7712,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.024
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 14400.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 14400.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 14400.0
+            }
+          }
+        ],
+        "consent": 1,
+        "combined_score": -0.2089,
+        "tag": "",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 0.134,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 14400.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 600000.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7712,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.024
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 14400.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 14400.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 14400.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_16",
+        "price_usd": 0.0001088,
+        "score_usd": 0.36075355638848694,
+        "vol24_usd": 447.34,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "fee-resilience thin (setting-change run)",
+          "high_fee_new",
+          "pump_and_dump / wash_grind signature",
+          "rug",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_17",
+      "as_of": "20261127T230239Z",
+      "candidate": {
+        "asset": "Hyperball",
+        "chain": "solana",
+        "dexId": "pumpfun",
+        "pairAddress": "51unQtzp4iErXYYWpw4Hh1PnGtiVmrmdYbN2bAbBGzVe",
+        "price_usd": 4.464e-05,
+        "buys_5m": 0,
+        "sells_5m": 0,
+        "change_5m": 0.0,
+        "change_1h": 1248,
+        "change_6h": 1248,
+        "change_24h": 1248,
+        "volume_h24": 102708.68,
+        "market_cap": 44644.17,
+        "fdv": 44644.17,
+        "pair_created_at": 1795818586000,
+        "url": "https://dexscreener.com/solana/51unqtzp4ierxyywpw4hh1pngtivmrmdybn2babbgzve",
+        "score": 0.98,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 600000.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "age_min": 1248.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7964,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.003
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          }
+        ],
+        "consent": 0,
+        "combined_score": -0.0995,
+        "tag": "",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 12.48,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 600000.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "age_min": 1248.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7964,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.003
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_17",
+        "price_usd": 4.464e-05,
+        "score_usd": 0.98,
+        "vol24_usd": 102708.68,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "fee-resilience thin (setting-change run)",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_18",
+      "as_of": "20261127T230239Z",
+      "candidate": {
+        "asset": "SPEC",
+        "chain": "solana",
+        "dexId": "pumpswap",
+        "pairAddress": "C4Binrw9cfpLD4fJvGeSH8f5un2DhG3zErQ3VjNE1REk",
+        "price_usd": 5.73e-05,
+        "buys_5m": 1290,
+        "sells_5m": 780,
+        "change_5m": 97.52,
+        "change_1h": 97.52,
+        "change_6h": 97.52,
+        "change_24h": 97.52,
+        "volume_h24": 54555.19,
+        "market_cap": 57239,
+        "fdv": 57239,
+        "pair_created_at": 1795820266000,
+        "url": "https://dexscreener.com/solana/c4binrw9cfpld4fjvgesh8f5un2dhg3zerq3vjne1rek",
+        "score": 0.6995383977074734,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "buy",
+            "score": 0.3726,
+            "tag": "active_volume",
+            "evidence": {
+              "vol24": 1863000.0,
+              "fee": 0.01
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 747600.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "buy",
+            "score": 1.0,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 2.492
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "buy",
+            "score": 0.3726,
+            "tag": "active_volume",
+            "evidence": {
+              "vol24": 1863000.0,
+              "fee": 0.01
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "buy",
+            "score": 0.3726,
+            "tag": "active_volume",
+            "evidence": {
+              "vol24": 1863000.0,
+              "fee": 0.01
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "buy",
+            "score": 0.3726,
+            "tag": "active_volume",
+            "evidence": {
+              "vol24": 1863000.0,
+              "fee": 0.01
+            }
+          }
+        ],
+        "consent": 6,
+        "combined_score": 0.0994,
+        "tag": "hidden_liquidity",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 0.9752,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "buy",
+            "score": 0.3726,
+            "tag": "active_volume",
+            "evidence": {
+              "vol24": 1863000.0,
+              "fee": 0.01
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 747600.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "buy",
+            "score": 1.0,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 2.492
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "buy",
+            "score": 0.3726,
+            "tag": "active_volume",
+            "evidence": {
+              "vol24": 1863000.0,
+              "fee": 0.01
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "buy",
+            "score": 0.3726,
+            "tag": "active_volume",
+            "evidence": {
+              "vol24": 1863000.0,
+              "fee": 0.01
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "buy",
+            "score": 0.3726,
+            "tag": "active_volume",
+            "evidence": {
+              "vol24": 1863000.0,
+              "fee": 0.01
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_18",
+        "price_usd": 5.73e-05,
+        "score_usd": 0.6995383977074734,
+        "vol24_usd": 54555.19,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "active_volume",
+          "hidden_liquidity",
+          "high_fee_new",
+          "pump_and_dump / wash_grind signature",
+          "rug",
+          "thin"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_19",
+      "as_of": "20261127T230239Z",
+      "candidate": {
+        "asset": "SPEC",
+        "chain": "solana",
+        "dexId": "pumpfun",
+        "pairAddress": "ASc2Qv6ge3s3xTKRdHkLVB2wbyrqzSKuZb18jRqKdRVL",
+        "price_usd": 2.936e-05,
+        "buys_5m": 214,
+        "sells_5m": 122,
+        "change_5m": 54.35,
+        "change_1h": 1235,
+        "change_6h": 1235,
+        "change_24h": 1235,
+        "volume_h24": 31916,
+        "market_cap": 29369.71,
+        "fdv": 29369.71,
+        "pair_created_at": 1795819985000,
+        "url": "https://dexscreener.com/solana/asc2qv6ge3s3xtkrdhklvb2wbyrqzskuzb18jrqkdrvl",
+        "score": 0.98,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 302400.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 764400.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "age_min": 1180.65
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.3253,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.3956
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "buy",
+            "score": 0.9,
+            "tag": "green_spot",
+            "evidence": {
+              "narrative": "green"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 302400.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 302400.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 302400.0
+            }
+          }
+        ],
+        "consent": 1,
+        "combined_score": 0.0718,
+        "tag": "",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 12.35,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 302400.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 764400.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "age_min": 1180.65
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.3253,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.3956
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "buy",
+            "score": 0.9,
+            "tag": "green_spot",
+            "evidence": {
+              "narrative": "green"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 302400.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 302400.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 302400.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_19",
+        "price_usd": 2.936e-05,
+        "score_usd": 0.98,
+        "vol24_usd": 31916.0,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "green_spot",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_20",
+      "as_of": "20261127T230239Z",
+      "candidate": {
+        "asset": "BABYCATE",
+        "chain": "solana",
+        "dexId": "meteora",
+        "pairAddress": "Dy1DsKnsrnErdeLLxbQJuVBP9LXvivyNGYRCQfstnnHF",
+        "price_usd": 2.059e-05,
+        "buys_5m": 0,
+        "sells_5m": 1,
+        "change_5m": 0.0,
+        "change_1h": 0.0,
+        "change_6h": 0.0,
+        "change_24h": 0.0,
+        "volume_h24": 0.11,
+        "market_cap": 20598,
+        "fdv": 20598,
+        "pair_created_at": 1795820184000,
+        "url": "https://dexscreener.com/solana/dy1dsknsrnerdellxbqjuvbp9lxvivyngyrcqfstnnhf",
+        "score": 0.300000030897,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 600000.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7964,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.003
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          }
+        ],
+        "consent": 1,
+        "combined_score": -0.2121,
+        "tag": "",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 0.0,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 600000.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7964,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.003
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 1800.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_20",
+        "price_usd": 2.059e-05,
+        "score_usd": 0.300000030897,
+        "vol24_usd": 0.11,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "fee-resilience thin (setting-change run)",
+          "high_fee_new",
+          "pump_and_dump / wash_grind signature",
+          "rug",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_21",
+      "as_of": "20261127T230239Z",
+      "candidate": {
+        "asset": "cihao ",
+        "chain": "solana",
+        "dexId": "pumpfun",
+        "pairAddress": "DWUti8E6UPtpZ3QZzY8ryhmRWTEsgXRqq7prK9AAXL4A",
+        "price_usd": 4.953e-06,
+        "buys_5m": 1,
+        "sells_5m": 7,
+        "change_5m": -11.93,
+        "change_1h": -19.58,
+        "change_6h": 49.31,
+        "change_24h": 49.31,
+        "volume_h24": 12546.88,
+        "market_cap": 4953.55,
+        "fdv": 4953.55,
+        "pair_created_at": 1795811110000,
+        "url": "https://dexscreener.com/solana/dwuti8e6uptpz3qzzy8ryhmrwtesgxrqq7prk9aaxl4a",
+        "score": 0.24083688786593926,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 7200.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 200000
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7568,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.036
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 7200.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 7200.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 7200.0
+            }
+          }
+        ],
+        "consent": 1,
+        "combined_score": -0.2071,
+        "tag": "",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 0.49310000000000004,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 7200.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 200000
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7568,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.036
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 7200.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 7200.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 7200.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_21",
+        "price_usd": 4.953e-06,
+        "score_usd": 0.24083688786593926,
+        "vol24_usd": 12546.88,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "fee-resilience thin (setting-change run)",
+          "high_fee_new",
+          "rug",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_22",
+      "as_of": "20261127T230239Z",
+      "candidate": {
+        "asset": "jeff",
+        "chain": "solana",
+        "dexId": "pumpfun",
+        "pairAddress": "37iMzr84JPtPQEoKDRaDxebtFvFPTuRSzbSpyYapG2NS",
+        "price_usd": 2.048e-06,
+        "buys_5m": 0,
+        "sells_5m": 2,
+        "change_5m": -11.92,
+        "change_1h": -15.69,
+        "change_6h": -15.69,
+        "change_24h": -15.69,
+        "volume_h24": 58957.38,
+        "market_cap": 2048.85,
+        "fdv": 2048.85,
+        "pair_created_at": 1795818790000,
+        "url": "https://dexscreener.com/solana/37imzr84jptpqeokdradxebtfvfpturszbspyyapg2ns",
+        "score": 0.246665003073275,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 2700.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 399600.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7919,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.0068
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 2700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 2700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 2700.0
+            }
+          }
+        ],
+        "consent": 1,
+        "combined_score": -0.2115,
+        "tag": "",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": -0.15689999999999998,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 2700.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 399600.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7919,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.0068
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "sell",
+            "score": -0.9,
+            "tag": "rug",
+            "evidence": {
+              "narrative": "red"
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 2700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 2700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 2700.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_22",
+        "price_usd": 2.048e-06,
+        "score_usd": 0.246665003073275,
+        "vol24_usd": 58957.38,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "fee-resilience thin (setting-change run)",
+          "high_fee_new",
+          "rug",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_23",
+      "as_of": "20261127T230239Z",
+      "candidate": {
+        "asset": "Cerberus",
+        "chain": "elysium",
+        "dexId": "uniswap",
+        "pairAddress": "0x2586602f1374ec2082b4f93e6733e1533d819a6270133d0d97214fe27ce686a4",
+        "price_usd": 1.247e-05,
+        "buys_5m": 13,
+        "sells_5m": 10,
+        "change_5m": -0.53,
+        "change_1h": 34.72,
+        "change_6h": 34.72,
+        "change_24h": 34.72,
+        "volume_h24": 32911.41,
+        "market_cap": 12479,
+        "fdv": 12479,
+        "pair_created_at": 1795817282000,
+        "url": "https://dexscreener.com/elysium/0x2586602f1374ec2082b4f93e6733e1533d819a6270133d0d97214fe27ce686a4",
+        "score": 0.3509130186340308,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 20700.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 678000.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7634,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.0305
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "vol24": 20700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 20700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 20700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 20700.0
+            }
+          }
+        ],
+        "consent": 1,
+        "combined_score": -0.0954,
+        "tag": "",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 0.3472,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 20700.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 678000.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "buy",
+            "score": 0.0,
+            "tag": "high_fee_new",
+            "evidence": {
+              "fee_bps": 100.0
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7634,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.0305
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "vol24": 20700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 20700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 20700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 20700.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_23",
+        "price_usd": 1.247e-05,
+        "score_usd": 0.3509130186340308,
+        "vol24_usd": 32911.41,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "fee-resilience thin (setting-change run)",
+          "high_fee_new",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_24",
+      "as_of": "20261127T230239Z",
+      "candidate": {
+        "asset": "SILLYBANDZ",
+        "chain": "solana",
+        "dexId": "pumpfun",
+        "pairAddress": "Cb13VGKiY3mN1xE739Hs8wAMqwHBLKrCjW7BG4akD1vu",
+        "price_usd": 1.586e-05,
+        "buys_5m": 35,
+        "sells_5m": 26,
+        "change_5m": 12.46,
+        "change_1h": 72.58,
+        "change_6h": 597,
+        "change_24h": 597,
+        "volume_h24": 79856.92,
+        "market_cap": 15867.7,
+        "fdv": 15867.7,
+        "pair_created_at": 1795815234000,
+        "url": "https://dexscreener.com/solana/cb13vgkiy3mn1xe739hs8wamqwhblkrcjw7bg4akd1vu",
+        "score": 0.4401953373498311,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 54900.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 688800.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "age_min": 584.54
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7044,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.0797
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "vol24": 54900.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 54900.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 54900.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 54900.0
+            }
+          }
+        ],
+        "consent": 0,
+        "combined_score": -0.0881,
+        "tag": "",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 5.97,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 54900.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 688800.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "age_min": 584.54
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7044,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.0797
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "vol24": 54900.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 54900.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 54900.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 54900.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_24",
+        "price_usd": 1.586e-05,
+        "score_usd": 0.4401953373498311,
+        "vol24_usd": 79856.92,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "fee-resilience thin (setting-change run)",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    },
+    {
+      "round": "pumpfun_pipeline_round_25",
+      "as_of": "20261127T230239Z",
+      "candidate": {
+        "asset": "100Xmas",
+        "chain": "solana",
+        "dexId": "pumpfun",
+        "pairAddress": "4PZ8LNaseBxit3Wkp3NcWrRW3XbVHGWCj6a3YaaX1VJN",
+        "price_usd": 1.762e-05,
+        "buys_5m": 16,
+        "sells_5m": 17,
+        "change_5m": -4.44,
+        "change_1h": 91.92,
+        "change_6h": 162,
+        "change_24h": 200,
+        "volume_h24": 38480.12,
+        "market_cap": 17623.87,
+        "fdv": 17623.87,
+        "pair_created_at": 1795729193000,
+        "url": "https://dexscreener.com/solana/4pz8lnasebxit3wkp3ncwrrw3xbvhgwcj6a3yaax1vjn",
+        "score": 0.42694634608345683,
+        "_source": "pumpfun_pipeline"
+      },
+      "verdict": {
+        "signals": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 29700.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 582000.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "age_min": 166.44
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7388,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.051
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "vol24": 29700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 29700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 29700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 29700.0
+            }
+          }
+        ],
+        "consent": 0,
+        "combined_score": -0.0924,
+        "tag": "",
+        "narrative": "",
+        "qualified": false,
+        "decision": "standby",
+        "base_change": 2.0,
+        "bot_details": [
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 29700.0
+            }
+          },
+          {
+            "name": "liq_health",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin",
+            "evidence": {
+              "liquidity_usd": 582000.0
+            }
+          },
+          {
+            "name": "holder_fee",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "age_min": 166.44
+            }
+          },
+          {
+            "name": "vol_discord",
+            "kind": "sell",
+            "score": -0.7388,
+            "tag": "",
+            "evidence": {
+              "vol_ratio": 0.051
+            }
+          },
+          {
+            "name": "social_hype",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "",
+            "evidence": {
+              "vol24": 29700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 29700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 29700.0
+            }
+          },
+          {
+            "name": "vol_momentum",
+            "kind": "hold",
+            "score": 0.0,
+            "tag": "thin_volume",
+            "evidence": {
+              "vol24": 29700.0
+            }
+          }
+        ],
+        "micro_budget": false,
+        "source_round": "pumpfun_pipeline_round_25",
+        "price_usd": 1.762e-05,
+        "score_usd": 0.42694634608345683,
+        "vol24_usd": 38480.12,
+        "micro_budget_ok": true,
+        "stand_down_reasons": [
+          "fee-resilience thin (setting-change run)",
+          "thin",
+          "thin_volume"
+        ]
+      }
+    }
+  ],
+  "watchlist": [
+    {
+      "asset": "BABYCATE",
+      "chain": "solana",
+      "dexId": "pumpfun",
+      "pairAddress": "DFMr3QfdBYkMGm4Fte1D4gH9r88DimHbsnFdk8J6gbux",
+      "price_usd": 1.516e-05,
+      "buys_5m": 912,
+      "sells_5m": 709,
+      "change_5m": 7.47,
+      "change_1h": 111,
+      "change_6h": 111,
+      "change_24h": 111,
+      "volume_h24": 71037.17,
+      "market_cap": 15162.69,
+      "fdv": 15162.69,
+      "pair_created_at": 1795819939000,
+      "url": "https://dexscreener.com/solana/dfmr3qfdbykmgm4fte1d4gh9r88dimhbsnfdk8j6gbux",
+      "score": 0.4903103624542177,
+      "_source": "pumpfun_pipeline"
+    },
+    {
+      "asset": "Compute",
+      "chain": "solana",
+      "dexId": "pumpfun",
+      "pairAddress": "548TUnrxRodQHAxiDsZskA2G7hxXM3AZyjhXc443pLrD",
+      "price_usd": 1.189e-05,
+      "buys_5m": 352,
+      "sells_5m": 208,
+      "change_5m": -24.92,
+      "change_1h": 67.12,
+      "change_6h": 67.12,
+      "change_24h": 67.12,
+      "volume_h24": 39385.47,
+      "market_cap": 11899.65,
+      "fdv": 11899.65,
+      "pair_created_at": 1795819959000,
+      "url": "https://dexscreener.com/solana/548tunrxrodqhaxidszska2g7hxxm3azyjhxc443plrd",
+      "score": 0.3419549402764513,
+      "_source": "pumpfun_pipeline"
+    },
+    {
+      "asset": "Sol",
+      "chain": "solana",
+      "dexId": "pumpswap",
+      "pairAddress": "FAW4krf9c8MVjZp87ftKBo7J8M8WL1Hsd71DiTRWEjri",
+      "price_usd": 0.0001219,
+      "buys_5m": 466,
+      "sells_5m": 266,
+      "change_5m": -11.66,
+      "change_1h": 76.39,
+      "change_6h": 76.39,
+      "change_24h": 76.39,
+      "volume_h24": 1278746.63,
+      "market_cap": 121979,
+      "fdv": 121979,
+      "pair_created_at": 1795817049000,
+      "url": "https://dexscreener.com/solana/faw4krf9c8mvjzp87ftkbo7j8m8wl1hsd71ditrwejri",
+      "score": 0.3855809507035829,
+      "_source": "pumpfun_pipeline"
+    },
+    {
+      "asset": "Sol",
+      "chain": "solana",
+      "dexId": "meteora",
+      "pairAddress": "CnDKj7y8aQDy2VWDnATjAWNBK5nv96SNUEH5NWrsxNk3",
+      "price_usd": 0.0001231,
+      "buys_5m": 1,
+      "sells_5m": 12,
+      "change_5m": -21.92,
+      "change_1h": 46641,
+      "change_6h": 46641,
+      "change_24h": 46641,
+      "volume_h24": 14522.17,
+      "market_cap": 120802,
+      "fdv": 120802,
+      "pair_created_at": 1795817515000,
+      "url": "https://dexscreener.com/solana/cndkj7y8aqdy2vwdnatjawnbk5nv96snueh5nwrsxnk3",
+      "score": 0.98,
+      "_source": "pumpfun_pipeline"
+    },
+    {
+      "asset": "",
+      "chain": "solana",
+      "dexId": "meteora",
+      "pairAddress": "AF6X3bYDgnhrpx8i89YPwwkgsVrbpso133b32WxRMqQ8",
+      "price_usd": 0.000119,
+      "buys_5m": 17,
+      "sells_5m": 25,
+      "change_5m": 1.3,
+      "change_1h": -51.64,
+      "change_6h": -51.64,
+      "change_24h": -51.64,
+      "volume_h24": 2319.75,
+      "market_cap": 0,
+      "fdv": 0,
+      "pair_created_at": 1795817949000,
+      "url": "https://dexscreener.com/solana/af6x3bydgnhrpx8i89ypwwkgsvrbpso133b32wxrmqq8",
+      "score": 0.22872135036103028,
+      "_source": "pumpfun_pipeline"
+    },
+    {
+      "asset": "Sol",
+      "chain": "solana",
+      "dexId": "pumpfun",
+      "pairAddress": "9h3R763ZvQEcMxGkKEvNCqosYJCQU3efRFUsf7S3pZg4",
+      "price_usd": 5.878e-05,
+      "buys_5m": 0,
+      "sells_5m": 0,
+      "change_5m": 0.0,
+      "change_1h": 45.4,
+      "change_6h": 940,
+      "change_24h": 940,
+      "volume_h24": 106099.32,
+      "market_cap": 58783.27,
+      "fdv": 58783.27,
+      "pair_created_at": 1795815508000,
+      "url": "https://dexscreener.com/solana/9h3r763zvqecmxgkkevncqosyjcqu3efrfusf7s3pzg4",
+      "score": 0.36810008817490497,
+      "_source": "pumpfun_pipeline"
+    },
+    {
+      "asset": "DRIFT",
+      "chain": "solana",
+      "dexId": "pumpfun",
+      "pairAddress": "EmNr3eR3DNLnqJD1zHhRZ71HifQVw1Gn9f1pnosBxobs",
+      "price_usd": 2.33e-06,
+      "buys_5m": 212,
+      "sells_5m": 448,
+      "change_5m": -87.98,
+      "change_1h": -39.48,
+      "change_6h": -39.48,
+      "change_24h": -39.48,
+      "volume_h24": 54405.04,
+      "market_cap": 2330.07,
+      "fdv": 2330.07,
+      "pair_created_at": 1795819258000,
+      "url": "https://dexscreener.com/solana/emnr3er3dnlnqjd1zhhrz71hifqvw1gn9f1pnosbxobs",
+      "score": 0.022388682617480414,
+      "_source": "pumpfun_pipeline"
+    },
+    {
+      "asset": "Maebashi",
+      "chain": "solana",
+      "dexId": "pumpfun",
+      "pairAddress": "8vfEiFdb6UMEjqa9PuPXcKvrXfN5pGFnfV4utBAQ4uW8",
+      "price_usd": 1.457e-05,
+      "buys_5m": 183,
+      "sells_5m": 113,
+      "change_5m": 67.9,
+      "change_1h": 486,
+      "change_6h": 486,
+      "change_24h": 486,
+      "volume_h24": 30947.31,
+      "market_cap": 14577.57,
+      "fdv": 14577.57,
+      "pair_created_at": 1795819548000,
+      "url": "https://dexscreener.com/solana/8vfeifdb6umejqa9pupxckvrxfn5pgfnfv4utbaq4uw8",
+      "score": 0.98,
+      "_source": "pumpfun_pipeline"
+    },
+    {
+      "asset": "Hyperball",
+      "chain": "solana",
+      "dexId": "pumpswap",
+      "pairAddress": "JBk1DDp65Eroa9zdv5GgjFX5BuG6kD7Y8g2GncfSokWo",
+      "price_usd": 0.0001076,
+      "buys_5m": 1514,
+      "sells_5m": 986,
+      "change_5m": 0.52,
+      "change_1h": 109,
+      "change_6h": 109,
+      "change_24h": 109,
+      "volume_h24": 183073.64,
+      "market_cap": 107524,
+      "fdv": 107524,
+      "pair_created_at": 1795820099000,
+      "url": "https://dexscreener.com/solana/jbk1ddp65eroa9zdv5ggjfx5bug6kd7y8g2gncfsokwo",
+      "score": 0.4681081197665327,
+      "_source": "pumpfun_pipeline"
+    },
+    {
+      "asset": "Hyperball",
+      "chain": "solana",
+      "dexId": "meteora",
+      "pairAddress": "2KPA53AFNASLvwoc6622q5Seg8etn33syz2novfQKs2j",
+      "price_usd": 0.0001088,
+      "buys_5m": 8,
+      "sells_5m": 8,
+      "change_5m": 13.4,
+      "change_1h": 13.4,
+      "change_6h": 13.4,
+      "change_24h": 13.4,
+      "volume_h24": 447.34,
+      "market_cap": 107174,
+      "fdv": 107174,
+      "pair_created_at": 1795820325000,
+      "url": "https://dexscreener.com/solana/2kpa53afnaslvwoc6622q5seg8etn33syz2novfqks2j",
+      "score": 0.36075355638848694,
+      "_source": "pumpfun_pipeline"
+    },
+    {
+      "asset": "Hyperball",
+      "chain": "solana",
+      "dexId": "pumpfun",
+      "pairAddress": "51unQtzp4iErXYYWpw4Hh1PnGtiVmrmdYbN2bAbBGzVe",
+      "price_usd": 4.464e-05,
+      "buys_5m": 0,
+      "sells_5m": 0,
+      "change_5m": 0.0,
+      "change_1h": 1248,
+      "change_6h": 1248,
+      "change_24h": 1248,
+      "volume_h24": 102708.68,
+      "market_cap": 44644.17,
+      "fdv": 44644.17,
+      "pair_created_at": 1795818586000,
+      "url": "https://dexscreener.com/solana/51unqtzp4ierxyywpw4hh1pngtivmrmdybn2babbgzve",
+      "score": 0.98,
+      "_source": "pumpfun_pipeline"
+    },
+    {
+      "asset": "SPEC",
+      "chain": "solana",
+      "dexId": "pumpswap",
+      "pairAddress": "C4Binrw9cfpLD4fJvGeSH8f5un2DhG3zErQ3VjNE1REk",
+      "price_usd": 5.73e-05,
+      "buys_5m": 1290,
+      "sells_5m": 780,
+      "change_5m": 97.52,
+      "change_1h": 97.52,
+      "change_6h": 97.52,
+      "change_24h": 97.52,
+      "volume_h24": 54555.19,
+      "market_cap": 57239,
+      "fdv": 57239,
+      "pair_created_at": 1795820266000,
+      "url": "https://dexscreener.com/solana/c4binrw9cfpld4fjvgesh8f5un2dhg3zerq3vjne1rek",
+      "score": 0.6995383977074734,
+      "_source": "pumpfun_pipeline"
+    },
+    {
+      "asset": "SPEC",
+      "chain": "solana",
+      "dexId": "pumpfun",
+      "pairAddress": "ASc2Qv6ge3s3xTKRdHkLVB2wbyrqzSKuZb18jRqKdRVL",
+      "price_usd": 2.936e-05,
+      "buys_5m": 214,
+      "sells_5m": 122,
+      "change_5m": 54.35,
+      "change_1h": 1235,
+      "change_6h": 1235,
+      "change_24h": 1235,
+      "volume_h24": 31916,
+      "market_cap": 29369.71,
+      "fdv": 29369.71,
+      "pair_created_at": 1795819985000,
+      "url": "https://dexscreener.com/solana/asc2qv6ge3s3xtkrdhklvb2wbyrqzskuzb18jrqkdrvl",
+      "score": 0.98,
+      "_source": "pumpfun_pipeline"
+    },
+    {
+      "asset": "BABYCATE",
+      "chain": "solana",
+      "dexId": "meteora",
+      "pairAddress": "Dy1DsKnsrnErdeLLxbQJuVBP9LXvivyNGYRCQfstnnHF",
+      "price_usd": 2.059e-05,
+      "buys_5m": 0,
+      "sells_5m": 1,
+      "change_5m": 0.0,
+      "change_1h": 0.0,
+      "change_6h": 0.0,
+      "change_24h": 0.0,
+      "volume_h24": 0.11,
+      "market_cap": 20598,
+      "fdv": 20598,
+      "pair_created_at": 1795820184000,
+      "url": "https://dexscreener.com/solana/dy1dsknsrnerdellxbqjuvbp9lxvivyngyrcqfstnnhf",
+      "score": 0.300000030897,
+      "_source": "pumpfun_pipeline"
+    },
+    {
+      "asset": "cihao ",
+      "chain": "solana",
+      "dexId": "pumpfun",
+      "pairAddress": "DWUti8E6UPtpZ3QZzY8ryhmRWTEsgXRqq7prK9AAXL4A",
+      "price_usd": 4.953e-06,
+      "buys_5m": 1,
+      "sells_5m": 7,
+      "change_5m": -11.93,
+      "change_1h": -19.58,
+      "change_6h": 49.31,
+      "change_24h": 49.31,
+      "volume_h24": 12546.88,
+      "market_cap": 4953.55,
+      "fdv": 4953.55,
+      "pair_created_at": 1795811110000,
+      "url": "https://dexscreener.com/solana/dwuti8e6uptpz3qzzy8ryhmrwtesgxrqq7prk9aaxl4a",
+      "score": 0.24083688786593926,
+      "_source": "pumpfun_pipeline"
+    },
+    {
+      "asset": "jeff",
+      "chain": "solana",
+      "dexId": "pumpfun",
+      "pairAddress": "37iMzr84JPtPQEoKDRaDxebtFvFPTuRSzbSpyYapG2NS",
+      "price_usd": 2.048e-06,
+      "buys_5m": 0,
+      "sells_5m": 2,
+      "change_5m": -11.92,
+      "change_1h": -15.69,
+      "change_6h": -15.69,
+      "change_24h": -15.69,
+      "volume_h24": 58957.38,
+      "market_cap": 2048.85,
+      "fdv": 2048.85,
+      "pair_created_at": 1795818790000,
+      "url": "https://dexscreener.com/solana/37imzr84jptpqeokdradxebtfvfpturszbspyyapg2ns",
+      "score": 0.246665003073275,
+      "_source": "pumpfun_pipeline"
+    },
+    {
+      "asset": "Cerberus",
+      "chain": "elysium",
+      "dexId": "uniswap",
+      "pairAddress": "0x2586602f1374ec2082b4f93e6733e1533d819a6270133d0d97214fe27ce686a4",
+      "price_usd": 1.247e-05,
+      "buys_5m": 13,
+      "sells_5m": 10,
+      "change_5m": -0.53,
+      "change_1h": 34.72,
+      "change_6h": 34.72,
+      "change_24h": 34.72,
+      "volume_h24": 32911.41,
+      "market_cap": 12479,
+      "fdv": 12479,
+      "pair_created_at": 1795817282000,
+      "url": "https://dexscreener.com/elysium/0x2586602f1374ec2082b4f93e6733e1533d819a6270133d0d97214fe27ce686a4",
+      "score": 0.3509130186340308,
+      "_source": "pumpfun_pipeline"
+    },
+    {
+      "asset": "SILLYBANDZ",
+      "chain": "solana",
+      "dexId": "pumpfun",
+      "pairAddress": "Cb13VGKiY3mN1xE739Hs8wAMqwHBLKrCjW7BG4akD1vu",
+      "price_usd": 1.586e-05,
+      "buys_5m": 35,
+      "sells_5m": 26,
+      "change_5m": 12.46,
+      "change_1h": 72.58,
+      "change_6h": 597,
+      "change_24h": 597,
+      "volume_h24": 79856.92,
+      "market_cap": 15867.7,
+      "fdv": 15867.7,
+      "pair_created_at": 1795815234000,
+      "url": "https://dexscreener.com/solana/cb13vgkiy3mn1xe739hs8wamqwhblkrcjw7bg4akd1vu",
+      "score": 0.4401953373498311,
+      "_source": "pumpfun_pipeline"
+    },
+    {
+      "asset": "100Xmas",
+      "chain": "solana",
+      "dexId": "pumpfun",
+      "pairAddress": "4PZ8LNaseBxit3Wkp3NcWrRW3XbVHGWCj6a3YaaX1VJN",
+      "price_usd": 1.762e-05,
+      "buys_5m": 16,
+      "sells_5m": 17,
+      "change_5m": -4.44,
+      "change_1h": 91.92,
+      "change_6h": 162,
+      "change_24h": 200,
+      "volume_h24": 38480.12,
+      "market_cap": 17623.87,
+      "fdv": 17623.87,
+      "pair_created_at": 1795729193000,
+      "url": "https://dexscreener.com/solana/4pz8lnasebxit3wkp3ncwrrw3xbvhgwcj6a3yaax1vjn",
+      "score": 0.42694634608345683,
+      "_source": "pumpfun_pipeline"
+    }
+  ],
+  "seen_ids": [
+    "meteora|",
+    "meteora|BABYCATE",
+    "meteora|Hyperball",
+    "meteora|Sol",
+    "pumpfun|100Xmas",
+    "pumpfun|BABYCATE",
+    "pumpfun|Compute",
+    "pumpfun|DRIFT",
+    "pumpfun|Hyperball",
+    "pumpfun|Maebashi",
+    "pumpfun|SILLYBANDZ",
+    "pumpfun|SPEC",
+    "pumpfun|Sol",
+    "pumpfun|cihao ",
+    "pumpfun|jeff",
+    "pumpswap|Hyperball",
+    "pumpswap|SPEC",
+    "pumpswap|Sol",
+    "uniswap|Cerberus"
+  ],
+  "desk": {
+    "rounds": 26,
+    "candidates": 26,
+    "advance": 0,
+    "stand_down": 26,
+    "mean_consent": 1.62,
+    "mean_abs_score": 0.1186,
+    "top_picks": [
+      {
+        "round": "pumpfun_pipeline_round_15",
+        "consent": 7,
+        "score": 0.2313,
+        "decision": "standby",
+        "tag": "hidden_liquidity"
+      },
+      {
+        "round": "pumpfun_pipeline_round_18",
+        "consent": 6,
+        "score": 0.0994,
+        "decision": "standby",
+        "tag": "hidden_liquidity"
+      },
+      {
+        "round": "pumpfun_pipeline_round_1",
+        "consent": 3,
+        "score": 0.0563,
+        "decision": "standby",
+        "tag": "hidden_liquidity"
+      }
+    ],
+    "tag_counts": {
+      "hidden_liquidity": 10
+    },
+    "latest_ids": [
+      "uniswap|Cerberus",
+      "pumpfun|SILLYBANDZ",
+      "pumpfun|100Xmas"
+    ]
+  }
+}

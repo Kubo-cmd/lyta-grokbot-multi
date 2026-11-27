@@ -508,5 +508,5 @@ window.TELEGRAM_ALERTS = false;
             current.update(updates)
             current["last_updated"] = datetime.now().strftime("%H:%M:%S")
             state_file.write_text(json.dumps(current, indent=2))
-        except Exception:
+        except (OSError, TypeError, ValueError, AttributeError):
             pass

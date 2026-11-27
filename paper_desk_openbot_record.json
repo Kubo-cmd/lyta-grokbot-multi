@@ -1,23 +1,23 @@
 {
   "desk": "OpenBot",
   "paper_only": true,
-  "start": "2026-11-15T11:28:21-08:00",
-  "duration_min": 5,
-  "tick_interval_s": 10,
-  "ticks_processed": 30,
+  "start": "2026-11-27T13:12:41-08:00",
+  "duration_min": 8.0,
+  "tick_interval_s": 1.0,
+  "ticks_processed": 429,
   "final_paper_capital": 100.0,
   "trades_executed": 0,
-  "stand_downs": 30,
+  "stand_downs": 429,
   "advisory_samples": [
-    0.13746542713736895,
-    0.0,
-    0.10734753241523873,
-    0.09520193004540536,
-    0.1864903753600885
+    0.7007641602278942,
+    0.6346067889146646,
+    0.6708468224479476,
+    0.6977032660326407,
+    0.5690579633880268
   ],
   "last_signal": {
-    "sym": "GOBLIN#88",
-    "advisory": 0.1864903753600885
+    "sym": "GOBLIN#35",
+    "advisory": 0.5690579633880268
   },
   "trades": []
 }

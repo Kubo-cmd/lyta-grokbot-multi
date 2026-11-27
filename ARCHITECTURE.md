@@ -13,7 +13,7 @@ The trading desk uses a **dual-platform separation**:
 | Component | Platform | Role | Always-On? |
 |-----------|----------|------|------------|
 | **Grok Bot (server)** | Managed cloud VM (xAI) | Coordination, routing, persistent state, task orchestration | ✅ Yes — cloud stays up even when laptop closes |
-|| **OpenBot (agents)** | Local desktop workspace (nightly-labs) | 12 trading agents — circuit paper, signal, analyst, trader, risk, scout, devwatch, trencher, spot, grok-bot | Runs on local machine; agents active when machine is on |
+| **OpenBot (agents)** | Local desktop workspace (nightly-labs) | 12 trading agents — circuit paper, signal, analyst, trader, risk, scout, devwatch, trencher, spot, grok-bot | Runs on local machine; agents active when machine is on |
 
 **Why this split:**
 - Grok Bot provides **always-on availability** — the server stays running when your laptop closes
@@ -31,9 +31,9 @@ The trading desk uses a **dual-platform separation**:
 | Voice / dictation | ✅ Yes (voice input, voice chat) | ✅ Yes (31 languages) |
 | Backup models | ✅ Yes (cloud backup, multiple plans) | ✅ Yes |
 | Teams / roles | ✅ Yes (group chats, parallel bots, roles) | ✅ Yes (roles, shared channels) |
-|| Chat / human-in-loop | ✅ Yes (text-thread interface) | ✅ Yes (chat, approve actions) |
-|| Schedule automation | ✅ Yes (cloud routines) | ✅ Yes (local sweeps) |
-|| Source code | ✅ Open (lyta-grokbot-multi) | ✅ Open (openbot.io) |
+| Chat / human-in-loop | ✅ Yes (text-thread interface) | ✅ Yes (chat, approve actions) |
+| Schedule automation | ✅ Yes (cloud routines) | ✅ Yes (local sweeps) |
+| Source code | ✅ Open (lyta-grokbot-multi) | ✅ Open (openbot.io) |
 
 **Notes:**
 - **Grok bot** is the cloud coordination layer — always-on, accessible from mobile, voice, chat, team workflows
@@ -46,13 +46,13 @@ The trading desk uses a **dual-platform separation**:
 
 ### 2.1 Grok Bot (Server/Router)
 
-|| Aspect | Detail |
-||--------|--------|
-|| **Platform** | `grok-bot.app` (xAI/SMSCs) |
-|| **Role** | Primary routing bot, task orchestrator, persistent coordinator |
-|| **Key functions** | Task routing to right LYTA agent, session state, coordination between agents |
-|| **Mode** | Paper-only (no live capital) |
-|| **Workflow** | User message → Grok Bot identifies correct LYTA agent → routes task → agent executes → result returned |
+| Aspect | Detail |
+|--------|--------|
+| **Platform** | `grok-bot.app` (xAI/SMSCs) |
+| **Role** | Primary routing bot, task orchestrator, persistent coordinator |
+| **Key functions** | Task routing to right LYTA agent, session state, coordination between agents |
+| **Mode** | Paper-only (no live capital) |
+| **Workflow** | User message → Grok Bot identifies correct LYTA agent → routes task → agent executes → result returned |
 
 **What Grok Bot does:**
 - Routes incoming tasks to the correct LYTA agent (paper, signal, analyst, trader, risk, scout, devwatch, trencher)
@@ -61,24 +61,24 @@ The trading desk uses a **dual-platform separation**:
 
 ### 2.2 OpenBot (Agent Execution)
 
-|| Aspect | Detail |
-||--------|--------|
-|| **Platform** | `openbot.io` (nightly-labs, PolyForm Noncommercial) |
-|| **Role** | Local agent execution workspace with 12 trading agents |
+| Aspect | Detail |
+|--------|--------|
+| **Platform** | `openbot.io` (nightly-labs, PolyForm Noncommercial) |
+| **Role** | Local agent execution workspace with 12 trading agents |
 
 **What OpenBot agents do:**
 | Agent | Role | Status |
 |-------|------|--------|
 | `lyta-grok-desk-paper` | Circuit BTC/ETH papertrade (Phase 1) | Active |
-\|\`lyta-grok-desk-spot\` | Circuit Papertrade spot trading (paper-only, 12-bot consensus) |
+| `lyta-grok-desk-spot` | Circuit Papertrade spot trading (paper-only, 12-bot consensus) | Active |
 | `lyta-grok-desk-signal` | Scanner — market signal aggregation | Active |
 | `lyta-grok-desk-analyst` | Rug risk, liquidity, score evaluation | Active |
 | `lyta-grok-desk-trader` | Micro-sizing execution ($0.20–$0.85) | Active |
 | `lyta-grok-desk-risk` | Risk (3% risk, 5x max, stand-down) | Active |
 | `lyta-grok-desk-scout` | Narrative/rug signal check (GMGN + wallet) | Active |
 | `lyta-grok-desk-devwatch` | On-chain wallet monitoring (Hrundel75) | Active |
-|| `lyta-grok-desk-trencher` | TrenchesAI deployment monitor | Active |
-|| `grok-bot` | Server router — routes tasks to LYTA agents | Active |
+| `lyta-grok-desk-trencher` | TrenchesAI deployment monitor | Active |
+| `grok-bot` | Server router — routes tasks to LYTA agents | Active |
 
 Communication: FIFO message queues + shared files + ACP (Agent Client Protocol).
 Paper guards: `SIMULATION` + `paper_only` flags enforced on all agents.
@@ -160,17 +160,17 @@ flowchart TB
 
 ### 2.3 Circuit AI
 
-|| Aspect | Detail |
-||--------|--------|
-|| **Role** | Parameter engine — holds `circuit.toml`, publishes platform parameters |
-|| **Mode** | `PAPER` — paper-only trading |
+| Aspect | Detail |
+|--------|--------|
+| **Role** | Parameter engine — holds `circuit.toml`, publishes platform parameters |
+| **Mode** | `PAPER` — paper-only trading |
 
 ### 2.4 Trencher AI
 
-|| Aspect | Detail |
-||--------|--------|
-|| **Role** | Secondary platform (paper-only copy) — fixed-size buy, no dynamic sizing |
-|| **Mode** | `PAPER` — fixed 0.05 SOL buy size (SOL on-chain; paper capital 1 SOL or $100 per platform) |
+| Aspect | Detail |
+|--------|--------|
+| **Role** | Secondary platform (paper-only copy) — fixed-size buy, no dynamic sizing |
+| **Mode** | `PAPER` — fixed 0.05 SOL buy size (SOL on-chain; paper capital 1 SOL or $100 per platform) |
 
 ## 3. Data Flow
 
@@ -240,14 +240,14 @@ This table separates **host capability** from **application architecture**.
 
 | Component | Purpose |
 |-----------|---------|
-|| `paper_desk_simulator.py` | Paper trading simulation engine (config v3 + 12-bot consensus) |
-|| `lyta-grok-desk/` | OpenBot agent workspace (index.ts, circuit.toml, prompts) |
-|| `circuit_ai_prompt.txt` | Circuit AI parameter configuration |
-|| `Trencher AI` | Secondary paper-only fixed-size copy |
-|| `AGENTS.md` | OpenBot agent operating rules |
-|| `pumpfun_desk_simulator.py` | Phase 2 pump.fun memecoin simulator (paper-only) |
-|| `pumpfun_adapter.py` | Pump.fun adapter + trade generator |
-|| `config/pumpfun_desk_config.txt` | Phase 2 config (trading rules, agent roles, guard gates) |
+| `paper_desk_simulator.py` | Paper trading simulation engine (config v3 + 12-bot consensus) |
+| `lyta-grok-desk/` | OpenBot agent workspace (index.ts, circuit.toml, prompts) |
+| `circuit_ai_prompt.txt` | Circuit AI parameter configuration |
+| `Trencher AI` | Secondary paper-only fixed-size copy |
+| `AGENTS.md` | OpenBot agent operating rules |
+| `pumpfun_desk_simulator.py` | Phase 2 pump.fun memecoin simulator (paper-only) |
+| `pumpfun_adapter.py` | Pump.fun adapter + trade generator |
+| `config/pumpfun_desk_config.txt` | Phase 2 config (trading rules, agent roles, guard gates) |
 
 ---
 
@@ -355,11 +355,11 @@ the same alerts for the overall summary view.
 | Version | Platform Split | Rationale |
 |---------|---------------|-----------|
 | v1 | Conflated all platforms into one table | Original comparison had 1 agent vs 12 agents, conflating host with application |
-|| v2 | **Grok Bot (server) + OpenBot (agents)** | Grok Bot = always-on cloud server; OpenBot = local multi-agent execution; Hermes as migration target if needed |
-|| v10 | **Tightened paper parameters** | PO_STOP_LOSS 0.82, PO_TRAIL 3.0, PO_MIN_BUYS 4, PO_MAX_POOL_FEE 0.04, PO_POSITION_MULT 1.2, PO_ENTRY_MAX 72; trial_mode v10_tuned (v9 historical) |
-|| v11 | **Repo health pass** | Removed "What Needs Wiring" section; agent roster updated to 12 agents across README, ARCHITECTURE, AGENTS.md, README_circuit.md; docs index added; BOT-COMPARE reworded to yes/no contrast with no "winner" column |
-|| v12 | **Platform comparison corrected** | Grok Bot confirmed to have mobile app, voice, backup models, teams/roles, chat/human-in-loop, schedule automation, source code (was incorrectly marked as lacking these) |
-|| v13 | **Build stack documented** | Added Solar Mini4, Grok 4.7, inkling, chatgpt sol to repo documentation |
+| v2 | **Grok Bot (server) + OpenBot (agents)** | Grok Bot = always-on cloud server; OpenBot = local multi-agent execution; Hermes as migration target if needed |
+| v10 | **Tightened paper parameters** | PO_STOP_LOSS 0.82, PO_TRAIL 3.0, PO_MIN_BUYS 4, PO_MAX_POOL_FEE 0.04, PO_POSITION_MULT 1.2, PO_ENTRY_MAX 72; trial_mode v10_tuned (v9 historical) |
+| v11 | **Repo health pass** | Removed "What Needs Wiring" section; agent roster updated to 12 agents across README, ARCHITECTURE, AGENTS.md, README_circuit.md; docs index added; BOT-COMPARE reworded to yes/no contrast with no "winner" column |
+| v12 | **Platform comparison corrected** | Grok Bot confirmed to have mobile app, voice, backup models, teams/roles, chat/human-in-loop, schedule automation, source code (was incorrectly marked as lacking these) |
+| v13 | **Build stack documented** | Added Solar Mini4, Grok 4.7, inkling, chatgpt sol to repo documentation |
 | v14 | **Both ways documented** | README + ARCHITECTURE + OPTIONS.md present the repo as two ways: (A) OpenBot local 12-agent paper desk (cheapest, runs now) and (B) Grok-Bot cloud committee + OpenBot execution (best long-term). Best option runs day-to-day; the other stays available for comparison. |
 
 ## 7. Which path do I use?

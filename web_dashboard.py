@@ -429,7 +429,7 @@ class TradingDeskServer:
             try:
                 import json
                 return json.loads(self.state_file.read_text())
-            except Exception:
+            except (OSError, UnicodeDecodeError, ValueError):
                 pass
         return {
             "capital": 100.0, "asset": "GOBLIN", "ticks": 0,

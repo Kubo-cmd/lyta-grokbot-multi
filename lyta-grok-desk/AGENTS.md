@@ -1,29 +1,31 @@
 # OpenBot Agent Workspace
 
-This is the **OpenBot (Agent Execution Layer)** — the local desktop workspace where
-14 trading agents run.
+This is the **OpenBot (Agent Execution Layer)** — the local desktop workspace for
+the 12-agent paper desk (`circuit.toml` tagline: `12-agent openbot gpt desk`).
+The table below also lists two extra seats (`lyta-grok-desk-paper` and `grok-bot`)
+that are not part of the 12 strategy roster.
 
 **Role:** Trading execution, signal generation, analysis, and risk management.
 **Platform:** Local desktop (GitHub `de1lymoon` stack), MCP-native.
 
-## Trading Agents (14)
+## Trading Agents (12 desk + paper + grok-bot)
 
-|| Agent | File | Role |
-||-------|------|------|
-|| `lyta-grok-desk-scout` | `_scout_agent.ts` | Narrative/rug signal checker — GMGN + wallet analysis |
-|| `lyta-grok-desk-filter` | `_signal_agent.ts` | Bias-based signal filter (>1.5% 24h, >$80k volume) |
-|| `lyta-grok-desk-analyst` | `_analyst_agent.ts` | Rug risk, liquidity, score evaluation |
-|| `lyta-grok-desk-pumpchaser` | `_trader_agent.ts` | >8% 24h + >$120k volume catalyst chaser |
-|| `lyta-grok-desk-conviction` | `_risk_agent.ts` | Rug score <0.35 + change24h >-2 balance check |
-|| `lyta-grok-desk-momentum` | `_trader_agent.ts` | >4% 24h + >$60k volume |
-|| `lyta-grok-desk-scalper` | `_risk_agent.ts` | Fast volatility >2.5% both directions |
-|| `lyta-grok-desk-contrarian` | `_devwatch_agent.ts` | <-6% 24h + rugScore <0.5 |
-|| `lyta-grok-desk-trend` | `_paper_agent.ts` | >5% 24h + >$90k volume |
-|| `lyta-grok-desk-researcher` | `_signal_agent.ts` | liq >$2000 + rugScore <0.28 + change24h >1 |
-|| `lyta-grok-desk-portfolio` | `_trader_agent.ts` | Diversified holding across agents |
-|| `lyta-grok-desk-executor` | `_paper_agent.ts` | Market entry >1% + liq >$1800 + rugScore <0.22 |
-|| `lyta-grok-desk-paper` | `_paper_agent.ts` | Circuit BTC/ETH papertrade (Phase 1 baseline) |
-|| `grok-bot` | `_grok_router.ts` | Server router — routes tasks to LYTA agents |
+| Agent | File | Role |
+|-------|------|------|
+| `lyta-grok-desk-scout` | `_scout_agent.ts` | Narrative/rug signal checker — GMGN + wallet analysis |
+| `lyta-grok-desk-filter` | `_signal_agent.ts` | Bias-based signal filter (>1.5% 24h, >$80k volume) |
+| `lyta-grok-desk-analyst` | `_analyst_agent.ts` | Rug risk, liquidity, score evaluation |
+| `lyta-grok-desk-pumpchaser` | `_trader_agent.ts` | >8% 24h + >$120k volume catalyst chaser |
+| `lyta-grok-desk-conviction` | `_risk_agent.ts` | Rug score <0.35 + change24h >-2 balance check |
+| `lyta-grok-desk-momentum` | `_trader_agent.ts` | >4% 24h + >$60k volume |
+| `lyta-grok-desk-scalper` | `_risk_agent.ts` | Fast volatility >2.5% both directions |
+| `lyta-grok-desk-contrarian` | `_devwatch_agent.ts` | <-6% 24h + rugScore <0.5 |
+| `lyta-grok-desk-trend` | `_paper_agent.ts` | >5% 24h + >$90k volume |
+| `lyta-grok-desk-researcher` | `_signal_agent.ts` | liq >$2000 + rugScore <0.28 + change24h >1 |
+| `lyta-grok-desk-portfolio` | `_trader_agent.ts` | Diversified holding across agents |
+| `lyta-grok-desk-executor` | `_paper_agent.ts` | Market entry >1% + liq >$1800 + rugScore <0.22 |
+| `lyta-grok-desk-paper` | `_paper_agent.ts` | Extra seat: Circuit BTC/ETH papertrade (Phase 1 baseline) |
+| `grok-bot` | `_grok_router.ts` | Extra seat: server router — routes tasks to LYTA agents |
 
 ## Platform Roles
 
@@ -165,7 +167,7 @@ On Arc (`ethereum:5042`) USDC is the native dollar and gas token. Its ERC-20 vie
 
 ## Version Quick Reference
 
-|| Version | Profile | Key Parameters | Status |
+| Version | Profile | Key Parameters | Status |
 |---------|---------|----------------|--------|
-|| v9 | Historical | — | Marked historical |
-|| v10_tuned | Tightened paper parameters | PO_STOP_LOSS 0.82, PO_TRAIL 3.0, PO_MIN_BUYS 4, PO_MAX_POOL_FEE 0.04, PO_POSITION_MULT 1.2, PO_ENTRY_MAX 72 | Active trial mode |
+| v9 | Historical | — | Marked historical |
+| v10_tuned | Tightened paper parameters | PO_STOP_LOSS 0.82, PO_TRAIL 3.0, PO_MIN_BUYS 4, PO_MAX_POOL_FEE 0.04, PO_POSITION_MULT 1.2, PO_ENTRY_MAX 72 | Active trial mode |

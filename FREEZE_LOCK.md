@@ -18,8 +18,8 @@ V1 loose / V2 looser / V3 tight). Remote stays PRIVATE unless user approval.
 
 ## 2. Freeze-safe lanes (all complete)
 
-|| # | Lane | Deliverable | Verified |
-|---|---|---|---|---|
+| # | Lane | Deliverable | Verified |
+|---|---|---|---|
 | 1 | Freeze wrap | local freeze record | ✅ |
 | 2 | Extend adapter path to real pump.fun candidates | `pumpfun_phase2_adapter_ext_run.py` (compile OK, run exit 0, **24 candidates**, 0 qualified, 0 fills, observation-only/zero-burn) | ✅ |
 | 3 | Comparison report | `PAPER_COMPARE_ROUTE_B_ADAPTER.md` | ✅ |
@@ -68,10 +68,10 @@ loose 7/0.25 → 15 qualified; V3 tight 8/0.50 → 0).
 | 9 | 45 | V0 frozen (8/0.35) | 0 | 45 | 0 | $0.00 |
 | 10 | 24 | V2 looser (6/0.20) | 3 | 21 | 0 | $0.00 |
 | 11 | 45 | V2 looser (6/0.20) | 14 | 31 | 0 | $0.00 |
-|| 12 | 60 | V0 frozen (8/0.35) | 0 | 60 | 0 | $0.00 |
-|| 12 | 60 | V1 loose (7/0.25) | 15 | 45 | 0 | $0.00 |
-|| 12 | 60 | V2 looser (6/0.20) | 20 | 40 | 0 | $0.00 |
-|| 12 | 60 | V3 tight (8/0.50) | 0 | 60 | 0 | $0.00 |
+| 12 | 60 | V0 frozen (8/0.35) | 0 | 60 | 0 | $0.00 |
+| 12 | 60 | V1 loose (7/0.25) | 15 | 45 | 0 | $0.00 |
+| 12 | 60 | V2 looser (6/0.20) | 20 | 40 | 0 | $0.00 |
+| 12 | 60 | V3 tight (8/0.50) | 0 | 60 | 0 | $0.00 |
 
 Logs: `round10_v2_20261115.log`, `round11_v2_20261115.log`,
 `round11_baseline_20261115.log`, `round12_v2_20261115.log`,

@@ -1,0 +1,2593 @@
+{
+  "tag": "paper",
+  "as_of": "20261127T220311Z",
+  "zero_burn": "observation only, no trades",
+  "capital_rule": "paper only, 2.0-6.0 micro-sizing",
+  "source": "DexScreener public Solana pairs (via pumpfun_reverse_engineer.py)",
+  "candidate_count": 33,
+  "rows": [
+    {
+      "asset": "VERSO",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "VERSO",
+        "buys_5m": 34,
+        "sells_5m": 34,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.094,
+        "dilution_risk_pct": 1.6655,
+        "volume_vs_mcap": 0.7853,
+        "m50_pace": 1.0,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 337.98,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "CLIPR",
+      "dexId": "pumpfun",
+      "signature": {
+        "asset": "CLIPR",
+        "buys_5m": 69,
+        "sells_5m": 64,
+        "fill_balance": 5,
+        "fills_share": 0.519,
+        "momentum_ramp": -0.084,
+        "dilution_risk_pct": 1.823,
+        "volume_vs_mcap": 1.6278,
+        "m50_pace": 0.1,
+        "mode": "MIXED"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.519,
+        "signal_delta_vs_fair_coin": 0.019,
+        "sniper_suction_index": 0.0592,
+        "momentum_fatigue_px": 166.97,
+        "verdict": "LUCK-STICKY"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.519,
+        "net_sells_vs_buys_pct": -7.246,
+        "operating_overhead_pct": 6.488,
+        "margin_vs_overhead_pp": -4.588,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=MIXED (mixed); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-STICKY"
+    },
+    {
+      "asset": "FROSTBALL",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "FROSTBALL",
+        "buys_5m": 10,
+        "sells_5m": 10,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": -0.024,
+        "dilution_risk_pct": 1.3397,
+        "volume_vs_mcap": 0.961,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 222.26,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "PAIRING",
+      "dexId": "pumpfun",
+      "signature": {
+        "asset": "PAIRING",
+        "buys_5m": 587,
+        "sells_5m": 463,
+        "fill_balance": 124,
+        "fills_share": 0.559,
+        "momentum_ramp": -0.277,
+        "dilution_risk_pct": 0.0749,
+        "volume_vs_mcap": 5.5246,
+        "m50_pace": 0.1,
+        "mode": "MIXED"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.559,
+        "signal_delta_vs_fair_coin": 0.059,
+        "sniper_suction_index": 0.1449,
+        "momentum_fatigue_px": 81.88,
+        "verdict": "LUCK-STICKY"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.559,
+        "net_sells_vs_buys_pct": -21.124,
+        "operating_overhead_pct": 6.89,
+        "margin_vs_overhead_pp": -0.99,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=MIXED (mixed); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-STICKY"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 140,
+        "sells_5m": 116,
+        "fill_balance": 24,
+        "fills_share": 0.547,
+        "momentum_ramp": 0.019,
+        "dilution_risk_pct": 0.0358,
+        "volume_vs_mcap": 4.2726,
+        "m50_pace": 1.0,
+        "mode": "MIXED"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.547,
+        "signal_delta_vs_fair_coin": 0.047,
+        "sniper_suction_index": 0.0065,
+        "momentum_fatigue_px": 130.46,
+        "verdict": "SKILL-UNK"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.547,
+        "net_sells_vs_buys_pct": -17.143,
+        "operating_overhead_pct": 6.769,
+        "margin_vs_overhead_pp": -2.069,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=MIXED (mixed); informed-flow=edge; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "SKILL-UNK"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 56,
+        "sells_5m": 55,
+        "fill_balance": 1,
+        "fills_share": 0.505,
+        "momentum_ramp": 0.01,
+        "dilution_risk_pct": 1.8334,
+        "volume_vs_mcap": 0.0263,
+        "m50_pace": 1.0,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.505,
+        "signal_delta_vs_fair_coin": 0.005,
+        "sniper_suction_index": 0.0445,
+        "momentum_fatigue_px": -41.6,
+        "verdict": "LUCK-STICKY"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.505,
+        "net_sells_vs_buys_pct": -1.786,
+        "operating_overhead_pct": 6.345,
+        "margin_vs_overhead_pp": -5.845,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-STICKY"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 7,
+        "sells_5m": 7,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.016,
+        "dilution_risk_pct": 10.462,
+        "volume_vs_mcap": 0.0032,
+        "m50_pace": 1.0,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": -30.27,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 5,
+        "sells_5m": 3,
+        "fill_balance": 2,
+        "fills_share": 0.625,
+        "momentum_ramp": 0.189,
+        "dilution_risk_pct": 38.5622,
+        "volume_vs_mcap": 0.0012,
+        "m50_pace": 1.0,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.625,
+        "signal_delta_vs_fair_coin": 0.125,
+        "sniper_suction_index": 1.8177,
+        "momentum_fatigue_px": -50.44,
+        "verdict": "SKILL-PARTIAL"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.625,
+        "net_sells_vs_buys_pct": -40.0,
+        "operating_overhead_pct": 7.55,
+        "margin_vs_overhead_pp": 4.95,
+        "survives_breaker": true,
+        "verdict": "STILL-WORKS"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=edge; fee-resilience=ok",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "SKILL-PARTIAL"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 11.5343,
+        "volume_vs_mcap": 0.0001,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": -1.06,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 1131.7903,
+        "volume_vs_mcap": 0.0012,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 1423.0,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 0.0,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 0.0,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.295,
+        "dilution_risk_pct": 14.405,
+        "volume_vs_mcap": 0.0019,
+        "m50_pace": 1.0,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": -30.81,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 33.2804,
+        "volume_vs_mcap": 0.0006,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": -18.87,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": -0.056,
+        "dilution_risk_pct": 2613.0,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": -24.66,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 151.508,
+        "volume_vs_mcap": 0.0002,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": -82.89,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 4683.0,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": -46.83,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": -0.302,
+        "dilution_risk_pct": 1379.1667,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": -11.55,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 0.0,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 0.0,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 0.0,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 0.0,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 0.0,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 0.0,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 0.0,
+        "volume_vs_mcap": 0.0001,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 0.0,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 0.0,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 0.0,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 47.1209,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": -100.0,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "BLR",
+      "dexId": "meteora",
+      "signature": {
+        "asset": "BLR",
+        "buys_5m": 595,
+        "sells_5m": 505,
+        "fill_balance": 90,
+        "fills_share": 0.541,
+        "momentum_ramp": -0.276,
+        "dilution_risk_pct": 0.0355,
+        "volume_vs_mcap": 2.0717,
+        "m50_pace": 0.1,
+        "mode": "MIXED"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.541,
+        "signal_delta_vs_fair_coin": 0.041,
+        "sniper_suction_index": 0.0296,
+        "momentum_fatigue_px": 137.79,
+        "verdict": "LUCK-STICKY"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.541,
+        "net_sells_vs_buys_pct": -15.126,
+        "operating_overhead_pct": 6.709,
+        "margin_vs_overhead_pp": -2.609,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=MIXED (mixed); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-STICKY"
+    },
+    {
+      "asset": "BLR",
+      "dexId": "meteora",
+      "signature": {
+        "asset": "BLR",
+        "buys_5m": 76,
+        "sells_5m": 119,
+        "fill_balance": -43,
+        "fills_share": 0.39,
+        "momentum_ramp": -1.112,
+        "dilution_risk_pct": 0.0987,
+        "volume_vs_mcap": 0.1831,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.39,
+        "signal_delta_vs_fair_coin": -0.11,
+        "sniper_suction_index": -0.1607,
+        "momentum_fatigue_px": 55.77,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.39,
+        "net_sells_vs_buys_pct": 56.579,
+        "operating_overhead_pct": 5.197,
+        "margin_vs_overhead_pp": -16.197,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "BLR",
+      "dexId": "meteora",
+      "signature": {
+        "asset": "BLR",
+        "buys_5m": 20,
+        "sells_5m": 54,
+        "fill_balance": -34,
+        "fills_share": 0.27,
+        "momentum_ramp": -1.04,
+        "dilution_risk_pct": 4.7634,
+        "volume_vs_mcap": 0.0026,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.27,
+        "signal_delta_vs_fair_coin": -0.23,
+        "sniper_suction_index": -7.8773,
+        "momentum_fatigue_px": 0.83,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.27,
+        "net_sells_vs_buys_pct": 170.0,
+        "operating_overhead_pct": 4.003,
+        "margin_vs_overhead_pp": -27.003,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "BLR",
+      "dexId": "meteora",
+      "signature": {
+        "asset": "BLR",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.003,
+        "dilution_risk_pct": 16600.0,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 1.0,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 165.42,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "BLR",
+      "dexId": "meteora",
+      "signature": {
+        "asset": "BLR",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 914.2105,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 17.37,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "CODEMEN",
+      "dexId": "pumpswap",
+      "signature": {
+        "asset": "CODEMEN",
+        "buys_5m": 1,
+        "sells_5m": 27,
+        "fill_balance": -26,
+        "fills_share": 0.036,
+        "momentum_ramp": -0.181,
+        "dilution_risk_pct": 0.3156,
+        "volume_vs_mcap": 14.3367,
+        "m50_pace": 0.1,
+        "mode": "MIXED"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.036,
+        "signal_delta_vs_fair_coin": -0.464,
+        "sniper_suction_index": -0.0881,
+        "momentum_fatigue_px": -76.22,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.036,
+        "net_sells_vs_buys_pct": 2600.0,
+        "operating_overhead_pct": 1.657,
+        "margin_vs_overhead_pp": -48.057,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=MIXED (mixed); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "CODEMEN",
+      "dexId": "pumpfun",
+      "signature": {
+        "asset": "CODEMEN",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 4.2662,
+        "volume_vs_mcap": 1.001,
+        "m50_pace": 0.1,
+        "mode": "MIXED"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 1261.0,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=MIXED (mixed); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "TripleH",
+      "dexId": "pumpfun",
+      "signature": {
+        "asset": "TripleH",
+        "buys_5m": 43,
+        "sells_5m": 41,
+        "fill_balance": 2,
+        "fills_share": 0.512,
+        "momentum_ramp": -0.053,
+        "dilution_risk_pct": 0.1882,
+        "volume_vs_mcap": 7.5442,
+        "m50_pace": 0.1,
+        "mode": "MIXED"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.512,
+        "signal_delta_vs_fair_coin": 0.012,
+        "sniper_suction_index": 0.0022,
+        "momentum_fatigue_px": 184.31,
+        "verdict": "SKILL-UNK"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.512,
+        "net_sells_vs_buys_pct": -4.651,
+        "operating_overhead_pct": 6.419,
+        "margin_vs_overhead_pp": -5.219,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=MIXED (mixed); informed-flow=edge; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "SKILL-UNK"
+    },
+    {
+      "asset": "DEVFEES",
+      "dexId": "pumpfun",
+      "signature": {
+        "asset": "DEVFEES",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.181,
+        "dilution_risk_pct": 0.0296,
+        "volume_vs_mcap": 6.1506,
+        "m50_pace": 1.0,
+        "mode": "MIXED"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": -4.38,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=MIXED (mixed); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "Zhaki",
+      "dexId": "pumpfun",
+      "signature": {
+        "asset": "Zhaki",
+        "buys_5m": 12,
+        "sells_5m": 9,
+        "fill_balance": 3,
+        "fills_share": 0.571,
+        "momentum_ramp": -0.092,
+        "dilution_risk_pct": 0.1466,
+        "volume_vs_mcap": 3.6063,
+        "m50_pace": 0.1,
+        "mode": "MIXED"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.571,
+        "signal_delta_vs_fair_coin": 0.071,
+        "sniper_suction_index": 0.0061,
+        "momentum_fatigue_px": 394.62,
+        "verdict": "SKILL-UNK"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.571,
+        "net_sells_vs_buys_pct": -25.0,
+        "operating_overhead_pct": 7.014,
+        "margin_vs_overhead_pp": 0.086,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=MIXED (mixed); informed-flow=edge; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "SKILL-UNK"
+    }
+  ],
+  "surviving_candidates": [],
+  "stand_downs": [
+    {
+      "asset": "VERSO",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "VERSO",
+        "buys_5m": 34,
+        "sells_5m": 34,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.094,
+        "dilution_risk_pct": 1.6655,
+        "volume_vs_mcap": 0.7853,
+        "m50_pace": 1.0,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 337.98,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "CLIPR",
+      "dexId": "pumpfun",
+      "signature": {
+        "asset": "CLIPR",
+        "buys_5m": 69,
+        "sells_5m": 64,
+        "fill_balance": 5,
+        "fills_share": 0.519,
+        "momentum_ramp": -0.084,
+        "dilution_risk_pct": 1.823,
+        "volume_vs_mcap": 1.6278,
+        "m50_pace": 0.1,
+        "mode": "MIXED"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.519,
+        "signal_delta_vs_fair_coin": 0.019,
+        "sniper_suction_index": 0.0592,
+        "momentum_fatigue_px": 166.97,
+        "verdict": "LUCK-STICKY"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.519,
+        "net_sells_vs_buys_pct": -7.246,
+        "operating_overhead_pct": 6.488,
+        "margin_vs_overhead_pp": -4.588,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=MIXED (mixed); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-STICKY"
+    },
+    {
+      "asset": "FROSTBALL",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "FROSTBALL",
+        "buys_5m": 10,
+        "sells_5m": 10,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": -0.024,
+        "dilution_risk_pct": 1.3397,
+        "volume_vs_mcap": 0.961,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 222.26,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "PAIRING",
+      "dexId": "pumpfun",
+      "signature": {
+        "asset": "PAIRING",
+        "buys_5m": 587,
+        "sells_5m": 463,
+        "fill_balance": 124,
+        "fills_share": 0.559,
+        "momentum_ramp": -0.277,
+        "dilution_risk_pct": 0.0749,
+        "volume_vs_mcap": 5.5246,
+        "m50_pace": 0.1,
+        "mode": "MIXED"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.559,
+        "signal_delta_vs_fair_coin": 0.059,
+        "sniper_suction_index": 0.1449,
+        "momentum_fatigue_px": 81.88,
+        "verdict": "LUCK-STICKY"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.559,
+        "net_sells_vs_buys_pct": -21.124,
+        "operating_overhead_pct": 6.89,
+        "margin_vs_overhead_pp": -0.99,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=MIXED (mixed); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-STICKY"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 140,
+        "sells_5m": 116,
+        "fill_balance": 24,
+        "fills_share": 0.547,
+        "momentum_ramp": 0.019,
+        "dilution_risk_pct": 0.0358,
+        "volume_vs_mcap": 4.2726,
+        "m50_pace": 1.0,
+        "mode": "MIXED"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.547,
+        "signal_delta_vs_fair_coin": 0.047,
+        "sniper_suction_index": 0.0065,
+        "momentum_fatigue_px": 130.46,
+        "verdict": "SKILL-UNK"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.547,
+        "net_sells_vs_buys_pct": -17.143,
+        "operating_overhead_pct": 6.769,
+        "margin_vs_overhead_pp": -2.069,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=MIXED (mixed); informed-flow=edge; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "SKILL-UNK"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 56,
+        "sells_5m": 55,
+        "fill_balance": 1,
+        "fills_share": 0.505,
+        "momentum_ramp": 0.01,
+        "dilution_risk_pct": 1.8334,
+        "volume_vs_mcap": 0.0263,
+        "m50_pace": 1.0,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.505,
+        "signal_delta_vs_fair_coin": 0.005,
+        "sniper_suction_index": 0.0445,
+        "momentum_fatigue_px": -41.6,
+        "verdict": "LUCK-STICKY"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.505,
+        "net_sells_vs_buys_pct": -1.786,
+        "operating_overhead_pct": 6.345,
+        "margin_vs_overhead_pp": -5.845,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-STICKY"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 7,
+        "sells_5m": 7,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.016,
+        "dilution_risk_pct": 10.462,
+        "volume_vs_mcap": 0.0032,
+        "m50_pace": 1.0,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": -30.27,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 5,
+        "sells_5m": 3,
+        "fill_balance": 2,
+        "fills_share": 0.625,
+        "momentum_ramp": 0.189,
+        "dilution_risk_pct": 38.5622,
+        "volume_vs_mcap": 0.0012,
+        "m50_pace": 1.0,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.625,
+        "signal_delta_vs_fair_coin": 0.125,
+        "sniper_suction_index": 1.8177,
+        "momentum_fatigue_px": -50.44,
+        "verdict": "SKILL-PARTIAL"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.625,
+        "net_sells_vs_buys_pct": -40.0,
+        "operating_overhead_pct": 7.55,
+        "margin_vs_overhead_pp": 4.95,
+        "survives_breaker": true,
+        "verdict": "STILL-WORKS"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=edge; fee-resilience=ok",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "SKILL-PARTIAL"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 11.5343,
+        "volume_vs_mcap": 0.0001,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": -1.06,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 1131.7903,
+        "volume_vs_mcap": 0.0012,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 1423.0,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 0.0,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 0.0,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.295,
+        "dilution_risk_pct": 14.405,
+        "volume_vs_mcap": 0.0019,
+        "m50_pace": 1.0,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": -30.81,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 33.2804,
+        "volume_vs_mcap": 0.0006,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": -18.87,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": -0.056,
+        "dilution_risk_pct": 2613.0,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": -24.66,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 151.508,
+        "volume_vs_mcap": 0.0002,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": -82.89,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 4683.0,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": -46.83,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": -0.302,
+        "dilution_risk_pct": 1379.1667,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": -11.55,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 0.0,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 0.0,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 0.0,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 0.0,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 0.0,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 0.0,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 0.0,
+        "volume_vs_mcap": 0.0001,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 0.0,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 0.0,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 0.0,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "2",
+      "dexId": "uniswap",
+      "signature": {
+        "asset": "2",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 47.1209,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": -100.0,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "BLR",
+      "dexId": "meteora",
+      "signature": {
+        "asset": "BLR",
+        "buys_5m": 595,
+        "sells_5m": 505,
+        "fill_balance": 90,
+        "fills_share": 0.541,
+        "momentum_ramp": -0.276,
+        "dilution_risk_pct": 0.0355,
+        "volume_vs_mcap": 2.0717,
+        "m50_pace": 0.1,
+        "mode": "MIXED"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.541,
+        "signal_delta_vs_fair_coin": 0.041,
+        "sniper_suction_index": 0.0296,
+        "momentum_fatigue_px": 137.79,
+        "verdict": "LUCK-STICKY"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.541,
+        "net_sells_vs_buys_pct": -15.126,
+        "operating_overhead_pct": 6.709,
+        "margin_vs_overhead_pp": -2.609,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=MIXED (mixed); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-STICKY"
+    },
+    {
+      "asset": "BLR",
+      "dexId": "meteora",
+      "signature": {
+        "asset": "BLR",
+        "buys_5m": 76,
+        "sells_5m": 119,
+        "fill_balance": -43,
+        "fills_share": 0.39,
+        "momentum_ramp": -1.112,
+        "dilution_risk_pct": 0.0987,
+        "volume_vs_mcap": 0.1831,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.39,
+        "signal_delta_vs_fair_coin": -0.11,
+        "sniper_suction_index": -0.1607,
+        "momentum_fatigue_px": 55.77,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.39,
+        "net_sells_vs_buys_pct": 56.579,
+        "operating_overhead_pct": 5.197,
+        "margin_vs_overhead_pp": -16.197,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "BLR",
+      "dexId": "meteora",
+      "signature": {
+        "asset": "BLR",
+        "buys_5m": 20,
+        "sells_5m": 54,
+        "fill_balance": -34,
+        "fills_share": 0.27,
+        "momentum_ramp": -1.04,
+        "dilution_risk_pct": 4.7634,
+        "volume_vs_mcap": 0.0026,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.27,
+        "signal_delta_vs_fair_coin": -0.23,
+        "sniper_suction_index": -7.8773,
+        "momentum_fatigue_px": 0.83,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.27,
+        "net_sells_vs_buys_pct": 170.0,
+        "operating_overhead_pct": 4.003,
+        "margin_vs_overhead_pp": -27.003,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "BLR",
+      "dexId": "meteora",
+      "signature": {
+        "asset": "BLR",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.003,
+        "dilution_risk_pct": 16600.0,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 1.0,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 165.42,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "BLR",
+      "dexId": "meteora",
+      "signature": {
+        "asset": "BLR",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 914.2105,
+        "volume_vs_mcap": 0.0,
+        "m50_pace": 0.1,
+        "mode": "WASH-GRIND"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 17.37,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=WASH-GRIND (wash grind); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "CODEMEN",
+      "dexId": "pumpswap",
+      "signature": {
+        "asset": "CODEMEN",
+        "buys_5m": 1,
+        "sells_5m": 27,
+        "fill_balance": -26,
+        "fills_share": 0.036,
+        "momentum_ramp": -0.181,
+        "dilution_risk_pct": 0.3156,
+        "volume_vs_mcap": 14.3367,
+        "m50_pace": 0.1,
+        "mode": "MIXED"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.036,
+        "signal_delta_vs_fair_coin": -0.464,
+        "sniper_suction_index": -0.0881,
+        "momentum_fatigue_px": -76.22,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.036,
+        "net_sells_vs_buys_pct": 2600.0,
+        "operating_overhead_pct": 1.657,
+        "margin_vs_overhead_pp": -48.057,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=MIXED (mixed); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "CODEMEN",
+      "dexId": "pumpfun",
+      "signature": {
+        "asset": "CODEMEN",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.0,
+        "dilution_risk_pct": 4.2662,
+        "volume_vs_mcap": 1.001,
+        "m50_pace": 0.1,
+        "mode": "MIXED"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": 1261.0,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=MIXED (mixed); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "TripleH",
+      "dexId": "pumpfun",
+      "signature": {
+        "asset": "TripleH",
+        "buys_5m": 43,
+        "sells_5m": 41,
+        "fill_balance": 2,
+        "fills_share": 0.512,
+        "momentum_ramp": -0.053,
+        "dilution_risk_pct": 0.1882,
+        "volume_vs_mcap": 7.5442,
+        "m50_pace": 0.1,
+        "mode": "MIXED"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.512,
+        "signal_delta_vs_fair_coin": 0.012,
+        "sniper_suction_index": 0.0022,
+        "momentum_fatigue_px": 184.31,
+        "verdict": "SKILL-UNK"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.512,
+        "net_sells_vs_buys_pct": -4.651,
+        "operating_overhead_pct": 6.419,
+        "margin_vs_overhead_pp": -5.219,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=MIXED (mixed); informed-flow=edge; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "SKILL-UNK"
+    },
+    {
+      "asset": "DEVFEES",
+      "dexId": "pumpfun",
+      "signature": {
+        "asset": "DEVFEES",
+        "buys_5m": 1,
+        "sells_5m": 1,
+        "fill_balance": 0,
+        "fills_share": 0.5,
+        "momentum_ramp": 0.181,
+        "dilution_risk_pct": 0.0296,
+        "volume_vs_mcap": 6.1506,
+        "m50_pace": 1.0,
+        "mode": "MIXED"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.5,
+        "signal_delta_vs_fair_coin": 0.0,
+        "sniper_suction_index": 0.0,
+        "momentum_fatigue_px": -4.38,
+        "verdict": "LUCK-FAIR"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.5,
+        "net_sells_vs_buys_pct": 0.0,
+        "operating_overhead_pct": 6.3,
+        "margin_vs_overhead_pp": -6.3,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=MIXED (mixed); informed-flow=noise; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "LUCK-FAIR"
+    },
+    {
+      "asset": "Zhaki",
+      "dexId": "pumpfun",
+      "signature": {
+        "asset": "Zhaki",
+        "buys_5m": 12,
+        "sells_5m": 9,
+        "fill_balance": 3,
+        "fills_share": 0.571,
+        "momentum_ramp": -0.092,
+        "dilution_risk_pct": 0.1466,
+        "volume_vs_mcap": 3.6063,
+        "m50_pace": 0.1,
+        "mode": "MIXED"
+      },
+      "luck": {
+        "buyer_share_of_first_window": 0.571,
+        "signal_delta_vs_fair_coin": 0.071,
+        "sniper_suction_index": 0.0061,
+        "momentum_fatigue_px": 394.62,
+        "verdict": "SKILL-UNK"
+      },
+      "still_works": {
+        "fee_pct": 0.01,
+        "slippage_pct": 0.003,
+        "wash_est_pct": 0.1,
+        "buyer_share_basis": 0.571,
+        "net_sells_vs_buys_pct": -25.0,
+        "operating_overhead_pct": 7.014,
+        "margin_vs_overhead_pp": 0.086,
+        "survives_breaker": false,
+        "verdict": "STOP-SHORT"
+      },
+      "opinion": "signature=MIXED (mixed); informed-flow=edge; fee-resilience=thin",
+      "round_tag": "paper",
+      "micro_budget_ok": false,
+      "paper_guard": "watch",
+      "luck_label": "SKILL-UNK"
+    }
+  ],
+  "pass_band": {
+    "low": 0.35,
+    "high": 0.55,
+    "consensus_min_bots": 5
+  },
+  "next_step": "desk: aggregate votes, apply 5+ bot consensus gate, then stand down or advance. NO trade executed."
+}

@@ -93,6 +93,6 @@ class PumpFunDataAdapter:
         for c in raw:
             try:
                 out.append(cls.adapt({"candidate": c, **list_payload}))
-            except Exception:
+            except (TypeError, ValueError, AttributeError, OverflowError):
                 continue
         return out

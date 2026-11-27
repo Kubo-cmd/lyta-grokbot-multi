@@ -1,15 +1,28 @@
 name = "lyta-grok-desk-paper"
+
 tagline = "12-agent openbot gpt desk"
+# Desk constants live in lyta-grok-desk/grok_team.py (PAPER_*), not in the settings table,
+# because the circuit parser limits settings to 1-3 entries.
+
 category = "experimental"
+
 walletVmFamily = "evm"
+
 agentId = "5ccdeee2-3268-5173-ad57-d2578079f0fc"
 
 [[triggers]]
+
 type = "schedule"
+
 everyMs = 60000
+
 align = "rolling"
 
 [startingAsset]
+
 network = "papertrade"
+
 asset = "0"
+
 minimumAmount = "0.50"
+

@@ -488,9 +488,9 @@ def run_session(minutes: float = 30.0, interval: float = 10.0, verbose: bool = T
                 return val if abs(val) >= 0.05 else 0.0
 
             def _execute(pair, direction, gate):
-                # OpenBot spot/trend paper trade on shared paper capital (paper-only).
-                cap = desk.equity
-                if not gate.get("gate_passed"):
+                # Engine gate dict (apply_a3b_gate) carries 'qualified' / 'base_change',
+                # not 'gate_passed'.
+                if not gate.get("qualified"):
                     return {"executed": False,
                             "reason": gate.get("stand_down_reason") or "entry not qualified"}
                 size = cap * 0.10

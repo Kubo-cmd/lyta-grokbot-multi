@@ -141,7 +141,7 @@ $100.00 paper → $35.10 on paper (-64.9%)
 The table format below is the canonical format used in `ARCHITECTURE.md` Section 2.3 and matches the spec exactly:
 
 ```
-|| Question | Grok bot | OpenBot ||
+| Question | Grok bot | OpenBot ||
 |----------|----------|---------|
 | Local-first execution | ✅ Yes (cloud computer always on, local mode available) | ✅ Yes |
 | Data stays on your machine | ❌ No (cloud) | ✅ Yes |

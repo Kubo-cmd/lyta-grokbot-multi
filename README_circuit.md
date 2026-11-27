@@ -5,21 +5,25 @@ on the Circuit platform (circuit.org). This workspace runs a **12-agent
 OpenBot layer + 1 coordination router** atop Circuit's Papertrade SDK
 (paper-only, no live wallet, no real capital).
 
-## The 12 agents
+## Workspace seats
 
-|| # | Agent | File | Role |
-||---|-------|------|------|
-|| 1 | `lyta-grok-desk-paper` | `_paper_agent.ts` | Phase 1 paper desk — Circuit Papertrade BTC/ETH paper-only trading |
-|| 2 | `lyta-grok-desk-signal` | `_signal_agent.ts` | Scans market launches + trending + momentum → distributes opportunities |
-|| 3 | `lyta-grok-desk-analyst` | `_analyst_agent.ts` | Rug/liquidity/safety evaluation → pass/fail score |
-|| 4 | `lyta-grok-desk-trader` | `_trader_agent.ts` | Micro-sizing execution engine — $0.20–$0.85 paper orders |
-|| 5 | `lyta-grok-desk-risk` | `_risk_agent.ts` | 6-point stand-down monitor — commands desk to stand down on instability |
-|| 6 | `lyta-grok-desk-paper` | `index.ts` | Circuit paper spot trading agent (Phase 1, paper-only) |
-|| 7 | `lyta-grok-desk-scout` | `_scout_agent.ts` | Narrative/rug signal check — GMGN + wallet analysis |
-|| 8 | `lyta-grok-desk-devwatch` | `_devwatch_agent.ts` | On-chain wallet monitoring (Hrundel75 rules) |
-|| 9 | `lyta-grok-desk-trencher` | `_trencher_agent.ts` | TrenchesAI deployment monitor + integration |
-|| 10 | `lyta-grok-desk-pumpfun` | `_pumpfun_agent.ts` | 12-bot pump.fun paper desk (12-bot consensus on pump.fun) |
-|| 11 | `grok-bot` | `_grok_router.ts` | Server-side task router — receives tasks from Grok Bot server (xAI managed cloud VM), dispatches to correct agent |
+The canonical 12-agent strategy roster lives in `lyta-grok-desk/AGENTS.md`.
+This table lists Circuit handler files in this workspace, including the extra
+paper and grok-bot seats.
+
+| # | Agent | File | Role |
+|---|-------|------|------|
+| 1 | `lyta-grok-desk-paper` | `_paper_agent.ts` | Phase 1 paper desk — Circuit Papertrade BTC/ETH paper-only trading |
+| 2 | `lyta-grok-desk-signal` | `_signal_agent.ts` | Scans market launches + trending + momentum → distributes opportunities |
+| 3 | `lyta-grok-desk-analyst` | `_analyst_agent.ts` | Rug/liquidity/safety evaluation → pass/fail score |
+| 4 | `lyta-grok-desk-trader` | `_trader_agent.ts` | Micro-sizing execution engine — $0.20–$0.85 paper orders |
+| 5 | `lyta-grok-desk-risk` | `_risk_agent.ts` | 6-point stand-down monitor — commands desk to stand down on instability |
+| 6 | `lyta-grok-desk-paper` | `index.ts` | Circuit paper spot trading agent (Phase 1, paper-only) |
+| 7 | `lyta-grok-desk-scout` | `_scout_agent.ts` | Narrative/rug signal check — GMGN + wallet analysis |
+| 8 | `lyta-grok-desk-devwatch` | `_devwatch_agent.ts` | On-chain wallet monitoring (Hrundel75 rules) |
+| 9 | `lyta-grok-desk-trencher` | `_trencher_agent.ts` | TrenchesAI deployment monitor + integration |
+| 10 | `lyta-grok-desk-pumpfun` | `_pumpfun_agent.ts` | 12-bot pump.fun paper desk (12-bot consensus on pump.fun) |
+| 11 | `grok-bot` | `_grok_router.ts` | Server-side task router — receives tasks from Grok Bot server (xAI managed cloud VM), dispatches to correct agent |
 
 ## Agent data flow
 

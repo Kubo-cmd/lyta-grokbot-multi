@@ -1,0 +1,204 @@
+{
+  "tag": "phase2_nightclose",
+  "date": "20261127T230212Z",
+  "desk": "lyta-grokbot-multi / pumpfun paper trading desk",
+  "zero_burn": "observation only, no trades executed",
+  "consolidated_verdict": "stand_down (advance=0)",
+  "desk_state": {
+    "rounds": 26,
+    "candidates": 26,
+    "advance": 0,
+    "stand_down": 26,
+    "mean_consent": 1.62,
+    "mean_abs_score": 0.1186,
+    "top_picks": [
+      {
+        "round": "pumpfun_pipeline_round_15",
+        "consent": 7,
+        "score": 0.2313,
+        "decision": "standby",
+        "tag": "hidden_liquidity"
+      },
+      {
+        "round": "pumpfun_pipeline_round_18",
+        "consent": 6,
+        "score": 0.0994,
+        "decision": "standby",
+        "tag": "hidden_liquidity"
+      },
+      {
+        "round": "pumpfun_pipeline_round_1",
+        "consent": 3,
+        "score": 0.0563,
+        "decision": "standby",
+        "tag": "hidden_liquidity"
+      }
+    ],
+    "tag_counts": {
+      "hidden_liquidity": 10
+    },
+    "latest_ids": [
+      "uniswap|Cerberus",
+      "pumpfun|SILLYBANDZ",
+      "pumpfun|100Xmas"
+    ]
+  },
+  "state": {
+    "rounds": 26,
+    "watchlist": 19,
+    "seen_ids": 19,
+    "latest_ids": []
+  },
+  "gate": {
+    "tag": "paper_gate",
+    "date": "20261127T230212Z",
+    "reverse_engineer_input": "round_20261127T230212Z.json",
+    "surviving_candidates": [
+      {
+        "asset": "Maebashi",
+        "mode": "MIXED",
+        "consent": 1,
+        "combined_score": 0.0638,
+        "tag": "",
+        "decision": "standby",
+        "base_change": 0.0,
+        "stand_down_reasons": [
+          "green_spot",
+          "thin",
+          "thin_volume"
+        ],
+        "micro_budget_ok": false,
+        "source_round": "paper"
+      },
+      {
+        "asset": "Hyperball",
+        "mode": "MIXED",
+        "consent": 6,
+        "combined_score": 0.224,
+        "tag": "hidden_liquidity",
+        "decision": "standby",
+        "base_change": 0.0,
+        "stand_down_reasons": [
+          "active_volume",
+          "green_spot",
+          "hidden_liquidity",
+          "thin"
+        ],
+        "micro_budget_ok": false,
+        "source_round": "paper"
+      },
+      {
+        "asset": "SPEC",
+        "mode": "MIXED",
+        "consent": 1,
+        "combined_score": 0.0831,
+        "tag": "",
+        "decision": "standby",
+        "base_change": 0.0,
+        "stand_down_reasons": [
+          "green_spot",
+          "thin",
+          "thin_volume"
+        ],
+        "micro_budget_ok": false,
+        "source_round": "paper"
+      },
+      {
+        "asset": "Compute",
+        "mode": "MIXED",
+        "consent": 2,
+        "combined_score": 0.0727,
+        "tag": "",
+        "decision": "standby",
+        "base_change": 0.0,
+        "stand_down_reasons": [
+          "green_spot",
+          "high_fee_new",
+          "thin",
+          "thin_volume"
+        ],
+        "micro_budget_ok": false,
+        "source_round": "paper"
+      },
+      {
+        "asset": "Sol",
+        "mode": "MIXED",
+        "consent": 3,
+        "combined_score": 0.0661,
+        "tag": "hidden_liquidity",
+        "decision": "standby",
+        "base_change": 0.0,
+        "stand_down_reasons": [
+          "green_spot",
+          "hidden_liquidity",
+          "high_fee_new",
+          "thin",
+          "thin_volume"
+        ],
+        "micro_budget_ok": false,
+        "source_round": "paper"
+      }
+    ],
+    "zero_burn": "observation only, no trades executed",
+    "commitment": "advance on explicit ADVANCE; stand down on STAND DOWN",
+    "top_advance": {
+      "asset": "Hyperball",
+      "mode": "MIXED",
+      "consent": 6,
+      "combined_score": 0.224,
+      "tag": "hidden_liquidity",
+      "decision": "standby",
+      "base_change": 0.0,
+      "stand_down_reasons": [
+        "active_volume",
+        "green_spot",
+        "hidden_liquidity",
+        "thin"
+      ],
+      "micro_budget_ok": false,
+      "source_round": "paper"
+    }
+  },
+  "reverse_engineer": {
+    "run": "pumpfun_reverse_engineer.py (live DexScreener feed)",
+    "candidates": 18,
+    "surviving": 5,
+    "stand_downs": [
+      "Hyperball",
+      "Hyperball",
+      "SPEC",
+      "BABYCATE",
+      "BABYCATE",
+      "Sol",
+      "",
+      "Sol",
+      "Sol",
+      "Sol",
+      "Sol",
+      "DRIFT",
+      "cihao "
+    ],
+    "pass_band": [
+      "Maebashi",
+      "Hyperball",
+      "SPEC",
+      "Compute",
+      "Sol"
+    ],
+    "source_file": "pumpfun_reverse_output/round_20261127T230212Z.json"
+  },
+  "files": {
+    "pipeline_test": "pumpfun_test.py (PASS, exit 0)",
+    "pipeline_run": "pumpfun_pipeline.py --once (26 rounds)",
+    "reverse_engineer": "pumpfun_reverse_output/round_20261127T230212Z.json",
+    "paper_gate": "pumpfun_gate_output/latest_gate.json",
+    "state": "pumpfun_pipeline_output/state.json",
+    "overnight_wrap": "overnight_paper_wrap.py (exit 0)",
+    "this_file": "pumpfun_nightclose_20261127T230212Z.json"
+  },
+  "notes": [
+    "All 26 pipeline rounds: STAND DOWN (advance=0, mean_consent=1.62, mean_abs_score=0.1186)",
+    "5 surviving MIXED-signature candidates from live reverse-engineer run: all STAND DOWN (consent 1-6/8, |score|<0.35)",
+    "Watchlist retained 19 candidates; micro_budget_ok=false everywhere"
+  ]
+}
